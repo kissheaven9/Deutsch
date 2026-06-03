@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch — дизайн-кит</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Род */
+    --gender-der:#2563EB; --gender-der-bg:#EAF1FE;
+    --gender-die:#DC2626; --gender-die-bg:#FCECEC;
+    --gender-das:#16A34A; --gender-das-bg:#E8F6EE;
+    /* Нейтрали */
+    --bg:#F8FAFC; --surface:#FFFFFF; --text:#1F2937; --text-muted:#6B7280; --border:#E5E7EB;
+    /* Акцент UI (вне тройки рода) */
+    --accent:#6D28D9; --accent-hover:#5B21B6; --focus:rgba(109,40,217,.4);
+    --radius:12px; --shadow:0 1px 3px rgba(0,0,0,.08); --shadow-lg:0 8px 24px rgba(0,0,0,.10);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding:40px 24px 80px}
+  header.top h1{font-size:30px; line-height:1.2; margin:0 0 4px; font-weight:700}
+  header.top p{color:var(--text-muted); margin:0 0 8px}
+  .pill{display:inline-block; font-size:13px; font-weight:600; color:var(--accent);
+    background:#F1ECFB; border-radius:999px; padding:2px 12px}
+
+  section{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:28px; margin-top:24px}
+  section > h2{font-size:20px; font-weight:700; margin:0 0 4px}
+  section > .hint{color:var(--text-muted); font-size:14px; margin:0 0 20px}
+  h3.sub{font-size:14px; font-weight:600; color:var(--text-muted); text-transform:uppercase;
+    letter-spacing:.04em; margin:24px 0 12px}
+
+  /* Палитра */
+  .swatches{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px}
+  .sw{border:1px solid var(--border); border-radius:10px; overflow:hidden; background:#fff}
+  .sw .chip{height:64px}
+  .sw .meta{padding:8px 10px; font-size:13px}
+  .sw .meta b{display:block; font-weight:600}
+  .sw .meta code{color:var(--text-muted); font-size:12px}
+
+  /* Чипы рода */
+  .chips{display:flex; flex-wrap:wrap; gap:12px}
+  .gchip{display:inline-flex; align-items:center; gap:10px; padding:10px 16px;
+    border-radius:999px; font-weight:600; border:1.5px solid transparent}
+  .gchip .ic{width:26px; height:26px; border-radius:50%; display:grid; place-items:center;
+    font-size:15px; color:#fff}
+  .gchip.der{background:var(--gender-der-bg); color:var(--gender-der); border-color:var(--gender-der)}
+  .gchip.der .ic{background:var(--gender-der)}
+  .gchip.die{background:var(--gender-die-bg); color:var(--gender-die); border-color:var(--gender-die)}
+  .gchip.die .ic{background:var(--gender-die)}
+  .gchip.das{background:var(--gender-das-bg); color:var(--gender-das); border-color:var(--gender-das)}
+  .gchip.das .ic{background:var(--gender-das)}
+  .gchip small{font-weight:500; opacity:.75}
+
+  /* Типографика */
+  .type-row{display:flex; align-items:baseline; gap:16px; padding:8px 0; border-bottom:1px dashed var(--border)}
+  .type-row:last-child{border:0}
+  .type-row .label{width:130px; flex:none; color:var(--text-muted); font-size:13px}
+  .t-h1{font-size:30px; font-weight:700}
+  .t-h2{font-size:24px; font-weight:700}
+  .t-h3{font-size:20px; font-weight:600}
+  .t-body{font-size:16px}
+  .t-small{font-size:14px}
+  .t-word{font-size:20px; font-weight:600}
+
+  /* Кнопки */
+  .btns{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+  button{font-family:inherit; font-size:15px; font-weight:600; cursor:pointer; border-radius:10px;
+    padding:10px 18px; border:1.5px solid transparent; transition:.15s}
+  button:focus-visible{outline:none; box-shadow:0 0 0 4px var(--focus)}
+  .btn-primary{background:var(--accent); color:#fff}
+  .btn-primary:hover{background:var(--accent-hover)}
+  .btn-ghost{background:#fff; color:var(--accent); border-color:#D9CCF5}
+  .btn-ghost:hover{background:#F6F2FD}
+  .icon-btn{display:inline-grid; place-items:center; width:42px; height:42px; border-radius:10px;
+    background:#fff; border:1.5px solid var(--border); font-size:18px}
+  .icon-btn:hover{border-color:var(--accent); color:var(--accent)}
+
+  /* ===== Пример экрана: СЦЕНА ===== */
+  .scene-frame{border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:var(--shadow-lg)}
+  .scene-bar{display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:14px 18px; background:#fff; border-bottom:1px solid var(--border)}
+  .scene-bar .crumb{font-size:14px; color:var(--text-muted)}
+  .scene-bar .crumb b{color:var(--text)}
+  .scene-body{padding:20px; background:var(--surface); display:grid; grid-template-columns:1.4fr 1fr; gap:20px}
+  @media(max-width:720px){.scene-body{grid-template-columns:1fr}}
+
+  /* Картинка + слой подписей */
+  .picture{position:relative; aspect-ratio:4/3; border-radius:12px; overflow:hidden;
+    background:linear-gradient(135deg,#EAF1FE 0%,#F4F8FF 100%); border:1px solid var(--border)}
+  .picture .stage-emoji{position:absolute; font-size:46px}
+  .label{position:absolute; transform:translate(-50%,-50%); display:inline-flex; align-items:center; gap:6px;
+    background:#fff; border:1.5px solid var(--gender-der); color:var(--gender-der);
+    padding:4px 10px; border-radius:999px; font-size:14px; font-weight:600; box-shadow:var(--shadow);
+    white-space:nowrap; cursor:pointer; user-select:none}
+  .label .art{opacity:.8; font-weight:500}
+  .label.hidden{color:transparent; border-style:dashed; background:#fff}
+  .label.hidden .art{color:transparent}
+  .label.hidden::after{content:'▢▢▢'; position:absolute; inset:0; display:grid; place-items:center;
+    color:var(--gender-der); letter-spacing:1px; font-size:12px}
+
+  /* Правая колонка */
+  .scene-side h3{margin:0 0 2px; font-size:20px; font-weight:700}
+  .scene-side .who{display:flex; align-items:center; gap:10px; margin-bottom:14px}
+  .wordlist{list-style:none; margin:0 0 16px; padding:0}
+  .wordlist li{display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px}
+  .wordlist li:nth-child(odd){background:#FAFAFC}
+  .wordlist .art{color:var(--gender-der); font-weight:700; width:30px; flex:none}
+  .wordlist .de{font-weight:600}
+  .wordlist .ru{color:var(--text-muted); font-size:14px; margin-left:auto}
+  .story{background:#FAFAFC; border:1px solid var(--border); border-radius:10px; padding:14px 16px; font-size:15px}
+  .story .tag{display:inline-block; font-size:12px; font-weight:600; color:var(--accent);
+    background:#F1ECFB; border-radius:999px; padding:1px 10px; margin-bottom:8px}
+  .scene-tools{display:flex; gap:10px; margin-top:14px}
+
+  .note{font-size:13px; color:var(--text-muted); margin-top:10px}
+  footer{margin-top:32px; color:var(--text-muted); font-size:13px; text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <span class="pill">Deutsch · дизайн-кит v0</span>
+    <h1>Дизайн-кит</h1>
+    <p>«Умный минимализм» для подростков и взрослых 14+ · уровень А1. Шрифт Inter, сетка 8&nbsp;px.</p>
+  </header>
+
+  <!-- ПАЛИТРА -->
+  <section>
+    <h2>Палитра</h2>
+    <p class="hint">Цвета рода — священны, только для der/die/das. Интерфейс — нейтрали + один фиолетовый акцент.</p>
+
+    <h3 class="sub">Род</h3>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#2563EB"></div><div class="meta"><b>der</b><code>#2563EB</code></div></div>
+      <div class="sw"><div class="chip" style="background:#DC2626"></div><div class="meta"><b>die</b><code>#DC2626</code></div></div>
+      <div class="sw"><div class="chip" style="background:#16A34A"></div><div class="meta"><b>das</b><code>#16A34A</code></div></div>
+    </div>
+
+    <h3 class="sub">Нейтрали и акцент</h3>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#F8FAFC; border-bottom:1px solid #E5E7EB"></div><div class="meta"><b>Фон</b><code>#F8FAFC</code></div></div>
+      <div class="sw"><div class="chip" style="background:#1F2937"></div><div class="meta"><b>Текст</b><code>#1F2937</code></div></div>
+      <div class="sw"><div class="chip" style="background:#6B7280"></div><div class="meta"><b>Вторичный</b><code>#6B7280</code></div></div>
+      <div class="sw"><div class="chip" style="background:#6D28D9"></div><div class="meta"><b>Акцент</b><code>#6D28D9</code></div></div>
+    </div>
+  </section>
+
+  <!-- ЧИПЫ РОДА -->
+  <section>
+    <h2>Кодирование рода — 3 канала</h2>
+    <p class="hint">Артикль + иконка-персонаж + цвет одновременно. Цвет не работает в одиночку → доступно дальтоникам.</p>
+    <div class="chips">
+      <span class="gchip der"><span class="ic">♂</span> der <small>· Отто</small></span>
+      <span class="gchip die"><span class="ic">♀</span> die <small>· Грета</small></span>
+      <span class="gchip das"><span class="ic">★</span> das <small>· Тео</small></span>
+    </div>
+  </section>
+
+  <!-- ТИПОГРАФИКА -->
+  <section>
+    <h2>Типографика — Inter</h2>
+    <p class="hint">Один шрифт: кириллица (интерфейс) + латиница с ä ö ü ß (контент).</p>
+    <div class="type-row"><span class="label">H1 · 30/700</span><span class="t-h1">Тема «Быт»</span></div>
+    <div class="type-row"><span class="label">H2 · 24/700</span><span class="t-h2">Otto am Tisch</span></div>
+    <div class="type-row"><span class="label">H3 · 20/600</span><span class="t-h3">Sein Frühstück</span></div>
+    <div class="type-row"><span class="label">Текст · 16/400</span><span class="t-body">Otto trinkt den Kaffee und liest den Brief am Tisch.</span></div>
+    <div class="type-row"><span class="label">Слово · 20/600</span><span class="t-word">der Schlüssel — ключ</span></div>
+    <div class="type-row"><span class="label">Мелкий · 14/400</span><span class="t-small">подпись, перевод, служебный текст</span></div>
+  </section>
+
+  <!-- КОМПОНЕНТЫ -->
+  <section>
+    <h2>Кнопки и элементы</h2>
+    <div class="btns">
+      <button class="btn-primary">Начать тему</button>
+      <button class="btn-ghost">Скрыть слова</button>
+      <span class="icon-btn" title="Озвучить">🔊</span>
+      <span class="icon-btn" title="Скрыть/показать">👁</span>
+    </div>
+  </section>
+
+  <!-- ПРИМЕР ЭКРАНА -->
+  <section>
+    <h2>Пример экрана — СЦЕНА</h2>
+    <p class="hint">Картинка + слой подписей (не впечатаны), колонка слов, текст-история, аудио, «глазик». Нажми на подпись или кнопку «Скрыть слова».</p>
+
+    <div class="scene-frame">
+      <div class="scene-bar">
+        <span class="crumb">Существительные → Быт → <b>der · Отто</b></span>
+        <button class="btn-ghost" id="toggleAll">👁 Скрыть слова</button>
+      </div>
+
+      <div class="scene-body">
+        <!-- Картинка с подписями -->
+        <div class="picture">
+          <span class="stage-emoji" style="left:18%; top:62%">🪑</span>
+          <span class="stage-emoji" style="left:50%; top:55%">🛋️</span>
+          <span class="stage-emoji" style="left:78%; top:40%">☕</span>
+          <span class="stage-emoji" style="left:40%; top:25%">🗝️</span>
+
+          <span class="label" style="left:18%; top:50%"><span class="art">der</span> Stuhl</span>
+          <span class="label" style="left:50%; top:43%"><span class="art">der</span> Sessel</span>
+          <span class="label" style="left:78%; top:28%"><span class="art">der</span> Kaffee</span>
+          <span class="label" style="left:40%; top:13%"><span class="art">der</span> Schlüssel</span>
+        </div>
+
+        <!-- Боковая колонка -->
+        <div class="scene-side">
+          <div class="who"><span class="gchip der"><span class="ic">♂</span> der</span><h3>Отто</h3></div>
+          <ul class="wordlist">
+            <li><span class="art">der</span><span class="de">Stuhl</span><span class="ru">стул</span><span class="icon-btn" style="width:30px;height:30px;font-size:14px;margin-left:8px">🔊</span></li>
+            <li><span class="art">der</span><span class="de">Sessel</span><span class="ru">кресло</span><span class="icon-btn" style="width:30px;height:30px;font-size:14px;margin-left:8px">🔊</span></li>
+            <li><span class="art">der</span><span class="de">Kaffee</span><span class="ru">кофе</span><span class="icon-btn" style="width:30px;height:30px;font-size:14px;margin-left:8px">🔊</span></li>
+            <li><span class="art">der</span><span class="de">Schlüssel</span><span class="ru">ключ</span><span class="icon-btn" style="width:30px;height:30px;font-size:14px;margin-left:8px">🔊</span></li>
+          </ul>
+
+          <div class="story">
+            <span class="tag">текст А1 · черновик RU</span>
+            Отто сидит на стуле в кресле, перед ним кофе, рядом — связка ключей. (Немецкий текст — после утверждения русского.)
+          </div>
+
+          <div class="scene-tools">
+            <button class="btn-primary">🔊 Прослушать текст</button>
+          </div>
+          <p class="note">⚠️ Все предметы сцены — строго мужского рода (der). Гостевые слова из других тем — помечаются.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Черновик дизайн-кита. Точные цвета и размеры докручиваем на прототипе сцены «Быт». Полная спецификация — design-system.md.
+  </footer>
+
+</div>
+
+<script>
+  // Демо «глазик»: скрыть/показать все подписи на картинке
+  const btn = document.getElementById('toggleAll');
+  const labels = document.querySelectorAll('.picture .label');
+  let hidden = false;
+  btn.addEventListener('click', () => {
+    hidden = !hidden;
+    labels.forEach(l => l.classList.toggle('hidden', hidden));
+    btn.textContent = hidden ? '👁 Показать слова' : '👁 Скрыть слова';
+  });
+  // Клик по отдельной подписи — открыть её (самопроверка)
+  labels.forEach(l => l.addEventListener('click', () => l.classList.remove('hidden')));
+</script>
+</body>
+</html>
