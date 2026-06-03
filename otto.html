@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Otto — сцена «Быт» (der)</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Быт / der → Otto</span></div></header>
+<main class="wrap">
+  <h1><span class="pill der">der</span> &nbsp;Otto и его мужские предметы</h1>
+  <p class="lead">Усатый шотландец Otto: шляпа (der Hut), пальто (der Mantel), килт (der Rock). Всё вокруг — мужского рода. Нажми 👁 у слова, чтобы спрятать его и вспомнить самому; 🔊 — послушать.</p>
+
+  <div class="toolbar">
+    <button class="btn primary" onclick="toggleAll(this)">🙈 Скрыть все слова</button>
+    <span class="btn" style="cursor:default">👁 у слова — скрыть одно &nbsp;·&nbsp; тап по «▢▢▢» — открыть</span>
+  </div>
+
+  <h2>Сцена A — рабочий стол</h2>
+  <div class="scene"><span class="hint">плейсхолдер — настоящую картинку сгенерируем в ChatGPT</span>
+    <div class="objs" id="sceneA"></div>
+  </div>
+
+  <h2>Сцена B — прихожая (der Flur)</h2>
+  <div class="scene"><span class="hint">плейсхолдер</span>
+    <div class="objs" id="sceneB"></div>
+  </div>
+
+  <div class="story">
+    <span class="tag">черновик на русском · немецкий А1 — после твоего «ок»</span>
+    <p><b>Otto за столом.</b> Otto — хмурый усатый шотландец, вечно невыспавшийся. Он садится на свой <b>стул</b> за большой <b>стол</b>. На столе — <b>компьютер</b> с широким <b>экраном</b> и <b>ноутбук</b>: Otto работает сразу на двух. В руке любимая <b>ручка</b> — он записывает дела в <b>календарь</b> и пьёт уже третий кофе (der Kaffee). В углу гудит <b>принтер</b>.</p>
+    <p><b>Otto в прихожей.</b> Вечером Otto выходит в <b>прихожую</b> (der Flur). Там высокий <b>шкаф</b> с его пальто, на стене — <b>зеркало</b>, и Otto поправляет усы. На полу мягкий красный <b>ковёр</b>, у стены старое <b>кресло</b>, куда он падает после дня и гремит связкой ключей (der Schlüssel).</p>
+  </div>
+
+  <div class="note">Дальше по плану: 1) утвердить русский сюжет → 2) немецкий текст А1 → 3) промпт для ChatGPT с карточкой внешности Otto → 4) настоящая картинка с подписями-слоем → 5) озвучка.</div>
+</main>
+<footer>Deutsch A1 · ядро прототипа — механика «глазик» + аудио</footer>
+
+<script src="js/app.js"></script>
+<script>
+const WORDS = [
+  {a:'der', de:'Tisch', ru:'стол', e:'🟫', s:'A'},
+  {a:'der', de:'Stuhl', ru:'стул', e:'🪑', s:'A'},
+  {a:'der', de:'Computer', ru:'компьютер', e:'🖥️', s:'A'},
+  {a:'der', de:'Laptop', ru:'ноутбук', e:'💻', s:'A'},
+  {a:'der', de:'Bildschirm', ru:'экран', e:'📺', s:'A'},
+  {a:'der', de:'Stift', ru:'ручка', e:'🖊️', s:'A'},
+  {a:'der', de:'Kalender', ru:'календарь', e:'📅', s:'A'},
+  {a:'der', de:'Drucker', ru:'принтер', e:'🖨️', s:'A'},
+  {a:'der', de:'Flur', ru:'прихожая', e:'🚪', s:'B'},
+  {a:'der', de:'Schrank', ru:'шкаф', e:'🗄️', s:'B'},
+  {a:'der', de:'Spiegel', ru:'зеркало', e:'🪞', s:'B'},
+  {a:'der', de:'Teppich', ru:'ковёр', e:'🟥', s:'B'},
+  {a:'der', de:'Sessel', ru:'кресло', e:'🛋️', s:'B'},
+];
+function tile(w){
+  return `<div class="obj">
+    <div class="emoji">${w.e}</div>
+    <div class="label"><span class="txt"><span class="art">${w.a}</span> ${w.de}</span></div>
+    <div class="ru">${w.ru}</div>
+    <div class="mini">
+      <button title="Скрыть/показать" onclick="toggleObj(this)">👁</button>
+      <button title="Послушать" onclick="speak('${w.a} ${w.de}')">🔊</button>
+    </div>
+  </div>`;
+}
+document.getElementById('sceneA').innerHTML = WORDS.filter(w=>w.s==='A').map(tile).join('');
+document.getElementById('sceneB').innerHTML = WORDS.filter(w=>w.s==='B').map(tile).join('');
+</script>
+</body>
+</html>
