@@ -9,50 +9,51 @@
 <body>
 <header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Быт / der → Otto</span></div></header>
 <main class="wrap">
-  <h1><span class="pill der">der</span> &nbsp;Otto и его мужские предметы</h1>
-  <p class="lead">Усатый шотландец Otto: шляпа (der Hut), пальто (der Mantel), килт (der Rock). Всё вокруг — мужского рода. Нажми 👁 у слова, чтобы спрятать его и вспомнить самому; 🔊 — послушать.</p>
+  <h1><span class="pill der">der</span> &nbsp;Комната Отто</h1>
+  <p class="lead">Усатый шотландец Отто и все его мужские вещи — одна сцена, один рассказ. Нажми 👁 у слова, чтобы спрятать его и вспомнить самому; 🔊 — послушать.</p>
 
   <div class="toolbar">
     <button class="btn primary" onclick="toggleAll(this)">🙈 Скрыть все слова</button>
     <span class="btn" style="cursor:default">👁 у слова — скрыть одно &nbsp;·&nbsp; тап по «▢▢▢» — открыть</span>
   </div>
 
-  <h2>Сцена A — рабочий стол</h2>
   <div class="scene"><span class="hint">плейсхолдер — настоящую картинку сгенерируем в ChatGPT</span>
-    <div class="objs" id="sceneA"></div>
-  </div>
-
-  <h2>Сцена B — прихожая (der Flur)</h2>
-  <div class="scene"><span class="hint">плейсхолдер</span>
-    <div class="objs" id="sceneB"></div>
+    <div class="objs" id="scene"></div>
   </div>
 
   <div class="story">
     <span class="tag">черновик на русском · немецкий А1 — после твоего «ок»</span>
-    <p><b>Otto за столом.</b> Otto — хмурый усатый шотландец, вечно невыспавшийся. Он садится на свой <b>стул</b> за большой <b>стол</b>. На столе — <b>компьютер</b> с широким <b>экраном</b> и <b>ноутбук</b>: Otto работает сразу на двух. В руке любимая <b>ручка</b> — он записывает дела в <b>календарь</b> и пьёт уже третий кофе (der Kaffee). В углу гудит <b>принтер</b>.</p>
-    <p><b>Otto в прихожей.</b> Вечером Otto выходит в <b>прихожую</b> (der Flur). Там высокий <b>шкаф</b> с его пальто, на стене — <b>зеркало</b>, и Otto поправляет усы. На полу мягкий красный <b>ковёр</b>, у стены старое <b>кресло</b>, куда он падает после дня и гремит связкой ключей (der Schlüssel).</p>
+    <p>Знакомьтесь — это <b>Отто</b>. Отто живёт один в старом доме. Он шотландец: носит клетчатый <b>килт</b>, тёплое <b>пальто</b>, <b>шляпу</b> и <b>шарф</b>, а на поясе у него гремит большая связка <b>ключей</b>. У Отто пышные рыжие <b>усы</b>. Он часто хмурый и невыспавшийся, потому что много работает и пьёт слишком много <b>кофе</b>.</p>
+    <p>Утро. Отто садится на свой <b>стул</b> за большой деревянный <b>стол</b>. На столе — его <b>компьютер</b> с широким <b>экраном</b>, рядом <b>ноутбук</b>: Отто работает сразу на двух. В руке любимая <b>ручка</b> — он записывает дела в <b>календарь</b>. В углу гудит старый <b>принтер</b>. Отто делает глоток кофе и смотрит в окно — там его <b>сад</b>.</p>
+    <p>В комнате у Отто всё на своих местах: высокий <b>шкаф</b>, мягкое <b>кресло</b>, на полу красный <b>ковёр</b>, на стене <b>зеркало</b>. Из комнаты дверь ведёт в <b>прихожую</b>. Все эти вещи — мужского рода, как и сам Отто. <i>(Это только начало истории про Отто.)</i></p>
   </div>
 
-  <div class="note">Дальше по плану: 1) утвердить русский сюжет → 2) немецкий текст А1 → 3) промпт для ChatGPT с карточкой внешности Otto → 4) настоящая картинка с подписями-слоем → 5) озвучка.</div>
+  <div class="note">Сквозной сюжет: это блок 1 сериала про Отто (см. data/story/otto-byt.md). Дальше: 1) утвердить русский сюжет → 2) немецкий текст А1 → 3) промпты для ChatGPT (prompts/otto-byt-der.md) → 4) настоящая картинка с подписями-слоем → 5) озвучка.</div>
 </main>
-<footer>Deutsch A1 · ядро прототипа — механика «глазик» + аудио</footer>
+<footer>Deutsch A1 · ядро прототипа — одна сцена, один рассказ, «глазик» + аудио</footer>
 
 <script src="js/app.js"></script>
 <script>
 const WORDS = [
-  {a:'der', de:'Tisch', ru:'стол', e:'🟫', s:'A'},
-  {a:'der', de:'Stuhl', ru:'стул', e:'🪑', s:'A'},
-  {a:'der', de:'Computer', ru:'компьютер', e:'🖥️', s:'A'},
-  {a:'der', de:'Laptop', ru:'ноутбук', e:'💻', s:'A'},
-  {a:'der', de:'Bildschirm', ru:'экран', e:'📺', s:'A'},
-  {a:'der', de:'Stift', ru:'ручка', e:'🖊️', s:'A'},
-  {a:'der', de:'Kalender', ru:'календарь', e:'📅', s:'A'},
-  {a:'der', de:'Drucker', ru:'принтер', e:'🖨️', s:'A'},
-  {a:'der', de:'Flur', ru:'прихожая', e:'🚪', s:'B'},
-  {a:'der', de:'Schrank', ru:'шкаф', e:'🗄️', s:'B'},
-  {a:'der', de:'Spiegel', ru:'зеркало', e:'🪞', s:'B'},
-  {a:'der', de:'Teppich', ru:'ковёр', e:'🟥', s:'B'},
-  {a:'der', de:'Sessel', ru:'кресло', e:'🛋️', s:'B'},
+  {a:'der', de:'Hut', ru:'шляпа', e:'🎩'},
+  {a:'der', de:'Mantel', ru:'пальто', e:'🧥'},
+  {a:'der', de:'Schal', ru:'шарф', e:'🧣'},
+  {a:'der', de:'Schlüssel', ru:'ключи', e:'🔑'},
+  {a:'der', de:'Kaffee', ru:'кофе', e:'☕'},
+  {a:'der', de:'Tisch', ru:'стол', e:'🟫'},
+  {a:'der', de:'Stuhl', ru:'стул', e:'🪑'},
+  {a:'der', de:'Sessel', ru:'кресло', e:'🛋️'},
+  {a:'der', de:'Schrank', ru:'шкаф', e:'🗄️'},
+  {a:'der', de:'Teppich', ru:'ковёр', e:'🟥'},
+  {a:'der', de:'Spiegel', ru:'зеркало', e:'🪞'},
+  {a:'der', de:'Computer', ru:'компьютер', e:'🖥️'},
+  {a:'der', de:'Bildschirm', ru:'экран', e:'📺'},
+  {a:'der', de:'Laptop', ru:'ноутбук', e:'💻'},
+  {a:'der', de:'Stift', ru:'ручка', e:'🖊️'},
+  {a:'der', de:'Kalender', ru:'календарь', e:'📅'},
+  {a:'der', de:'Drucker', ru:'принтер', e:'🖨️'},
+  {a:'der', de:'Garten', ru:'сад', e:'🌳'},
+  {a:'der', de:'Flur', ru:'прихожая', e:'🚪'},
 ];
 function tile(w){
   return `<div class="obj">
@@ -65,8 +66,7 @@ function tile(w){
     </div>
   </div>`;
 }
-document.getElementById('sceneA').innerHTML = WORDS.filter(w=>w.s==='A').map(tile).join('');
-document.getElementById('sceneB').innerHTML = WORDS.filter(w=>w.s==='B').map(tile).join('');
+document.getElementById('scene').innerHTML = WORDS.map(tile).join('');
 </script>
 </body>
 </html>

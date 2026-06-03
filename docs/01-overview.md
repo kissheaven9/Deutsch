@@ -104,9 +104,9 @@
 В сцене рода подписываем и прячем **только предметы этого рода**. Помещение — фон, в «глазик» не включаем, **кроме** случая, когда помещение того же рода (тогда подпись усиливает).
 Следствие: комнаты сами распределяются по персонажам по роду — die Küche/die Wohnung → Грета; das Zimmer/das Bad/das Schlafzimmer → Тео; der Flur/der Balkon/der Garten/der Keller → Otto. das Büro / die Wohnung Мужчине не подписываем.
 
-### Сцены группы der (Мужчина = Otto) — две сцены, два текста
-- **Сцена A «рабочий стол»** (фон не подписываем): der Tisch, der Stuhl, der Computer, der Laptop, der Bildschirm, der Stift, der Kalender, der Drucker.
-- **Сцена B «прихожая»** (der Flur — подписываем, мужской): der Flur, der Schrank, der Spiegel, der Teppich, der Sessel.
+### Сцена группы der (Мужчина = Otto) — ОДНА сцена, ОДИН текст (исправлено)
+Одна богатая сцена «комната Отто» со ВСЕМИ мужскими предметами + его сигнатурные вещи (der Kaffee, der Schlüssel). Один сюжетный текст под ней (кусок сквозной истории).
+Предметы: der Tisch, der Stuhl, der Sessel, der Schrank, der Teppich, der Spiegel, der Computer, der Laptop, der Bildschirm, der Stift, der Kalender, der Drucker; фон — der Garten (в окне), der Flur (дверной проём). Подписи — слоем, без текста в самой картинке.
 
 ## Статус задач
 - [x] Развернуть документацию.
