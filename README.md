@@ -12,7 +12,7 @@
 - [docs/05-vision-roadmap.md](docs/05-vision-roadmap.md) — видение, модули, фазы, backlog.
 - [docs/06-story-rules.md](docs/06-story-rules.md) — правила сюжета/историй.
 - [docs/07-site-structure.md](docs/07-site-structure.md) — структура сайта и интерфейс.
-- [docs/08-design-system.md](docs/08-design-system.md) — дизайн-система (тон, аудитория, кодирование рода, токены, компоненты).
+- [Дизайн/](Дизайн/) — всё про дизайн: [design-system.md](Дизайн/design-system.md) (спецификация) + [design-kit.html](Дизайн/design-kit.html) (живой кит, открыть в браузере).
 
 ## Статус
 Стадия: сбор требований. MVP — одна тема «Быт», полный цикл. Ждём вводные (учебник/список слов) и 4 решения (см. overview).
