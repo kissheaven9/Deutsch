@@ -43,6 +43,7 @@
   </div>
   <p class="lead">Строки: глагол · перевод · прошедшее. Кнопка «форма» — спряжение по местоимениям. 👁 — спрятать переводы и проверить себя.</p>
   <div class="toolbar"><button class="btn primary" id="eye" onclick="toggleRu()">🙈 Скрыть переводы</button></div>
+  <p class="vlegend"><span class="vbadge reg">прав.</span> правильный (по правилу) &nbsp;·&nbsp; <span class="vbadge irr">непр.</span> неправильный (особый — запоминать)</p>
 
   <div class="sec">Правильные (слабые)</div>
   <table class="vt" id="t-reg"></table>
@@ -75,7 +76,7 @@ const IRR = [
 const PRON = ['ich','du','er/sie/es','wir','ihr','sie/Sie'];
 function rows(list, key){
   return list.map((v,i)=>`<tr>
-    <td class="de">${v.inf}</td>
+    <td class="de"><span class="vbadge ${key==='r'?'reg':'irr'}">${key==='r'?'прав.':'непр.'}</span>${v.inf}</td>
     <td class="ru"><span>${v.ru}</span></td>
     <td class="pp">${v.pp}</td>
     <td style="text-align:right"><button class="formbtn" onclick="pop('${key}${i}')">форма ▾</button>

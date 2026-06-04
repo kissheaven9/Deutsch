@@ -6,7 +6,9 @@
 <title>Тема 1 — Знакомство и семья</title>
 <link rel="stylesheet" href="css/style.css">
 <style>
-  .sec{margin:22px 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .sec{margin:30px 0 10px;font-size:18px;color:var(--ink);font-weight:700;padding-left:12px;border-left:4px solid var(--accent)}
+  .dictbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 4px}
+  .dictbar a{display:inline-flex;align-items:center;gap:8px;background:#f3e8ff;color:var(--accent);font-weight:700;border-radius:12px;padding:11px 16px;font-size:15px}
   .gender3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
   @media(max-width:760px){.gender3{grid-template-columns:1fr}}
   .gcard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
@@ -32,6 +34,7 @@
 <main class="wrap">
   <h1>Тема 1 — Знакомство и семья</h1>
   <p class="lead">Уроки Momente <span class="lk">L1</span> <span class="lk">L2</span> <span class="lk">L3</span>. Всё по теме в одном месте: существительные по роду, глаголы, другое и топики. Кликни род — попадёшь в сцену с историей, картинкой и озвучкой.</p>
+  <div class="dictbar"><a href="dictionary.html">📖 Словарь темы 1 →</a></div>
 
   <div class="sec">Существительные — по роду</div>
   <div class="gender3">
@@ -67,15 +70,17 @@
   </div>
   <p class="muted">Только мн.ч.: die Eltern · die Geschwister · die Großeltern. Полный список — data/themen/01-kennenlernen-familie.md.</p>
   <p class="muted">↳ Подраздел <a href="#" style="color:var(--accent)">Множественное число</a> (по типу окончания) — скоро.</p>
+  <p style="margin:10px 0"><a href="dictionary.html?thema=01" style="display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--accent);background:#F3E8FF;border-radius:10px;padding:9px 14px">📖 Словарь темы 1 — все слова с переводом, озвучка, глазик →</a></p>
 
   <div class="sec">Глаголы — <a href="verben-thema-01.html" style="color:var(--accent)">открыть раздел →</a></div>
   <div class="two">
-    <div class="box"><h4>Правильные (слабые)</h4>
+    <div class="box"><h4><span class="vbadge reg">прав.</span> Правильные (слабые)</h4>
       <div class="words"><span class="w">wohnen</span><span class="w">leben</span><span class="w">lernen</span><span class="w">machen</span><span class="w">arbeiten</span><span class="w">studieren</span><span class="w">sammeln</span><span class="w">glauben</span><span class="w">planen</span><span class="w">zusammenleben</span></div>
     </div>
-    <div class="box"><h4>Неправильные (особые)</h4>
+    <div class="box"><h4><span class="vbadge irr">непр.</span> Неправильные (особые)</h4>
       <div class="words"><span class="w">sein</span><span class="w">haben</span><span class="w">sprechen</span><span class="w">heißen</span><span class="w">kommen</span><span class="w">gehen</span></div>
     </div>
+    <p class="vlegend"><span class="vbadge reg">прав.</span> по правилу &nbsp;·&nbsp; <span class="vbadge irr">непр.</span> особый, запоминать. Значки — везде, где встречаются глаголы (кроме текстов).</p>
   </div>
   <p class="muted">В разделе: строки глагол · перевод · прошедшее, кнопка «форма» (спряжение по местоимениям), глазик прячет переводы.</p>
 
