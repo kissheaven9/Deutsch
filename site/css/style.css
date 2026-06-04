@@ -73,3 +73,9 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:28px 0}
 .col-card.der h4{color:var(--der)} .col-card.die h4{color:var(--die)} .col-card.das h4{color:var(--das)}
 .col-card ul{margin:0;padding-left:18px} .col-card li{margin:3px 0}
 .disabled{opacity:.55;pointer-events:none}
+/* значки глаголов: правильный / неправильный (не родовые цвета) */
+.vbadge{display:inline-block;font-size:10px;font-weight:700;border-radius:5px;padding:1px 5px;margin-right:5px;vertical-align:middle;line-height:1.3}
+.vbadge.reg{background:#e5e7eb;color:#475569}
+.vbadge.irr{background:#fde68a;color:#b45309}
+.vlegend{font-size:12px;color:var(--muted);margin:4px 0 0}
+.vlegend .vbadge{margin-right:3px}

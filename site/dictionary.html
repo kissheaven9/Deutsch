@@ -3,34 +3,110 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Словари и PDF</title>
+<title>Словарь</title>
 <link rel="stylesheet" href="css/style.css">
+<style>
+  /* словарь (база — css/style.css; данные и рендер — js/woerter.js) */
+  .tools{position:sticky;top:54px;background:var(--bg);padding:10px 0;z-index:4;border-bottom:1px solid var(--line)}
+  .search{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1px solid var(--line);
+    border-radius:10px;background:#fff;outline:none}
+  .search:focus{border-color:var(--accent);box-shadow:0 0 0 3px #6d28d922}
+  .filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+  .filters.tfilters{margin-top:6px}
+  .chip{font-size:13px;font-weight:600;border:1px solid var(--line);background:#fff;color:var(--ink);
+    border-radius:999px;padding:5px 12px;cursor:pointer;user-select:none}
+  .chip[aria-pressed="true"]{border-color:transparent;color:#fff}
+  .chip.f-der[aria-pressed="true"]{background:var(--der)}
+  .chip.f-die[aria-pressed="true"]{background:var(--die)}
+  .chip.f-das[aria-pressed="true"]{background:var(--das)}
+  .chip.f-verb[aria-pressed="true"],.chip.f-other[aria-pressed="true"],.chip.f-theme[aria-pressed="true"]{background:var(--accent)}
+  .chip.f-all[aria-pressed="true"]{background:#374151}
+  .spacer{flex:1}
+  .eye{font-size:13px;font-weight:600;color:var(--accent);background:#F3E8FF;border:none;
+    border-radius:999px;padding:6px 12px;cursor:pointer}
+
+  .sec{margin:22px 0 10px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;display:flex;align-items:center;gap:8px}
+  .sec .cnt{color:var(--muted);font-weight:600;text-transform:none;letter-spacing:0}
+  .gwrap{margin:14px 0}
+  .gtitle{display:inline-flex;align-items:center;gap:8px;font-weight:700;margin:0 0 8px}
+  .gtitle .who{font-size:13px;color:var(--muted);font-weight:600}
+  .list{display:grid;gap:7px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+
+  .entry{background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 11px;
+    display:flex;align-items:center;gap:10px}
+  .entry .art{font-weight:700;font-size:13px;min-width:30px;text-align:center;border-radius:6px;padding:2px 0}
+  .entry.der .art{color:var(--der);background:#eff3ff}
+  .entry.die .art{color:var(--die);background:#fdecec}
+  .entry.das .art{color:var(--das);background:#e8f6ee}
+  .entry .de{font-weight:600;font-size:15px}
+  .entry .ru{color:var(--muted);font-size:14px;margin-left:auto;text-align:right}
+  body.hide-ru .entry .ru{visibility:hidden}
+  body.hide-ru .entry .ru::after{content:"· · ·";visibility:visible;color:#cbd5e1}
+  .entry .say,.pair .say{border:none;background:none;cursor:pointer;font-size:16px;opacity:.6;padding:2px;flex:none}
+  .entry .say:hover,.pair .say:hover{opacity:1}
+
+  .ventry{background:#fff;border:1px solid var(--line);border-radius:11px;overflow:hidden}
+  .vhead{display:flex;align-items:center;gap:9px;padding:9px 11px;cursor:pointer}
+  .vhead .de{font-weight:600;font-size:15px}
+  .vhead .ru{color:var(--muted);font-size:14px;margin-left:auto}
+  body.hide-ru .vhead .ru,body.hide-ru .pair .ru{visibility:hidden}
+  body.hide-ru .vhead .ru::after{content:"· · ·";visibility:visible;color:#cbd5e1}
+  .vhead .caret{color:#9ca3af;font-size:12px;flex:none;transition:transform .15s}
+  .ventry.open .vhead .caret{transform:rotate(90deg)}
+  .conj{display:none;border-top:1px solid var(--line);padding:8px 11px 11px;background:#fbfbfe}
+  .ventry.open .conj{display:block}
+  .conj .grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+  .conj .row{display:flex;gap:7px;font-size:14px;padding:3px 4px;border-radius:6px;cursor:pointer}
+  .conj .row:hover{background:#f1edfb}
+  .conj .row .pro{color:var(--muted);min-width:64px}
+  .conj .row .frm{font-weight:600}
+  .conj .tip{font-size:12px;color:var(--muted);margin-top:7px}
+
+  .pairs{display:grid;gap:7px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+  .pair{background:#fff;border:1px solid var(--line);border-radius:11px;padding:8px 11px;display:flex;gap:10px;align-items:center}
+  .pair .de{font-weight:600;font-size:14px}
+  .pair .ru{color:var(--muted);font-size:13px;margin-left:auto;text-align:right}
+  .d-empty{color:var(--muted);font-size:14px;padding:18px;text-align:center}
+</style>
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Словари</span></div></header>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb" id="crumb">/ Словарь</span></div></header>
+
 <main class="wrap">
-  <h1>Словари и экспорт PDF</h1>
-  <p class="lead">Накопительные словари. Существительные — по темам, глаголы — по группам + алфавит. Каркас:</p>
+  <h1 id="title">Словарь</h1>
+  <p class="lead" id="lead"></p>
 
-  <h2>Тема «Быт» — по роду</h2>
-  <div class="col3">
-    <div class="col-card der"><h4>der</h4><ul><li>Tisch, Stuhl, Sessel</li><li>Schrank, Teppich, Spiegel</li><li>Computer, Laptop, Drucker</li><li>Bildschirm, Stift, Kalender</li><li>Flur, Balkon, Garten, Keller</li></ul></div>
-    <div class="col-card das"><h4>das</h4><ul><li>Bett, Bild, Sofa, Regal</li><li>Tablet, Fenster</li><li>Haus, Zimmer, Bad</li><li>Wohn-/Schlaf-/Kinder-/Arbeitszimmer</li></ul></div>
-    <div class="col-card die"><h4>die</h4><ul><li>Lampe, Maus, Tastatur</li><li>Brille, Visitenkarte</li><li>Tür, Treppe</li><li>Wohnung, Küche, Toilette</li></ul></div>
-  </div>
+  <div id="dict"></div>
 
-  <h2>Скачать PDF <span class="badge soon">v5</span></h2>
-  <div class="toolbar">
-    <button class="btn disabled">📄 Словарь темы «Быт»</button>
-    <button class="btn disabled">📄 Выбрать темы → собрать</button>
-    <button class="btn disabled">📄 Полный (der/die/das + глаголы)</button>
-    <button class="btn disabled">📄 Кумулятивный (все темы)</button>
-    <button class="btn disabled">📄 Только глаголы (алфавит)</button>
-    <button class="btn disabled">📄 Сцена: слова+картинка+текст</button>
+  <div class="note" style="margin-top:18px">
+    Род сверен по <b>Lernwortschatz</b> (Momente A1, Arbeitsbuch). Переводы — рабочие, уровень А1.
+    <b>Мн. число</b> и <b>прошедшее время глаголов</b> — отдельным проходом, наугад не ставим.
+    Данные — <code>js/woerter.js</code> (единый источник; новые темы накапливаются автоматически).
   </div>
-  <div class="note">Кнопки — каркас (включим в v5). Источник данных — [data/byt-woerter.md]. Артикли сверены по Momente A1.</div>
 </main>
-<footer>Deutsch A1 · локальный прототип</footer>
+<footer id="foot">Deutsch A1 · словарь</footer>
+
 <script src="js/app.js"></script>
+<script src="js/woerter.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const thema = params.get('thema');               // напр. "01" → словарь только темы; пусто → общий
+  const t = thema ? WOERTER.themes.find(x=>x.id===thema) : null;
+
+  if(thema && t){
+    document.getElementById('crumb').textContent = `/ Тема ${t.id} / Словарь`;
+    document.title = `Словарь — Тема ${t.id}`;
+    document.getElementById('title').innerHTML = `Словарь темы ${t.id} <span class="badge">${t.lessons}</span>`;
+    document.getElementById('lead').innerHTML = `<b>${t.title}</b>. Все слова темы с переводом. Клик 🔊 — озвучка; у глагола — спряжение; «глазик» прячет переводы для самопроверки.`;
+    document.getElementById('foot').textContent = `Deutsch A1 · словарь темы ${t.id}`;
+  } else {
+    const n = WOERTER.themes.length;
+    document.getElementById('title').innerHTML = `Словарь <span class="badge">общий · накопительный</span>`;
+    document.getElementById('lead').innerHTML = `Все слова пройденных тем в одном месте (тем: ${n}). По мере добавления тем словарь растёт сам. Поиск, фильтр по роду, глазик, озвучка.`;
+  }
+
+  Dict.init({ mount: document.getElementById('dict'), thema: (thema && t) ? thema : null });
+</script>
 </body>
 </html>

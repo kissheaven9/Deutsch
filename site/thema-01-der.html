@@ -6,10 +6,22 @@
 <title>Тема 1 · der → Otto: знакомство и семья</title>
 <link rel="stylesheet" href="css/style.css">
 <style>
+  h1{font-size:30px}
   .bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
   .ic{border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer;font-size:14px;padding:7px 10px}
   .ic:active{background:#f3f4f6}
-  /* СЦЕНА с подписями-слоем */
+  /* КРУПНЫЕ БЛОКИ */
+  .part{display:flex;align-items:center;gap:14px;margin:34px 0 14px;padding:14px 18px;border-radius:16px;border:1px solid var(--line)}
+  .part .pico{font-size:30px;line-height:1}
+  .part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .part h2{margin:2px 0 0;font-size:24px}
+  .part.read{background:#f1f5f9}
+  .part.text{background:#faf5ff}
+  .part.train{background:#f3e8ff;border-color:#e9d5ff}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0;box-shadow:0 1px 2px #0000000a}
+  .panel>h3{margin:0 0 10px;font-size:18px;display:flex;gap:8px;align-items:center}
+  .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  /* СЦЕНА с подписями */
   .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
   .stage img{width:100%;height:auto;display:block}
   .lbl{position:absolute;transform:translate(-50%,-50%);background:#fffffff7;border:2px solid var(--der);
@@ -23,10 +35,9 @@
   .cov.open .vv{background:#eff3ff;color:var(--der)}
   .otto{left:1.5%;top:2%;transform:none;text-align:left;max-width:44%}
   .otto .line{display:block;line-height:1.6}
-  .exb{background:var(--das);color:#fff;border-radius:6px;font-size:11px;padding:1px 7px}
   @media(max-width:620px){.lbl{font-size:9px;padding:2px 3px} .lbl:not(.otto){max-width:17%} .cov .lab{font-size:9px} .otto{max-width:56%}}
   /* СЛОВА */
-  .wlist{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+  .wlist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
   @media(max-width:620px){.wlist{grid-template-columns:1fr}}
   .wrow{display:flex;align-items:center;gap:8px;background:#eff3ff;border:1px solid #dbe4ff;border-radius:9px;padding:6px 8px}
   .wrow .de{font-weight:700;color:var(--der);font-size:15px}
@@ -35,11 +46,10 @@
   .wrow.noru .ru{visibility:hidden;position:relative}
   .wrow.noru .ru::after{content:"·····";position:absolute;right:0;color:#9ca3af;visibility:visible}
   /* ТЕКСТ */
-  .txt{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:8px}
-  .txt .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .de-block{color:var(--ink);font-weight:500;line-height:1.7;margin:0 0 14px}
   .ru-block{color:#374151;line-height:1.7;margin:0}
-  /* УПРАЖНЕНИЕ */
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  /* ВОПРОСЫ */
   .qcard{border:1px solid var(--line);border-radius:12px;background:#fff;margin:8px 0;overflow:hidden}
   .qcard>summary{cursor:pointer;padding:11px 14px;font-weight:700;color:var(--der);list-style:none;display:flex;justify-content:space-between}
   .qcard>summary::-webkit-details-marker{display:none}
@@ -52,35 +62,74 @@
   .qin{flex:1;min-width:150px;border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:14px;font-family:inherit}
   .qin:focus{outline:none;border-color:var(--accent)}
   .btn.sm{padding:7px 11px;font-size:13px}
+  .exb{background:var(--das);color:#fff;border-radius:6px;font-size:11px;padding:1px 7px}
   .qres{margin-top:5px;font-size:14px;font-weight:600}
+  /* КАРТОЧКИ */
+  .cardwrap{max-width:380px;margin:0 auto}
+  .card{background:#fff;border:2px solid var(--der);border-radius:16px;min-height:170px;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer;transition:.12s}
+  .card:active{transform:scale(.99)}
+  .card.back{background:#eff3ff}
+  .c-emoji{font-size:52px;line-height:1}
+  .c-text{font-size:25px;font-weight:700;color:var(--ink)}
+  .card.back .c-text{color:var(--der)}
+  .c-text .art{opacity:.7}
+  .c-hint{font-size:12px;color:var(--muted)}
+  .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
+  .cnav #cCount{color:var(--muted);font-weight:600}
+  /* СООТНЕСИ */
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center;position:relative}
+  .mchip.de{font-weight:700;color:var(--der)}
+  .mchip.sel{border-color:var(--accent);background:#f3e8ff}
+  .mchip.linked{border-color:var(--accent)}
+  .mchip .pn{position:absolute;top:-8px;right:-8px;background:var(--accent);color:#fff;border-radius:999px;font-size:11px;width:18px;height:18px;line-height:18px}
+  .mchip.ok{border-color:var(--das);background:#e8f6ee}
+  .mchip.bad{border-color:var(--die);background:#fdecec}
+  /* НАПИШИ / ВСТАВЬ */
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .ru{min-width:130px;color:#374151}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:140px}
+  .wq input:focus{outline:none;border-color:var(--accent)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee}
+  .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .gap{line-height:2.2}
+  .gap input{border:none;border-bottom:2px solid var(--der);width:120px;font-size:15px;font-family:inherit;text-align:center;color:var(--der);font-weight:700}
+  .gap input:focus{outline:none;background:#eff3ff}
+  .gap .hint{color:var(--muted);font-size:12px}
+  .score{font-weight:700;margin-top:8px}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Тема 1 / <b style="color:var(--der)">der → Otto</b></span></div></header>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ <a href="thema-01.html">Тема 1</a> / <b style="color:var(--der)">der → Otto</b></span></div></header>
 <main class="wrap">
   <h1><span class="pill der">der</span> &nbsp;Otto и его семья</h1>
-  <p class="lead">Под каждым портретом видно <b>родство и имя</b>. Скрыта только <b>профессия</b> — тапни «der Beruf», чтобы открыть. У Otto — анкета: тапай поля, чтобы вспомнить ответ. Ниже — слова с переводом, текст и упражнение.</p>
+  <p class="lead">Сначала рассмотри картинку и слова, прочитай и послушай текст. Потом ответь на вопросы и закрепи слова в упражнениях.</p>
 
-  <div class="bar">
-    <button class="ic" onclick="toggleCovers(this)">👁 Открыть все ответы</button>
+  <!-- ЧАСТЬ 1 -->
+  <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Изучение</h2></div></div>
+
+  <div class="panel">
+    <h3>🖼 Сцена — Otto и семья</h3>
+    <p class="sub">Имя и родство видны. Скрыта профессия и немецкие подписи Otto — тапни, чтобы открыть.</p>
+    <div class="bar"><button class="ic" onclick="toggleCovers(this)">👁 Открыть все ответы</button></div>
+    <div class="stage" id="stage"><img src="img/otto-szene-1.png" alt="Otto и семья"></div>
   </div>
 
-  <div class="stage" id="stage">
-    <img src="img/otto-szene-1.png" alt="Otto и семья">
-  </div>
-
-  <h2>Слова сцены <span class="pill der" style="font-size:13px;padding:4px 10px">der</span></h2>
-  <div class="bar">
-    <button class="ic" id="trBtn" onclick="toggleTransAll(this)">🙈 Скрыть переводы</button>
-    <span style="color:var(--muted);font-size:13px">🔊 — послушать · 👁 — скрыть/открыть перевод</span>
-  </div>
-  <div class="wlist" id="wlist"></div>
-
-  <h2>Текст</h2>
-  <div class="txt">
-    <div class="bh">Deutsch (A1 · L1–L3)
-      <button class="ic" onclick="toggleSpeak(deText(), this)">🔊 Послушать</button>
+  <div class="panel">
+    <h3>🔤 Слова сцены <span class="pill der" style="font-size:12px;padding:3px 9px">der</span></h3>
+    <div class="bar">
+      <button class="ic" id="trBtn" onclick="toggleTransAll(this)">🙈 Скрыть переводы</button>
+      <span style="color:var(--muted);font-size:13px">🔊 — послушать · 👁 — скрыть/открыть перевод</span>
     </div>
+    <div class="wlist" id="wlist"></div>
+  </div>
+
+  <div class="panel">
+    <h3>📜 Текст</h3>
+    <div class="bh">Deutsch (A1 · L1–L3) <button class="ic" onclick="toggleSpeak(deText(), this)">🔊 Послушать</button></div>
     <p class="de-block" id="deText">Guten Tag! Ich heiße Otto MacLeod. Mein Vorname ist Otto, mein Familienname ist MacLeod. Ich komme aus Schottland, aber jetzt wohne ich in Deutschland. Von Beruf bin ich Gärtner. Und mein Familienstand? Ich bin geschieden und lebe allein.<br><br>
     Das ist meine Familie MacLeod. Sie ist groß und international!<br><br>
     Das ist mein Großvater. Er heißt Angus. Er wohnt in Edinburgh. Er ist Rentner.<br>
@@ -102,119 +151,162 @@
     Я часто один, но семья у меня большая — и это здорово.</p>
   </div>
 
-  <h2>Упражнение — вопросы о персонажах</h2>
-  <p class="lead" style="margin-top:0">Открой персонажа, прочитай вопрос по-немецки (перевод — по кнопке), впиши ответ и проверь себя.</p>
-  <div id="exercise"></div>
+  <!-- ЧАСТЬ 2 -->
+  <div class="part text"><span class="pico">💬</span><div><div class="pk">Часть 2</div><h2>Работа с текстом</h2></div></div>
+  <div class="panel">
+    <h3>❓ Вопросы о персонажах</h3>
+    <p class="sub">Открой персонажа, прочитай вопрос (перевод — по кнопке), впиши ответ и проверь себя.</p>
+    <div id="exercise"></div>
+  </div>
 
-  <div class="note">Это пользовательская страница сцены — <b>шаблон для всех персонажей и тем</b>. Рабочая версия (слова · текст · промпт для ChatGPT) — <a href="otto-szene-1.html" style="color:var(--accent)">otto-szene-1.html</a> (для тебя). Канон — data/story/otto-bible.md. Позиции подписей правятся легко — скажи, если съехало.</div>
+  <!-- ЧАСТЬ 3 -->
+  <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова</h2></div></div>
+
+  <div class="panel">
+    <h3>🃏 Карточки — тренировка</h3>
+    <p class="sub">Видишь картинку и русское слово — вспомни немецкое, нажми, чтобы перевернуть. Листай ← →.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()">
+      <div class="c-emoji" id="cEmoji"></div><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div>
+    </div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <div class="panel">
+    <h3>🔗 Соотнеси: немецкое ↔ русское</h3>
+    <p class="sub">Нажми немецкое слово, потом его перевод. Когда соединишь все — «Проверить».</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="matchReset()">Попробовать ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+
+  <div class="panel">
+    <h3>✍️ Напиши с артиклем</h3>
+    <p class="sub">Дано слово по-русски — впиши его по-немецки с правильным артиклем (der …).</p>
+    <div id="writeList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+
+  <div class="panel">
+    <h3>🧩 Вставь слово в текст</h3>
+    <p class="sub">По смыслу понятно, какое слово пропущено — впиши его по-немецки (с артиклем, где нужно).</p>
+    <div class="gap" id="gap"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapReset()">Ещё раз</button></div>
+    <div class="score" id="gScore"></div>
+  </div>
+
+  <div class="note">Шаблон страницы сцены (для всех персонажей/тем). Словарь темы и общий — отдельно. Рабочая версия (текст · промпт) — <a href="otto-szene-1.html" style="color:var(--accent)">otto-szene-1.html</a>. Канон — data/story/otto-bible.md.</div>
 </main>
-<footer>Deutsch A1 · Тема 1 · der → Otto · картинка + подписи + слова + текст + упражнение</footer>
+<footer>Deutsch A1 · Тема 1 · der → Otto · изучение → текст → практика</footer>
 
 <script src="js/app.js"></script>
 <script>
-const OTTO = {name:'Otto', fam:'MacLeod', beruf:'Gärtner', stadt:'Deutschland', land:'Schottland', alter:50, stand:'geschieden'};
-const FAM = [
-  {role:'der Großvater', name:'Angus',  beruf:'Rentner',   stadt:'Edinburgh', land:'Schottland', alter:92, x:42, y:30},
-  {role:'der Vater',     name:'Hamish', beruf:'Lehrer',    stadt:'Schottland',land:'Schottland', alter:71, x:56, y:30},
-  {role:'der Onkel',     name:'Duncan', beruf:'Kellner',   stadt:'London',    land:'Schottland', alter:68, x:70, y:30},
-  {role:'der Onkel',     name:'Fergus', beruf:'Ingenieur', stadt:'Schweden',  land:'Schottland', alter:66, x:84, y:30},
-  {role:'der Bruder',    name:'Callum', beruf:'Verkäufer', stadt:'Schottland',land:'Schottland', alter:47, x:56, y:65},
-  {role:'der Sohn',      name:'Ewan',   beruf:'Student',   stadt:'Schottland',land:'Schottland', alter:27, x:70, y:65},
-  {role:'der Enkel',     name:'Finlay', beruf:'Schüler',   stadt:'Schottland',land:'Schottland', alter:7,  x:84, y:65},
+const OTTO={name:'Otto',fam:'MacLeod',beruf:'Gärtner',stadt:'Deutschland',land:'Schottland',alter:50,stand:'geschieden'};
+const FAM=[
+  {role:'der Großvater',name:'Angus', beruf:'Rentner',  stadt:'Edinburgh', land:'Schottland',alter:92,x:42,y:30},
+  {role:'der Vater',    name:'Hamish',beruf:'Lehrer',   stadt:'Schottland',land:'Schottland',alter:71,x:56,y:30},
+  {role:'der Onkel',    name:'Duncan',beruf:'Kellner',  stadt:'London',    land:'Schottland',alter:68,x:70,y:30},
+  {role:'der Onkel',    name:'Fergus',beruf:'Ingenieur',stadt:'Schweden',  land:'Schottland',alter:66,x:84,y:30},
+  {role:'der Bruder',   name:'Callum',beruf:'Verkäufer',stadt:'Schottland',land:'Schottland',alter:47,x:56,y:65},
+  {role:'der Sohn',     name:'Ewan',  beruf:'Student',  stadt:'Schottland',land:'Schottland',alter:27,x:70,y:65},
+  {role:'der Enkel',    name:'Finlay',beruf:'Schüler',  stadt:'Schottland',land:'Schottland',alter:7, x:84,y:65},
 ];
-const WORDS = [
+const WORDS=[
   ['der','Name','имя'],['der','Vorname','личное имя'],['der','Familienname','фамилия'],
   ['der','Beruf','профессия'],['der','Familienstand','сем. положение'],['der','Wohnort','место жительства'],
   ['der','Großvater','дед'],['der','Vater','отец'],['der','Onkel','дядя'],['der','Bruder','брат'],['der','Sohn','сын'],['der','Enkel','внук'],
   ['der','Gärtner','садовник'],['der','Rentner','пенсионер'],['der','Lehrer','учитель'],['der','Kellner','официант'],
   ['der','Ingenieur','инженер'],['der','Architekt','архитектор'],['der','Verkäufer','продавец'],['der','Student','студент'],['der','Schüler','школьник'],
 ];
-
-// ---- подписи на картинке ----
-const stage = document.getElementById('stage');
-// cov: закрашено ЗНАЧЕНИЕ (для семьи — профессия), подпись видна
-function cov(lab,val){ return `<span class="cov" onclick="this.classList.toggle('open')"><span class="lab">${lab}:</span> <b class="vv">${val}</b></span>`; }
-// covL: закрашена ПОДПИСЬ (немецкое слово), значение видно — для анкеты Otto
-function covL(lab,val){ return `<span class="cov" onclick="this.classList.toggle('open')"><b class="vv">${lab}</b>: ${val}</span>`; }
-// карточка Otto: значения видны (Otto, MacLeod…), закрашены немецкие подписи — их угадываем
-const oc = document.createElement('div');
-oc.className='lbl otto der';
-oc.innerHTML = `<span class="line">${covL('der Name','Otto')}</span>
-  <span class="line">${covL('der Familienname','MacLeod')}</span>
-  <span class="line">${covL('der Beruf','Gärtner')}</span>
-  <span class="line">${covL('der Familienstand','geschieden')}</span>
-  <span class="line">${covL('der Wohnort','Deutschland')}</span>`;
-stage.appendChild(oc);
-// семья: родство+имя видно, профессия под тапом
-FAM.forEach(f=>{
-  const d=document.createElement('div');
-  d.className='lbl der'; d.style.left=f.x+'%'; d.style.top=f.y+'%';
-  d.innerHTML=`<span class="role">${f.role}</span><span class="nm">${f.name}</span>${cov('der Beruf',f.beruf)}`;
-  stage.appendChild(d);
-});
-function toggleCovers(btn){
-  const cs=[...document.querySelectorAll('.cov')];
-  const anyClosed=cs.some(c=>!c.classList.contains('open'));
-  cs.forEach(c=>c.classList.toggle('open',anyClosed));
-  btn.textContent=anyClosed?'🙈 Скрыть ответы':'👁 Открыть все ответы';
-}
-
-// ---- слова ----
-document.getElementById('wlist').innerHTML = WORDS.map(([a,de,ru])=>`
-  <div class="wrow">
-    <button class="ic" style="padding:3px 7px" title="Послушать" onclick="speak('${a} ${de}')">🔊</button>
-    <span class="de"><span class="art">${a}</span> ${de}</span>
-    <span class="ru">${ru}</span>
-    <button class="ic" style="padding:3px 7px" title="Скрыть/открыть перевод" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button>
-  </div>`).join('');
-function toggleTransAll(btn){
-  const rows=[...document.querySelectorAll('.wrow')];
-  const anyShown=rows.some(r=>!r.classList.contains('noru'));
-  rows.forEach(r=>r.classList.toggle('noru',anyShown));
-  btn.textContent=anyShown?'👁 Показать переводы':'🙈 Скрыть переводы';
-}
-
-// ---- текст ----
-function deText(){ return document.getElementById('deText').innerText; }
-
-// ---- упражнение ----
 function norm(s){ return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,''); }
+
+/* ---- подписи ---- */
+const stage=document.getElementById('stage');
+function cov(lab,val){return `<span class="cov" onclick="this.classList.toggle('open')"><span class="lab">${lab}:</span> <b class="vv">${val}</b></span>`;}
+function covL(lab,val){return `<span class="cov" onclick="this.classList.toggle('open')"><b class="vv">${lab}</b>: ${val}</span>`;}
+const oc=document.createElement('div'); oc.className='lbl otto der';
+oc.innerHTML=`<span class="line">${covL('der Name','Otto')}</span><span class="line">${covL('der Familienname','MacLeod')}</span><span class="line">${covL('der Beruf','Gärtner')}</span><span class="line">${covL('der Familienstand','geschieden')}</span><span class="line">${covL('der Wohnort','Deutschland')}</span>`;
+stage.appendChild(oc);
+FAM.forEach(f=>{const d=document.createElement('div');d.className='lbl der';d.style.left=f.x+'%';d.style.top=f.y+'%';
+  d.innerHTML=`<span class="role">${f.role}</span><span class="nm">${f.name}</span>${cov('der Beruf',f.beruf)}`;stage.appendChild(d);});
+function toggleCovers(btn){const cs=[...document.querySelectorAll('.cov')];const any=cs.some(c=>!c.classList.contains('open'));cs.forEach(c=>c.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть ответы':'👁 Открыть все ответы';}
+
+/* ---- слова ---- */
+document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="speak('${a} ${de}')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
+function toggleTransAll(btn){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));btn.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
+function deText(){return document.getElementById('deText').innerText;}
+
+/* ---- вопросы ---- */
 const QS=[
-  {q:'Wer ist das?',        ru:'Кто это?',            ans:c=>c.role?`Das ist ${c.role} ${c.name}.`:'Das ist Otto.', key:c=>c.role?c.name:'Otto'},
-  {q:'Wie heißt er?',       ru:'Как его зовут?',      ans:c=>`Er heißt ${c.name}${c.fam?' '+c.fam:''}.`,           key:c=>c.name},
-  {q:'Wo wohnt er?',        ru:'Где он живёт?',       ans:c=>`Er wohnt in ${c.stadt}.`,                            key:c=>c.stadt},
-  {q:'Woher kommt er?',     ru:'Откуда он?',          ans:c=>`Er kommt aus ${c.land}.`,                            key:c=>c.land},
-  {q:'Wie alt ist er?',     ru:'Сколько ему лет?',    ans:c=>`Er ist ${c.alter} Jahre alt.`,                       key:c=>String(c.alter)},
-  {q:'Was ist er von Beruf?',ru:'Кто он по профессии?',ans:c=>`Er ist ${c.beruf}.`,                                key:c=>c.beruf},
+  {q:'Wer ist das?',ru:'Кто это?',ans:c=>c.role?`Das ist ${c.role} ${c.name}.`:'Das ist Otto.',key:c=>c.role?c.name:'Otto'},
+  {q:'Wie heißt er?',ru:'Как его зовут?',ans:c=>`Er heißt ${c.name}${c.fam?' '+c.fam:''}.`,key:c=>c.name},
+  {q:'Wo wohnt er?',ru:'Где он живёт?',ans:c=>`Er wohnt in ${c.stadt}.`,key:c=>c.stadt},
+  {q:'Woher kommt er?',ru:'Откуда он?',ans:c=>`Er kommt aus ${c.land}.`,key:c=>c.land},
+  {q:'Wie alt ist er?',ru:'Сколько ему лет?',ans:c=>`Er ist ${c.alter} Jahre alt.`,key:c=>String(c.alter)},
+  {q:'Was ist er von Beruf?',ru:'Кто он по профессии?',ans:c=>`Er ist ${c.beruf}.`,key:c=>c.beruf},
 ];
-const people=[Object.assign({role:'',name:'Otto'},OTTO), ...FAM];
-document.getElementById('exercise').innerHTML = people.map((c,pi)=>{
-  const title = c.role ? `${c.role} · ${c.name}` : 'Otto MacLeod';
-  const qs = QS.map((o,qi)=>{
-    const ex = (pi===0 && qi===0);              // первый вопрос — решённый пример
-    return `
-    <div class="q" data-key="${o.key(c)}" data-ans="${o.ans(c)}">
-      <div class="qq">${o.q} <button class="lk2" onclick="toggleRu(this)">${ex?'Скрыть перевод':'Показать перевод'}</button>${ex?' <span class="exb">пример</span>':''}</div>
-      <div class="qru" ${ex?'':'hidden'}>${o.ru}</div>
-      <div class="qact">
-        <input class="qin" placeholder="Ответь по-немецки…" value="${ex?o.ans(c):''}">
-        <button class="btn sm" onclick="checkAns(this)">Проверить</button>
-        <button class="btn sm" onclick="showAns(this)">Показать ответ</button>
-      </div>
-      <div class="qres" style="${ex?'color:var(--das)':''}">${ex?'✓ Пример — так отвечаем. Дальше попробуй сам(а).':''}</div>
-    </div>`;
-  }).join('');
+const people=[Object.assign({role:'',name:'Otto'},OTTO),...FAM];
+document.getElementById('exercise').innerHTML=people.map((c,pi)=>{
+  const title=c.role?`${c.role} · ${c.name}`:'Otto MacLeod';
+  const qs=QS.map((o,qi)=>{const ex=(pi===0&&qi===0);return `<div class="q" data-key="${o.key(c)}" data-ans="${o.ans(c)}"><div class="qq">${o.q} <button class="lk2" onclick="toggleRu(this)">${ex?'Скрыть перевод':'Показать перевод'}</button>${ex?' <span class="exb">пример</span>':''}</div><div class="qru" ${ex?'':'hidden'}>${o.ru}</div><div class="qact"><input class="qin" placeholder="Ответь по-немецки…" value="${ex?o.ans(c):''}"><button class="btn sm" onclick="checkAns(this)">Проверить</button><button class="btn sm" onclick="showAns(this)">Показать ответ</button></div><div class="qres" style="${ex?'color:var(--das)':''}">${ex?'✓ Пример — так отвечаем. Дальше попробуй сам(а).':''}</div></div>`;}).join('');
   return `<details class="qcard"${pi===0?' open':''}><summary><span>${title}</span><span>▾</span></summary><div class="qbody">${qs}</div></details>`;
 }).join('');
-function toggleRu(btn){ const ru=btn.closest('.q').querySelector('.qru'); ru.hidden=!ru.hidden; btn.textContent=ru.hidden?'Показать перевод':'Скрыть перевод'; }
-function checkAns(btn){
-  const q=btn.closest('.q'), inp=q.querySelector('.qin'), res=q.querySelector('.qres');
-  const ok = norm(inp.value).length>0 && norm(inp.value).includes(norm(q.dataset.key));
-  inp.style.borderColor = ok?'var(--das)':'var(--die)';
-  res.style.color = ok?'var(--das)':'var(--die)';
-  res.textContent = ok?'✓ Верно!':'✗ Пока не то — попробуй ещё или открой ответ.';
+function toggleRu(btn){const ru=btn.closest('.q').querySelector('.qru');ru.hidden=!ru.hidden;btn.textContent=ru.hidden?'Показать перевод':'Скрыть перевод';}
+function checkAns(btn){const q=btn.closest('.q'),inp=q.querySelector('.qin'),res=q.querySelector('.qres');const ok=norm(inp.value).length>0&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=ok?'var(--das)':'var(--die)';res.style.color=ok?'var(--das)':'var(--die)';res.textContent=ok?'✓ Верно!':'✗ Пока не то — попробуй ещё или открой ответ.';}
+function showAns(btn){const q=btn.closest('.q');q.querySelector('.qres').innerHTML='<span style="color:var(--accent)">Ответ: '+q.dataset.ans+'</span>';}
+
+/* ---- карточки ---- */
+const CARDS=[
+  {e:'📇',ru:'имя',de:'Name'},{e:'📇',ru:'личное имя',de:'Vorname'},{e:'📇',ru:'фамилия',de:'Familienname'},
+  {e:'💼',ru:'профессия',de:'Beruf'},{e:'💍',ru:'семейное положение',de:'Familienstand'},{e:'🏠',ru:'место жительства',de:'Wohnort'},
+  {e:'👴',ru:'дед',de:'Großvater'},{e:'👨',ru:'отец',de:'Vater'},{e:'🧔',ru:'дядя',de:'Onkel'},{e:'👦',ru:'брат',de:'Bruder'},{e:'🧑',ru:'сын',de:'Sohn'},{e:'🧒',ru:'внук',de:'Enkel'},
+  {e:'👨‍🌾',ru:'садовник',de:'Gärtner'},{e:'👴',ru:'пенсионер',de:'Rentner'},{e:'👨‍🏫',ru:'учитель',de:'Lehrer'},{e:'🧑‍🍳',ru:'официант',de:'Kellner'},
+  {e:'👷',ru:'инженер',de:'Ingenieur'},{e:'📐',ru:'архитектор',de:'Architekt'},{e:'🧑‍💼',ru:'продавец',de:'Verkäufer'},{e:'👨‍🎓',ru:'студент',de:'Student'},{e:'🎒',ru:'школьник',de:'Schüler'},
+];
+let ci=0,flipped=false;
+function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">der</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();speak('der ${c.de}')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%CARDS.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+CARDS.length)%CARDS.length;flipped=false;renderCard();}
+renderCard();
+
+/* ---- соотнеси ---- */
+const MATCH=[['der Großvater','дед'],['der Vater','отец'],['der Bruder','брат'],['der Sohn','сын'],['der Enkel','внук'],['der Onkel','дядя']];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let mSelDe=null,mLinks={},mRuOrder=[];
+function renderMatch(){
+  mSelDe=null;mLinks={};mRuOrder=shuffle(MATCH.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MATCH.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="mPickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=mRuOrder.map(i=>`<div class="mchip ru" data-i="${i}" onclick="mPickRu(${i})">${MATCH[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';
 }
-function showAns(btn){ const q=btn.closest('.q'); q.querySelector('.qres').innerHTML='<span style="color:var(--accent)">Ответ: '+q.dataset.ans+'</span>'; }
+function mPickDe(i){mSelDe=i;document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===i));}
+function mPickRu(ri){if(mSelDe===null)return;mLinks[mSelDe]=ri;
+  document.querySelectorAll('#mDe .mchip').forEach(c=>{const di=+c.dataset.i;c.classList.toggle('linked',di in mLinks);c.classList.remove('sel');const pn=Object.keys(mLinks).indexOf(String(di));c.querySelector('.pn')?.remove();if(di in mLinks){c.insertAdjacentHTML('beforeend',`<span class="pn">${pairNum(di)}</span>`);}});
+  document.querySelectorAll('#mRu .mchip').forEach(c=>{const ri2=+c.dataset.i;c.querySelector('.pn')?.remove();const owner=Object.keys(mLinks).find(k=>mLinks[k]===ri2);if(owner!==undefined){c.insertAdjacentHTML('beforeend',`<span class="pn">${pairNum(+owner)}</span>`);}});
+  mSelDe=null;
+}
+function pairNum(di){return Object.keys(mLinks).indexOf(String(di))+1;}
+function matchCheck(){let ok=0;document.querySelectorAll('#mDe .mchip').forEach(c=>{const di=+c.dataset.i;const good=mLinks[di]===di;c.classList.toggle('ok',good);c.classList.toggle('bad',di in mLinks&&!good);if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MATCH.length?'var(--das)':'var(--die)'}">${ok} / ${MATCH.length} верно${ok<MATCH.length?' — поправь и проверь ещё раз':' 🎉'}</span>`;}
+function matchReset(){document.querySelectorAll('#mDe .mchip,#mRu .mchip').forEach(c=>c.classList.remove('ok','bad','linked','sel'));renderMatch();}
+renderMatch();
+
+/* ---- напиши с артиклем ---- */
+const WRITE=[['дед','der Großvater'],['отец','der Vater'],['сын','der Sohn'],['внук','der Enkel'],['учитель','der Lehrer'],['садовник','der Gärtner']];
+document.getElementById('writeList').innerHTML=WRITE.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="der …" autocomplete="off"><span class="corr"></span></div>`).join('');
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v===norm(WRITE[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно</span>`;}
+function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
+
+/* ---- вставь в текст ---- */
+const GAP=[
+  ['Otto kommt aus Schottland, aber jetzt wohnt er in ','Deutschland','(страна)'],
+  ['Von ','Beruf','(профессия) ist Otto Gärtner.'],
+  ['Otto ist geschieden. Sein ','Sohn','(сын) heißt Ewan.'],
+  ['Ewan hat einen Sohn — das ist Ottos ','Enkel','(внук) Finlay.'],
+];
+document.getElementById('gap').innerHTML=GAP.map((g,i)=>`<div data-i="${i}" style="margin:6px 0">${g[0]}<input placeholder="…" autocomplete="off"> <span class="hint">${g[2]}</span></div>`).join('');
+function gapCheck(){let ok=0;document.querySelectorAll('#gap [data-i]').forEach(r=>{const i=+r.dataset.i;const inp=r.querySelector('input');const good=norm(inp.value)===norm(GAP[i][1]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('gScore').innerHTML=`<span style="color:${ok===GAP.length?'var(--das)':'var(--die)'}">${ok} / ${GAP.length} верно</span>`;}
+function gapReset(){document.querySelectorAll('#gap input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--der)';i.style.color='var(--der)';});document.getElementById('gScore').textContent='';}
 </script>
 </body>
 </html>

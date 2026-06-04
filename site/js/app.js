@@ -16,13 +16,24 @@ function speak(text){
   catch(e){ alert('Озвучка недоступна в этом браузере'); }
 }
 // длинный текст — кнопка играть/пауза/продолжить
+// очередь предложений (длинный текст Chrome рвёт → режем; запуск СИНХРОННО, иначе Safari блокирует)
+let _q=[], _qi=0, _qBtn=null, _qOn=false;
+function _next(){
+  const sy=window.speechSynthesis;
+  if(_qi>=_q.length){ _qOn=false; if(_qBtn) _qBtn.textContent='🔊 Послушать'; return; }
+  const u=_utter(_q[_qi]);
+  u.onend=()=>{ _qi++; _next(); };
+  u.onerror=()=>{ _qi++; _next(); };
+  sy.speak(u);
+}
 function toggleSpeak(text, btn){
-  const sy = window.speechSynthesis; if(!sy){ alert('Озвучка недоступна'); return; }
-  if(sy.speaking && !sy.paused){ sy.pause(); if(btn) btn.textContent='▶ Продолжить'; return; }
-  if(sy.speaking && sy.paused){ sy.resume(); if(btn) btn.textContent='⏸ Пауза'; return; }
-  const u=_utter(text); u.onend=()=>{ if(btn) btn.textContent='🔊 Послушать'; };
+  const sy = window.speechSynthesis; if(!sy){ alert('Озвучка недоступна в этом браузере'); return; }
+  if(_qOn && sy.speaking && !sy.paused){ sy.pause(); if(btn) btn.textContent='▶ Продолжить'; return; }
+  if(_qOn && sy.paused){ sy.resume(); if(btn) btn.textContent='⏸ Пауза'; return; }
   try{ sy.cancel(); }catch(e){}
-  setTimeout(()=>{ sy.speak(u); if(btn) btn.textContent='⏸ Пауза'; }, 60);
+  _q = (text||'').replace(/\s+/g,' ').trim().match(/[^.!?]+[.!?]*/g) || [text];
+  _qi=0; _qBtn=btn; _qOn=true; if(btn) btn.textContent='⏸ Пауза';
+  _next(); // СИНХРОННО, внутри клика — иначе Safari/iOS не озвучит
 }
 // начать текст сначала
 function restartSpeak(text, btn){
