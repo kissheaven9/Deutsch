@@ -227,16 +227,16 @@ function matchReset(){renderMatch();}
 renderMatch();
 
 /* напиши с артиклем */
-const WRITE=[['стул','der Stuhl'],['кресло','der Sessel'],['стол','der Tisch'],['шкаф','der Schrank'],['ковёр','der Teppich'],['зеркало','der Spiegel']];
+const WRITE=[['ключи','der Schlüssel'],['кошелёк','der Geldbeutel'],['зонт','der Regenschirm'],['шариковая ручка','der Kugelschreiber'],['карандаш','der Bleistift'],['фен','der Föhn']];
 document.getElementById('writeList').innerHTML=WRITE.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="der …" autocomplete="off"><span class="corr"></span></div>`).join('');
 function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v===norm(WRITE[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно</span>`;}
 function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
 
 /* вставь в текст */
 const GAPPARTS=[
-  {t:'Das ist Ottos Zimmer. Hier ist sein '},{a:'Stuhl',h:'стул'},{t:' aus Holz, braun und alt. Sein '},{a:'Sessel',h:'кресло'},{t:' ist groß und dunkelrot. Sein '},{a:'Tisch',h:'стол'},{t:' ist schwarz und modern. '},
-  {t:'Sein '},{a:'Schrank',h:'шкаф'},{t:' ist weiß. Sein '},{a:'Teppich',h:'ковёр'},{t:' ist rot und orange. Sein '},{a:'Spiegel',h:'зеркало'},{t:' ist klein. '},
-  {t:'Sein '},{a:'Geldbeutel',h:'кошелёк'},{t:' ist braun, und sein '},{a:'Regenschirm',h:'зонт'},{t:' ist grün. Otto hat viele '},{a:'Schlüssel',h:'ключи'},{t:'!'},
+  {t:'Otto kauft gern, aber günstig. Sein Stuhl kostet nur 49 '},{a:'Euro',h:'евро'},{t:'. Der '},{a:'Preis',h:'цена'},
+  {t:' ist für Otto wichtig. Manchmal kostet etwas nur 50 '},{a:'Cent',h:'цент'},{t:'. '},
+  {t:'Sein Tisch ist aus Holz, nicht aus '},{a:'Kunststoff',h:'пластик'},{t:'. Am Morgen trinkt Otto einen '},{a:'Kaffee',h:'кофе'},{t:'.'},
 ];
 const GANS=GAPPARTS.filter(p=>p.a).map(p=>p.a);
 let gk=0;

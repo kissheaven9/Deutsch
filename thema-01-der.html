@@ -303,7 +303,7 @@ function matchReset(){ renderMatch(); }
 renderMatch();
 
 /* ---- напиши с артиклем ---- */
-const WRITE=[['дед','der Großvater'],['отец','der Vater'],['сын','der Sohn'],['внук','der Enkel'],['учитель','der Lehrer'],['садовник','der Gärtner']];
+const WRITE=[['учитель','der Lehrer'],['пенсионер','der Rentner'],['официант','der Kellner'],['инженер','der Ingenieur'],['продавец','der Verkäufer'],['студент','der Student']];
 document.getElementById('writeList').innerHTML=WRITE.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="der …" autocomplete="off"><span class="corr"></span></div>`).join('');
 function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v===norm(WRITE[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно</span>`;}
 function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
@@ -311,11 +311,10 @@ function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.
 /* ---- вставь в текст ---- */
 const GAPPARTS=[
   {t:'Das ist Otto. Sein '},{a:'Name',h:'имя'},{t:' ist Otto, sein '},{a:'Familienname',h:'фамилия'},
-  {t:' ist MacLeod. Von '},{a:'Beruf',h:'профессия'},{t:' ist er Gärtner. Sein '},{a:'Familienstand',h:'сем. полож.'},
-  {t:': geschieden. Sein '},{a:'Wohnort',h:'место жит.'},{t:' ist jetzt Deutschland. '},
-  {t:'Ottos '},{a:'Großvater',h:'дед'},{t:' heißt Angus, er ist Rentner. Sein '},{a:'Vater',h:'отец'},
-  {t:' Hamish ist Lehrer. Otto hat auch einen '},{a:'Bruder',h:'брат'},{t:': Callum, er ist Verkäufer. '},
-  {t:'Ottos '},{a:'Sohn',h:'сын'},{t:' Ewan ist Student. Ewan hat einen Sohn — das ist Ottos '},{a:'Enkel',h:'внук'},{t:'. Er heißt Finlay und ist Schüler.'},
+  {t:' ist MacLeod. Von '},{a:'Beruf',h:'профессия'},{t:' ist er '},{a:'Gärtner',h:'садовник'},
+  {t:'. Sein '},{a:'Familienstand',h:'сем. полож.'},{t:': geschieden. Sein '},{a:'Wohnort',h:'место жит.'},
+  {t:' ist jetzt Deutschland. Sein Onkel Duncan ist '},{a:'Architekt',h:'архитектор'},
+  {t:', und sein Enkel Finlay ist '},{a:'Schüler',h:'школьник'},{t:'.'},
 ];
 const GANS=GAPPARTS.filter(p=>p.a).map(p=>p.a);
 let gk=0;
