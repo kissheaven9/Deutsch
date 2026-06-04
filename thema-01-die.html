@@ -27,6 +27,17 @@
   .cov{cursor:pointer;display:inline-block}
   .cov .vv{background:var(--die);color:var(--die);border-radius:4px;padding:0 5px;font-weight:700;transition:.1s}
   .cov.open .vv{background:#fdecec;color:var(--die)}
+  /* красные точки-маркеры: клик → открывается немецкое слово */
+  .mk{position:absolute;transform:translate(-50%,-50%);width:17px;height:17px;border-radius:50%;
+    background:var(--die);border:2px solid #fff;box-shadow:0 1px 4px #0007;cursor:pointer;padding:0;z-index:2}
+  .mk:active{filter:brightness(1.15)}
+  .mk .mkw{display:none;position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;
+    background:#fff;border:2px solid var(--die);color:var(--die);font-weight:700;font-size:12px;
+    border-radius:8px;padding:3px 8px;box-shadow:0 2px 8px #0005}
+  .mk.open{z-index:5}
+  .mk.open .mkw{display:block}
+  .mk.dir-l .mkw{right:135%}
+  .mk.dir-r .mkw{left:135%}
   .greta{left:1.5%;bottom:2.5%;top:auto;transform:none;text-align:left;max-width:46%;font-size:11px}
   .greta .line{display:block;line-height:1.65}
   .greta .hd{font-weight:800;color:var(--die)}
@@ -176,35 +187,27 @@
 <script src="js/app.js"></script>
 <script>
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
-/* ---- подписи: анкета Греты (поля die) + родство/профессия родни ---- */
+/* ---- подписи: красные точки-маркеры (без русского); клик → немецкое слово ---- */
 const stage=document.getElementById('stage');
-function covH(hint,de){return `<span class="cov" onclick="this.classList.toggle('open')"><span class="ohint" style="display:inline;margin-right:3px">${hint}</span><b class="vv">${de}</b></span>`;}
-function place(x,y,html,mw){const d=document.createElement('div');d.className='lbl die';d.style.left=x+'%';d.style.top=y+'%';if(mw)d.style.maxWidth=mw;d.innerHTML=html;stage.appendChild(d);}
+function mk(x,y,word,dir){const b=document.createElement('button');b.className='mk dir-'+(dir||'l');b.style.left=x+'%';b.style.top=y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkw">${word}</span>`;stage.appendChild(b);}
 
-// АНКЕТА — отдельные плашки напротив строк визитки (слева)
-place(35,26,'👩‍🍳 '+covH('повар','die Köchin'),'30%');
-place(41,31,covH('улица','die Straße')+' '+covH('дом','die Hausnummer'),'36%');
-place(42,36,covH('индекс','die Postleitzahl')+' '+covH('город','die Stadt'),'36%');
-place(37,40,'📞 '+covH('телефон','die Telefonnummer'),'32%');
-place(37,44,'✉️ '+covH('почта','die E-Mail'),'30%');
-place(37,48,'🌍 '+covH('национальность','die Nationalität'),'30%');
+// АНКЕТА — точки у строк визитки Греты (открываются влево, над карточкой)
+mk(30,26,'die Köchin','l');
+mk(30,31,'die Straße · die Hausnummer','l');
+mk(30,36,'die Postleitzahl · die Stadt','l');
+mk(30,40,'die Telefonnummer','l');
+mk(30,44,'die E-Mail','l');
+mk(30,48,'die Nationalität','l');
 
-// РОДНЯ — родство + профессия (двумя строками), НЕ на лица
-function fam(x,y,roleRu,roleDe,profDe){
-  const prof = profDe ? `<br>${covH('по профессии',profDe)}` : '';
-  place(x,y,`${covH(roleRu,roleDe)}${prof}`,'22%');
-}
-// верхний ряд — НАД карточками
-fam(60,9,'сестра','die Schwester','die Friseurin');      // Carla
-fam(76,9,'дочь','die Tochter','die Krankenschwester');   // Mia
-fam(90,9,'сестра','die Schwester','die Ärztin');         // Lucia
-// средний ряд — по сторонам
-fam(49,52,'мама','die Mutter','die Sängerin');           // Anna — слева
-fam(76,41,'бабушка','die Oma','die Rentnerin');          // Pia — сверху
-fam(90,72,'тётя','die Tante','die Verkäuferin');         // Rosa — правый низ
-// внучка — снизу, лицо открыто
-fam(80,90,'внучка','die Enkelin',null);                  // Sofia
-function toggleCovers(btn){const cs=[...document.querySelectorAll('.cov')];const any=cs.some(c=>!c.classList.contains('open'));cs.forEach(c=>c.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть слова':'👁 Открыть все слова';}
+// РОДНЯ — отдельно родство и «von Beruf», компактно, не на лицах/именах
+mk(57,9,'die Schwester','r');  mk(63,9,'von Beruf: die Friseurin','r');       // Carla — над карточкой
+mk(73,9,'die Tochter','l');    mk(79,9,'von Beruf: die Krankenschwester','r'); // Mia — над карточкой
+mk(86,9,'die Schwester','l');  mk(92,9,'von Beruf: die Ärztin','l');          // Lucia — над карточкой
+mk(47,49,'die Mutter','r');    mk(47,55,'von Beruf: die Sängerin','r');        // Anna — слева
+mk(72,40,'die Oma','l');       mk(80,40,'von Beruf: die Rentnerin','r');       // Pia — сверху
+mk(86,72,'die Tante','l');     mk(93,72,'von Beruf: die Verkäuferin','l');     // Rosa — правый низ
+mk(88,86,'die Enkelin','l');                                                  // Sofia — сбоку, лицо открыто
+function toggleCovers(btn){const ms=[...document.querySelectorAll('.mk')];const any=ms.some(m=>!m.classList.contains('open'));ms.forEach(m=>m.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть слова':'👁 Открыть все слова';}
 
 /* ---- слова сцены (die) ---- */
 const WORDS=[
