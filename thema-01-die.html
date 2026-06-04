@@ -176,30 +176,34 @@
 <script src="js/app.js"></script>
 <script>
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
-/* ---- подписи: анкета Греты (поля die) + профессии родни ---- */
+/* ---- подписи: анкета Греты (поля die) + родство/профессия родни ---- */
 const stage=document.getElementById('stage');
-function covH(hint,de){return `<span class="cov" onclick="this.classList.toggle('open')"><span class="ohint" style="display:inline">${hint}</span> <b class="vv">${de}</b></span>`;}
-// анкета — панель внизу слева
-const gc=document.createElement('div'); gc.className='lbl greta die';
-gc.innerHTML=`<span class="line hd">🪪 Анкета Греты — тапни поле</span>
-  <span class="line">🌍 ${covH('национальность','die Nationalität')}</span>
-  <span class="line">🏠 ${covH('улица','die Straße')} · 🔢 ${covH('номер дома','die Hausnummer')}</span>
-  <span class="line">📮 ${covH('индекс','die Postleitzahl')} · 🏙️ ${covH('город','die Stadt')}</span>
-  <span class="line">📞 ${covH('телефон','die Telefonnummer')}</span>
-  <span class="line">✉️ ${covH('почта','die E-Mail')} · 👩‍🍳 ${covH('повар','die Köchin')}</span>`;
-stage.appendChild(gc);
-// родня на открытках: имя в кадре, профессия/родство скрыты
-const FAM=[
-  {hint:'сестра',de:'die Friseurin',x:62,y:25},   // Carla
-  {hint:'дочь',de:'die Krankenschwester',x:78,y:25}, // Mia
-  {hint:'сестра',de:'die Ärztin',x:92,y:25},       // Lucia
-  {hint:'мама',de:'die Sängerin',x:62,y:57},       // Anna
-  {hint:'бабушка',de:'die Rentnerin',x:78,y:57},   // Pia
-  {hint:'тётя',de:'die Verkäuferin',x:92,y:57},    // Rosa
-  {hint:'внучка',de:'die Enkelin',x:80,y:84},      // Sofia
-];
-FAM.forEach(f=>{const d=document.createElement('div');d.className='lbl die';d.style.left=f.x+'%';d.style.top=f.y+'%';
-  d.innerHTML=`<span class="cov" onclick="this.classList.toggle('open')"><span class="ohint">${f.hint}</span><b class="vv">${f.de}</b></span>`;stage.appendChild(d);});
+function covH(hint,de){return `<span class="cov" onclick="this.classList.toggle('open')"><span class="ohint" style="display:inline;margin-right:3px">${hint}</span><b class="vv">${de}</b></span>`;}
+function place(x,y,html,mw){const d=document.createElement('div');d.className='lbl die';d.style.left=x+'%';d.style.top=y+'%';if(mw)d.style.maxWidth=mw;d.innerHTML=html;stage.appendChild(d);}
+
+// АНКЕТА — отдельные плашки напротив строк визитки (слева)
+place(35,26,'👩‍🍳 '+covH('повар','die Köchin'),'30%');
+place(41,31,covH('улица','die Straße')+' '+covH('дом','die Hausnummer'),'36%');
+place(42,36,covH('индекс','die Postleitzahl')+' '+covH('город','die Stadt'),'36%');
+place(37,40,'📞 '+covH('телефон','die Telefonnummer'),'32%');
+place(37,44,'✉️ '+covH('почта','die E-Mail'),'30%');
+place(37,48,'🌍 '+covH('национальность','die Nationalität'),'30%');
+
+// РОДНЯ — родство + профессия (двумя строками), НЕ на лица
+function fam(x,y,roleRu,roleDe,profDe){
+  const prof = profDe ? `<br>${covH('по профессии',profDe)}` : '';
+  place(x,y,`${covH(roleRu,roleDe)}${prof}`,'22%');
+}
+// верхний ряд — НАД карточками
+fam(60,9,'сестра','die Schwester','die Friseurin');      // Carla
+fam(76,9,'дочь','die Tochter','die Krankenschwester');   // Mia
+fam(90,9,'сестра','die Schwester','die Ärztin');         // Lucia
+// средний ряд — по сторонам
+fam(49,52,'мама','die Mutter','die Sängerin');           // Anna — слева
+fam(76,41,'бабушка','die Oma','die Rentnerin');          // Pia — сверху
+fam(90,72,'тётя','die Tante','die Verkäuferin');         // Rosa — правый низ
+// внучка — снизу, лицо открыто
+fam(80,90,'внучка','die Enkelin',null);                  // Sofia
 function toggleCovers(btn){const cs=[...document.querySelectorAll('.cov')];const any=cs.some(c=>!c.classList.contains('open'));cs.forEach(c=>c.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть слова':'👁 Открыть все слова';}
 
 /* ---- слова сцены (die) ---- */
