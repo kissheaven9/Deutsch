@@ -37,8 +37,9 @@
 
 | Сцена | Уроки | Тематика | die-слова (целевые) | Статус |
 |---|---|---|---|---|
-| **1. Грета: знакомство, языки, семья** | L1,L2,L3 | 👩 Люди | die Frau/Mutter/Schwester/Oma/Großmutter/Tochter/Enkelin/Tante; die Sprache/Herkunft/Familie; die Köchin/Krankenschwester (-in); die Türkei/Schweiz, die Firma/Stelle/Ausbildung | образец §7a ✓ · сверить |
-| **2. Кухня и вещи Греты** | L4,L5,L6 | 🍳 Дом | die Möbel/Lampe/Uhr/Brille/Flasche/Kamera/Kette/Tasche/Jacke/Bürste/Seife/Sonnenbrille; die Farbe; die Arbeit/Zeit/Nachricht/Maus/Tastatur/E-Mail | сверить |
+| **1. Грета: языки, происхождение, семья** | L1,L2,L3 | 👩 Люди | die Frau/Mutter/Schwester/Oma/Großmutter/Tochter/Enkelin/Tante; **die Sprache/Herkunft** (углублённо по каждому); die Köchin/Krankenschwester (-in); die Türkei/Schweiz, die Firma/Stelle/Ausbildung/Partnerin | образец §7a ✓ · сверить |
+| **2a. Анкета и контакты Греты** | L4,L6 | 📇 Анкета | **die Stadt/Straße/Hausnummer/Postleitzahl/Telefonnummer/Adresse** (каждого!); die E-Mail/Visitenkarte/Nachricht/Person/Liste/Arbeit/Zeit/Maus/Tastatur; ⚠️die Nationalität | сверить |
+| **2b. Вещи Греты** | L5 | 👜 Вещи | die Tasche/Brille/Sonnenbrille/Uhr/Kette/Flasche/Kamera/Jacke/Bürste/Seife/Sonne/Farbe; цвета/материалы/цена/оценка | сверить |
 | **3. Неделя Греты** | L7,L8 | ⏰ Досуг | die Freizeit/Freundin/Kauffrau/Fitness; die Woche/Nacht/Lust/Idee/Bar/Frage/Antwort/Ausstellung | сверить |
 | **4. Стол Греты (еда)** | L9 | 🍲 Еда | die Suppe/Schokolade/Orange/Tomate/Semmel/Marmelade/Butter/Milch/Tasse/Kartoffel/Nudel/Soße/Zitrone/Sahne/Portion/Speisekarte | сверить |
 | **5. Поездка Греты** | L10 | 🚊 Путь | die Reise/Kollegin/U-Bahn/Straßenbahn/S-Bahn/Maschine/Verspätung/Durchsage/Richtung/Fahrt/Vorsicht | сверить |
