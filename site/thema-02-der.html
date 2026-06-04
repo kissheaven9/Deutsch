@@ -15,8 +15,9 @@
   .part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
   .part h2{margin:2px 0 0;font-size:24px}
   .part.read{background:#f1f5f9} .part.text{background:#faf5ff} .part.train{background:#f3e8ff;border-color:#e9d5ff}
-  .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0;box-shadow:0 1px 2px #0000000a}
-  .panel>h3{margin:0 0 10px;font-size:18px;display:flex;gap:8px;align-items:center}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:18px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:#faf7ff;border-bottom:1px solid #eee6fb;border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700;flex:none}
   .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
   .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
   .stage img{width:100%;height:auto;display:block}
@@ -115,14 +116,14 @@
   <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова</h2></div></div>
 
   <div class="panel">
-    <h3>🃏 Карточки — тренировка</h3>
+    <h3><span class="exnum">1</span>🃏 Карточки — тренировка</h3>
     <p class="sub">Картинка и русское слово — вспомни немецкое, нажми, чтобы перевернуть. Листай ← →.</p>
     <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-emoji" id="cEmoji"></div><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
     <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
   </div>
 
   <div class="panel">
-    <h3>🔗 Соотнеси: немецкое ↔ русское</h3>
+    <h3><span class="exnum">2</span>🔗 Соотнеси: немецкое ↔ русское</h3>
     <p class="sub">Нажми немецкое слово, потом его перевод — пара окрасится в свой цвет. Выбор можно менять.</p>
     <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
     <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="matchReset()">Попробовать ещё раз</button></div>
@@ -130,7 +131,7 @@
   </div>
 
   <div class="panel">
-    <h3>✍️ Напиши с артиклем</h3>
+    <h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
     <p class="sub">Дано слово по-русски — впиши его по-немецки с артиклем (der …).</p>
     <div id="writeList"></div>
     <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
@@ -138,7 +139,7 @@
   </div>
 
   <div class="panel">
-    <h3>🧩 Вставь слово в текст</h3>
+    <h3><span class="exnum">4</span>🧩 Вставь слово в текст</h3>
     <p class="sub">По смыслу понятно, какое слово пропущено — впиши его по-немецки.</p>
     <div class="gap" id="gap"></div>
     <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapReset()">Ещё раз</button></div>
