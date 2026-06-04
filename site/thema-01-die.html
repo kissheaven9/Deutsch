@@ -193,22 +193,22 @@ function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
 const stage=document.getElementById('stage');
 function mk(x,y,word,dir,letter){const b=document.createElement('button');b.className='mk dir-'+(dir||'l');b.style.left=x+'%';b.style.top=y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkl">${letter||''}</span><span class="mkw">${word}</span>`;stage.appendChild(b);}
 
-// АНКЕТА — точки слева у строк визитки (координаты сняты с картинки); открываются вправо
-mk(6.5,27,'die Köchin','r');
+// АНКЕТА — точки слева у строк визитки; первую (Köchin) опустил к остальным (равный шаг)
+mk(6.5,32.5,'die Köchin','r');
 mk(6.5,37,'die Straße · die Hausnummer','r');
 mk(6.5,42,'die Postleitzahl · die Stadt','r');
 mk(6.5,46,'die Telefonnummer','r');
 mk(6.5,50.5,'die E-Mail','r');
 mk(6.5,55,'die Nationalität','r');
 
-// РОДНЯ — у каждого имени: СЛЕВА простой кружок (родство), СПРАВА кружок 🔨 (профессия)
-mk(60,39,'die Schwester','l','');  mk(71,39,'von Beruf: die Friseurin','r','🔨');        // Carla
-mk(72,39,'die Tochter','l','');    mk(82,39,'von Beruf: die Krankenschwester','r','🔨'); // Mia
-mk(83,39,'die Schwester','l','');  mk(95,39,'von Beruf: die Ärztin','l','🔨');           // Lucia
-mk(60,62,'die Mutter','l','');     mk(71,62,'von Beruf: die Sängerin','r','🔨');         // Anna
-mk(72,62,'die Oma','l','');        mk(81,62,'von Beruf: die Rentnerin','r','🔨');        // Pia
-mk(83,64,'die Tante','l','');      mk(94,64,'von Beruf: die Verkäuferin','l','🔨');      // Rosa
-mk(71,89,'die Enkelin','l','');                                                          // Sofia — родство
+// РОДНЯ — ОДНА точка по центру каждой фотографии: родство + профессия (по-немецки)
+mk(65,27,'die Schwester · die Friseurin','l');        // Carla
+mk(77,27,'die Tochter · die Krankenschwester','l');   // Mia
+mk(89,27,'die Schwester · die Ärztin','l');           // Lucia
+mk(65,54,'die Mutter · die Sängerin','l');            // Anna
+mk(76,54,'die Oma · die Rentnerin','l');              // Pia
+mk(89,55,'die Tante · die Verkäuferin','l');          // Rosa
+mk(76,80,'die Enkelin','l');                          // Sofia
 function toggleCovers(btn){const ms=[...document.querySelectorAll('.mk')];const any=ms.some(m=>!m.classList.contains('open'));ms.forEach(m=>m.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть слова':'👁 Открыть все слова';}
 
 /* ---- слова сцены (die) ---- */
