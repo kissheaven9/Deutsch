@@ -19,6 +19,21 @@
   .pr.das{background:#e8f6ee} .pr.das b{color:var(--das)}
   .pr-note{color:var(--muted);font-size:14px;margin:6px 0 2px}
   @media(max-width:560px){.hero-cap h2{font-size:17px} .hero-cap p{font-size:12px}}
+  /* большая плашка словаря */
+  .dictbig{display:flex;gap:16px;align-items:center;background:linear-gradient(135deg,#6d28d9,#8b5cf6);color:#fff;
+    border-radius:18px;padding:18px 20px;margin:18px 0;box-shadow:0 8px 22px #6d28d933}
+  .dictbig:active{transform:scale(.995)}
+  .dictbig .db-ico{font-size:44px;flex:none}
+  .dictbig .db-title{font-size:20px;font-weight:800}
+  .dictbig .db-sub{font-size:14px;opacity:.92;margin-top:2px}
+  .dictbig .db-search{margin-top:11px;background:#ffffff26;border:1px solid #ffffff66;border-radius:10px;padding:9px 12px;font-size:14px;display:inline-block}
+  /* карточки тем со значком */
+  .tcard{display:flex;gap:14px;align-items:flex-start}
+  .tico{font-size:34px;line-height:1;flex:none}
+  /* раздел для разработчика */
+  .dev-h{color:var(--muted);font-size:15px;font-weight:700;margin:34px 0 8px;border-top:1px solid var(--line);padding-top:18px}
+  .dev{opacity:.65}
+  .dev .card{background:#f8fafc}
 </style>
 </head>
 <body>
@@ -38,23 +53,29 @@
     <p class="pr-note">Читай истории, рассматривай картинки, слушай — и закрепляй слова в упражнениях. Удачи! 🍀</p>
   </div>
 
+  <a class="dictbig" href="dictionary.html">
+    <div class="db-ico">📖</div>
+    <div class="db-body">
+      <div class="db-title">Словарь — все слова</div>
+      <div class="db-sub">Все слова пройденных тем в одном месте: фильтр по роду, озвучка, самопроверка.</div>
+      <span class="db-search">🔍 Найти слово…</span>
+    </div>
+  </a>
+
   <h2>Темы</h2>
   <p class="lead" style="margin-top:0">Выбери тему — внутри: существительные (der/die/das), глаголы, другое и топики.</p>
   <div class="grid">
-    <a class="card" href="thema-01.html"><h3>1. Знакомство и семья <span class="badge">L1–L3</span></h3><p>Кто такой Otto, профессии, семья. Существительные по роду + глаголы + другое + топики.</p></a>
-    <a class="card" href="thema-02-der.html"><h3>2. Быт (дом) <span class="badge">Сцена 2 ✓</span></h3><p>Мебель и вещи Otto (der). Картинка, слова, текст, упражнения. L4–L5.</p></a>
-    <a class="card disabled" href="#"><h3>3. Еда <span class="badge soon">скоро</span></h3><p>Продукты и напитки. L9.</p></a>
-    <a class="card disabled" href="#"><h3>4. Город и дорога <span class="badge soon">скоро</span></h3><p>Места, транспорт. L10, L13–L14.</p></a>
+    <a class="card tcard" href="thema-01.html"><div class="tico">👨‍👩‍👧‍👦</div><div><h3>1. Знакомство и семья <span class="badge">L1–L3</span></h3><p>Кто такой Otto, профессии, семья. По роду + глаголы + другое + топики.</p></div></a>
+    <a class="card tcard" href="thema-02-der.html"><div class="tico">🛋️</div><div><h3>2. Быт (дом) <span class="badge">Сцена 2 ✓</span></h3><p>Мебель и вещи Otto (der). Картинка, слова, текст, упражнения. L4–L5.</p></div></a>
+    <a class="card tcard disabled" href="#"><div class="tico">🍽️</div><div><h3>3. Еда <span class="badge soon">скоро</span></h3><p>Продукты и напитки. L9.</p></div></a>
+    <a class="card tcard disabled" href="#"><div class="tico">🏙️</div><div><h3>4. Город и дорога <span class="badge soon">скоро</span></h3><p>Места, транспорт. L10, L13–L14.</p></div></a>
   </div>
 
-  <h2>Ещё</h2>
-  <div class="grid">
+  <div class="dev-h">🛠 Информация для разработчика</div>
+  <div class="grid dev">
     <a class="card" href="otto-arc.html"><h3>История Otto на весь А1 <span class="badge">роадмап</span></h3><p>Как сериал тянется через все темы; логика и порядок сцен.</p></a>
-    <a class="card" href="otto-der-szenen.html"><h3>Все сцены DER — тексты <span class="badge">на проверку</span></h3><p>11 сцен Otto: русские истории + сверенные мужские слова + промпты. Проверить тексты.</p></a>
-    <a class="card" href="dictionary.html"><h3>Словарь <span class="badge">Тема 1</span></h3><p>Накопительный словарь: der/die/das + глаголы (спряжение) + другое. Поиск, глазик, озвучка.</p></a>
+    <a class="card" href="otto-der-szenen.html"><h3>Все сцены DER — тексты <span class="badge">на проверку</span></h3><p>11 сцен Otto: русские истории + сверенные мужские слова + промпты.</p></a>
   </div>
-
-  <div class="note">Прототип структуры. «Техническая» страница сцены (слова · история · промпт) — для согласования текста и генерации картинки; на сайте сцена выглядит как картинка + подписи (глазик) + текст + аудио.</div>
 </main>
 <footer>Deutsch A1 · локальный прототип · структура из docs/07</footer>
 <script src="js/app.js"></script>
