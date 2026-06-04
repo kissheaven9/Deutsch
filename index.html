@@ -5,12 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deutsch — система запоминания лексики А1</title>
 <link rel="stylesheet" href="css/style.css">
+<style>
+  .hero{position:relative;border-radius:18px;overflow:hidden;margin:6px 0 4px;border:1px solid var(--line)}
+  .hero img{width:100%;display:block}
+  .hero-cap{position:absolute;left:0;right:0;bottom:0;padding:22px 18px 14px;background:linear-gradient(transparent,#000000d6);color:#fff}
+  .hero-cap h2{margin:0;color:#fff;font-size:23px;line-height:1.2}
+  .hero-cap p{margin:5px 0 0;font-size:14px;opacity:.95}
+  .principle{display:grid;gap:8px;margin:14px 0 6px}
+  .pr{display:flex;gap:8px;align-items:center;padding:11px 14px;border-radius:12px;font-size:15px;border:1px solid var(--line)}
+  .pr b{font-weight:800}
+  .pr.der{background:#eff3ff} .pr.der b{color:var(--der)}
+  .pr.die{background:#fdecec} .pr.die b{color:var(--die)}
+  .pr.das{background:#e8f6ee} .pr.das b{color:var(--das)}
+  .pr-note{color:var(--muted);font-size:14px;margin:6px 0 2px}
+  @media(max-width:560px){.hero-cap h2{font-size:17px} .hero-cap p{font-size:12px}}
+</style>
 </head>
 <body>
 <header class="top"><div class="wrap"><span class="home">🇩🇪 Deutsch A1</span><span class="crumb">прототип v1</span></div></header>
 <main class="wrap">
   <h1>Система запоминания немецкой лексики</h1>
-  <p class="lead">Слова через истории, картинки и звук. Род — через персонажей: <b style="color:var(--der)">der → Otto</b>, <b style="color:var(--die)">die → Грета</b>, <b style="color:var(--das)">das → Тео</b>.</p>
+  <p class="lead">Слова через истории, картинки и звук. Род — через персонажей: <b style="color:var(--der)">der → Otto</b>, <b style="color:var(--die)">die → Грета</b>, <b style="color:var(--das)">das → дети (Тео и Миа)</b>.</p>
+
+  <div class="hero">
+    <img src="img/hero.png" alt="Отто, Грета, Тео и Миа у дома">
+    <div class="hero-cap"><h2>Запоминай немецкие слова вместе с Отто, Гретой и детьми</h2><p>У каждого героя — свой артикль и своя история. Вспоминаешь историю → вспоминаешь род.</p></div>
+  </div>
+  <div class="principle">
+    <div class="pr der">👨 <b>Отто</b> любит слова только мужского рода — <b>der</b></div>
+    <div class="pr die">👩 <b>Грета</b> — только женского рода — <b>die</b></div>
+    <div class="pr das">🧒 <b>Тео и Миа</b> — дети: «ребёнок» это <b>das</b> Kind, поэтому их слова только среднего рода — <b>das</b></div>
+    <p class="pr-note">Читай истории, рассматривай картинки, слушай — и закрепляй слова в упражнениях. Удачи! 🍀</p>
+  </div>
 
   <h2>Темы</h2>
   <p class="lead" style="margin-top:0">Выбери тему — внутри: существительные (der/die/das), глаголы, другое и топики.</p>
