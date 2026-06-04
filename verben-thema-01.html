@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Глаголы — Тема 1</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .subnav{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+  .subnav a{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:#fff;color:#374151}
+  .subnav a.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .sec{margin:20px 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  table.vt{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .vt th{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
+  .vt td{padding:9px 12px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:middle}
+  .vt tr:last-child td{border-bottom:none}
+  .vt .de{font-weight:700;color:var(--accent)}
+  .vt .ru{color:var(--muted);font-size:14px}
+  .vt .pp{color:#374151;font-size:14px}
+  .hidden-ru .ru span{visibility:hidden;position:relative}
+  .hidden-ru .ru span::after{content:"▢▢▢";position:absolute;left:0;color:#cbd5e1}
+  .formbtn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer;color:var(--accent)}
+  .formbtn:active{background:#f3f4f6}
+  .pop{display:none;margin-top:6px;background:#faf7ff;border:1px solid #ece3fb;border-radius:10px;padding:10px 12px}
+  .pop.open{display:block}
+  .conj{display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;font-size:14px}
+  .conj b{color:var(--accent)}
+  .pp2{margin-top:6px;font-size:13px;color:#374151}
+  .toolbar{display:flex;gap:8px;margin:12px 0}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Тема 1 / Глаголы</span></div></header>
+<main class="wrap">
+  <h1>Глаголы — Тема 1 «Знакомство и семья»</h1>
+  <div class="subnav">
+    <a href="thema-01.html">← Тема</a>
+    <a href="otto-szene-1.html">Существительные</a>
+    <a class="active" href="verben-thema-01.html">Глаголы</a>
+    <a href="thema-01.html#andere">Другое</a>
+  </div>
+  <p class="lead">Строки: глагол · перевод · прошедшее. Кнопка «форма» — спряжение по местоимениям. 👁 — спрятать переводы и проверить себя.</p>
+  <div class="toolbar"><button class="btn primary" id="eye" onclick="toggleRu()">🙈 Скрыть переводы</button></div>
+
+  <div class="sec">Правильные (слабые)</div>
+  <table class="vt" id="t-reg"></table>
+
+  <div class="sec">Неправильные (особые)</div>
+  <table class="vt" id="t-irr"></table>
+
+  <div class="note">Прошедшее — Perfekt (hat/ist + форма), это ориентир: подробно прошедшее проходим в L11–L12, тогда и подсветим. Формы сверять перед озвучкой.</div>
+</main>
+<footer>Deutsch A1 · Глаголы по теме · строки + «форма» + глазик</footer>
+<script>
+const REG = [
+  {inf:'wohnen', ru:'жить (проживать)', pp:'hat gewohnt', c:['wohne','wohnst','wohnt','wohnen','wohnt','wohnen']},
+  {inf:'leben', ru:'жить', pp:'hat gelebt', c:['lebe','lebst','lebt','leben','lebt','leben']},
+  {inf:'lernen', ru:'учить', pp:'hat gelernt', c:['lerne','lernst','lernt','lernen','lernt','lernen']},
+  {inf:'machen', ru:'делать', pp:'hat gemacht', c:['mache','machst','macht','machen','macht','machen']},
+  {inf:'arbeiten', ru:'работать', pp:'hat gearbeitet', c:['arbeite','arbeitest','arbeitet','arbeiten','arbeitet','arbeiten']},
+  {inf:'studieren', ru:'учиться (в вузе)', pp:'hat studiert', c:['studiere','studierst','studiert','studieren','studiert','studieren']},
+  {inf:'planen', ru:'планировать', pp:'hat geplant', c:['plane','planst','plant','planen','plant','planen']},
+  {inf:'glauben', ru:'думать, верить', pp:'hat geglaubt', c:['glaube','glaubst','glaubt','glauben','glaubt','glauben']},
+];
+const IRR = [
+  {inf:'sein', ru:'быть', pp:'ist gewesen (war)', c:['bin','bist','ist','sind','seid','sind']},
+  {inf:'haben', ru:'иметь', pp:'hat gehabt (hatte)', c:['habe','hast','hat','haben','habt','haben']},
+  {inf:'sprechen', ru:'говорить', pp:'hat gesprochen', c:['spreche','sprichst','spricht','sprechen','sprecht','sprechen']},
+  {inf:'heißen', ru:'зваться', pp:'hat geheißen', c:['heiße','heißt','heißt','heißen','heißt','heißen']},
+  {inf:'kommen', ru:'приходить, быть родом', pp:'ist gekommen', c:['komme','kommst','kommt','kommen','kommt','kommen']},
+  {inf:'gehen', ru:'идти (Wie geht’s)', pp:'ist gegangen', c:['gehe','gehst','geht','gehen','geht','gehen']},
+];
+const PRON = ['ich','du','er/sie/es','wir','ihr','sie/Sie'];
+function rows(list, key){
+  return list.map((v,i)=>`<tr>
+    <td class="de">${v.inf}</td>
+    <td class="ru"><span>${v.ru}</span></td>
+    <td class="pp">${v.pp}</td>
+    <td style="text-align:right"><button class="formbtn" onclick="pop('${key}${i}')">форма ▾</button>
+      <div class="pop" id="${key}${i}">
+        <div class="conj">${v.c.map((f,j)=>`<div><b>${PRON[j]}</b> ${v.inf.startsWith('arbeit')||true?'':''}${f}</div>`).join('')}</div>
+        <div class="pp2">Прошедшее (Perfekt): <b>${v.pp}</b></div>
+      </div>
+    </td></tr>`).join('');
+}
+document.getElementById('t-reg').innerHTML = `<tr><th>глагол</th><th>перевод</th><th>прошедшее</th><th></th></tr>`+rows(REG,'r');
+document.getElementById('t-irr').innerHTML = `<tr><th>глагол</th><th>перевод</th><th>прошедшее</th><th></th></tr>`+rows(IRR,'i');
+function pop(id){ document.getElementById(id).classList.toggle('open'); }
+function toggleRu(){
+  document.querySelectorAll('table.vt').forEach(t=>t.classList.toggle('hidden-ru'));
+  const b=document.getElementById('eye'); const on=document.querySelector('table.vt').classList.contains('hidden-ru');
+  b.textContent = on ? '👁 Показать переводы' : '🙈 Скрыть переводы';
+}
+</script>
+</body>
+</html>

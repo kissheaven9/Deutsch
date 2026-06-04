@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сцена 1 — Otto: знакомство, профессия, семья (der)</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .scene3{display:grid;grid-template-columns:0.8fr 1.5fr 1.1fr;gap:14px;margin-top:14px;align-items:start}
+  @media(max-width:920px){.scene3{grid-template-columns:1fr}}
+  .pane{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 1px 2px #0000000a}
+  .pane h2{font-size:14px;letter-spacing:.03em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+  .lk{font-weight:600;font-size:11px;background:#f3f4f6;color:#374151;border-radius:6px;padding:1px 6px;margin-left:4px}
+  .wgroup{margin:0 0 12px}
+  .wgroup .cap{font-size:12px;color:var(--muted);margin:0 0 5px}
+  .wrow{display:flex;justify-content:space-between;gap:8px;padding:4px 8px;border-radius:8px;background:#eff3ff;border:1px solid #dbe4ff;margin:4px 0}
+  .wrow .de{font-weight:700;color:var(--der);font-size:15px}
+  .wrow .de .art{opacity:.75;font-weight:600}
+  .wrow .ru{color:var(--muted);font-size:13px;align-self:center;text-align:right}
+  .wrow.plain{background:#faf7ff;border-color:#ece3fb}
+  .wrow .de2{font-weight:600;color:var(--accent);font-size:14px}
+  .charnote{font-size:12px;color:#92400e;background:#fef3c7;border-radius:8px;padding:6px 8px;margin-top:6px}
+  .blockhead{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 4px}
+  .de-block{font-weight:600;color:var(--ink);margin:0 0 14px;font-size:15px;line-height:1.6}
+  .ru-block{color:#374151;margin:0 0 8px;font-size:14px;line-height:1.6}
+  .copyhint{font-size:12px;color:var(--muted);margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+  .prompt{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.5;color:#374151;
+    background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px}
+  .tagrow{margin:10px 0 2px}
+  .tag{display:inline-block;font-size:12px;background:#fef3c7;color:#92400e;padding:3px 9px;border-radius:999px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Otto / Сцена 1 (der) · L1–L3</span></div></header>
+<main class="wrap">
+  <h1><span class="pill der">der</span> &nbsp;Сцена 1 — Otto: знакомство, профессия, семья</h1>
+  <p class="lead">Рассказ Otto от первого лица про себя и семью (L1–L3). Говорим ТОЛЬКО про мужское: имя/фамилия, профессия (кем выучился ≠ кем работает), семейное положение, место жительства. Возраст (ср. род) и язык (ж. род) — в тексты Тео и Греты. Немецкий уровня L1–L3, под ним русский.</p>
+  <div class="tagrow"><span class="tag">⚙️ техническая страница — для согласования истории и промпта; на сайте сцена выглядит иначе (картинка + подписи + текст + аудио)</span></div>
+
+  <div class="scene3">
+
+    <!-- СТОЛБЕЦ 1 -->
+    <section class="pane">
+      <h2>① Слова сцены</h2>
+
+      <p class="cap">Существительные · <span style="color:var(--der)">der</span> — анкета</p>
+      <div class="wgroup">
+        <div class="wrow"><span class="de"><span class="art">der</span> Name</span><span class="ru">имя</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Vorname</span><span class="ru">имя (личное)</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Familienname</span><span class="ru">фамилия</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Beruf</span><span class="ru">профессия</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Familienstand</span><span class="ru">сем. положение</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Wohnort</span><span class="ru">место жительства</span></div>
+      </div>
+
+      <p class="cap">Существительные · <span style="color:var(--der)">der</span> — семья и профессии</p>
+      <div class="wgroup">
+        <div class="wrow"><span class="de"><span class="art">der</span> Großvater</span><span class="ru">дед</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Vater</span><span class="ru">отец</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Onkel</span><span class="ru">дядя</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Bruder</span><span class="ru">брат</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Sohn</span><span class="ru">сын</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Enkel</span><span class="ru">внук</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Rentner</span><span class="ru">пенсионер</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Lehrer</span><span class="ru">учитель</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Architekt</span><span class="ru">архитектор</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Kellner</span><span class="ru">официант</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Ingenieur</span><span class="ru">инженер</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Verkäufer</span><span class="ru">продавец</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Student</span><span class="ru">студент</span></div>
+        <div class="wrow"><span class="de"><span class="art">der</span> Schüler</span><span class="ru">школьник</span></div>
+      </div>
+
+      <p class="cap">Глаголы</p>
+      <div class="wgroup">
+        <div class="wrow plain"><span class="de2">heißen</span><span class="ru">зваться</span></div>
+        <div class="wrow plain"><span class="de2">buchstabieren</span><span class="ru">называть по буквам</span></div>
+        <div class="wrow plain"><span class="de2">kommen (aus)</span><span class="ru">быть родом</span></div>
+        <div class="wrow plain"><span class="de2">wohnen / leben</span><span class="ru">жить</span></div>
+        <div class="wrow plain"><span class="de2">sein</span><span class="ru">быть (ist)</span></div>
+        <div class="wrow plain"><span class="de2">haben</span><span class="ru">иметь (hat)</span></div>
+        <div class="wrow plain"><span class="de2">arbeiten (als / bei)</span><span class="ru">работать (кем/где)</span></div>
+      </div>
+
+      <p class="cap">Другое (фразы, прилагательные)</p>
+      <div class="wgroup">
+        <div class="wrow plain"><span class="de2">geschieden</span><span class="ru">разведён</span></div>
+        <div class="wrow plain"><span class="de2">verheiratet</span><span class="ru">женат</span></div>
+        <div class="wrow plain"><span class="de2">allein</span><span class="ru">один</span></div>
+        <div class="wrow plain"><span class="de2">von Beruf</span><span class="ru">по профессии</span></div>
+        <div class="wrow plain"><span class="de2">international</span><span class="ru">интернациональный</span></div>
+      </div>
+
+      <div class="charnote">Вся лексика темы (die/das, ВСЕ глаголы и «другое») — в словаре темы: <a href="thema-01.html" style="color:var(--accent)">Тема 1 →</a>. Тут — только слова этой сцены (der + что в тексте). На картинке видны и будущие мужские вещи Otto (слова на своих уроках): der Hut, der Mantel, der Schal, der Rock, der Schlüssel, der Kaffee, der Sessel, der Teppich.</div>
+    </section>
+
+    <!-- СТОЛБЕЦ 2 -->
+    <section class="pane">
+      <h2>② Текст-история</h2>
+
+      <p class="blockhead">Deutsch (A1 · L1–L3) — от первого лица. Только мужское: имя · профессия · семейное положение · место жительства</p>
+      <p class="de-block">Guten Tag! Ich heiße Otto MacLeod. Mein Vorname ist Otto, mein Familienname ist MacLeod — M-A-C-L-E-O-D. Ich komme aus Schottland, aber jetzt wohne ich in Deutschland. Von Beruf bin ich Gärtner*. Und mein Familienstand? Ich bin geschieden und lebe allein.<br><br>
+      Das ist meine Familie MacLeod. Sie ist groß und international!<br><br>
+      Das ist mein Großvater. Er heißt Angus. Er wohnt in Edinburgh. Er ist Rentner.<br>
+      Das ist mein Vater. Er heißt Hamish. Er wohnt auch in Schottland und lebt allein. Er ist Lehrer.<br>
+      Ich habe zwei Onkel. Mein Onkel Duncan wohnt in London. Er ist Architekt, aber er arbeitet als Kellner. Er ist nicht verheiratet.<br>
+      Mein Onkel Fergus wohnt in Schweden. Er ist Ingenieur und arbeitet bei Volvo. Er ist verheiratet.<br>
+      Ich habe auch einen Bruder. Er heißt Callum und wohnt in Schottland. Er ist Verkäufer und verheiratet.<br>
+      Das ist mein Sohn. Er heißt Ewan und wohnt in Schottland. Er ist Student. Er ist verheiratet und hat einen Sohn — das ist mein Enkel! Mein Enkel heißt Finlay. Er ist Schüler.<br><br>
+      Ich bin oft allein, aber meine Familie ist groß — und das ist schön.</p>
+
+      <p class="blockhead">Русский</p>
+      <p class="ru-block">Добрый день! Меня зовут Otto MacLeod. Имя — Otto, фамилия — MacLeod, по буквам: M-A-C-L-E-O-D. Я родом из Шотландии, но сейчас живу в Германии. По профессии я садовник*. А моё семейное положение? Я в разводе и живу один.<br><br>
+      Это моя семья MacLeod. Она большая и интернациональная!<br><br>
+      Это мой дед. Его зовут Angus. Живёт в Эдинбурге. Он на пенсии.<br>
+      Это мой отец. Его зовут Hamish. Тоже живёт в Шотландии, один. Он учитель.<br>
+      У меня два дяди. Дядя Duncan живёт в Лондоне. Он архитектор, но работает официантом. Не женат.<br>
+      Дядя Fergus живёт в Швеции. Он инженер, работает в Volvo. Женат.<br>
+      Ещё есть брат. Его зовут Callum, живёт в Шотландии. Он продавец, женат.<br>
+      Это мой сын. Его зовут Ewan, живёт в Шотландии. Он студент. Женат, и у него есть сын — это мой внук! Внука зовут Finlay. Он школьник.<br><br>
+      Я часто один, но семья у меня большая — и это здорово.</p>
+
+      <p class="copyhint"><b>Принцип:</b> в тексте Otto (der) — ТОЛЬКО признаки мужского рода: <b>der Name/Vorname/Familienname</b>, <b>der Beruf</b> (+ кем выучился ≠ кем работает: Duncan — архитектор, но официант), <b>der Familienstand</b> (verheiratet/geschieden), <b>der Wohnort</b> (wohnt in…). Интернациональность — через места жительства (London/Schweden/Schottland).<br>
+      <i>НЕ говорим: возраст (das Alter/Jahr — ср. → Тео) и язык (die Sprache — ж. → Грета).</i><br>
+      <b>* der Gärtner</b> — вне списка L2 (черта Otto). Фамилия по буквам (M-A-C-L-E-O-D): отрабатываем алфавит L1. <b>Немецкий перепроверить перед озвучкой.</b></p>
+    </section>
+
+    <!-- СТОЛБЕЦ 3 -->
+    <section class="pane">
+      <h2>③ Промпт для ChatGPT (картинка)</h2>
+      <div class="prompt">Создай одну тёплую иллюстрацию для запоминания немецких слов мужского рода.
+
+ГЛАВНЫЙ ГЕРОЙ — Otto, на переднем плане: коренастый шотландец ~50 лет, пышные рыжие усы, рыжевато-каштановые волосы, доброе, уставшее, чуть грустное лицо, без очков. На нём все его «мужские» вещи: шляпа, длинное пальто, шарф, клетчатый килт (красно-зелёная шотландская клетка), крепкие ботинки; на поясе — большая связка ключей; в руке — кружка кофе. Рядом — мягкое кресло и ковёр на полу. Он один — чувствуется одиночество.
+
+ФОН — стена с 7 фотографиями семьи в рамках. Это РАЗНЫЕ мужчины, и по каждому СРАЗУ ВИДНО, кто это (возраст и роль легко считываются), фото разной эпохи. Семейное сходство (рыжие волосы) допустимо. У каждого — своя профессия, показанная одной деталью:
+— ДЕД (Angus): очень пожилой, ~90, старое сепия-фото — пенсионер (в кресле, с тростью);
+— ОТЕЦ (Hamish): пожилой, старое фото — учитель (мел, школьная доска);
+— ДЯДЯ (Duncan): мужчина в возрасте — официант (с подносом);
+— ДЯДЯ (Fergus): мужчина в возрасте — инженер (каска, чертежи);
+— БРАТ (Callum): ровесник Otto, средних лет — продавец (за прилавком);
+— СЫН (Ewan): молодой мужчина ~27, современное цветное фото — студент (книги);
+— ВНУК (Finlay): маленький мальчик ~7, современное фото — школьник (ранец).
+
+Под каждым портретом оставь МЕСТО для подписи (родство + имя + профессия) — текст наложим слоем сами, в самой картинке букв НЕ делай.
+
+ВАЖНО: в кадре — только Otto, перечисленные его вещи и 7 фотографий. Больше НИЧЕГО не добавляй (ни ламп, ни цветов и растений, ни книг на фоне, ни окна, ни посуды). Все предметы в кадре — мужского рода, часть образа Otto.
+
+Стиль: тёплая современная редакционная иллюстрация, полуплоская, мягкие тени, тёплая палитра, взрослая, НЕ мультяшная, без гротеска. Горизонтальная композиция; лица и предметы хорошо различимы.
+
+Без какого-либо текста, букв, цифр и подписей в изображении.</div>
+      <p class="copyhint">На готовую картинку слова (родство + профессии) наложим отдельным слоем — с «глазиком» и озвучкой. Все предметы кадра — мужского рода, ничего лишнего.</p>
+    </section>
+
+  </div>
+
+  <div class="note">Сцена 1 сериала про Otto. Слова der сверены по Lernwortschatz (Arbeitsbuch, L1–L3: ©b = der). Канон персонажа — data/story/otto-bible.md. Женский/средний род этих уроков (die Mutter, die Schwester, das Kind…) уйдут в сцены Греты и Тео.</div>
+</main>
+<footer>Deutsch A1 · Сцена 1 · история раскрывает персонажа · на картинке только нужный род</footer>
+</body>
+</html>
