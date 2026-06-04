@@ -37,9 +37,8 @@
 
 | Сцена | Уроки | Тематика | die-слова (целевые) | Статус |
 |---|---|---|---|---|
-| **1. Грета: языки, происхождение, семья** | L1,L2,L3 | 👩 Люди | die Frau/Mutter/Schwester/Oma/Großmutter/Tochter/Enkelin/Tante; **die Sprache/Herkunft** (углублённо по каждому); die Köchin/Krankenschwester (-in); die Türkei/Schweiz, die Firma/Stelle/Ausbildung/Partnerin | образец §7a ✓ · сверить |
-| **2a. Анкета и контакты Греты** | L4,L6 | 📇 Анкета | **die Stadt/Straße/Hausnummer/Postleitzahl/Telefonnummer/Adresse** (каждого!); die E-Mail/Visitenkarte/Nachricht/Person/Liste/Arbeit/Zeit/Maus/Tastatur; ⚠️die Nationalität | сверить |
-| **2b. Вещи Греты** | L5 | 👜 Вещи | die Tasche/Brille/Sonnenbrille/Uhr/Kette/Flasche/Kamera/Jacke/Bürste/Seife/Sonne/Farbe; цвета/материалы/цена/оценка | сверить |
+| **1. Знакомство, семья и анкета** (объединено по смыслу) | L1–L6 | 👩📇 Я+анкета | имя(heißen)/национальность/**die Sprache/Herkunft** + **анкета: die Adresse/Straße/Hausnummer/Postleitzahl/Stadt/Telefonnummer/Nummer/E-Mail/Visitenkarte** (своя + сестра Carla рядом + родня) + семья (Mutter/Schwester/Oma/Tante/Tochter/Enkelin/Ehefrau/Verwandte) + женские профессии (-in) + Firma/Stelle/Ausbildung/Partnerin/Liste/Zahl/Information/Musik; Italien/Schweiz/USA. ⚠️die Nationalität/Postleitzahl. _У Otto эта тема короче (L1–L3): его поля мужские (der Name/Beruf/Familienstand/Wohnort), адрес/телефон — женские → Гретины._ | сверить |
+| **2. Возле дома: вещи** (комедия с сумкой + сортировка) | L4,L5 | 👜 Вещи | die Tasche/Brille/Sonnenbrille/Uhr/Lampe/Möbel/Kette/Flasche/Kamera/Jacke/Bürste/Seife/Sonne/Farbe; цвета/материалы/цена/оценка. Сценка: сумка раскрылась, очки на голове «ищет»; отсортированные бутылки у дома | сверить |
 | **3. Неделя Греты** | L7,L8 | ⏰ Досуг | die Freizeit/Freundin/Kauffrau/Fitness; die Woche/Nacht/Lust/Idee/Bar/Frage/Antwort/Ausstellung | сверить |
 | **4. Стол Греты (еда)** | L9 | 🍲 Еда | die Suppe/Schokolade/Orange/Tomate/Semmel/Marmelade/Butter/Milch/Tasse/Kartoffel/Nudel/Soße/Zitrone/Sahne/Portion/Speisekarte | сверить |
 | **5. Поездка Греты** | L10 | 🚊 Путь | die Reise/Kollegin/U-Bahn/Straßenbahn/S-Bahn/Maschine/Verspätung/Durchsage/Richtung/Fahrt/Vorsicht | сверить |
