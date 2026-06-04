@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Тема 1 · der → Otto: знакомство и семья</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
+  .ic{border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer;font-size:14px;padding:7px 10px}
+  .ic:active{background:#f3f4f6}
+  /* СЦЕНА с подписями-слоем */
+  .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
+  .stage img{width:100%;height:auto;display:block}
+  .lbl{position:absolute;transform:translate(-50%,-50%);background:#fffffff5;border:2px solid var(--der);
+    border-radius:9px;padding:3px 6px;text-align:center;min-width:62px;box-shadow:0 1px 5px #0004;font-size:12px;line-height:1.2}
+  .lbl .role{display:block;color:var(--der);font-weight:700}
+  .lbl .nm{display:block;font-weight:700;color:var(--ink)}
+  .cov{cursor:pointer;display:inline-block;margin-top:1px}
+  .cov .lab{color:var(--muted);font-size:11px}
+  .cov .vv{background:var(--der);color:var(--der);border-radius:4px;padding:0 5px;font-weight:700;transition:.1s}
+  .cov.open .vv{background:#eff3ff;color:var(--der)}
+  .otto{left:1.5%;top:2.5%;transform:none;text-align:left;max-width:42%}
+  .otto .line{display:block;line-height:1.5}
+  .otto .k{color:var(--der);font-weight:700}
+  @media(max-width:620px){.lbl{font-size:10px;min-width:46px;padding:2px 4px} .cov .lab{display:none} .otto{max-width:54%}}
+  /* СЛОВА */
+  .wlist{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+  @media(max-width:620px){.wlist{grid-template-columns:1fr}}
+  .wrow{display:flex;align-items:center;gap:8px;background:#eff3ff;border:1px solid #dbe4ff;border-radius:9px;padding:6px 8px}
+  .wrow .de{font-weight:700;color:var(--der);font-size:15px}
+  .wrow .de .art{opacity:.7}
+  .wrow .ru{color:#374151;font-size:13px;flex:1;text-align:right}
+  .wrow.noru .ru{visibility:hidden;position:relative}
+  .wrow.noru .ru::after{content:"·····";position:absolute;right:0;color:#9ca3af;visibility:visible}
+  /* ТЕКСТ */
+  .txt{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:8px}
+  .txt .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .de-block{color:var(--ink);font-weight:500;line-height:1.7;margin:0 0 14px}
+  .ru-block{color:#374151;line-height:1.7;margin:0}
+  /* УПРАЖНЕНИЕ */
+  .qcard{border:1px solid var(--line);border-radius:12px;background:#fff;margin:8px 0;overflow:hidden}
+  .qcard>summary{cursor:pointer;padding:11px 14px;font-weight:700;color:var(--der);list-style:none;display:flex;justify-content:space-between}
+  .qcard>summary::-webkit-details-marker{display:none}
+  .qbody{padding:2px 14px 12px}
+  .q{border-top:1px solid var(--line);padding:9px 0}
+  .qq{font-weight:600;color:var(--ink);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .lk2{border:none;background:#f3e8ff;color:var(--accent);border-radius:7px;font-size:12px;padding:2px 8px;cursor:pointer}
+  .qru{color:var(--muted);font-size:13px;margin:3px 0}
+  .qact{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+  .qin{flex:1;min-width:150px;border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:14px;font-family:inherit}
+  .qin:focus{outline:none;border-color:var(--accent)}
+  .btn.sm{padding:7px 11px;font-size:13px}
+  .qres{margin-top:5px;font-size:14px;font-weight:600}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Тема 1 / <b style="color:var(--der)">der → Otto</b></span></div></header>
+<main class="wrap">
+  <h1><span class="pill der">der</span> &nbsp;Otto и его семья</h1>
+  <p class="lead">Под каждым портретом видно <b>родство и имя</b>. Скрыта только <b>профессия</b> — тапни «der Beruf», чтобы открыть. У Otto — анкета: тапай поля, чтобы вспомнить ответ. Ниже — слова с переводом, текст и упражнение.</p>
+
+  <div class="bar">
+    <button class="ic" onclick="toggleCovers(this)">👁 Открыть все ответы</button>
+  </div>
+
+  <div class="stage" id="stage">
+    <img src="img/otto-szene-1.png" alt="Otto и семья">
+  </div>
+
+  <h2>Слова сцены <span class="pill der" style="font-size:13px;padding:4px 10px">der</span></h2>
+  <div class="bar">
+    <button class="ic" id="trBtn" onclick="toggleTransAll(this)">🙈 Скрыть переводы</button>
+    <span style="color:var(--muted);font-size:13px">🔊 — послушать · 👁 — скрыть/открыть перевод</span>
+  </div>
+  <div class="wlist" id="wlist"></div>
+
+  <h2>Текст</h2>
+  <div class="txt">
+    <div class="bh">Deutsch (A1 · L1–L3)
+      <button class="ic" onclick="toggleSpeak(deText(), this)">🔊 Послушать</button>
+      <button class="ic" onclick="restartSpeak(deText(), this)">⏮ Сначала</button>
+    </div>
+    <p class="de-block" id="deText">Guten Tag! Ich heiße Otto MacLeod. Mein Vorname ist Otto, mein Familienname ist MacLeod. Ich komme aus Schottland, aber jetzt wohne ich in Deutschland. Von Beruf bin ich Gärtner. Und mein Familienstand? Ich bin geschieden und lebe allein.<br><br>
+    Das ist meine Familie MacLeod. Sie ist groß und international!<br><br>
+    Das ist mein Großvater. Er heißt Angus. Er wohnt in Edinburgh. Er ist Rentner.<br>
+    Das ist mein Vater. Er heißt Hamish. Er wohnt auch in Schottland und lebt allein. Er ist Lehrer.<br>
+    Ich habe zwei Onkel. Mein Onkel Duncan wohnt in London. Er ist Architekt, aber er arbeitet als Kellner.<br>
+    Mein Onkel Fergus wohnt in Schweden. Er ist Ingenieur und arbeitet bei Volvo.<br>
+    Ich habe auch einen Bruder. Er heißt Callum und wohnt in Schottland. Er ist Verkäufer.<br>
+    Das ist mein Sohn. Er heißt Ewan und wohnt in Schottland. Er ist Student. Er hat einen Sohn — das ist mein Enkel! Mein Enkel heißt Finlay. Er ist Schüler.<br><br>
+    Ich bin oft allein, aber meine Familie ist groß — und das ist schön.</p>
+    <div class="bh">Русский</div>
+    <p class="ru-block">Добрый день! Меня зовут Otto MacLeod. Имя — Otto, фамилия — MacLeod. Я родом из Шотландии, но сейчас живу в Германии. По профессии я садовник. А моё семейное положение? Я в разводе и живу один.<br><br>
+    Это моя семья MacLeod. Она большая и интернациональная!<br><br>
+    Это мой дед. Его зовут Angus. Живёт в Эдинбурге. Он на пенсии.<br>
+    Это мой отец. Его зовут Hamish. Тоже живёт в Шотландии, один. Он учитель.<br>
+    У меня два дяди. Дядя Duncan живёт в Лондоне. Он архитектор, но работает официантом.<br>
+    Дядя Fergus живёт в Швеции. Он инженер, работает в Volvo.<br>
+    Ещё есть брат. Его зовут Callum, живёт в Шотландии. Он продавец.<br>
+    Это мой сын. Его зовут Ewan, живёт в Шотландии. Он студент. У него есть сын — это мой внук! Внука зовут Finlay. Он школьник.<br><br>
+    Я часто один, но семья у меня большая — и это здорово.</p>
+  </div>
+
+  <h2>Упражнение — вопросы о персонажах</h2>
+  <p class="lead" style="margin-top:0">Открой персонажа, прочитай вопрос по-немецки (перевод — по кнопке), впиши ответ и проверь себя.</p>
+  <div id="exercise"></div>
+
+  <div class="note">Это пользовательская страница сцены — <b>шаблон для всех персонажей и тем</b>. Рабочая версия (слова · текст · промпт для ChatGPT) — <a href="otto-szene-1.html" style="color:var(--accent)">otto-szene-1.html</a> (для тебя). Канон — data/story/otto-bible.md. Позиции подписей правятся легко — скажи, если съехало.</div>
+</main>
+<footer>Deutsch A1 · Тема 1 · der → Otto · картинка + подписи + слова + текст + упражнение</footer>
+
+<script src="js/app.js"></script>
+<script>
+const OTTO = {name:'Otto', fam:'MacLeod', beruf:'Gärtner', stadt:'Deutschland', land:'Schottland', alter:50, stand:'geschieden'};
+const FAM = [
+  {role:'der Großvater', name:'Angus',  beruf:'Rentner',   stadt:'Edinburgh', land:'Schottland', alter:92, x:42, y:30},
+  {role:'der Vater',     name:'Hamish', beruf:'Lehrer',    stadt:'Schottland',land:'Schottland', alter:71, x:56, y:30},
+  {role:'der Onkel',     name:'Duncan', beruf:'Kellner',   stadt:'London',    land:'Schottland', alter:68, x:70, y:30},
+  {role:'der Onkel',     name:'Fergus', beruf:'Ingenieur', stadt:'Schweden',  land:'Schottland', alter:66, x:84, y:30},
+  {role:'der Bruder',    name:'Callum', beruf:'Verkäufer', stadt:'Schottland',land:'Schottland', alter:47, x:56, y:65},
+  {role:'der Sohn',      name:'Ewan',   beruf:'Student',   stadt:'Schottland',land:'Schottland', alter:27, x:70, y:65},
+  {role:'der Enkel',     name:'Finlay', beruf:'Schüler',   stadt:'Schottland',land:'Schottland', alter:7,  x:84, y:65},
+];
+const WORDS = [
+  ['der','Name','имя'],['der','Vorname','личное имя'],['der','Familienname','фамилия'],
+  ['der','Beruf','профессия'],['der','Familienstand','сем. положение'],['der','Wohnort','место жительства'],
+  ['der','Großvater','дед'],['der','Vater','отец'],['der','Onkel','дядя'],['der','Bruder','брат'],['der','Sohn','сын'],['der','Enkel','внук'],
+  ['der','Gärtner','садовник'],['der','Rentner','пенсионер'],['der','Lehrer','учитель'],['der','Kellner','официант'],
+  ['der','Ingenieur','инженер'],['der','Architekt','архитектор'],['der','Verkäufer','продавец'],['der','Student','студент'],['der','Schüler','школьник'],
+];
+
+// ---- подписи на картинке ----
+const stage = document.getElementById('stage');
+function cov(lab,val){ return `<span class="cov" onclick="this.classList.toggle('open')"><span class="lab">${lab}:</span> <b class="vv">${val}</b></span>`; }
+// карточка Otto: имя видно, остальное под тапом
+const oc = document.createElement('div');
+oc.className='lbl otto der';
+oc.innerHTML = `<span class="line"><span class="k">der Name:</span> Otto</span>
+  <span class="line">${cov('der Familienname','MacLeod')}</span>
+  <span class="line">${cov('der Beruf','Gärtner')}</span>
+  <span class="line">${cov('der Familienstand','geschieden')}</span>
+  <span class="line">${cov('der Wohnort','Deutschland')}</span>`;
+stage.appendChild(oc);
+// семья: родство+имя видно, профессия под тапом
+FAM.forEach(f=>{
+  const d=document.createElement('div');
+  d.className='lbl der'; d.style.left=f.x+'%'; d.style.top=f.y+'%';
+  d.innerHTML=`<span class="role">${f.role}</span><span class="nm">${f.name}</span>${cov('der Beruf',f.beruf)}`;
+  stage.appendChild(d);
+});
+function toggleCovers(btn){
+  const cs=[...document.querySelectorAll('.cov')];
+  const anyClosed=cs.some(c=>!c.classList.contains('open'));
+  cs.forEach(c=>c.classList.toggle('open',anyClosed));
+  btn.textContent=anyClosed?'🙈 Скрыть ответы':'👁 Открыть все ответы';
+}
+
+// ---- слова ----
+document.getElementById('wlist').innerHTML = WORDS.map(([a,de,ru])=>`
+  <div class="wrow">
+    <button class="ic" style="padding:3px 7px" title="Послушать" onclick="speak('${a} ${de}')">🔊</button>
+    <span class="de"><span class="art">${a}</span> ${de}</span>
+    <span class="ru">${ru}</span>
+    <button class="ic" style="padding:3px 7px" title="Скрыть/открыть перевод" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button>
+  </div>`).join('');
+function toggleTransAll(btn){
+  const rows=[...document.querySelectorAll('.wrow')];
+  const anyShown=rows.some(r=>!r.classList.contains('noru'));
+  rows.forEach(r=>r.classList.toggle('noru',anyShown));
+  btn.textContent=anyShown?'👁 Показать переводы':'🙈 Скрыть переводы';
+}
+
+// ---- текст ----
+function deText(){ return document.getElementById('deText').innerText; }
+
+// ---- упражнение ----
+function norm(s){ return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,''); }
+const QS=[
+  {q:'Wer ist das?',        ru:'Кто это?',            ans:c=>c.role?`Das ist ${c.role} ${c.name}.`:'Das ist Otto.', key:c=>c.role?c.name:'Otto'},
+  {q:'Wie heißt er?',       ru:'Как его зовут?',      ans:c=>`Er heißt ${c.name}${c.fam?' '+c.fam:''}.`,           key:c=>c.name},
+  {q:'Wo wohnt er?',        ru:'Где он живёт?',       ans:c=>`Er wohnt in ${c.stadt}.`,                            key:c=>c.stadt},
+  {q:'Woher kommt er?',     ru:'Откуда он?',          ans:c=>`Er kommt aus ${c.land}.`,                            key:c=>c.land},
+  {q:'Wie alt ist er?',     ru:'Сколько ему лет?',    ans:c=>`Er ist ${c.alter} Jahre alt.`,                       key:c=>String(c.alter)},
+  {q:'Was ist er von Beruf?',ru:'Кто он по профессии?',ans:c=>`Er ist ${c.beruf}.`,                                key:c=>c.beruf},
+];
+const people=[Object.assign({role:'',name:'Otto'},OTTO), ...FAM];
+document.getElementById('exercise').innerHTML = people.map(c=>{
+  const title = c.role ? `${c.role} · ${c.name}` : 'Otto MacLeod';
+  const qs = QS.map(o=>`
+    <div class="q" data-key="${o.key(c)}" data-ans="${o.ans(c)}">
+      <div class="qq">${o.q} <button class="lk2" onclick="toggleRu(this)">Показать перевод</button></div>
+      <div class="qru" hidden>${o.ru}</div>
+      <div class="qact">
+        <input class="qin" placeholder="Ответь по-немецки…">
+        <button class="btn sm" onclick="checkAns(this)">Проверить</button>
+        <button class="btn sm" onclick="showAns(this)">Показать ответ</button>
+      </div>
+      <div class="qres"></div>
+    </div>`).join('');
+  return `<details class="qcard"><summary><span>${title}</span><span>▾</span></summary><div class="qbody">${qs}</div></details>`;
+}).join('');
+function toggleRu(btn){ const ru=btn.closest('.q').querySelector('.qru'); ru.hidden=!ru.hidden; btn.textContent=ru.hidden?'Показать перевод':'Скрыть перевод'; }
+function checkAns(btn){
+  const q=btn.closest('.q'), inp=q.querySelector('.qin'), res=q.querySelector('.qres');
+  const ok = norm(inp.value).length>0 && norm(inp.value).includes(norm(q.dataset.key));
+  inp.style.borderColor = ok?'var(--das)':'var(--die)';
+  res.style.color = ok?'var(--das)':'var(--die)';
+  res.textContent = ok?'✓ Верно!':'✗ Пока не то — попробуй ещё или открой ответ.';
+}
+function showAns(btn){ const q=btn.closest('.q'); q.querySelector('.qres').innerHTML='<span style="color:var(--accent)">Ответ: '+q.dataset.ans+'</span>'; }
+</script>
+</body>
+</html>

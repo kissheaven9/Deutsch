@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Otto — сквозная история на весь А1 (роадмап)</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+  .lg{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:#fff;color:var(--muted)}
+  .step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 16px;margin:12px 0;box-shadow:0 1px 2px #0000000a;border-left:4px solid var(--der)}
+  .step .head{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px}
+  .sn{font-weight:700;font-size:13px;background:var(--accent);color:#fff;border-radius:8px;padding:2px 9px}
+  .step h3{margin:0;font-size:17px;flex:1 1 auto}
+  .lks{display:flex;flex-wrap:wrap;gap:4px}
+  .lk{font-weight:600;font-size:12px;background:#f3f4f6;color:#374151;border-radius:7px;padding:2px 7px}
+  .thread{font-size:12px;border-radius:999px;padding:2px 9px;background:#f8fafc;border:1px solid var(--line);color:#475569;white-space:nowrap}
+  .beat{margin:4px 0 10px;font-size:14px;color:#374151}
+  .words{display:flex;flex-wrap:wrap;gap:6px}
+  .w{font-size:13px;border-radius:8px;padding:3px 9px;font-weight:600}
+  .w.ok{background:#eff3ff;color:var(--der);border:1px solid #dbe4ff}
+  .w.chk{background:#fff;color:#94a3b8;border:1px dashed #cbd5e1}
+  .w.none{background:#fff;color:#cbd5e1;border:1px dashed #e5e7eb;font-weight:500}
+  .wlabel{font-size:12px;color:var(--muted);margin:0 6px 0 0;align-self:center}
+  .verbmark{display:flex;align-items:center;gap:8px;margin:12px 0;padding:8px 14px;border:1px dashed var(--line);
+    border-radius:12px;background:#fafafa;color:#6b7280;font-size:13px}
+  .verbmark .lk{background:#ede9fe;color:var(--accent)}
+  .intro-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+  .intro-card b{color:var(--ink)}
+  .key{display:flex;gap:10px;align-items:flex-start;margin:8px 0;font-size:14px;color:#374151}
+  .key .n{flex:0 0 auto;width:22px;height:22px;border-radius:999px;background:var(--accent);color:#fff;
+    font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .also{background:#faf5ff;border:1px solid #e9d5ff;border-radius:14px;padding:14px 16px;margin:12px 0}
+  .also h4{margin:0 0 8px;color:var(--accent)}
+  .also ul{margin:0;padding-left:18px} .also li{margin:5px 0;font-size:14px;color:#374151}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Otto — сквозная история (роадмап)</span></div></header>
+<main class="wrap">
+  <h1><span class="pill der">der</span> &nbsp;Otto — один рассказ на весь А1</h1>
+  <p class="lead">Темы Momente объединены в <b>~11 сцен</b> (а не 24 отдельных текста). Каждая сцена копит достаточно мужских слов, чтобы вышла запоминающаяся картинка, и двигает сериал про Otto. Порядок — по учебнику, без забегания вперёд.</p>
+
+  <div class="intro-card">
+    <div class="key"><span class="n">1</span><div><b>Объединяем темы в сцены.</b> Соседние уроки по смыслу — вместе: мебель + материалы/цвета (L4+L5), семья + профессии (L2+L3). Большой урок с обильной лексикой тянет сцену сам. Цель — накопить слова на цельную картинку.</div></div>
+    <div class="key"><span class="n">2</span><div><b>Порядок строго по учебнику.</b> В сцене — только слова уже пройденных уроков. Образ можно показать рано, а слово открыть на своём уроке (килт виден с L1, слово <i>der Rock</i> — на L22).</div></div>
+    <div class="key"><span class="n">3</span><div><b>Учим ВСЕ слова, не только выделенные.</b> На картинку — предметный набор; остальные существительные урока (из Lernwortschatz Arbeitsbuch) идут в накопительный словарь с родом и персонажем. К концу А1 — все существительные учебника.</div></div>
+    <div class="key"><span class="n">4</span><div><b>Зачем.</b> Чтобы слово «прилипло» к Otto: встретил в словаре → вспомнил сцену и героя → вспомнил род. Otto обрастает только мужскими вещами; ему сопереживаешь — и потому запоминаешь.</div></div>
+  </div>
+
+  <div class="legend">
+    <span class="lg"><span style="color:var(--der)">■</span> слово сверено по учебнику (L4/6/15)</span>
+    <span class="lg">⌐ сверить — ещё извлеку из урока</span>
+    <span class="lg"><span class="lk" style="background:#ede9fe;color:var(--accent)">L11</span> → раздел «Глаголы»</span>
+  </div>
+
+  <!-- S1 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 1</span><h3><a href="otto-szene-1.html" style="color:var(--accent);text-decoration:underline">Otto: знакомство, профессия, семья →</a></h3>
+      <span class="lks"><span class="lk">L1</span><span class="lk">L2</span><span class="lk">L3</span></span><span class="thread">👤 Люди</span></div>
+    <div class="beat">«Ich heiße Otto, aus Schottland.» Усатый шотландец в килте, ключи на поясе. Он <b>садовник</b> (der Gärtner). Живёт один, но на стене — фото мужчин семьи с их профессиями.</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w chk">der Gärtner (профессии)</span><span class="w chk">der Vater</span><span class="w chk">der Opa</span><span class="w chk">der Bruder</span><span class="w chk">der Onkel</span><span class="w chk">der Sohn</span></div>
+  </div>
+
+  <!-- S2 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 2</span><h3>Комната Otto</h3>
+      <span class="lks"><span class="lk">L4</span><span class="lk">L5</span><span class="lk">L6</span></span><span class="thread">🏠 Дом</span></div>
+    <div class="beat">Мебель + предметы/материалы + техника в одной комнате (мебель ведь из чего-то и какого-то цвета). За столом садовник <b>планирует сад</b>: посадки в календаре, заказ семян, печать плана.</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w ok">der Tisch</span><span class="w ok">der Stuhl</span><span class="w ok">der Sessel</span><span class="w ok">der Schrank</span><span class="w ok">der Teppich</span><span class="w ok">der Spiegel</span>
+      <span class="w chk">предметы/материалы (L5)</span>
+      <span class="w ok">der Computer</span><span class="w ok">der Laptop</span><span class="w ok">der Bildschirm</span><span class="w ok">der Drucker</span><span class="w ok">der Stift</span><span class="w ok">der Kalender</span></div>
+  </div>
+
+  <!-- S3 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 3</span><h3>Неделя и футбол Otto</h3>
+      <span class="lks"><span class="lk">L7</span><span class="lk">L8</span></span><span class="thread">⏰ Время · ⚽ Футбол</span></div>
+    <div class="beat">Расписание дотошного садовника: каждый день недели — свой ритуал, а по выходным — футбол у телевизора. Единственное, на чём хмурый Otto теряет контроль.</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w chk">дни недели: der Montag … der Sonntag</span><span class="w chk">der Tag</span><span class="w chk">der Morgen</span><span class="w chk">der Abend</span><span class="w chk">der Fußball</span><span class="w chk">der Sport</span><span class="w chk">der Verein</span></div>
+  </div>
+
+  <!-- S4 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 4</span><h3>Завтрак Otto</h3>
+      <span class="lks"><span class="lk">L9</span></span><span class="thread">🍳 Еда</span></div>
+    <div class="beat">Священный ритуал: кофе (его сигнатура!), всегда одно и то же, по часам. Большой урок — тянет сцену сам.</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w chk">der Kaffee</span><span class="w chk">der Tee</span><span class="w chk">der Apfel</span><span class="w chk">der Käse</span><span class="w chk">der Saft</span><span class="w chk">der Kuchen</span><span class="w chk">der Zucker</span></div>
+  </div>
+
+  <!-- S5 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 5</span><h3>Поездка Otto</h3>
+      <span class="lks"><span class="lk">L10</span></span><span class="thread">🏙 Город (путь)</span></div>
+    <div class="beat">Otto едет к родне — чемодан собран с маниакальной аккуратностью. Отсюда начинается «карта пути» к теме «Город».</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w chk">der Zug</span><span class="w chk">der Bus</span><span class="w chk">der Wagen</span><span class="w chk">der Koffer</span></div>
+  </div>
+
+  <div class="verbmark"><span class="lk">L11</span> Прошедшее время (распорядок дня) → это <b>раздел «Глаголы»</b>, не существительные. Сериал проходит через него, но слова-глаголы учим отдельно.</div>
+
+  <!-- S6 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 6</span><h3>Год в саду</h3>
+      <span class="lks"><span class="lk">L12</span></span><span class="thread">🌳 Сад/год</span></div>
+    <div class="beat">Сад Otto через год: сеет → цветёт → урожай → пусто и тоскливо. Один сад в 4 сезонах. Профессия садовника окупается. der-богато.</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w chk">der Frühling</span><span class="w chk">der Sommer</span><span class="w chk">der Herbst</span><span class="w chk">der Winter</span><span class="w chk">месяцы: der Januar …</span></div>
+  </div>
+
+  <!-- S7 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 7</span><h3>Городок Otto (карта)</h3>
+      <span class="lks"><span class="lk">L13</span><span class="lk">L14</span></span><span class="thread">🏙 Город</span></div>
+    <div class="beat">Любимые места ворчуна + как он по-садовничьи точно объясняет дорогу. Кандидат на интерактивную карту пути.</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w chk">der Markt</span><span class="w chk">der Park</span><span class="w chk">der Bahnhof</span><span class="w chk">der Platz</span><span class="w chk">der Supermarkt</span></div>
+  </div>
+
+  <!-- S8 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 8</span><h3>Дом и кухня Otto</h3>
+      <span class="lks"><span class="lk">L15</span><span class="lk">L16</span></span><span class="thread">🏠 Дом</span></div>
+    <div class="beat">Дом целиком (наконец открывается <b>der Garten</b>, который мы видели в окне) + кухня: старые надёжные приборы, в углу телевизор для футбола.</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w ok">der Flur</span><span class="w ok">der Garten</span><span class="w ok">der Balkon</span><span class="w ok">der Keller</span>
+      <span class="w chk">der Herd</span><span class="w chk">der Kühlschrank</span><span class="w chk">der Toaster</span><span class="w chk">der Fernseher</span></div>
+  </div>
+
+  <!-- S9 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 9</span><h3>Otto у врача (тело и мечты)</h3>
+      <span class="lks"><span class="lk">L17</span><span class="lk">L18</span></span><span class="thread">🩺 Тело/душа</span></div>
+    <div class="beat">Болит голова, спина, живот (слишком много кофе!). Тут же — о чём мечтает одинокий Otto. Эмоциональный центр; der-богато по телу.</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w chk">der Kopf</span><span class="w chk">der Arm</span><span class="w chk">der Bauch</span><span class="w chk">der Rücken</span><span class="w chk">der Hals</span><span class="w chk">der Fuß</span><span class="w chk">der Finger</span><span class="w chk">der Bart</span><span class="w chk">der Wunsch · der Traum (L17)</span></div>
+  </div>
+
+  <div class="verbmark"><span class="lk">L19</span> Дела по дому (императив) → это <b>раздел «Глаголы»</b>. Otto наводит порядок — глаголы учим отдельно, синхронно по уровню.</div>
+
+  <!-- S10 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 10</span><h3>Образ Otto: характер и одежда</h3>
+      <span class="lks"><span class="lk">L20</span><span class="lk">L21</span><span class="lk">L22</span></span><span class="thread">🧥 Образ</span></div>
+    <div class="beat">Кульминация: называем, какой Otto (ворчливый, но добрый), и разбираем весь наряд, что видели с L1. Завязка первого урока окупается.</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w chk">der Schnurrbart</span><span class="w chk">der Bart</span><span class="w chk">der Charakter</span>
+      <span class="w chk">der Rock (килт)</span><span class="w chk">der Mantel</span><span class="w chk">der Hut</span><span class="w chk">der Schal</span><span class="w chk">der Schuh</span><span class="w chk">der Anzug</span><span class="w chk">der Gürtel</span></div>
+  </div>
+
+  <!-- S11 -->
+  <div class="step">
+    <div class="head"><span class="sn">Сцена 11</span><h3>Погода и финал</h3>
+      <span class="lks"><span class="lk">L23</span><span class="lk">L24</span></span><span class="thread">🌧 Погода/финал</span></div>
+    <div class="beat">Шотландская погода под стать Otto. Финал сезона: его день рождения, приходит семья (из сцены 1), ворчун чуть оттаивает. Ты знаешь Otto как героя книги — и через него все мужские слова.</div>
+    <div class="words"><span class="wlabel">слова der:</span>
+      <span class="w chk">der Regen</span><span class="w chk">der Schnee</span><span class="w chk">der Wind</span><span class="w chk">der Sturm</span><span class="w chk">der Nebel</span><span class="w chk">der Himmel</span><span class="w chk">der Geburtstag</span></div>
+  </div>
+
+  <div class="also">
+    <h4>Что ещё будет в каждой теме (зафиксировано в документации)</h4>
+    <ul>
+      <li><b>Сцена по роду</b> (это страница выше) — плотный текст + картинка + подписи + аудио + «глазик»: знакомишься со словом и его родом.</li>
+      <li><b>Накопительные топики</b> ПОСЛЕ темы — не по роду, переиспользуют все слова с 1-й по текущую тему + глаголы, чтобы встретить слово ~8 раз. Лежат рядом с выбором рода.</li>
+      <li><b>Глаголы</b> — отдельный раздел, свои топики (один глагол в разных формах), тоже про Otto; уровень синхронен (без А2 и будущих уроков).</li>
+      <li><b>Карта пути Otto</b> — идея: кликабельная карта от транспорта (L10) к городу (L13/14). В бэклоге.</li>
+    </ul>
+  </div>
+
+  <div class="note">Слова сплошной заливкой — сверены по Momente (L4/6/15). Пунктиром — «сверить»: артикль почти наверняка der, но точный список из урока ещё извлеку из Lernwortschatz, не выдумываю. Промпт для картинки пишу к каждой сцене при её наполнении словами. Полная история — в data/story/otto-arc-A1.md.</div>
+</main>
+<footer>Deutsch A1 · сквозная история Otto · ~11 сцен из 24 уроков · порядок по Momente A1</footer>
+</body>
+</html>
