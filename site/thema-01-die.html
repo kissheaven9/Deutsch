@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Тема 1 · die → Грета: знакомство, семья и анкета</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  h1{font-size:30px}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
+  .ic{border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer;font-size:14px;padding:7px 10px}
+  .ic:active{background:#f3f4f6}
+  .part{display:flex;align-items:center;gap:14px;margin:34px 0 14px;padding:14px 18px;border-radius:16px;border:1px solid var(--line)}
+  .part .pico{font-size:30px;line-height:1}
+  .part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .part h2{margin:2px 0 0;font-size:24px}
+  .part.read{background:#f1f5f9} .part.text{background:#faf5ff} .part.train{background:#f3e8ff;border-color:#e9d5ff}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:18px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:#fdf2f8;border-bottom:1px solid #fbd5e8;border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700;flex:none}
+  .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
+  .stage img{width:100%;height:auto;display:block}
+  .lbl{position:absolute;transform:translate(-50%,-50%);background:#fffffff7;border:2px solid var(--die);
+    border-radius:8px;padding:2px 6px;text-align:center;box-shadow:0 1px 5px #0004;font-size:11px;line-height:1.2;max-width:20%}
+  .lbl .ohint{display:block;color:var(--muted);font-size:10px}
+  .cov{cursor:pointer;display:inline-block}
+  .cov .vv{background:var(--die);color:var(--die);border-radius:4px;padding:0 5px;font-weight:700;transition:.1s}
+  .cov.open .vv{background:#fdecec;color:var(--die)}
+  .greta{left:1.5%;bottom:2.5%;top:auto;transform:none;text-align:left;max-width:46%;font-size:11px}
+  .greta .line{display:block;line-height:1.65}
+  .greta .hd{font-weight:800;color:var(--die)}
+  @media(max-width:620px){.lbl{font-size:9px;max-width:26%;padding:2px 3px} .greta{max-width:58%}}
+  .wlist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  @media(max-width:620px){.wlist{grid-template-columns:1fr}}
+  .wrow{display:flex;align-items:center;gap:8px;background:#fdecec;border:1px solid #fbcfe2;border-radius:9px;padding:6px 8px}
+  .wrow .de{font-weight:700;color:var(--die);font-size:15px}
+  .wrow .de .art{opacity:.7}
+  .wrow .ru{color:#374151;font-size:13px;flex:1;text-align:right}
+  .wrow.noru .ru{visibility:hidden;position:relative}
+  .wrow.noru .ru::after{content:"·····";position:absolute;right:0;color:#9ca3af;visibility:visible}
+  .de-block{color:var(--ink);font-weight:500;line-height:1.7;margin:0 0 14px}
+  .ru-block{color:#374151;line-height:1.7;margin:0}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .qcard{border:1px solid var(--line);border-radius:12px;background:#fff;margin:8px 0;overflow:hidden}
+  .qcard>summary{cursor:pointer;padding:11px 14px;font-weight:700;color:var(--die);list-style:none;display:flex;justify-content:space-between}
+  .qcard>summary::-webkit-details-marker{display:none}
+  .qbody{padding:2px 14px 12px}
+  .q{border-top:1px solid var(--line);padding:9px 0}
+  .qq{font-weight:600;color:var(--ink);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .lk2{border:none;background:#f3e8ff;color:var(--accent);border-radius:7px;font-size:12px;padding:2px 8px;cursor:pointer}
+  .qru{color:var(--muted);font-size:13px;margin:3px 0}
+  .qact{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+  .qin{flex:1;min-width:150px;border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:14px;font-family:inherit}
+  .qin:focus{outline:none;border-color:var(--accent)}
+  .btn.sm{padding:7px 11px;font-size:13px}
+  .exb{background:var(--das);color:#fff;border-radius:6px;font-size:11px;padding:1px 7px}
+  .qres{margin-top:5px;font-size:14px;font-weight:600}
+  .cardwrap{max-width:380px;margin:0 auto}
+  .card{background:#fff;border:2px solid var(--die);border-radius:16px;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer;transition:.12s}
+  .card:active{transform:scale(.99)} .card.back{background:#fdecec}
+  .c-emoji{font-size:52px;line-height:1} .c-text{font-size:25px;font-weight:700;color:var(--ink)}
+  .card.back .c-text{color:var(--die)} .c-text .art{opacity:.7} .c-hint{font-size:12px;color:var(--muted)}
+  .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
+  .cnav #cCount{color:var(--muted);font-weight:600}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
+  .mchip.de{font-weight:700;color:var(--die)} .mchip.sel{border-color:var(--accent);background:#f3e8ff}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .ru{min-width:130px;color:#374151}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:140px}
+  .wq input:focus{outline:none;border-color:var(--accent)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .gap{line-height:2.4;font-size:16px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .gap input{border:none;border-bottom:2px solid var(--die);width:140px;font-size:15px;font-family:inherit;text-align:center;color:var(--die);font-weight:700}
+  .gap input:focus{outline:none;background:#fdecec} .gap .hint{color:var(--muted);font-size:12px}
+  .score{font-weight:700;margin-top:8px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ <a href="thema-01.html">Тема 1</a> / <b style="color:var(--die)">die → Грета</b></span></div></header>
+<main class="wrap">
+  <h1><span class="pill die">die</span> &nbsp;Грета, её семья и анкета</h1>
+  <p class="lead">Темпераментная итальянка Грета знакомит со своей анкетой и семьёй — всё женского рода. Тапни плашку, чтобы открыть немецкое слово (например, у телефона — <b>die Telefonnummer</b>). Ниже — слова, текст, вопросы и упражнения. <a href="thema-01-der.html" style="color:var(--der)">← Otto (der)</a></p>
+
+  <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Изучение</h2></div></div>
+
+  <div class="panel">
+    <h3>🖼 Грета: анкета и семья</h3>
+    <p class="sub">У каждого поля анкеты и у каждой родственницы скрыто немецкое слово (die …). Тапни плашку — откроется слово и артикль.</p>
+    <div class="bar"><button class="ic" onclick="toggleCovers(this)">👁 Открыть все слова</button></div>
+    <div class="stage" id="stage"><img src="img/greta-szene-1.png" alt="Грета, анкета и семья"></div>
+  </div>
+
+  <div class="panel">
+    <h3>🔤 Слова сцены <span class="pill die" style="font-size:12px;padding:3px 9px">die</span></h3>
+    <div class="bar"><button class="ic" id="trBtn" onclick="toggleTransAll(this)">🙈 Скрыть переводы</button><span style="color:var(--muted);font-size:13px">🔊 — послушать · 👁 — скрыть перевод</span></div>
+    <div class="wlist" id="wlist"></div>
+  </div>
+
+  <div class="panel">
+    <h3>📜 Текст</h3>
+    <div class="bh">Deutsch (A1 · L1–L6) <button class="ic" onclick="toggleSpeak(deText(), this)">🔊 Послушать</button></div>
+    <p class="de-block" id="deText">Guten Tag, guten Tag! Ich heiße Greta — Mamma mia, endlich lernt ihr mich kennen! Ich bin Italienerin: Ich komme aus Italien, aus Napoli. Aber jetzt wohne ich in Deutschland, in München. Von Beruf bin ich Köchin. Ich habe eine Firma — sie ist klein, aber gut. Meine Partnerin Giulia ist auch Köchin. Ich bin verheiratet — eine Ehefrau und eine Mamma!<br><br>
+    Und jetzt das Wichtigste — meine Adresse und meine Nummer! Meine Straße heißt Gartenstraße, meine Hausnummer ist sieben, meine Postleitzahl ist 80331. Also: Gartenstraße sieben, 80331 München — das ist meine Adresse! Meine Telefonnummer ist 0176 33 12 40. Meine E-Mail-Adresse ist greta-koechin@mail.de. Hier ist meine Visitenkarte: „Greta — Köchin, Gartenstraße sieben“.<br><br>
+    Ich spreche vier Sprachen: Italienisch, Deutsch, Englisch und ein bisschen Französisch. Ich liebe Sprachen, und ich liebe Musik!<br><br>
+    Das ist meine Familie. Mamma mia, wir sind viele Frauen — was für eine Zahl! Ich habe alle Informationen und eine Liste: lang, sehr lang!<br>
+    Meine Schwester Carla wohnt auch hier in München — gleich nebenan! Carlas Straße heißt auch Gartenstraße, aber Carlas Hausnummer ist neun. Carlas Postleitzahl ist auch 80331. Carlas Telefonnummer ist 0176 55 88 22. Ihr findet mich nicht? Kein Problem: Carla ist da, eine Tür weiter! Ihr habt Carlas Adresse und Carlas Nummer. Carla ist Friseurin.<br>
+    Meine Tochter Mia wohnt auch in München. Mias Straße heißt Lindenstraße, Mias Hausnummer ist zwölf. Mia ist Studentin und macht eine Ausbildung als Krankenschwester. Mias Telefonnummer habe ich natürlich.<br>
+    Meine Mutter Anna wohnt in Napoli, in Italien. Sie ist Sängerin und liebt Musik. Meine Oma wohnt auch in Italien — sie ist Rentnerin.<br>
+    Meine Schwester Lucia wohnt in Zürich, in der Schweiz. Sie ist Ärztin und spricht drei Sprachen.<br>
+    Meine Tante Rosa wohnt in New York, in den USA. Sie ist Verkäuferin — Mamma mia, laut wie ich!<br>
+    Mia hat eine Tochter — das ist meine Enkelin Sofia. Sofia ist klein, aber sie spricht schon Italienisch und Deutsch.<br><br>
+    Jede Stadt, jede Straße, jede Hausnummer, jede Telefonnummer, jede Adresse — alles habe ich! Wir haben viele Verwandte in Italien, in der Schweiz und in den USA. Meine Familie ist groß und international — und das ist wunderschön!</p>
+    <div class="bh">Русский</div>
+    <p class="ru-block">Добрый день, добрый день! Меня зовут Грета — Mamma mia, наконец-то вы со мной знакомитесь! Я итальянка: я из Италии, из Неаполя. Но сейчас живу в Германии, в Мюнхене. По профессии я повар. У меня есть фирма — маленькая, но хорошая. Моя напарница Giulia тоже повар. Я замужем — жена и мама!<br><br>
+    А теперь самое важное — мой адрес и мой номер! Моя улица — Gartenstraße, номер дома — семь, индекс — 80331. Итак: Gartenstraße семь, 80331 Мюнхен — это мой адрес! Мой телефон — 0176 33 12 40. Почта — greta-koechin@mail.de. Вот моя визитка: «Greta — повар, Gartenstraße семь».<br><br>
+    Говорю на четырёх языках: по-итальянски, по-немецки, по-английски и немного по-французски. Обожаю языки и обожаю музыку!<br><br>
+    Это моя семья. Mamma mia, нас, женщин, много — вот это число! У меня есть все сведения и список: длинный, очень длинный!<br>
+    Сестра Carla тоже живёт здесь, в Мюнхене, — прямо по соседству! Её улица — тоже Gartenstraße, но номер дома — девять. Индекс тоже 80331. Телефон Carla — 0176 55 88 22. Не найдёте меня? Не беда: Carla рядом, через дверь! У вас есть её адрес и её номер. Carla — парикмахер.<br>
+    Дочь Mia тоже живёт в Мюнхене. Её улица — Lindenstraße, номер дома — двенадцать. Mia — студентка, учится на медсестру. Её телефон у меня, конечно, есть.<br>
+    Мама Anna живёт в Неаполе, в Италии. Она певица и любит музыку. Бабушка тоже в Италии — на пенсии.<br>
+    Сестра Lucia живёт в Цюрихе, в Швейцарии. Она врач, говорит на трёх языках.<br>
+    Тётя Rosa живёт в Нью-Йорке, в США. Она продавщица — Mamma mia, шумная, как я!<br>
+    У Mia есть дочка — это моя внучка Sofia. Sofia маленькая, но уже говорит по-итальянски и по-немецки.<br><br>
+    Каждый город, каждая улица, каждый номер дома, каждый телефон, каждый адрес — всё у меня есть! У нас много родни в Италии, Швейцарии и США. Семья большая и интернациональная — и это чудесно!</p>
+  </div>
+
+  <div class="part text"><span class="pico">💬</span><div><div class="pk">Часть 2</div><h2>Работа с текстом</h2></div></div>
+  <div class="panel">
+    <h3>❓ Вопросы по тексту</h3>
+    <p class="sub">Прочитай вопрос (перевод — по кнопке), впиши ответ и проверь себя.</p>
+    <div id="exercise"></div>
+  </div>
+
+  <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова</h2></div></div>
+
+  <div class="panel">
+    <h3><span class="exnum">1</span>🃏 Карточки — тренировка</h3>
+    <p class="sub">Картинка и русское слово — вспомни немецкое, нажми, чтобы перевернуть. Листай ← →.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-emoji" id="cEmoji"></div><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="exnum">2</span>🔗 Соотнеси: немецкое ↔ русское (родня)</h3>
+    <p class="sub">Нажми немецкое слово, потом перевод — пара окрасится в свой цвет. Выбор можно менять.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="matchReset()">Попробовать ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="exnum">3</span>✍️ Напиши с артиклем (профессии)</h3>
+    <p class="sub">Дано слово по-русски — впиши его по-немецки с артиклем (die …).</p>
+    <div id="writeList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="exnum">4</span>🧩 Вставь слово в текст (анкета)</h3>
+    <p class="sub">По смыслу понятно, какое слово пропущено — впиши его по-немецки.</p>
+    <div class="gap" id="gap"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapReset()">Ещё раз</button></div>
+    <div class="score" id="gScore"></div>
+  </div>
+
+  <div class="note">Сцена 1 сериала про Грету (Тема 1, L1–L6). Текст утверждён (авторский чат). Канон — data/story/greta-bible.md. Позиции подписей правятся легко — скажи, если съехало.</div>
+</main>
+<footer>Deutsch A1 · Тема 1 · die → Грета · анкета и семья</footer>
+
+<script src="js/app.js"></script>
+<script>
+function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
+/* ---- подписи: анкета Греты (поля die) + профессии родни ---- */
+const stage=document.getElementById('stage');
+function covH(hint,de){return `<span class="cov" onclick="this.classList.toggle('open')"><span class="ohint" style="display:inline">${hint}</span> <b class="vv">${de}</b></span>`;}
+// анкета — панель внизу слева
+const gc=document.createElement('div'); gc.className='lbl greta die';
+gc.innerHTML=`<span class="line hd">🪪 Анкета Греты — тапни поле</span>
+  <span class="line">🌍 ${covH('национальность','die Nationalität')}</span>
+  <span class="line">🏠 ${covH('улица','die Straße')} · 🔢 ${covH('номер дома','die Hausnummer')}</span>
+  <span class="line">📮 ${covH('индекс','die Postleitzahl')} · 🏙️ ${covH('город','die Stadt')}</span>
+  <span class="line">📞 ${covH('телефон','die Telefonnummer')}</span>
+  <span class="line">✉️ ${covH('почта','die E-Mail')} · 👩‍🍳 ${covH('повар','die Köchin')}</span>`;
+stage.appendChild(gc);
+// родня на открытках: имя в кадре, профессия/родство скрыты
+const FAM=[
+  {hint:'сестра',de:'die Friseurin',x:62,y:25},   // Carla
+  {hint:'дочь',de:'die Krankenschwester',x:78,y:25}, // Mia
+  {hint:'сестра',de:'die Ärztin',x:92,y:25},       // Lucia
+  {hint:'мама',de:'die Sängerin',x:62,y:57},       // Anna
+  {hint:'бабушка',de:'die Rentnerin',x:78,y:57},   // Pia
+  {hint:'тётя',de:'die Verkäuferin',x:92,y:57},    // Rosa
+  {hint:'внучка',de:'die Enkelin',x:80,y:84},      // Sofia
+];
+FAM.forEach(f=>{const d=document.createElement('div');d.className='lbl die';d.style.left=f.x+'%';d.style.top=f.y+'%';
+  d.innerHTML=`<span class="cov" onclick="this.classList.toggle('open')"><span class="ohint">${f.hint}</span><b class="vv">${f.de}</b></span>`;stage.appendChild(d);});
+function toggleCovers(btn){const cs=[...document.querySelectorAll('.cov')];const any=cs.some(c=>!c.classList.contains('open'));cs.forEach(c=>c.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть слова':'👁 Открыть все слова';}
+
+/* ---- слова сцены (die) ---- */
+const WORDS=[
+  ['die','Frau','женщина'],['die','Familie','семья'],['die','Mutter','мать'],['die','Oma','бабушка'],['die','Schwester','сестра'],['die','Tante','тётя'],['die','Tochter','дочь'],['die','Enkelin','внучка'],
+  ['die','Köchin','повар'],['die','Sängerin','певица'],['die','Ärztin','врач'],['die','Friseurin','парикмахер'],['die','Verkäuferin','продавщица'],['die','Studentin','студентка'],['die','Krankenschwester','медсестра'],['die','Rentnerin','пенсионерка'],
+  ['die','Nationalität','национальность'],['die','Adresse','адрес'],['die','Straße','улица'],['die','Hausnummer','номер дома'],['die','Postleitzahl','индекс'],['die','Stadt','город'],['die','Telefonnummer','телефон'],['die','E-Mail','эл. почта'],
+  ['die','Sprache','язык'],['die','Herkunft','происхождение'],['die','Firma','фирма'],['die','Partnerin','напарница'],['die','Visitenkarte','визитка'],['die','Musik','музыка'],
+];
+document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="speak('${a} ${de}')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
+function toggleTransAll(btn){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));btn.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
+function deText(){return document.getElementById('deText').innerText;}
+
+/* ---- вопросы по тексту ---- */
+const QA=[
+  {q:'Wie heißt sie?',ru:'Как её зовут?',a:'Sie heißt Greta.',k:'greta'},
+  {q:'Woher kommt Greta?',ru:'Откуда Грета?',a:'Sie kommt aus Italien (aus Napoli).',k:'italien'},
+  {q:'Was ist Greta von Beruf?',ru:'Кто Грета по профессии?',a:'Sie ist Köchin.',k:'köchin'},
+  {q:'Wie ist ihre Telefonnummer?',ru:'Какой у неё телефон?',a:'0176 33 12 40.',k:'0176'},
+  {q:'Wie viele Sprachen spricht Greta?',ru:'На скольких языках говорит Грета?',a:'Sie spricht vier Sprachen.',k:'vier'},
+  {q:'Was ist Carla von Beruf?',ru:'Кто Carla по профессии?',a:'Carla ist Friseurin.',k:'friseurin'},
+  {q:'Wo wohnt Lucia?',ru:'Где живёт Lucia?',a:'Sie wohnt in Zürich, in der Schweiz.',k:'zürich'},
+];
+document.getElementById('exercise').innerHTML=QA.map((o,i)=>{const ex=(i===0);return `<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${o.q} <button class="lk2" onclick="toggleRu(this)">${ex?'Скрыть перевод':'Показать перевод'}</button>${ex?' <span class="exb">пример</span>':''}</div><div class="qru" ${ex?'':'hidden'}>${o.ru}</div><div class="qact"><input class="qin" placeholder="Ответь по-немецки…" value="${ex?o.a:''}"><button class="btn sm" onclick="checkAns(this)">Проверить</button><button class="btn sm" onclick="showAns(this)">Показать ответ</button></div><div class="qres" style="${ex?'color:var(--das)':''}">${ex?'✓ Пример — так отвечаем. Дальше сам(а).':''}</div></div>`;}).join('');
+function toggleRu(btn){const ru=btn.closest('.q').querySelector('.qru');ru.hidden=!ru.hidden;btn.textContent=ru.hidden?'Показать перевод':'Скрыть перевод';}
+function checkAns(btn){const q=btn.closest('.q'),inp=q.querySelector('.qin'),res=q.querySelector('.qres');const ok=norm(inp.value).length>0&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=ok?'var(--das)':'var(--die)';res.style.color=ok?'var(--das)':'var(--die)';res.textContent=ok?'✓ Верно!':'✗ Пока не то — попробуй ещё или открой ответ.';}
+function showAns(btn){const q=btn.closest('.q');q.querySelector('.qres').innerHTML='<span style="color:var(--accent)">Ответ: '+q.dataset.ans+'</span>';}
+
+/* ---- карточки ---- */
+const CARDS=[
+  {e:'👩',ru:'женщина',de:'Frau'},{e:'👨‍👩‍👧‍👦',ru:'семья',de:'Familie'},{e:'🤱',ru:'мать',de:'Mutter'},{e:'👵',ru:'бабушка',de:'Oma'},{e:'👭',ru:'сестра',de:'Schwester'},{e:'👩',ru:'тётя',de:'Tante'},{e:'👧',ru:'дочь',de:'Tochter'},{e:'👶',ru:'внучка',de:'Enkelin'},
+  {e:'👩‍🍳',ru:'повар',de:'Köchin'},{e:'👩‍⚕️',ru:'врач',de:'Ärztin'},{e:'💇‍♀️',ru:'парикмахер',de:'Friseurin'},{e:'🎤',ru:'певица',de:'Sängerin'},
+  {e:'🗣️',ru:'язык',de:'Sprache'},{e:'🪪',ru:'адрес',de:'Adresse'},{e:'📞',ru:'телефон',de:'Telefonnummer'},{e:'🏙️',ru:'город',de:'Stadt'},{e:'🌍',ru:'национальность',de:'Nationalität'},
+];
+let ci=0,flipped=false;
+function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">die</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();speak('die ${c.de}')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%CARDS.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+CARDS.length)%CARDS.length;flipped=false;renderCard();}
+renderCard();
+
+/* ---- соотнеси: родня (цветовые пары) ---- */
+const MATCH=[['die Mutter','мать'],['die Oma','бабушка'],['die Schwester','сестра'],['die Tante','тётя'],['die Tochter','дочь'],['die Enkelin','внучка']];
+const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let selDe=null,links={},colorOf={},nextC=0;
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,color){if(!el)return;el.querySelector('.dot')?.remove();if(color){el.style.background=color+'22';el.style.borderColor=color;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${color}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MATCH.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MATCH.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MATCH[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';}
+function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const owner=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,owner!==undefined?colorOf[owner]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){let ok=0;MATCH.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MATCH.length?'var(--das)':'var(--die)'}">${ok} / ${MATCH.length} верно${ok===MATCH.length?' 🎉':' — поправь пары и проверь ещё раз'}</span>`;}
+function matchReset(){renderMatch();}
+renderMatch();
+
+/* ---- напиши: профессии (die -in) ---- */
+const WRITE=[['повар','die Köchin'],['врач','die Ärztin'],['парикмахер','die Friseurin'],['певица','die Sängerin'],['продавщица','die Verkäuferin'],['студентка','die Studentin']];
+document.getElementById('writeList').innerHTML=WRITE.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="die …" autocomplete="off"><span class="corr"></span></div>`).join('');
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v===norm(WRITE[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно</span>`;}
+function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
+
+/* ---- вставь: анкета (die-поля) ---- */
+const GAPPARTS=[
+  {t:'Greta kommt aus Italien — ihre '},{a:'Nationalität',h:'национальность'},{t:' ist Italienerin. Ihre '},{a:'Straße',h:'улица'},{t:' heißt Gartenstraße, ihre '},{a:'Hausnummer',h:'номер дома'},{t:' ist sieben. '},
+  {t:'Ihre '},{a:'Postleitzahl',h:'индекс'},{t:' ist 80331, ihre '},{a:'Stadt',h:'город'},{t:' ist München. Ihre '},{a:'Telefonnummer',h:'телефон'},{t:' ist 0176 33 12 40, und ihre '},{a:'E-Mail',h:'почта'},{t:' ist greta-koechin@mail.de.'},
+];
+const GANS=GAPPARTS.filter(p=>p.a).map(p=>p.a);
+let gk=0;
+document.getElementById('gap').innerHTML=GAPPARTS.map(p=> p.t!==undefined ? p.t : `<input data-i="${gk++}" placeholder="…" autocomplete="off"><span class="hint"> (${p.h})</span>`).join('');
+function gapCheck(){let ok=0;document.querySelectorAll('#gap input').forEach((inp,idx)=>{const good=norm(inp.value)===norm(GANS[idx]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('gScore').innerHTML=`<span style="color:${ok===GANS.length?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${ok===GANS.length?' 🎉':''}</span>`;}
+function gapReset(){document.querySelectorAll('#gap input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--die)';i.style.color='var(--die)';});document.getElementById('gScore').textContent='';}
+</script>
+</body>
+</html>
