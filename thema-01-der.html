@@ -84,9 +84,7 @@
   .mchip.de{font-weight:700;color:var(--der)}
   .mchip.sel{border-color:var(--accent);background:#f3e8ff}
   .mchip.linked{border-color:var(--accent)}
-  .mchip .pn{position:absolute;top:-8px;right:-8px;background:var(--accent);color:#fff;border-radius:999px;font-size:11px;width:18px;height:18px;line-height:18px}
-  .mchip.ok{border-color:var(--das);background:#e8f6ee}
-  .mchip.bad{border-color:var(--die);background:#fdecec}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
   /* НАПИШИ / ВСТАВЬ */
   .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
   .wq .ru{min-width:130px;color:#374151}
@@ -270,25 +268,37 @@ function cardNext(){ci=(ci+1)%CARDS.length;flipped=false;renderCard();}
 function cardPrev(){ci=(ci-1+CARDS.length)%CARDS.length;flipped=false;renderCard();}
 renderCard();
 
-/* ---- соотнеси ---- */
+/* ---- соотнеси: цветовые пары, выбор можно менять ---- */
 const MATCH=[['der Großvater','дед'],['der Vater','отец'],['der Bruder','брат'],['der Sohn','сын'],['der Enkel','внук'],['der Onkel','дядя']];
+const PCOL=['#f59e0b','#14b8a6','#8b5cf6','#a16207','#6366f1','#0ea5e9'];
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-let mSelDe=null,mLinks={},mRuOrder=[];
+let selDe=null,links={},colorOf={},nextC=0;
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function cRu(j){return document.querySelector(`#mRu .mchip[data-i="${j}"]`);}
+function paint(el,color){ if(!el)return; el.querySelector('.dot')?.remove();
+  if(color){ el.style.background=color+'22'; el.style.borderColor=color; el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${color}"></span>`);}
+  else { el.style.background=''; el.style.borderColor=''; } }
 function renderMatch(){
-  mSelDe=null;mLinks={};mRuOrder=shuffle(MATCH.map((p,i)=>i));
-  document.getElementById('mDe').innerHTML=MATCH.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="mPickDe(${i})">${p[0]}</div>`).join('');
-  document.getElementById('mRu').innerHTML=mRuOrder.map(i=>`<div class="mchip ru" data-i="${i}" onclick="mPickRu(${i})">${MATCH[i][1]}</div>`).join('');
+  selDe=null;links={};colorOf={};nextC=0;
+  const order=shuffle(MATCH.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MATCH.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MATCH[i][1]}</div>`).join('');
   document.getElementById('mScore').textContent='';
 }
-function mPickDe(i){mSelDe=i;document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===i));}
-function mPickRu(ri){if(mSelDe===null)return;mLinks[mSelDe]=ri;
-  document.querySelectorAll('#mDe .mchip').forEach(c=>{const di=+c.dataset.i;c.classList.toggle('linked',di in mLinks);c.classList.remove('sel');const pn=Object.keys(mLinks).indexOf(String(di));c.querySelector('.pn')?.remove();if(di in mLinks){c.insertAdjacentHTML('beforeend',`<span class="pn">${pairNum(di)}</span>`);}});
-  document.querySelectorAll('#mRu .mchip').forEach(c=>{const ri2=+c.dataset.i;c.querySelector('.pn')?.remove();const owner=Object.keys(mLinks).find(k=>mLinks[k]===ri2);if(owner!==undefined){c.insertAdjacentHTML('beforeend',`<span class="pn">${pairNum(+owner)}</span>`);}});
-  mSelDe=null;
+function pickDe(i){ selDe=(selDe===i?null:i); document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe)); }
+function pickRu(j){
+  if(selDe===null) return;
+  for(const k in links){ if(links[k]===j && +k!==selDe){ delete links[k]; paint(cDe(+k),null); } }  // освободить этот перевод
+  links[selDe]=j;
+  if(colorOf[selDe]===undefined){ colorOf[selDe]=PCOL[nextC%PCOL.length]; nextC++; }
+  paint(cDe(selDe),colorOf[selDe]);
+  document.querySelectorAll('#mRu .mchip').forEach(c=>{ const owner=Object.keys(links).find(k=>links[k]===+c.dataset.i); paint(c, owner!==undefined?colorOf[owner]:null); });
+  document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));
+  selDe=null;
 }
-function pairNum(di){return Object.keys(mLinks).indexOf(String(di))+1;}
-function matchCheck(){let ok=0;document.querySelectorAll('#mDe .mchip').forEach(c=>{const di=+c.dataset.i;const good=mLinks[di]===di;c.classList.toggle('ok',good);c.classList.toggle('bad',di in mLinks&&!good);if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MATCH.length?'var(--das)':'var(--die)'}">${ok} / ${MATCH.length} верно${ok<MATCH.length?' — поправь и проверь ещё раз':' 🎉'}</span>`;}
-function matchReset(){document.querySelectorAll('#mDe .mchip,#mRu .mchip').forEach(c=>c.classList.remove('ok','bad','linked','sel'));renderMatch();}
+function matchCheck(){ let ok=0; MATCH.forEach((p,i)=>{ const c=cDe(i); if(!c)return; const good=links[i]===i; c.querySelector('.dot')?.remove(); c.style.background=good?'#e8f6ee':'#fdecec'; c.style.borderColor=good?'var(--das)':'var(--die)'; if(good)ok++; });
+  document.getElementById('mScore').innerHTML=`<span style="color:${ok===MATCH.length?'var(--das)':'var(--die)'}">${ok} / ${MATCH.length} верно${ok===MATCH.length?' 🎉':' — поправь пары и проверь ещё раз'}</span>`; }
+function matchReset(){ renderMatch(); }
 renderMatch();
 
 /* ---- напиши с артиклем ---- */
