@@ -19,9 +19,10 @@ function speak(text){
 function toggleSpeak(text, btn){
   const sy = window.speechSynthesis; if(!sy){ alert('Озвучка недоступна'); return; }
   if(sy.speaking && !sy.paused){ sy.pause(); if(btn) btn.textContent='▶ Продолжить'; return; }
-  if(sy.paused){ sy.resume(); if(btn) btn.textContent='⏸ Пауза'; return; }
+  if(sy.speaking && sy.paused){ sy.resume(); if(btn) btn.textContent='⏸ Пауза'; return; }
   const u=_utter(text); u.onend=()=>{ if(btn) btn.textContent='🔊 Послушать'; };
-  sy.cancel(); sy.speak(u); if(btn) btn.textContent='⏸ Пауза';
+  try{ sy.cancel(); }catch(e){}
+  setTimeout(()=>{ sy.speak(u); if(btn) btn.textContent='⏸ Пауза'; }, 60);
 }
 // начать текст сначала
 function restartSpeak(text, btn){

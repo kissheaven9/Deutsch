@@ -12,18 +12,19 @@
   /* СЦЕНА с подписями-слоем */
   .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
   .stage img{width:100%;height:auto;display:block}
-  .lbl{position:absolute;transform:translate(-50%,-50%);background:#fffffff5;border:2px solid var(--der);
-    border-radius:9px;padding:3px 6px;text-align:center;min-width:62px;box-shadow:0 1px 5px #0004;font-size:12px;line-height:1.2}
-  .lbl .role{display:block;color:var(--der);font-weight:700}
+  .lbl{position:absolute;transform:translate(-50%,-50%);background:#fffffff7;border:2px solid var(--der);
+    border-radius:8px;padding:2px 5px;text-align:center;box-shadow:0 1px 5px #0004;font-size:11px;line-height:1.18}
+  .lbl:not(.otto){max-width:13.5%;min-width:0}
+  .lbl .role{display:block;color:var(--der);font-weight:700;font-size:10px}
   .lbl .nm{display:block;font-weight:700;color:var(--ink)}
   .cov{cursor:pointer;display:inline-block;margin-top:1px}
-  .cov .lab{color:var(--muted);font-size:11px}
+  .cov .lab{color:var(--muted);font-size:10px}
   .cov .vv{background:var(--der);color:var(--der);border-radius:4px;padding:0 5px;font-weight:700;transition:.1s}
   .cov.open .vv{background:#eff3ff;color:var(--der)}
-  .otto{left:1.5%;top:2.5%;transform:none;text-align:left;max-width:42%}
-  .otto .line{display:block;line-height:1.5}
-  .otto .k{color:var(--der);font-weight:700}
-  @media(max-width:620px){.lbl{font-size:10px;min-width:46px;padding:2px 4px} .cov .lab{display:none} .otto{max-width:54%}}
+  .otto{left:1.5%;top:2%;transform:none;text-align:left;max-width:44%}
+  .otto .line{display:block;line-height:1.6}
+  .exb{background:var(--das);color:#fff;border-radius:6px;font-size:11px;padding:1px 7px}
+  @media(max-width:620px){.lbl{font-size:9px;padding:2px 3px} .lbl:not(.otto){max-width:17%} .cov .lab{font-size:9px} .otto{max-width:56%}}
   /* СЛОВА */
   .wlist{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
   @media(max-width:620px){.wlist{grid-template-columns:1fr}}
@@ -79,7 +80,6 @@
   <div class="txt">
     <div class="bh">Deutsch (A1 · L1–L3)
       <button class="ic" onclick="toggleSpeak(deText(), this)">🔊 Послушать</button>
-      <button class="ic" onclick="restartSpeak(deText(), this)">⏮ Сначала</button>
     </div>
     <p class="de-block" id="deText">Guten Tag! Ich heiße Otto MacLeod. Mein Vorname ist Otto, mein Familienname ist MacLeod. Ich komme aus Schottland, aber jetzt wohne ich in Deutschland. Von Beruf bin ich Gärtner. Und mein Familienstand? Ich bin geschieden und lebe allein.<br><br>
     Das ist meine Familie MacLeod. Sie ist groß und international!<br><br>
@@ -132,15 +132,18 @@ const WORDS = [
 
 // ---- подписи на картинке ----
 const stage = document.getElementById('stage');
+// cov: закрашено ЗНАЧЕНИЕ (для семьи — профессия), подпись видна
 function cov(lab,val){ return `<span class="cov" onclick="this.classList.toggle('open')"><span class="lab">${lab}:</span> <b class="vv">${val}</b></span>`; }
-// карточка Otto: имя видно, остальное под тапом
+// covL: закрашена ПОДПИСЬ (немецкое слово), значение видно — для анкеты Otto
+function covL(lab,val){ return `<span class="cov" onclick="this.classList.toggle('open')"><b class="vv">${lab}</b>: ${val}</span>`; }
+// карточка Otto: значения видны (Otto, MacLeod…), закрашены немецкие подписи — их угадываем
 const oc = document.createElement('div');
 oc.className='lbl otto der';
-oc.innerHTML = `<span class="line"><span class="k">der Name:</span> Otto</span>
-  <span class="line">${cov('der Familienname','MacLeod')}</span>
-  <span class="line">${cov('der Beruf','Gärtner')}</span>
-  <span class="line">${cov('der Familienstand','geschieden')}</span>
-  <span class="line">${cov('der Wohnort','Deutschland')}</span>`;
+oc.innerHTML = `<span class="line">${covL('der Name','Otto')}</span>
+  <span class="line">${covL('der Familienname','MacLeod')}</span>
+  <span class="line">${covL('der Beruf','Gärtner')}</span>
+  <span class="line">${covL('der Familienstand','geschieden')}</span>
+  <span class="line">${covL('der Wohnort','Deutschland')}</span>`;
 stage.appendChild(oc);
 // семья: родство+имя видно, профессия под тапом
 FAM.forEach(f=>{
@@ -185,20 +188,23 @@ const QS=[
   {q:'Was ist er von Beruf?',ru:'Кто он по профессии?',ans:c=>`Er ist ${c.beruf}.`,                                key:c=>c.beruf},
 ];
 const people=[Object.assign({role:'',name:'Otto'},OTTO), ...FAM];
-document.getElementById('exercise').innerHTML = people.map(c=>{
+document.getElementById('exercise').innerHTML = people.map((c,pi)=>{
   const title = c.role ? `${c.role} · ${c.name}` : 'Otto MacLeod';
-  const qs = QS.map(o=>`
+  const qs = QS.map((o,qi)=>{
+    const ex = (pi===0 && qi===0);              // первый вопрос — решённый пример
+    return `
     <div class="q" data-key="${o.key(c)}" data-ans="${o.ans(c)}">
-      <div class="qq">${o.q} <button class="lk2" onclick="toggleRu(this)">Показать перевод</button></div>
-      <div class="qru" hidden>${o.ru}</div>
+      <div class="qq">${o.q} <button class="lk2" onclick="toggleRu(this)">${ex?'Скрыть перевод':'Показать перевод'}</button>${ex?' <span class="exb">пример</span>':''}</div>
+      <div class="qru" ${ex?'':'hidden'}>${o.ru}</div>
       <div class="qact">
-        <input class="qin" placeholder="Ответь по-немецки…">
+        <input class="qin" placeholder="Ответь по-немецки…" value="${ex?o.ans(c):''}">
         <button class="btn sm" onclick="checkAns(this)">Проверить</button>
         <button class="btn sm" onclick="showAns(this)">Показать ответ</button>
       </div>
-      <div class="qres"></div>
-    </div>`).join('');
-  return `<details class="qcard"><summary><span>${title}</span><span>▾</span></summary><div class="qbody">${qs}</div></details>`;
+      <div class="qres" style="${ex?'color:var(--das)':''}">${ex?'✓ Пример — так отвечаем. Дальше попробуй сам(а).':''}</div>
+    </div>`;
+  }).join('');
+  return `<details class="qcard"${pi===0?' open':''}><summary><span>${title}</span><span>▾</span></summary><div class="qbody">${qs}</div></details>`;
 }).join('');
 function toggleRu(btn){ const ru=btn.closest('.q').querySelector('.qru'); ru.hidden=!ru.hidden; btn.textContent=ru.hidden?'Показать перевод':'Скрыть перевод'; }
 function checkAns(btn){
