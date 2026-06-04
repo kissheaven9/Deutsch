@@ -193,25 +193,22 @@ function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
 const stage=document.getElementById('stage');
 function mk(x,y,word,dir,letter){const b=document.createElement('button');b.className='mk dir-'+(dir||'l');b.style.left=x+'%';b.style.top=y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkl">${letter||''}</span><span class="mkw">${word}</span>`;stage.appendChild(b);}
 
-// АНКЕТА — точки слева у строк визитки Греты (открываются вправо, поверх строки)
-mk(5,26,'die Köchin','r');
-mk(5,31,'die Straße · die Hausnummer','r');
-mk(5,36,'die Postleitzahl · die Stadt','r');
-mk(5,40,'die Telefonnummer','r');
-mk(5,44,'die E-Mail','r');
-mk(5,48,'die Nationalität','r');
+// АНКЕТА — точки слева у строк визитки (координаты сняты с картинки); открываются вправо
+mk(6.5,27,'die Köchin','r');
+mk(6.5,37,'die Straße · die Hausnummer','r');
+mk(6.5,42,'die Postleitzahl · die Stadt','r');
+mk(6.5,46,'die Telefonnummer','r');
+mk(6.5,50.5,'die E-Mail','r');
+mk(6.5,55,'die Nationalität','r');
 
-// РОДНЯ — у каждого имени: СЛЕВА точка «n» (кто Грете), СПРАВА точка «b» (von Beruf)
-// верхний ряд (имена ~y34)
-mk(54,34,'die Schwester','l','n'); mk(68,34,'von Beruf: die Friseurin','r','b');        // Carla
-mk(70,34,'die Tochter','l','n');   mk(84,34,'von Beruf: die Krankenschwester','r','b'); // Mia
-mk(84,34,'die Schwester','l','n'); mk(96,34,'von Beruf: die Ärztin','l','b');           // Lucia
-// средний ряд (имена ~y62)
-mk(54,62,'die Mutter','l','n');    mk(68,62,'von Beruf: die Sängerin','r','b');          // Anna
-mk(70,62,'die Oma','l','n');       mk(84,62,'von Beruf: die Rentnerin','r','b');         // Pia
-mk(84,62,'die Tante','l','n');     mk(96,62,'von Beruf: die Verkäuferin','l','b');       // Rosa
-// внучка (имя ~y90) — только родство
-mk(78,90,'die Enkelin','l','n');                                                        // Sofia
+// РОДНЯ — у каждого имени: СЛЕВА простой кружок (родство), СПРАВА кружок 🔨 (профессия)
+mk(60,39,'die Schwester','l','');  mk(71,39,'von Beruf: die Friseurin','r','🔨');        // Carla
+mk(72,39,'die Tochter','l','');    mk(82,39,'von Beruf: die Krankenschwester','r','🔨'); // Mia
+mk(83,39,'die Schwester','l','');  mk(95,39,'von Beruf: die Ärztin','l','🔨');           // Lucia
+mk(60,62,'die Mutter','l','');     mk(71,62,'von Beruf: die Sängerin','r','🔨');         // Anna
+mk(72,62,'die Oma','l','');        mk(81,62,'von Beruf: die Rentnerin','r','🔨');        // Pia
+mk(83,64,'die Tante','l','');      mk(94,64,'von Beruf: die Verkäuferin','l','🔨');      // Rosa
+mk(71,89,'die Enkelin','l','');                                                          // Sofia — родство
 function toggleCovers(btn){const ms=[...document.querySelectorAll('.mk')];const any=ms.some(m=>!m.classList.contains('open'));ms.forEach(m=>m.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть слова':'👁 Открыть все слова';}
 
 /* ---- слова сцены (die) ---- */
