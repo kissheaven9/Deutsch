@@ -95,7 +95,7 @@
   .wq.ok input{border-color:var(--das);background:#e8f6ee}
   .wq.bad input{border-color:var(--die);background:#fdecec}
   .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
-  .gap{line-height:2.2}
+  .gap{line-height:2.4;font-size:16px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:14px 16px}
   .gap input{border:none;border-bottom:2px solid var(--der);width:120px;font-size:15px;font-family:inherit;text-align:center;color:var(--der);font-weight:700}
   .gap input:focus{outline:none;background:#eff3ff}
   .gap .hint{color:var(--muted);font-size:12px}
@@ -298,14 +298,18 @@ function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEa
 function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
 
 /* ---- вставь в текст ---- */
-const GAP=[
-  ['Otto kommt aus Schottland, aber jetzt wohnt er in ','Deutschland','(страна)'],
-  ['Von ','Beruf','(профессия) ist Otto Gärtner.'],
-  ['Otto ist geschieden. Sein ','Sohn','(сын) heißt Ewan.'],
-  ['Ewan hat einen Sohn — das ist Ottos ','Enkel','(внук) Finlay.'],
+const GAPPARTS=[
+  {t:'Das ist Otto. Sein '},{a:'Name',h:'имя'},{t:' ist Otto, sein '},{a:'Familienname',h:'фамилия'},
+  {t:' ist MacLeod. Von '},{a:'Beruf',h:'профессия'},{t:' ist er Gärtner. Sein '},{a:'Familienstand',h:'сем. полож.'},
+  {t:': geschieden. Sein '},{a:'Wohnort',h:'место жит.'},{t:' ist jetzt Deutschland. '},
+  {t:'Ottos '},{a:'Großvater',h:'дед'},{t:' heißt Angus, er ist Rentner. Sein '},{a:'Vater',h:'отец'},
+  {t:' Hamish ist Lehrer. Otto hat auch einen '},{a:'Bruder',h:'брат'},{t:': Callum, er ist Verkäufer. '},
+  {t:'Ottos '},{a:'Sohn',h:'сын'},{t:' Ewan ist Student. Ewan hat einen Sohn — das ist Ottos '},{a:'Enkel',h:'внук'},{t:'. Er heißt Finlay und ist Schüler.'},
 ];
-document.getElementById('gap').innerHTML=GAP.map((g,i)=>`<div data-i="${i}" style="margin:6px 0">${g[0]}<input placeholder="…" autocomplete="off"> <span class="hint">${g[2]}</span></div>`).join('');
-function gapCheck(){let ok=0;document.querySelectorAll('#gap [data-i]').forEach(r=>{const i=+r.dataset.i;const inp=r.querySelector('input');const good=norm(inp.value)===norm(GAP[i][1]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('gScore').innerHTML=`<span style="color:${ok===GAP.length?'var(--das)':'var(--die)'}">${ok} / ${GAP.length} верно</span>`;}
+const GANS=GAPPARTS.filter(p=>p.a).map(p=>p.a);
+let gk=0;
+document.getElementById('gap').innerHTML=GAPPARTS.map(p=> p.t!==undefined ? p.t : `<input data-i="${gk++}" placeholder="…" autocomplete="off"><span class="hint"> (${p.h})</span>`).join('');
+function gapCheck(){let ok=0;document.querySelectorAll('#gap input').forEach((inp,idx)=>{const good=norm(inp.value)===norm(GANS[idx]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('gScore').innerHTML=`<span style="color:${ok===GANS.length?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${ok===GANS.length?' 🎉':''}</span>`;}
 function gapReset(){document.querySelectorAll('#gap input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--der)';i.style.color='var(--der)';});document.getElementById('gScore').textContent='';}
 </script>
 </body>
