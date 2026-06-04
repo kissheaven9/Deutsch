@@ -10,37 +10,35 @@ function bestDeVoice(){
   return de[0] || null;
 }
 function _utter(text){ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; u.rate=0.92; const v=bestDeVoice(); if(v)u.voice=v; return u; }
-// короткое слово — просто проговорить заново
+// очередь предложений (длинный текст Chrome рвёт → режем; запуск СИНХРОННО, иначе Safari блокирует)
+// _gen — «поколение»: при любой новой озвучке растёт, старые onend становятся неактуальны
+// и НЕ продолжают прежний текст (баг: озвучка слова продолжала текст).
+let _q=[], _qi=0, _qBtn=null, _gen=0;
+function _stopAll(){ _gen++; _q=[]; _qi=0; if(_qBtn){ _qBtn.textContent='🔊 Послушать'; _qBtn=null; } try{ window.speechSynthesis.cancel(); }catch(e){} }
+function _seq(){
+  if(_qi>=_q.length){ if(_qBtn){ _qBtn.textContent='🔊 Послушать'; _qBtn=null; } return; }
+  const my=_gen, u=_utter(_q[_qi]);
+  u.onend=()=>{ if(my!==_gen) return; _qi++; _seq(); };
+  u.onerror=()=>{ if(my!==_gen) return; _qi++; _seq(); };
+  window.speechSynthesis.speak(u);
+}
+// короткое слово — останавливает любой текст и говорит только слово
 function speak(text){
-  try{ speechSynthesis.cancel(); speechSynthesis.speak(_utter(text)); }
+  try{ _stopAll(); window.speechSynthesis.speak(_utter(text)); }
   catch(e){ alert('Озвучка недоступна в этом браузере'); }
 }
 // длинный текст — кнопка играть/пауза/продолжить
-// очередь предложений (длинный текст Chrome рвёт → режем; запуск СИНХРОННО, иначе Safari блокирует)
-let _q=[], _qi=0, _qBtn=null, _qOn=false;
-function _next(){
-  const sy=window.speechSynthesis;
-  if(_qi>=_q.length){ _qOn=false; if(_qBtn) _qBtn.textContent='🔊 Послушать'; return; }
-  const u=_utter(_q[_qi]);
-  u.onend=()=>{ _qi++; _next(); };
-  u.onerror=()=>{ _qi++; _next(); };
-  sy.speak(u);
-}
 function toggleSpeak(text, btn){
   const sy = window.speechSynthesis; if(!sy){ alert('Озвучка недоступна в этом браузере'); return; }
-  if(_qOn && sy.speaking && !sy.paused){ sy.pause(); if(btn) btn.textContent='▶ Продолжить'; return; }
-  if(_qOn && sy.paused){ sy.resume(); if(btn) btn.textContent='⏸ Пауза'; return; }
-  try{ sy.cancel(); }catch(e){}
+  const running = _q.length>0 && _qi<_q.length;            // идёт ли наш текст
+  if(running && sy.speaking && !sy.paused){ sy.pause(); if(btn) btn.textContent='▶ Продолжить'; return; }
+  if(running && sy.paused){ sy.resume(); if(btn) btn.textContent='⏸ Пауза'; return; }
+  _stopAll();
   _q = (text||'').replace(/\s+/g,' ').trim().match(/[^.!?]+[.!?]*/g) || [text];
-  _qi=0; _qBtn=btn; _qOn=true; if(btn) btn.textContent='⏸ Пауза';
-  _next(); // СИНХРОННО, внутри клика — иначе Safari/iOS не озвучит
+  _qi=0; _qBtn=btn; if(btn) btn.textContent='⏸ Пауза';
+  _seq(); // СИНХРОННО, внутри клика — иначе Safari/iOS не озвучит
 }
-// начать текст сначала
-function restartSpeak(text, btn){
-  const sy=window.speechSynthesis; if(!sy) return;
-  const u=_utter(text); u.onend=()=>{ if(btn) btn.textContent='🔊 Послушать'; };
-  sy.cancel(); sy.speak(u); if(btn) btn.textContent='⏸ Пауза';
-}
+function restartSpeak(text, btn){ _stopAll(); toggleSpeak(text, btn); }
 
 // Глазик: скрыть/показать конкретный объект
 function toggleObj(btn){
