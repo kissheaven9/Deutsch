@@ -270,7 +270,7 @@ document.getElementById('app').innerHTML=`
   <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Читаем диалог</h2></div></div>
   <div class="panel">
     <div class="leg">Реплики по роду героя: <span><b class="der">■ Otto</b> der</span> <span><b class="die">■ Грета</b> die</span> <span><b class="das">■ Тео / Lina</b> das</span></div>
-    <div class="bh">🇩🇪 Deutsch <button class="ic" onclick="toggleSpeak(deTxt(),this)">🔊 Послушать</button></div>
+    <div class="bh">🇩🇪 Deutsch <button class="ic" onclick="speakDialog(this)">🔊 Послушать (по голосам)</button></div>
     <div class="dlg de" id="deDlg">${D.de}</div>
     <div class="bh" style="margin-top:14px">🇷🇺 Русский <button class="ic" id="ruBtn" onclick="toggleRuDlg()">Показать перевод</button></div>
     <div class="dlg ru" id="ruDlg" hidden>${D.ru}</div>
@@ -311,6 +311,15 @@ document.getElementById('app').innerHTML=`
   </div>`;
 
 function deTxt(){return [...document.querySelectorAll('#deDlg p')].map(p=>{const c=p.cloneNode(true);c.querySelectorAll('.sp,.rem').forEach(e=>e.remove());return c.textContent.replace(/\s+/g,' ').trim();}).filter(Boolean).join(' . ');}
+function speakDialog(btn){
+  const items=[...document.querySelectorAll('#deDlg p')].map(p=>{
+    const sp=p.querySelector('.sp');
+    const role= sp? (sp.classList.contains('der')?'male':sp.classList.contains('die')?'female':'child') : '';
+    const c=p.cloneNode(true); c.querySelectorAll('.sp,.rem').forEach(e=>e.remove());
+    return {t:c.textContent.replace(/\s+/g,' ').trim(), role};
+  });
+  speakSequence(items, btn);
+}
 function toggleRuDlg(){const d=document.getElementById('ruDlg'),b=document.getElementById('ruBtn');d.hidden=!d.hidden;b.textContent=d.hidden?'Показать перевод':'Скрыть перевод';}
 
 // ---- метки на картинке ----

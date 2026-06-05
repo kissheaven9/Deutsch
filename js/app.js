@@ -10,32 +10,65 @@ function bestDeVoice(){
   return de[0] || null;
 }
 function _utter(text){ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; u.rate=0.92; const v=bestDeVoice(); if(v)u.voice=v; return u; }
+// --- голоса по роли героя (бесплатно: системные голоса + тембр/скорость) ---
+function _deVoices(){ return (_voices||[]).filter(v=>v.lang && v.lang.toLowerCase().startsWith('de')); }
+function _voiceByNames(names){ const de=_deVoices(); for(const n of names){ const m=de.find(v=>v.name.toLowerCase().includes(n)); if(m) return m; } return null; }
+const _FEM=['anna','petra','helena','katja','marlene','vicki','female','frau','greta','klara'];
+const _MAS=['markus','yannick','conrad','stefan','viktor','reed','male','mann'];
+function roleVoice(role){
+  if(role==='male'||role==='der')   return { voice:_voiceByNames(_MAS)||bestDeVoice(), pitch:0.8,  rate:0.92 }; // Otto — ниже, спокойнее
+  if(role==='female'||role==='die') return { voice:_voiceByNames(_FEM)||bestDeVoice(), pitch:1.12, rate:1.0  }; // Грета
+  if(role==='child'||role==='das')  return { voice:_voiceByNames(_FEM)||bestDeVoice(), pitch:1.55, rate:1.07 }; // дети — выше, живее
+  return { voice:bestDeVoice(), pitch:1.0, rate:0.94 };
+}
+function _utterRole(text, role){ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; const r=roleVoice(role); if(r.voice)u.voice=r.voice; u.pitch=r.pitch; u.rate=r.rate; return u; }
 // очередь предложений (длинный текст Chrome рвёт → режем; запуск СИНХРОННО, иначе Safari блокирует)
 // _gen — «поколение»: при любой новой озвучке растёт, старые onend становятся неактуальны
 // и НЕ продолжают прежний текст (баг: озвучка слова продолжала текст).
-let _q=[], _qi=0, _qBtn=null, _gen=0;
-function _stopAll(){ _gen++; _q=[]; _qi=0; if(_qBtn){ _qBtn.textContent='🔊 Послушать'; _qBtn=null; } try{ window.speechSynthesis.cancel(); }catch(e){} }
+let _q=[], _qi=0, _qBtn=null, _gen=0, _qRole='';
+let _sq=[], _sqi=0, _sqBtn=null;
+function _stopAll(){ _gen++; _q=[]; _qi=0; _sq=[]; _sqi=0;
+  if(_qBtn){ _qBtn.textContent='🔊 Послушать'; _qBtn=null; }
+  if(_sqBtn){ _sqBtn.textContent='🔊 Послушать'; _sqBtn=null; }
+  try{ window.speechSynthesis.cancel(); }catch(e){} }
 function _seq(){
   if(_qi>=_q.length){ if(_qBtn){ _qBtn.textContent='🔊 Послушать'; _qBtn=null; } return; }
-  const my=_gen, u=_utter(_q[_qi]);
+  const my=_gen, u=_utterRole(_q[_qi], _qRole);
   u.onend=()=>{ if(my!==_gen) return; _qi++; _seq(); };
   u.onerror=()=>{ if(my!==_gen) return; _qi++; _seq(); };
   window.speechSynthesis.speak(u);
 }
+// очередь реплик с РАЗНЫМИ голосами: items=[{t,role}] (для диалогов)
+function speakSequence(items, btn){
+  const sy=window.speechSynthesis; if(!sy){ alert('Озвучка недоступна в этом браузере'); return; }
+  if(_sq.length && _sqi<_sq.length){
+    if(sy.speaking && !sy.paused){ sy.pause(); if(btn) btn.textContent='▶ Продолжить'; return; }
+    if(sy.paused){ sy.resume(); if(btn) btn.textContent='⏸ Пауза'; return; }
+  }
+  _stopAll(); _sq=(items||[]).filter(x=>x.t && x.t.trim()); _sqi=0; _sqBtn=btn; if(btn) btn.textContent='⏸ Пауза';
+  _seqRole();
+}
+function _seqRole(){
+  if(_sqi>=_sq.length){ if(_sqBtn){ _sqBtn.textContent='🔊 Послушать'; _sqBtn=null; } return; }
+  const my=_gen, it=_sq[_sqi], u=_utterRole(it.t, it.role);
+  u.onend=()=>{ if(my!==_gen) return; _sqi++; _seqRole(); };
+  u.onerror=()=>{ if(my!==_gen) return; _sqi++; _seqRole(); };
+  window.speechSynthesis.speak(u);
+}
 // короткое слово — останавливает любой текст и говорит только слово
-function speak(text){
-  try{ _stopAll(); window.speechSynthesis.speak(_utter(text)); }
+function speak(text, role){
+  try{ _stopAll(); window.speechSynthesis.speak(_utterRole(text, role||'')); }
   catch(e){ alert('Озвучка недоступна в этом браузере'); }
 }
 // длинный текст — кнопка играть/пауза/продолжить
-function toggleSpeak(text, btn){
+function toggleSpeak(text, btn, role){
   const sy = window.speechSynthesis; if(!sy){ alert('Озвучка недоступна в этом браузере'); return; }
   const running = _q.length>0 && _qi<_q.length;            // идёт ли наш текст
   if(running && sy.speaking && !sy.paused){ sy.pause(); if(btn) btn.textContent='▶ Продолжить'; return; }
   if(running && sy.paused){ sy.resume(); if(btn) btn.textContent='⏸ Пауза'; return; }
   _stopAll();
   _q = (text||'').replace(/\s+/g,' ').trim().match(/[^.!?]+[.!?]*/g) || [text];
-  _qi=0; _qBtn=btn; if(btn) btn.textContent='⏸ Пауза';
+  _qi=0; _qBtn=btn; _qRole=role||''; if(btn) btn.textContent='⏸ Пауза';
   _seq(); // СИНХРОННО, внутри клика — иначе Safari/iOS не озвучит
 }
 function restartSpeak(text, btn){ _stopAll(); toggleSpeak(text, btn); }
