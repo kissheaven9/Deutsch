@@ -49,6 +49,9 @@
   .mchip.de{font-weight:700;color:var(--accent)} .mchip.sel{border-color:var(--accent);background:#f3e8ff}
   .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
   /* распредели по родам */
+  .noselect{user-select:none;-webkit-user-select:none}
+  .sortgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+  @media(max-width:620px){.sortgrid{grid-template-columns:1fr}}
   .srow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:8px 0}
   .srow .sw{font-weight:700;min-width:130px}
   .sbtns{display:flex;gap:6px}
@@ -70,7 +73,7 @@
 
 <script src="js/app.js"></script>
 <script>
-function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
+function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9äöüß]/g,'');}
 const DIALOGS={
  1:{ title:'Текст 1 — Знакомство во дворе', img:'img/dialog-1.png',
    sub:'Соседи знакомятся: имена, фамилия по буквам, откуда родом, как дела. L1.',
@@ -242,12 +245,17 @@ document.getElementById('app').innerHTML=`
     <div class="leg">Реплики по роду героя: <span><b class="der">■ Otto</b> der</span> <span><b class="die">■ Грета</b> die</span> <span><b class="das">■ Тео / Lina</b> das</span></div>
     <div class="bh">🇩🇪 Deutsch <button class="ic" onclick="toggleSpeak(deTxt(),this)">🔊 Послушать</button></div>
     <div class="dlg de" id="deDlg">${D.de}</div>
-    <div class="bh" style="margin-top:14px">🇷🇺 Русский</div>
-    <div class="dlg ru">${D.ru}</div>
+    <div class="bh" style="margin-top:14px">🇷🇺 Русский <button class="ic" id="ruBtn" onclick="toggleRuDlg()">Показать перевод</button></div>
+    <div class="dlg ru" id="ruDlg" hidden>${D.ru}</div>
   </div>
 
   <div class="part text"><span class="pico">💬</span><div><div class="pk">Часть 2</div><h2>Вопросы по тексту</h2></div></div>
-  <div class="panel"><div id="qa"></div></div>
+  <div class="panel"><h3>❓ Ответь на вопросы</h3>
+    <p class="sub">Отвечай <b>полным предложением</b>; число — <b>словами</b>, не цифрой (например: «Otto ist fünfzig.»). На «да/нет» — полный ответ («Nein, er ist geschieden.»). Перевод вопроса — по кнопке.</p>
+    <div id="qa"></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="qaCheckAll()">Проверить</button><button class="btn sm" onclick="qaShowAll()">Показать ответы</button></div>
+    <div class="score" id="qaScore"></div>
+  </div>
 
   <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова (все рода вперемешку)</h2></div></div>
   <div class="panel"><h3><span class="exnum">1</span>🔗 Соотнеси: немецкое ↔ русское</h3>
@@ -257,9 +265,9 @@ document.getElementById('app').innerHTML=`
     <div class="score" id="mScore"></div>
   </div>
   <div class="panel"><h3><span class="exnum">2</span>🧮 Распредели по родам</h3>
-    <p class="sub">У каждого слова выбери его род: der, die или das (по смыслу и по окончанию).</p>
-    <div id="sortList"></div>
-    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="sortCheck()">Проверить</button><button class="btn sm" onclick="renderSort()">Ещё раз</button></div>
+    <p class="sub">У каждого слова выбери его род — der, die или das (по смыслу и по окончанию). Сразу 14 слов; «ещё» — новый набор.</p>
+    <div id="sortList" class="sortgrid"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="sortCheck()">Проверить</button><button class="btn sm" onclick="renderSort()">Ещё 14 слов →</button></div>
     <div class="score" id="sScore"></div>
   </div>
   <div class="panel"><h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
@@ -275,7 +283,8 @@ document.getElementById('app').innerHTML=`
     <div class="score" id="vScore"></div>
   </div>`;
 
-function deTxt(){return document.getElementById('deDlg').innerText;}
+function deTxt(){return [...document.querySelectorAll('#deDlg p')].map(p=>{const c=p.cloneNode(true);c.querySelectorAll('.sp,.rem').forEach(e=>e.remove());return c.textContent.replace(/\s+/g,' ').trim();}).filter(Boolean).join(' . ');}
+function toggleRuDlg(){const d=document.getElementById('ruDlg'),b=document.getElementById('ruBtn');d.hidden=!d.hidden;b.textContent=d.hidden?'Показать перевод':'Скрыть перевод';}
 
 // ---- nav ----
 document.getElementById('nav').innerHTML =
@@ -283,10 +292,10 @@ document.getElementById('nav').innerHTML =
   (N<3?`<a href="dialog.html?n=${N+1}">Текст ${N+1} →</a>`:`<a href="thema-01.html">К теме 1 →</a>`);
 
 // ---- вопросы ----
-document.getElementById('qa').innerHTML=D.qa.map((o,i)=>{const ex=(i===0);return `<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${o.q} <button class="lk2" onclick="tRu(this)">${ex?'Скрыть перевод':'Показать перевод'}</button></div><div class="qru" ${ex?'':'hidden'}>${o.ru}</div><div class="qact"><input class="qin" placeholder="Ответь по-немецки…" value="${ex?o.a:''}"><button class="btn sm" onclick="cAns(this)">Проверить</button><button class="btn sm" onclick="sAns(this)">Показать ответ</button></div><div class="qres" style="${ex?'color:var(--das)':''}">${ex?'✓ Пример — так отвечаем.':''}</div></div>`;}).join('');
-function tRu(b){const r=b.closest('.q').querySelector('.qru');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
-function cAns(b){const q=b.closest('.q'),inp=q.querySelector('.qin'),res=q.querySelector('.qres');const ok=norm(inp.value).length>0&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=ok?'var(--das)':'var(--die)';res.style.color=ok?'var(--das)':'var(--die)';res.textContent=ok?('✓ '+praise()):'✗ Пока не то — попробуй ещё или открой ответ.';}
-function sAns(b){const q=b.closest('.q');q.querySelector('.qres').innerHTML='<span style="color:var(--accent)">Ответ: '+q.dataset.ans+'</span>';}
+document.getElementById('qa').innerHTML=D.qa.map((o,i)=>`<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${i+1}. ${o.q} <button class="lk2" onclick="tRu(this)">перевод</button></div><div class="qru" hidden>${o.ru}</div><input class="qin" placeholder="Ответь по-немецки…" autocomplete="off"><div class="qres"></div></div>`).join('');
+function tRu(b){const r=b.closest('.q').querySelector('.qru');r.hidden=!r.hidden;}
+function qaCheckAll(){let ok=0;document.querySelectorAll('#qa .q').forEach(q=>{const inp=q.querySelector('.qin'),res=q.querySelector('.qres');const good=norm(inp.value).length>2&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=good?'var(--das)':'var(--die)';res.style.color=good?'var(--das)':'var(--die)';res.textContent=good?('✓ '+praise()):'✗ попробуй ещё (полным предложением)';if(good)ok++;});document.getElementById('qaScore').innerHTML=`<span style="color:${ok===D.qa.length?'var(--das)':'var(--die)'}">${ok} / ${D.qa.length} верно${ok===D.qa.length?(' — '+praise()):''}</span>`;}
+function qaShowAll(){document.querySelectorAll('#qa .q').forEach(q=>{q.querySelector('.qres').innerHTML='<span class="noselect" style="color:var(--accent)">✔ '+q.dataset.ans+'</span>';});}
 
 // ---- соотнеси (цветные пары) ----
 const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
@@ -302,10 +311,17 @@ function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mch
 function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
 function matchCheck(){const M=D.match;let ok=0;M.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===M.length?'var(--das)':'var(--die)'}">${ok} / ${M.length} верно${ok===M.length?(' — '+praise()):' — поправь пары'}</span>`;}
 
-// ---- распредели по родам ----
-function renderSort(){document.getElementById('sortList').innerHTML=D.sort.map((p,i)=>`<div class="srow" data-i="${i}" data-g="${p[1]}"><span class="sw">${p[0]}</span><span class="sbtns"><button class="der" onclick="pickG(this,'der')">der</button><button class="die" onclick="pickG(this,'die')">die</button><button class="das" onclick="pickG(this,'das')">das</button></span><span class="mark"></span></div>`).join('');document.getElementById('sScore').textContent='';}
+// ---- распредели по родам (общий пул темы 1, по 14 слов) ----
+const SORTPOOL=[
+ ['Name','der'],['Familienname','der'],['Herr','der'],['Beruf','der'],['Gärtner','der'],['Lehrer','der'],['Arzt','der'],['Vater','der'],['Bruder','der'],['Sohn','der'],['Onkel','der'],['Enkel','der'],['Mann','der'],
+ ['Frau','die'],['Familie','die'],['Mutter','die'],['Schwester','die'],['Tochter','die'],['Tante','die'],['Köchin','die'],['Firma','die'],['Sprache','die'],['Stadt','die'],['Adresse','die'],['Nationalität','die'],
+ ['Kind','das'],['Mädchen','das'],['Jahr','das'],['Alter','das'],['Land','das'],['Tier','das'],['Fest','das'],['Interview','das'],['Gespräch','das'],['Datum','das']
+];
+function renderSort(){const items=shuffle(SORTPOOL).slice(0,14);
+  document.getElementById('sortList').innerHTML=items.map((p,i)=>`<div class="srow" data-i="${i}" data-g="${p[1]}"><span class="sw">${p[0]}</span><span class="sbtns"><button class="der" onclick="pickG(this,'der')">der</button><button class="die" onclick="pickG(this,'die')">die</button><button class="das" onclick="pickG(this,'das')">das</button></span><span class="mark"></span></div>`).join('');
+  document.getElementById('sScore').textContent='';}
 function pickG(btn,g){const row=btn.closest('.srow');row.dataset.pick=g;row.classList.remove('ok','bad');row.querySelector('.mark').textContent='';row.querySelectorAll('.sbtns button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
-function sortCheck(){let ok=0;document.querySelectorAll('#sortList .srow').forEach(r=>{const good=r.dataset.pick===r.dataset.g;if(r.dataset.pick){r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.mark').textContent=good?'✓':('✗ '+r.dataset.g);if(good)ok++;}});document.getElementById('sScore').innerHTML=`<span style="color:${ok===D.sort.length?'var(--das)':'var(--die)'}">${ok} / ${D.sort.length} верно${ok===D.sort.length?(' — '+praise()):''}</span>`;}
+function sortCheck(){const rows=[...document.querySelectorAll('#sortList .srow')];let ok=0;rows.forEach(r=>{if(!r.dataset.pick)return;const good=r.dataset.pick===r.dataset.g;r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.mark').textContent=good?'✓':('✗ '+r.dataset.g);if(good)ok++;});document.getElementById('sScore').innerHTML=`<span style="color:${ok===rows.length?'var(--das)':'var(--die)'}">${ok} / ${rows.length} верно${ok===rows.length?(' — '+praise()):' — поправь и проверь'}</span>`;}
 
 // ---- напиши с артиклем ----
 function renderWrite(){document.getElementById('writeList').innerHTML=D.write.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="артикль + слово…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('wScore').textContent='';}
@@ -315,7 +331,7 @@ function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{con
 
 // ---- глаголы: перевод ----
 function renderVerb(){document.getElementById('verbList').innerHTML=D.verbs.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru" style="color:var(--accent);font-weight:700">${p[0]}</span><input placeholder="перевод по-русски…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('vScore').textContent='';}
-function verbCheck(){let ok=0;document.querySelectorAll('#verbList .wq').forEach(r=>{const i=+r.dataset.i;const key=D.verbs[i][1].split(/[ (/]/)[0];const good=norm(r.querySelector('input').value).length>0&&norm(r.querySelector('input').value).includes(norm(key));r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.verbs[i][1];if(good)ok++;});document.getElementById('vScore').innerHTML=`<span style="color:${ok===D.verbs.length?'var(--das)':'var(--die)'}">${ok} / ${D.verbs.length} верно${ok===D.verbs.length?(' — '+praise()):''}</span>`;}
+function verbCheck(){let ok=0;document.querySelectorAll('#verbList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v.length>=3 && norm(D.verbs[i][1]).includes(v);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.verbs[i][1];if(good)ok++;});document.getElementById('vScore').innerHTML=`<span style="color:${ok===D.verbs.length?'var(--das)':'var(--die)'}">${ok} / ${D.verbs.length} верно${ok===D.verbs.length?(' — '+praise()):''}</span>`;}
 function verbShow(){document.querySelectorAll('#verbList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.verbs[i][1];r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('vScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
 
 renderMatch();renderSort();renderWrite();renderVerb();

@@ -57,12 +57,12 @@
   .vbadge{display:inline-block;font-size:10px;font-weight:700;border-radius:5px;padding:1px 5px;margin-right:5px}
   .vbadge.reg{background:#e5e7eb;color:#475569} .vbadge.irr{background:#fde68a;color:#b45309}
   .vlegend{font-size:12px;color:var(--muted);margin:8px 0 0}
-  .txtcards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .txtcards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
   @media(max-width:760px){.txtcards{grid-template-columns:1fr}}
-  .txtcard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;text-decoration:none;color:var(--ink);display:flex;flex-direction:column}
-  .txtcard img{width:100%;height:140px;object-fit:cover;display:block}
-  .txtcard .tc-b{padding:10px 12px}
-  .txtcard .tc-t{font-weight:700;font-size:15px}
+  .txtcard{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;text-decoration:none;color:var(--ink);display:block}
+  .txtcard img{width:100%;height:auto;display:block}
+  .txtcard .tc-b{padding:12px 16px}
+  .txtcard .tc-t{font-weight:700;font-size:16px}
   .txtcard .tc-s{color:var(--muted);font-size:13px;margin:2px 0 6px}
   .txtcard .tc-go{color:var(--accent);font-weight:700;font-size:14px}
 </style>
@@ -169,9 +169,15 @@ const TR={
   Köchin:"повар",Sängerin:"певица",Friseurin:"парикмахер (ж)",Verkäuferin:"продавщица",Rentnerin:"пенсионерка",Musik:"музыка",
   Kind:"ребёнок",Mädchen:"девочка",Jahr:"год",Alter:"возраст",Land:"страна",Gespräch:"разговор",Alphabet:"алфавит",Interview:"интервью",Rätsel:"загадка",Studium:"учёба (в вузе)",Praktikum:"практика",Tier:"животное",Fest:"праздник",Enkelkind:"внук / внучка",Datum:"дата",Geburtsdatum:"дата рождения",Mitglied:"член (группы)"
 };
-document.querySelectorAll('.grow .w').forEach(w=>{
+const TR2={
+ "alt":"старый / возраст","verheiratet":"женат / замужем","geschieden":"разведён(а)","allein":"один / одна","richtig":"правильно","falsch":"неправильно",
+ "… Jahre alt":"… лет (возраст)","von Beruf":"по профессии","ein bisschen":"немного","gar nicht":"совсем не","Wie geht’s?":"как дела?","Nicht so gut":"не очень","vielen Dank":"большое спасибо","Guten Tag":"добрый день","Auf Wiedersehen":"до свидания",
+ "jetzt":"сейчас","zusammen":"вместе","hier":"здесь","auch":"тоже","aus":"из","bei":"у / при","als":"как (в роли)","in":"в","wo":"где","woher":"откуда","wer":"кто","wie":"как","welche":"какой / какие","aber":"но","und":"и",
+ "ja":"да","nein":"нет","doch":"напротив, да","kein / keine":"нет / никакой","mein":"мой","dein":"твой"
+};
+document.querySelectorAll('.grow .w, .box .words .w').forEach(w=>{
   const de=w.textContent.trim(); w.dataset.de=de; w.title='нажми — перевод';
-  w.addEventListener('click',()=>{ const f=w.classList.toggle('flip'); w.textContent = f ? (TR[de]||'—') : de; });
+  w.addEventListener('click',()=>{ const f=w.classList.toggle('flip'); w.textContent = f ? (TR[de]||TR2[de]||'—') : de; });
 });
 
 // ---- глаголы: клик — перевод, ▾ — формы + прошедшее ----
