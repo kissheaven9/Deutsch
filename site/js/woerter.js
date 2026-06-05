@@ -178,6 +178,45 @@ const Dict = (function(){
     }));
     const eye=root.querySelector('.eye');
     eye.addEventListener('click',()=>{ const on=document.body.classList.toggle('hide-ru'); eye.textContent=on?"👁 Показать переводы":"🙈 Скрыть переводы"; });
+
+    // ----- Скачать PDF (печать выбранного набора) -----
+    const pdfBtn=root.querySelector('.btn-pdf');
+    if(pdfBtn) pdfBtn.addEventListener('click',exportPDF);
+    function grab(sel,isVerb){
+      const out=[];
+      root.querySelectorAll(sel).forEach(c=>{ if(c.style.display==="none") return;
+        if(isVerb){ out.push({art:"",de:c.querySelector('.vhead .de').textContent,ru:c.querySelector('.vhead .ru').textContent,pp:(c.querySelector('.past')?.textContent||"").replace(/.*:\s*/,"")}); }
+        else { out.push({art:(c.querySelector('.art')?.textContent||"").trim(),de:c.querySelector('.de').textContent,ru:c.querySelector('.ru').textContent,pp:""}); }
+      });
+      return out;
+    }
+    function exportPDF(){
+      const der=grab('.entry.der'),die=grab('.entry.die'),das=grab('.entry.das'),verbs=grab('.ventry',true),other=grab('.pair');
+      const themeTitle = themes.length===1 ? themes[0].title : "все темы";
+      const activeG=root.querySelector('.chip[data-f][aria-pressed="true"]');
+      const gLabel=activeG?activeG.textContent.trim():"Все";
+      const tbl=(title,rows,g)=>{ if(!rows.length) return "";
+        const trs=rows.map(r=>`<tr class="${g||""}"><td class="art">${esc(r.art)}</td><td class="de">${esc(r.de)}</td><td class="ru">${esc(r.ru)}</td><td class="pp">${esc(r.pp)}</td></tr>`).join("");
+        return `<h2>${esc(title)}</h2><table>${trs}</table>`; };
+      const body = tbl("Мужской род — der",der,"der")+tbl("Женский род — die",die,"die")+tbl("Средний род — das",das,"das")+tbl("Глаголы",verbs,"")+tbl("Другое",other,"");
+      const html=`<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Словарь A1</title><style>
+        body{font-family:-apple-system,"Inter",Arial,sans-serif;color:#1f2937;padding:24px;max-width:760px;margin:auto}
+        h1{font-size:22px;margin:0} .sub{color:#6b7280;margin:2px 0 14px;font-size:13px}
+        h2{font-size:15px;margin:18px 0 6px;border-bottom:2px solid #e5e7eb;padding-bottom:4px}
+        table{width:100%;border-collapse:collapse} td{padding:4px 8px;border-bottom:1px solid #eee;font-size:14px}
+        .art{width:46px;font-weight:700} tr.der .art{color:#2563EB} tr.die .art{color:#DC2626} tr.das .art{color:#16A34A}
+        .de{font-weight:600} .ru{color:#6b7280} .pp{color:#c2410c;font-size:12px;white-space:nowrap}
+        @media print{body{padding:0}}
+      </style></head><body>
+        <h1>Словарь немецкого A1 — ${esc(themeTitle)}</h1>
+        <div class="sub">Раздел: ${esc(gLabel)} · для самостоятельной учёбы</div>
+        ${body||"<p>Нет слов для выгрузки.</p>"}
+        <script>window.onload=function(){setTimeout(function(){window.print();},200);};<\/script>
+      </body></html>`;
+      const w=window.open("","_blank");
+      if(!w){ alert("Разрешите всплывающие окна, чтобы сохранить PDF."); return; }
+      w.document.write(html); w.document.close();
+    }
   }
 
   // opts: { mount, thema? }  — без thema = общий (все темы)
@@ -201,6 +240,7 @@ const Dict = (function(){
           <button class="chip f-verb" data-f="verb" aria-pressed="false">глаголы</button>
           <button class="chip f-other" data-f="other" aria-pressed="false">другое</button>
           <span class="spacer"></span>
+          <button class="btn-pdf">📄 Скачать PDF</button>
           <button class="eye">🙈 Скрыть переводы</button>
         </div>
         ${ multi ? `<div class="filters tfilters">${themeChips}</div>` : "" }
