@@ -91,6 +91,11 @@
   .gap input{border:none;border-bottom:2px solid var(--die);width:140px;font-size:15px;font-family:inherit;text-align:center;color:var(--die);font-weight:700}
   .gap input:focus{outline:none;background:#fdecec} .gap .hint{color:var(--muted);font-size:12px}
   .score{font-weight:700;margin-top:8px}
+  .hq{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding:10px 0}
+  .hq .qin{flex:1;min-width:160px}
+  .hres{font-weight:600;font-size:14px;width:100%}
+  .noselect{user-select:none;-webkit-user-select:none}
+  .btn:disabled,.btn[disabled]{opacity:.45;cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -128,8 +133,8 @@
     Meine Tante Rosa wohnt in New York, in den USA. Sie ist Verkäuferin — Mamma mia, laut wie ich!<br>
     Mia hat eine Tochter — das ist meine Enkelin Sofia. Sofia ist klein, aber sie spricht schon Italienisch und Deutsch.<br><br>
     Jede Stadt, jede Straße, jede Hausnummer, jede Telefonnummer, jede Adresse — alles habe ich! Wir haben viele Verwandte in Italien, in der Schweiz und in den USA. Meine Familie ist groß und international — und das ist wunderschön!</p>
-    <div class="bh">Русский</div>
-    <p class="ru-block">Добрый день, добрый день! Меня зовут Грета — Mamma mia, наконец-то вы со мной знакомитесь! Я итальянка: я из Италии, из Неаполя. Но сейчас живу в Германии, в Мюнхене. По профессии я повар. У меня есть фирма — маленькая, но хорошая. Моя напарница Giulia тоже повар. Я замужем — жена и мама!<br><br>
+    <div class="bh">🇷🇺 Русский <button class="ic" onclick="toggleRuBlock(this)">Показать перевод</button></div>
+    <p class="ru-block" hidden>Добрый день, добрый день! Меня зовут Грета — Mamma mia, наконец-то вы со мной знакомитесь! Я итальянка: я из Италии, из Неаполя. Но сейчас живу в Германии, в Мюнхене. По профессии я повар. У меня есть фирма — маленькая, но хорошая. Моя напарница Giulia тоже повар. Я замужем — жена и мама!<br><br>
     А теперь самое важное — мой адрес и мой номер! Моя улица — Gartenstraße, номер дома — семь, индекс — 80331. Итак: Gartenstraße семь, 80331 Мюнхен — это мой адрес! Мой телефон — 0176 33 12 40. Почта — greta-koechin@mail.de. Вот моя визитка: «Greta — повар, Gartenstraße семь».<br><br>
     Говорю на четырёх языках: по-итальянски, по-немецки, по-английски и немного по-французски. Обожаю языки и обожаю музыку!<br><br>
     Это моя семья. Mamma mia, нас, женщин, много — вот это число! У меня есть все сведения и список: длинный, очень длинный!<br>
@@ -147,6 +152,32 @@
     <h3>❓ Вопросы по тексту</h3>
     <p class="sub">Прочитай вопрос (перевод — по кнопке), впиши ответ и проверь себя.</p>
     <div id="exercise"></div>
+  </div>
+
+  <div class="panel">
+    <h3>🎧 Аудирование — слушай и впиши цифры</h3>
+    <p class="sub">Грета рассказывает про родных. Нажми ▶, послушай (можно несколько раз) и впиши цифры. Ответ открывается только после проверки.</p>
+    <div class="hq" data-ans="0176234589">
+      <button class="ic" onclick="playSeq(['audio/die-hoer-tel.mp3'],this,[{t:'Das ist meine Schwester Lucia. Ihre Telefonnummer ist null eins sieben sechs zwei drei vier fünf acht neun.',role:'female'}])">▶ Телефон сестры Lucia</button>
+      <input class="qin" inputmode="numeric" placeholder="номер телефона (цифры)" autocomplete="off">
+      <button class="btn sm" onclick="hCheck(this)">Проверить</button>
+      <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
+      <span class="hres"></span>
+    </div>
+    <div class="hq" data-ans="80331">
+      <button class="ic" onclick="playSeq(['audio/die-hoer-plz.mp3'],this,[{t:'Und ihre Postleitzahl ist acht null drei drei eins.',role:'female'}])">▶ Почтовый индекс Lucia</button>
+      <input class="qin" inputmode="numeric" placeholder="индекс (5 цифр)" autocomplete="off">
+      <button class="btn sm" onclick="hCheck(this)">Проверить</button>
+      <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
+      <span class="hres"></span>
+    </div>
+    <div class="hq" data-ans="84">
+      <button class="ic" onclick="playSeq(['audio/die-hoer-alter.mp3'],this,[{t:'Meine Mutter Anna ist vierundachtzig Jahre alt.',role:'female'}])">▶ Сколько лет маме Anna?</button>
+      <input class="qin" inputmode="numeric" placeholder="возраст (цифры)" autocomplete="off">
+      <button class="btn sm" onclick="hCheck(this)">Проверить</button>
+      <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
+      <span class="hres"></span>
+    </div>
   </div>
 
   <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова</h2></div></div>
@@ -195,6 +226,10 @@
 <script src="js/app.js"></script>
 <script>
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
+// аудирование: проверка по цифрам, ответ только после проверки
+function hDigits(s){return (s||'').replace(/\D/g,'');}
+function hCheck(btn){const row=btn.closest('.hq'),inp=row.querySelector('.qin'),res=row.querySelector('.hres');const ok=hDigits(inp.value)===row.dataset.ans;inp.style.borderColor=ok?'var(--das)':'var(--die)';res.style.color=ok?'var(--das)':'var(--die)';res.textContent=ok?('✓ '+praise()):'✗ послушай ещё раз';row.querySelector('.hshow').disabled=false;}
+function hShow(btn){const row=btn.closest('.hq');row.querySelector('.hres').innerHTML='<span class="noselect" style="color:var(--accent)">Ответ: '+row.dataset.ans+'</span>';}
 /* ---- подписи: красные точки-маркеры (без русского); клик → немецкое слово ---- */
 const stage=document.getElementById('stage');
 function mk(x,y,word,dir,letter){const b=document.createElement('button');b.className='mk dir-'+(dir||'l');b.style.left=x+'%';b.style.top=y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkl">${letter||''}</span><span class="mkw">${word}</span>`;stage.appendChild(b);}
