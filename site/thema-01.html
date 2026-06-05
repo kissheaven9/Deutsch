@@ -7,85 +7,103 @@
 <link rel="stylesheet" href="css/style.css">
 <style>
   .sec{margin:30px 0 10px;font-size:18px;color:var(--ink);font-weight:700;padding-left:12px;border-left:4px solid var(--accent)}
-  .dictbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 4px}
-  .dictbar a{display:inline-flex;align-items:center;gap:8px;background:#f3e8ff;color:var(--accent);font-weight:700;border-radius:12px;padding:11px 16px;font-size:15px}
-  .gender3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-  @media(max-width:760px){.gender3{grid-template-columns:1fr}}
-  .gcard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
-  .gcard .hd{padding:10px 14px;color:#fff;display:flex;align-items:center;justify-content:space-between;font-weight:700}
-  .gcard.der .hd{background:var(--der)} .gcard.die .hd{background:var(--die)} .gcard.das .hd{background:var(--das)}
-  .gcard .hd .who{font-size:13px;font-weight:600;opacity:.95}
-  .gcard .body{padding:10px 14px}
+  .sec.verbs{border-left-color:#eab308}
+  .muted{color:var(--muted);font-size:13px}
+  .lk{font-weight:600;font-size:11px;background:#f3f4f6;color:#374151;border-radius:6px;padding:1px 6px}
+  /* строки рода: фото слева, слова справа */
+  .grow{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+  .grow .gphoto{width:150px;height:150px;object-fit:cover;border-radius:12px;flex:none;background:#f1f5f9}
+  .grow .ginfo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .grow .ghead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:16px}
+  .grow .gloves{font-size:12px;color:var(--muted)}
+  .grow .go{align-self:flex-start;margin-top:10px;color:var(--accent);font-weight:700;text-decoration:none}
+  .grow .go.soon{color:#9ca3af}
+  .gph-ph{width:150px;height:150px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;font-size:54px;background:#e8f6ee}
+  @media(max-width:560px){.grow{flex-direction:column}.grow .gphoto,.gph-ph{width:100%;height:190px}}
   .words{display:flex;flex-wrap:wrap;gap:5px}
-  .w{font-size:13px;border-radius:7px;padding:2px 8px;background:#f8fafc;border:1px solid var(--line);color:#374151}
-  .gcard.der .w{background:#eff3ff;border-color:#dbe4ff;color:var(--der)}
-  .gcard.die .w{background:#fdecec;border-color:#fbcfe2;color:var(--die)}
-  .gcard.das .w{background:#e8f6ee;border-color:#bbf7d0;color:var(--das)}
-  .gcard .go{display:block;text-align:center;padding:9px;border-top:1px solid var(--line);font-weight:600;color:var(--accent)}
-  .gcard .go.soon{color:#9ca3af}
+  .w{font-size:13px;border-radius:7px;padding:2px 8px;background:#f8fafc;border:1px solid var(--line);color:#374151;cursor:pointer}
+  .grow.der .w{background:#eff3ff;border-color:#dbe4ff;color:var(--der)}
+  .grow.die .w{background:#fdecec;border-color:#fbcfe2;color:var(--die)}
+  .grow.das .w{background:#e8f6ee;border-color:#bbf7d0;color:var(--das)}
+  .grow .w.flip{background:#f3e8ff!important;border-color:#e9d5ff!important;color:var(--accent)!important}
+  .gloves b{font-weight:800}
+  .grow.der .gloves b{color:var(--der)} .grow.die .gloves b{color:var(--die)} .grow.das .gloves b{color:var(--das)}
+  /* плашка словаря (как на главной) */
+  .dictbig{display:flex;gap:16px;align-items:center;background:linear-gradient(135deg,#6d28d9,#8b5cf6);color:#fff;border-radius:18px;padding:16px 18px;margin:24px 0 10px;box-shadow:0 8px 22px #6d28d933;text-decoration:none}
+  .dictbig .db-ico{font-size:40px;flex:none}
+  .dictbig .db-title{font-size:19px;font-weight:800}
+  .dictbig .db-sub{font-size:13px;opacity:.92;margin-top:2px}
+  .dictbig .db-search{margin-top:10px;background:#ffffff26;border:1px solid #ffffff66;border-radius:10px;padding:8px 11px;font-size:13px;display:inline-block}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   @media(max-width:620px){.two{grid-template-columns:1fr}}
   .box{border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px 14px}
   .box h4{margin:0 0 8px;font-size:14px}
-  .muted{color:var(--muted);font-size:13px}
-  .lk{font-weight:600;font-size:11px;background:#f3f4f6;color:#374151;border-radius:6px;padding:1px 6px}
-  .gcard .w{cursor:pointer}
-  .gcard .w.flip{background:#f3e8ff!important;border-color:#e9d5ff!important;color:var(--accent)!important}
+  .ylink{background:#fef9c3;color:#a16207;border:1px solid #fde68a;border-radius:10px;padding:5px 11px;font-weight:700;font-size:14px;text-decoration:none;display:inline-block}
+  /* глаголы-чипы (жёлтые): клик — перевод, ▾ — формы + прошедшее */
+  .vchip{position:relative;display:inline-flex;align-items:center;gap:5px;background:#fefce8;border:1px solid #fde68a;border-radius:8px;padding:3px 6px 3px 9px;font-size:13px;margin:3px 4px 0 0}
+  .vchip .vtxt{cursor:pointer;font-weight:700;color:#a16207}
+  .vchip.flip .vtxt{color:#374151}
+  .vchip .vexp{border:none;background:#fde68a;color:#a16207;border-radius:6px;width:18px;height:18px;cursor:pointer;font-size:11px;line-height:1;padding:0}
+  .vchip.open .vexp{background:#a16207;color:#fff}
+  .vchip .vpop{display:none;position:absolute;top:100%;left:0;z-index:20;margin-top:5px;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 20px #00000022;padding:9px 11px;min-width:185px}
+  .vchip.open .vpop{display:block}
+  .vgrid{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;font-size:13px}
+  .vgrid b{color:#a16207;font-weight:700}
+  .vpast{margin-top:7px;font-size:12px;color:#c2410c;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:2px 7px;display:inline-block}
+  .vbadge{display:inline-block;font-size:10px;font-weight:700;border-radius:5px;padding:1px 5px;margin-right:5px}
+  .vbadge.reg{background:#e5e7eb;color:#475569} .vbadge.irr{background:#fde68a;color:#b45309}
+  .vlegend{font-size:12px;color:var(--muted);margin:8px 0 0}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Существительные / Тема 1</span></div></header>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Тема 1</span></div></header>
 <main class="wrap">
   <h1>Тема 1 — Знакомство и семья</h1>
-  <p class="lead">Уроки Momente <span class="lk">L1</span> <span class="lk">L2</span> <span class="lk">L3</span>. Всё по теме в одном месте: существительные по роду, глаголы, другое и топики. Кликни род — попадёшь в сцену с историей, картинкой и озвучкой.</p>
+  <p class="lead">Научись рассказывать о себе и о семье: имя, происхождение, профессия, родные. Кликни род — попадёшь в сцену с историей, картинкой и озвучкой. <span class="lk">L1</span> <span class="lk">L2</span> <span class="lk">L3</span></p>
 
   <div class="sec">Существительные — по роду</div>
-  <div class="gender3">
-    <div class="gcard der">
-      <div class="hd"><span>der</span><span class="who">👨 Otto</span></div>
-      <div class="body"><img src="img/otto-main.png" alt="Otto" style="width:100%;height:300px;object-fit:contain;background:#faf7ff;border-radius:10px;margin-bottom:8px"><div class="words">
-        <span class="w">Name</span><span class="w">Vorname</span><span class="w">Familienname</span><span class="w">Herr</span>
-        <span class="w">Beruf</span><span class="w">Job</span><span class="w">Single</span><span class="w">Partner</span><span class="w">Wohnort</span><span class="w">Familienstand</span><span class="w">Moment</span>
-        <span class="w">Gärtner</span><span class="w">Lehrer</span><span class="w">Arzt</span><span class="w">Tierarzt</span><span class="w">Ingenieur</span><span class="w">Architekt</span><span class="w">Student</span><span class="w">Journalist</span><span class="w">Friseur</span><span class="w">Verkäufer</span><span class="w">Kellner</span><span class="w">Schüler</span><span class="w">Rentner</span><span class="w">Schauspieler</span><span class="w">Sänger</span>
-        <span class="w">Vater</span><span class="w">Papa</span><span class="w">Bruder</span><span class="w">Sohn</span><span class="w">Onkel</span><span class="w">Großvater</span><span class="w">Enkel</span><span class="w">Ehemann</span><span class="w">Verwandte</span><span class="w">Mann</span>
-      </div></div>
+
+  <div class="grow der">
+    <img class="gphoto" src="img/otto-main.png" alt="Otto" style="object-position:50% 14%">
+    <div class="ginfo">
+      <div class="ghead"><span class="pill der">der</span> <b>Otto</b> <span class="gloves">любит слова только с <b>der</b></span></div>
+      <div class="words">
+        <span class="w">Name</span><span class="w">Vorname</span><span class="w">Familienname</span><span class="w">Herr</span><span class="w">Beruf</span><span class="w">Job</span><span class="w">Single</span><span class="w">Partner</span><span class="w">Wohnort</span><span class="w">Familienstand</span><span class="w">Moment</span><span class="w">Gärtner</span><span class="w">Lehrer</span><span class="w">Arzt</span><span class="w">Tierarzt</span><span class="w">Ingenieur</span><span class="w">Architekt</span><span class="w">Student</span><span class="w">Journalist</span><span class="w">Friseur</span><span class="w">Verkäufer</span><span class="w">Kellner</span><span class="w">Schüler</span><span class="w">Rentner</span><span class="w">Schauspieler</span><span class="w">Sänger</span><span class="w">Vater</span><span class="w">Papa</span><span class="w">Bruder</span><span class="w">Sohn</span><span class="w">Onkel</span><span class="w">Großvater</span><span class="w">Enkel</span><span class="w">Ehemann</span><span class="w">Verwandte</span><span class="w">Mann</span>
+      </div>
       <a class="go" href="thema-01-der.html">▶ Начать изучение →</a>
     </div>
+  </div>
 
-    <div class="gcard die">
-      <div class="hd"><span>die</span><span class="who">👩 Грета</span></div>
-      <div class="body"><img src="img/greta-main.png" alt="Грета" style="width:100%;height:300px;object-fit:contain;background:#fdf2f8;border-radius:10px;margin-bottom:8px"><div class="words">
-        <span class="w">Frau</span><span class="w">Familie</span><span class="w">Mutter</span><span class="w">Mama</span><span class="w">Schwester</span><span class="w">Tochter</span><span class="w">Oma</span><span class="w">Großmutter</span><span class="w">Enkelin</span><span class="w">Ehefrau</span><span class="w">Tante</span><span class="w">Verwandte</span>
-        <span class="w">Nationalität</span><span class="w">Herkunft</span><span class="w">Sprache</span><span class="w">Adresse</span><span class="w">Straße</span><span class="w">Hausnummer</span><span class="w">Postleitzahl</span><span class="w">Stadt</span><span class="w">Telefonnummer</span><span class="w">Nummer</span><span class="w">E-Mail</span><span class="w">Visitenkarte</span><span class="w">Information</span><span class="w">Liste</span><span class="w">Zahl</span><span class="w">Musik</span>
-        <span class="w">Köchin</span><span class="w">Sängerin</span><span class="w">Ärztin</span><span class="w">Friseurin</span><span class="w">Verkäuferin</span><span class="w">Lehrerin</span><span class="w">Studentin</span><span class="w">Krankenschwester</span><span class="w">Rentnerin</span><span class="w">Partnerin</span><span class="w">Firma</span><span class="w">Stelle</span><span class="w">Ausbildung</span>
-      </div></div>
+  <div class="grow die">
+    <img class="gphoto" src="img/greta-main.png" alt="Грета" style="object-position:50% 12%">
+    <div class="ginfo">
+      <div class="ghead"><span class="pill die">die</span> <b>Грета</b> <span class="gloves">только с <b>die</b></span></div>
+      <div class="words">
+        <span class="w">Frau</span><span class="w">Familie</span><span class="w">Mutter</span><span class="w">Mama</span><span class="w">Schwester</span><span class="w">Tochter</span><span class="w">Oma</span><span class="w">Großmutter</span><span class="w">Enkelin</span><span class="w">Ehefrau</span><span class="w">Tante</span><span class="w">Verwandte</span><span class="w">Nationalität</span><span class="w">Herkunft</span><span class="w">Sprache</span><span class="w">Adresse</span><span class="w">Straße</span><span class="w">Hausnummer</span><span class="w">Postleitzahl</span><span class="w">Stadt</span><span class="w">Telefonnummer</span><span class="w">Nummer</span><span class="w">E-Mail</span><span class="w">Visitenkarte</span><span class="w">Information</span><span class="w">Liste</span><span class="w">Zahl</span><span class="w">Musik</span><span class="w">Köchin</span><span class="w">Sängerin</span><span class="w">Ärztin</span><span class="w">Friseurin</span><span class="w">Verkäuferin</span><span class="w">Lehrerin</span><span class="w">Studentin</span><span class="w">Krankenschwester</span><span class="w">Rentnerin</span><span class="w">Partnerin</span><span class="w">Firma</span><span class="w">Stelle</span><span class="w">Ausbildung</span>
+      </div>
       <a class="go" href="thema-01-die.html">▶ Начать изучение →</a>
     </div>
+  </div>
 
-    <div class="gcard das">
-      <div class="hd"><span>das</span><span class="who">🧒 Тео</span></div>
-      <div class="body"><div class="words">
-        <span class="w">Kind</span><span class="w">Jahr</span><span class="w">Alter</span><span class="w">Land</span><span class="w">Gespräch</span><span class="w">Alphabet</span><span class="w">Interview</span><span class="w">Rätsel</span><span class="w">Studium</span><span class="w">Praktikum</span><span class="w">Tier</span>
-        <span class="w">Fest</span><span class="w">Enkelkind</span><span class="w">Mitglied</span>
-      </div></div>
+  <div class="grow das">
+    <div class="gph-ph">🧒</div>
+    <div class="ginfo">
+      <div class="ghead"><span class="pill das">das</span> <b>Тео и Миа</b> <span class="gloves">только с <b>das</b></span></div>
+      <div class="words">
+        <span class="w">Kind</span><span class="w">Jahr</span><span class="w">Alter</span><span class="w">Land</span><span class="w">Gespräch</span><span class="w">Alphabet</span><span class="w">Interview</span><span class="w">Rätsel</span><span class="w">Studium</span><span class="w">Praktikum</span><span class="w">Tier</span><span class="w">Fest</span><span class="w">Enkelkind</span><span class="w">Mitglied</span>
+      </div>
       <span class="go soon">Сцена Тео — скоро</span>
     </div>
   </div>
-  <p class="muted">Только мн.ч.: die Eltern · die Geschwister · die Großeltern. Полный список — data/themen/01-kennenlernen-familie.md.</p>
-  <p class="muted">↳ Подраздел <a href="#" style="color:var(--accent)">Множественное число</a> (по типу окончания) — скоро.</p>
-  <p style="margin:10px 0"><a href="dictionary.html?thema=01" style="display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--accent);background:#F3E8FF;border-radius:10px;padding:9px 14px">📖 Словарь темы 1 — все слова с переводом, озвучка, глазик →</a></p>
 
-  <div class="sec">Глаголы — <a href="verben-thema-01.html" style="color:var(--accent)">открыть раздел →</a></div>
+  <p class="muted">Нажми на слово — покажется перевод. Только мн.ч.: die Eltern · die Geschwister · die Großeltern. ↳ Подраздел «Множественное число» — скоро.</p>
+
+  <div class="sec verbs">Глаголы — <a class="ylink" href="verben-thema-01.html">открыть раздел →</a></div>
   <div class="two">
-    <div class="box"><h4><span class="vbadge reg">прав.</span> Правильные (слабые)</h4>
-      <div class="words"><span class="w">wohnen</span><span class="w">leben</span><span class="w">lernen</span><span class="w">machen</span><span class="w">arbeiten</span><span class="w">studieren</span><span class="w">sammeln</span><span class="w">glauben</span><span class="w">planen</span><span class="w">zusammenleben</span></div>
-    </div>
-    <div class="box"><h4><span class="vbadge irr">непр.</span> Неправильные (особые)</h4>
-      <div class="words"><span class="w">sein</span><span class="w">haben</span><span class="w">sprechen</span><span class="w">heißen</span><span class="w">kommen</span><span class="w">gehen</span></div>
-    </div>
-    <p class="vlegend"><span class="vbadge reg">прав.</span> по правилу &nbsp;·&nbsp; <span class="vbadge irr">непр.</span> особый, запоминать. Значки — везде, где встречаются глаголы (кроме текстов).</p>
+    <div class="box"><h4><span class="vbadge reg">прав.</span> Правильные (слабые)</h4><div class="words" id="verbReg"></div></div>
+    <div class="box"><h4><span class="vbadge irr">непр.</span> Неправильные (особые)</h4><div class="words" id="verbIrr"></div></div>
   </div>
-  <p class="muted">В разделе: строки глагол · перевод · прошедшее, кнопка «форма» (спряжение по местоимениям), глазик прячет переводы.</p>
+  <p class="muted">Нажми на глагол — перевод; на <b style="color:#a16207">▾</b> — спряжение по местоимениям и прошедшее (Perfekt). <span class="vbadge reg">прав.</span> по правилу · <span class="vbadge irr">непр.</span> особый.</p>
 
   <div class="sec" id="andere">Другое — по теме (фразы, прилагательные, наречия)</div>
   <div class="two">
@@ -103,48 +121,61 @@
     </div>
   </div>
 
-  <div class="sec">Топики по теме (закрепление)</div>
+  <a class="dictbig" href="dictionary.html?thema=01">
+    <div class="db-ico">📖</div>
+    <div class="db-body">
+      <div class="db-title">Словарь темы 1 — все слова</div>
+      <div class="db-sub">Все слова темы с переводом, озвучкой и самопроверкой (глазик). der/die/das + глаголы.</div>
+      <span class="db-search">🔍 Открыть словарь →</span>
+    </div>
+  </a>
+
+  <div class="sec">Тексты по теме (закрепление)</div>
   <div class="two">
-    <div class="box"><h4>Топик 1 — скоро</h4><p class="muted">Накопительный текст: все слова темы 1 + пройденные глаголы. Глазик + аудио.</p></div>
-    <div class="box"><h4>Топик 2 — скоро</h4><p class="muted">Не по роду; закрепление через повторные встречи (~8 раз).</p></div>
-    <div class="box"><h4>Топик 3 — скоро</h4><p class="muted">Раскрывает Otto и других дальше.</p></div>
-    <div class="box"><h4>Топики 4–5 — скоро</h4><p class="muted">По мере добавления тем — кумулятивно подключают предыдущие.</p></div>
+    <div class="box"><h4>Текст 1 — скоро</h4><p class="muted">Накопительный текст: все слова темы 1 + пройденные глаголы. Глазик + аудио.</p></div>
+    <div class="box"><h4>Текст 2 — скоро</h4><p class="muted">Не по роду; закрепление через повторные встречи (~8 раз).</p></div>
+    <div class="box"><h4>Текст 3 — скоро</h4><p class="muted">Раскрывает Otto и других дальше.</p></div>
+    <div class="box"><h4>Тексты 4–5 — скоро</h4><p class="muted">По мере добавления тем — кумулятивно подключают предыдущие.</p></div>
   </div>
 
-  <div class="note">Это структура темы: существительные по роду (3 персонажа) + глаголы + другое + топики — всё по теме, в одном месте. Лексика сверена по Lernwortschatz (Arbeitsbuch). Источник — data/themen/01-kennenlernen-familie.md.</div>
+  <div class="note">Структура темы: существительные по роду (3 персонажа) + глаголы + другое + тексты — всё по теме, в одном месте. Лексика сверена по Lernwortschatz (Arbeitsbuch).</div>
 </main>
-<footer>Deutsch A1 · Тема 1 · существительные (der/die/das) · глаголы · другое</footer>
+<footer>Deutsch A1 · Тема 1 · существительные (der/die/das) · глаголы · другое · тексты</footer>
+
+<script src="js/woerter.js"></script>
 <script>
-(function(){
-  const TR={
-    Name:"имя",Vorname:"имя (личное)",Familienname:"фамилия",Herr:"господин",
-    Beruf:"профессия",Job:"работа",Single:"холостяк / одинокий",Partner:"партнёр",
-    Wohnort:"место жительства",Familienstand:"семейное положение",Moment:"момент",
-    Lehrer:"учитель",Arzt:"врач",Tierarzt:"ветеринар",Ingenieur:"инженер",Architekt:"архитектор",
-    Student:"студент",Journalist:"журналист",Friseur:"парикмахер",Verkäufer:"продавец",
-    Kellner:"официант",Schüler:"школьник",Rentner:"пенсионер",Schauspieler:"актёр",Sänger:"певец",Gärtner:"садовник",
-    Vater:"отец",Papa:"папа",Bruder:"брат",Sohn:"сын",Onkel:"дядя",Großvater:"дедушка",
-    Enkel:"внук",Ehemann:"муж",Verwandte:"родственник / -ца",Mann:"мужчина / муж",
-    Frau:"женщина / госпожа",Familie:"семья",Mutter:"мать",Mama:"мама",Schwester:"сестра",
-    Tochter:"дочь",Oma:"бабушка",Großmutter:"бабушка",Enkelin:"внучка",Ehefrau:"жена",
-    Tante:"тётя",Partnerin:"партнёрша",Firma:"фирма",Stelle:"место / должность",
-    Ausbildung:"профобучение",Herkunft:"происхождение",Zahl:"число",Sprache:"язык",Liste:"список",
-    Lehrerin:"учительница",Ärztin:"врач (ж)",Studentin:"студентка",Krankenschwester:"медсестра",
-    Nationalität:"национальность",Adresse:"адрес",Straße:"улица",Hausnummer:"номер дома",Postleitzahl:"индекс",
-    Stadt:"город",Telefonnummer:"телефон",Nummer:"номер","E-Mail":"эл. почта",Visitenkarte:"визитка",Information:"информация",
-    Köchin:"повар",Sängerin:"певица",Friseurin:"парикмахер (ж)",Verkäuferin:"продавщица",Rentnerin:"пенсионерка",Musik:"музыка",
-    Kind:"ребёнок",Jahr:"год",Alter:"возраст",Land:"страна",Gespräch:"разговор",Alphabet:"алфавит",
-    Interview:"интервью",Rätsel:"загадка",Studium:"учёба (в вузе)",Praktikum:"практика",Tier:"животное",
-    Fest:"праздник",Enkelkind:"внук / внучка",Mitglied:"член (группы)"
-  };
-  document.querySelectorAll('.gcard .w').forEach(w=>{
-    const de=w.textContent.trim(); w.dataset.de=de; w.title='нажми — перевод';
-    w.addEventListener('click',()=>{
-      const flipped=w.classList.toggle('flip');
-      w.textContent = flipped ? (TR[de]||'—') : de;
-    });
-  });
-})();
+// ---- перевод по клику у существительных (кроме текстов) ----
+const TR={
+  Name:"имя",Vorname:"имя (личное)",Familienname:"фамилия",Herr:"господин",Beruf:"профессия",Job:"работа",Single:"холостяк / одинокий",Partner:"партнёр",
+  Wohnort:"место жительства",Familienstand:"семейное положение",Moment:"момент",Gärtner:"садовник",Lehrer:"учитель",Arzt:"врач",Tierarzt:"ветеринар",Ingenieur:"инженер",Architekt:"архитектор",
+  Student:"студент",Journalist:"журналист",Friseur:"парикмахер",Verkäufer:"продавец",Kellner:"официант",Schüler:"школьник",Rentner:"пенсионер",Schauspieler:"актёр",Sänger:"певец",
+  Vater:"отец",Papa:"папа",Bruder:"брат",Sohn:"сын",Onkel:"дядя",Großvater:"дедушка",Enkel:"внук",Ehemann:"муж",Verwandte:"родственник / -ца",Mann:"мужчина / муж",
+  Frau:"женщина / госпожа",Familie:"семья",Mutter:"мать",Mama:"мама",Schwester:"сестра",Tochter:"дочь",Oma:"бабушка",Großmutter:"бабушка",Enkelin:"внучка",Ehefrau:"жена",Tante:"тётя",
+  Partnerin:"партнёрша",Firma:"фирма",Stelle:"место / должность",Ausbildung:"профобучение",Herkunft:"происхождение",Zahl:"число",Sprache:"язык",Liste:"список",
+  Lehrerin:"учительница",Ärztin:"врач (ж)",Studentin:"студентка",Krankenschwester:"медсестра",
+  Nationalität:"национальность",Adresse:"адрес",Straße:"улица",Hausnummer:"номер дома",Postleitzahl:"индекс",Stadt:"город",Telefonnummer:"телефон",Nummer:"номер","E-Mail":"эл. почта",Visitenkarte:"визитка",Information:"информация",
+  Köchin:"повар",Sängerin:"певица",Friseurin:"парикмахер (ж)",Verkäuferin:"продавщица",Rentnerin:"пенсионерка",Musik:"музыка",
+  Kind:"ребёнок",Jahr:"год",Alter:"возраст",Land:"страна",Gespräch:"разговор",Alphabet:"алфавит",Interview:"интервью",Rätsel:"загадка",Studium:"учёба (в вузе)",Praktikum:"практика",Tier:"животное",Fest:"праздник",Enkelkind:"внук / внучка",Mitglied:"член (группы)"
+};
+document.querySelectorAll('.grow .w').forEach(w=>{
+  const de=w.textContent.trim(); w.dataset.de=de; w.title='нажми — перевод';
+  w.addEventListener('click',()=>{ const f=w.classList.toggle('flip'); w.textContent = f ? (TR[de]||'—') : de; });
+});
+
+// ---- глаголы: клик — перевод, ▾ — формы + прошедшее ----
+const PRON=['ich','du','er/sie/es','wir','ihr','sie/Sie'];
+const VERBS=(WOERTER.themes.find(t=>t.id==="01")||{}).verbs||[];
+function vchip(v){ const [inf,ru,type,forms,pp]=v;
+  const grid=forms.map((f,i)=>`<div><b>${PRON[i]}</b> ${f}</div>`).join('');
+  return `<span class="vchip"><span class="vtxt" data-inf="${inf}" data-ru="${ru}">${inf}</span><button class="vexp" title="формы">▾</button><div class="vpop"><div class="vgrid">${grid}</div>${pp?`<div class="vpast">⏪ Perfekt: ${pp}</div>`:""}</div></span>`; }
+document.getElementById('verbReg').innerHTML = VERBS.filter(v=>v[2]==="reg").map(vchip).join('');
+document.getElementById('verbIrr').innerHTML = VERBS.filter(v=>v[2]==="irr").map(vchip).join('');
+document.addEventListener('click',e=>{
+  const tx=e.target.closest('.vtxt');
+  if(tx){ const c=tx.closest('.vchip'); const f=c.classList.toggle('flip'); tx.textContent = f ? tx.dataset.ru : tx.dataset.inf; return; }
+  const ex=e.target.closest('.vexp');
+  if(ex){ ex.closest('.vchip').classList.toggle('open'); }
+});
 </script>
 </body>
 </html>
