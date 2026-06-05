@@ -102,11 +102,11 @@ const Dict = (function(){
     const [inf,ru,type,forms,pp]=v;
     const rows = forms.map((f,i)=>`<div class="row" onclick="speak('${(PRO[i].split('/')[0]+' '+f.replace(/ … /,' ')).replace(/'/g,"\\'")}')"><span class="pro">${PRO[i]}</span><span class="frm">${esc(f)}</span></div>`).join("");
     const badge = type==="reg"?`<span class="vbadge reg">прав.</span>`:`<span class="vbadge irr">непр.</span>`;
-    const past = pp?`<span class="past" title="Прошедшее (Perfekt)" onclick="event.stopPropagation();speak('${('er '+pp.replace(/\\s*\\(.*\\)/,'')).replace(/'/g,"\\'")}')">⏪ ${esc(pp)}</span>`:"";
+    const past = pp?`<div class="pastline"><span class="past" title="Прошедшее (Perfekt)" onclick="event.stopPropagation();speak('${('er '+pp.replace(/\\s*\\(.*\\)/,'')).replace(/'/g,"\\'")}')">⏪ Прошедшее (Perfekt): ${esc(pp)}</span></div>`:"";
     return `<div class="ventry g-verb"${tag(v._t)} data-de="${esc(inf.toLowerCase())}" data-ru="${esc(ru.toLowerCase())}">
       <div class="vhead" onclick="this.parentElement.classList.toggle('open')">
-        ${badge}<span class="de">${esc(inf)}</span>${past}<span class="ru">${esc(ru)}</span>${say(inf)}<span class="caret">▶</span></div>
-      <div class="conj"><div class="grid">${rows}</div><div class="tip">Спряжение в настоящем времени · клик по форме — озвучка.</div></div></div>`;
+        ${badge}<span class="de">${esc(inf)}</span><span class="ru">${esc(ru)}</span>${say(inf)}<span class="caret">▶</span></div>
+      <div class="conj"><div class="grid">${rows}</div>${past}<div class="tip">Настоящее время · клик по форме — озвучка.</div></div></div>`;
   }
 
   // склеить одну категорию по всем темам, пометив каждую запись её темой (._t)
