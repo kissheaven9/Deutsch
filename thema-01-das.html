@@ -125,6 +125,25 @@
     <div id="exercise"></div>
   </div>
 
+  <div class="panel">
+    <h3>🎧 Аудирование</h3>
+    <p class="sub">Тео говорит — послушай (можно несколько раз) и впиши цифру. Откроется только после проверки.</p>
+    <div class="hq" data-ans="7">
+      <button class="ic" onclick="playSeq(['audio/hoer-das1-alter.mp3'],this,[{t:'Ich bin sieben Jahre alt.',role:'child'}])">▶ Сколько Тео лет?</button>
+      <input class="qin" inputmode="numeric" placeholder="возраст (цифры)" autocomplete="off">
+      <button class="btn sm" onclick="hCheck(this)">Проверить</button>
+      <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
+      <span class="hres"></span>
+    </div>
+    <div class="hq" data-ans="6">
+      <button class="ic" onclick="playSeq(['audio/hoer-das1-kinder.mp3'],this,[{t:'Wir sind sechs Kinder.',role:'child'}])">▶ Сколько всего детей?</button>
+      <input class="qin" inputmode="numeric" placeholder="число детей" autocomplete="off">
+      <button class="btn sm" onclick="hCheck(this)">Проверить</button>
+      <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
+      <span class="hres"></span>
+    </div>
+  </div>
+
   <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова</h2></div></div>
 
   <div class="panel">

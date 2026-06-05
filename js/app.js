@@ -122,6 +122,18 @@ function toggleRuBlock(btn){
   btn.textContent = hidden ? 'Скрыть перевод' : 'Показать перевод';
 }
 
+// аудирование (общее): впиши ответ (цифры ИЛИ слово), ответ — только после проверки
+function hNorm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9äöüß]/g,'');}
+function hCheck(btn){
+  const row=btn.closest('.hq'), inp=row.querySelector('.qin'), res=row.querySelector('.hres'), ans=row.dataset.ans||'';
+  const ok = /^\d+$/.test(ans) ? (inp.value.replace(/\D/g,'')===ans)
+                               : (hNorm(inp.value).length>1 && hNorm(inp.value).includes(hNorm(ans)));
+  inp.style.borderColor=ok?'var(--das)':'var(--die)'; res.style.color=ok?'var(--das)':'var(--die)';
+  res.textContent = ok ? ('✓ '+praise()) : '✗ послушай ещё раз';
+  const sb=row.querySelector('.hshow'); if(sb) sb.disabled=false;
+}
+function hShow(btn){ const row=btn.closest('.hq'); row.querySelector('.hres').innerHTML='<span class="noselect" style="color:var(--accent)">Ответ: '+(row.dataset.ans||'')+'</span>'; }
+
 // Глазик: скрыть/показать конкретный объект
 function toggleObj(btn){
   const obj = btn.closest('.obj');
