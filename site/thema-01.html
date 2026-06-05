@@ -8,6 +8,8 @@
 <style>
   .sec{margin:30px 0 10px;font-size:18px;color:var(--ink);font-weight:700;padding-left:12px;border-left:4px solid var(--accent)}
   .sec.verbs{border-left-color:#eab308}
+  .sec.nouns{border-left-color:transparent;position:relative}
+  .sec.nouns::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:4px;border-radius:3px;background:linear-gradient(180deg,var(--der) 0 33%,var(--die) 33% 66%,var(--das) 66% 100%)}
   .muted{color:var(--muted);font-size:13px}
   .lk{font-weight:600;font-size:11px;background:#f3f4f6;color:#374151;border-radius:6px;padding:1px 6px}
   /* строки рода: фото слева, слова справа */
@@ -17,8 +19,9 @@
   .grow .ginfo{flex:1;min-width:0;display:flex;flex-direction:column}
   .grow .ghead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:16px}
   .grow .gloves{font-size:12px;color:var(--muted)}
-  .grow .go{align-self:flex-start;margin-top:10px;color:var(--accent);font-weight:700;text-decoration:none}
-  .grow .go.soon{color:#9ca3af}
+  .grow .go{align-self:flex-start;margin-top:10px;color:#fff;font-weight:700;text-decoration:none;border-radius:11px;padding:9px 15px}
+  .grow.der .go{background:var(--der)} .grow.die .go{background:var(--die)} .grow.das .go{background:var(--das)}
+  .grow .go.soon{background:#f1f5f9;color:#9ca3af}
   .gph-ph{width:150px;height:150px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;font-size:54px;background:#e8f6ee}
   @media(max-width:560px){.grow{flex-direction:column}.grow .gphoto,.gph-ph{width:100%;height:190px}}
   .words{display:flex;flex-wrap:wrap;gap:5px}
@@ -62,7 +65,7 @@
   <h1>Тема 1 — Знакомство и семья</h1>
   <p class="lead">Научись рассказывать о себе и о семье: имя, происхождение, профессия, родные. Кликни род — попадёшь в сцену с историей, картинкой и озвучкой. <span class="lk">L1</span> <span class="lk">L2</span> <span class="lk">L3</span></p>
 
-  <div class="sec">Существительные — по роду</div>
+  <div class="sec nouns">Существительные — по роду</div>
 
   <div class="grow der">
     <img class="gphoto" src="img/otto-main.png" alt="Otto" style="object-position:50% 14%">
@@ -177,6 +180,21 @@ document.addEventListener('click',e=>{
   const ex=e.target.closest('.vexp');
   if(ex){ ex.closest('.vchip').classList.toggle('open'); }
 });
+
+// ---- счётчики слов (мотивация) ----
+function plural(n){const a=n%10,b=n%100;return (a===1&&b!==11)?'слово':((a>=2&&a<=4&&(b<10||b>=20))?'слова':'слов');}
+['der','die','das'].forEach(g=>{
+  const n=document.querySelectorAll('.grow.'+g+' .w').length;
+  const go=document.querySelector('.grow.'+g+' .go'); if(!go) return;
+  go.textContent = go.classList.contains('soon') ? ('Скоро · '+n+' '+plural(n)) : ('▶ Начать изучение — '+n+' '+plural(n)+' →');
+});
+const tNouns=document.querySelectorAll('.grow .w').length;
+const tOther=document.querySelectorAll('.box .words .w').length;
+const tVerbs=VERBS.length, tAll=tNouns+tOther+tVerbs;
+const dsub=document.querySelector('.dictbig .db-sub');
+if(dsub) dsub.textContent=`Всего ${tAll} ${plural(tAll)} темы: ${tNouns} существительных, ${tVerbs} глаголов, ${tOther} другое. Перевод, озвучка, самопроверка.`;
+const dtitle=document.querySelector('.dictbig .db-title');
+if(dtitle) dtitle.textContent=`Словарь темы 1 — ${tAll} ${plural(tAll)}`;
 </script>
 </body>
 </html>
