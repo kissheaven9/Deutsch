@@ -6,29 +6,64 @@
 <title>Глаголы — Тема 1</title>
 <link rel="stylesheet" href="css/style.css">
 <style>
+  :root{--y:#eab308;--yd:#a16207;--yb:#fde68a;--ybg:#fefce8}
   .subnav{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
-  .subnav a{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:#fff;color:#374151}
-  .subnav a.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-  .sec{margin:20px 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700}
-  table.vt{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-  .vt th{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
-  .vt td{padding:9px 12px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:middle}
+  .subnav a{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:#fff;color:#374151;text-decoration:none}
+  .subnav a.active{background:var(--y);color:#1f2937;border-color:var(--y)}
+  .part{display:flex;align-items:center;gap:14px;margin:28px 0 12px;padding:13px 18px;border-radius:16px;border:1px solid var(--line)}
+  .part.verbs{background:var(--ybg);border-color:var(--yb)} .part.train{background:#f3e8ff;border-color:#e9d5ff}
+  .part .pico{font-size:28px}.part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--yd);font-weight:700}.part.train .pk{color:var(--accent)}.part h2{margin:2px 0 0;font-size:22px}
+  .sec{margin:18px 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--yd);font-weight:700}
+  .legend{font-size:13px;color:#374151;margin:4px 0 10px;display:flex;gap:16px;flex-wrap:wrap}
+  table.vt{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--yb);border-radius:12px;overflow:hidden}
+  .vt th{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:1px solid var(--yb)}
+  .vt td{padding:9px 12px;border-bottom:1px solid #f1f1f4;font-size:15px;vertical-align:middle}
   .vt tr:last-child td{border-bottom:none}
-  .vt .de{font-weight:700;color:var(--accent)}
-  .vt .ru{color:var(--muted);font-size:14px}
-  .vt .pp{color:#374151;font-size:14px}
+  .vt .de{font-weight:700;color:var(--yd);white-space:nowrap}
+  .vt .de .em{font-size:15px;margin-right:3px}
+  .vt .ru{color:#374151;font-size:14px}
+  .vt .pp{color:#c2410c;font-size:13px}
+  .say{border:none;background:none;cursor:pointer;font-size:15px;opacity:.6;padding:2px}
+  .say:hover{opacity:1}
   .hidden-ru .ru span{visibility:hidden;position:relative}
-  .hidden-ru .ru span::after{content:"▢▢▢";position:absolute;left:0;color:#cbd5e1}
-  .formbtn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer;color:var(--accent)}
-  .formbtn:active{background:#f3f4f6}
-  .pop{display:none;margin-top:6px;background:#faf7ff;border:1px solid #ece3fb;border-radius:10px;padding:10px 12px}
+  .hidden-ru .ru span::after{content:"▢▢▢";position:absolute;left:0;color:#d4d4d8;visibility:visible}
+  .formbtn{border:1px solid var(--yb);background:var(--ybg);border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer;color:var(--yd);font-weight:700}
+  .formbtn:active{background:#fef08a}
+  .pop{display:none;margin-top:6px;background:var(--ybg);border:1px solid var(--yb);border-radius:10px;padding:10px 12px}
   .pop.open{display:block}
   .conj{display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;font-size:14px}
-  .conj b{color:var(--accent)}
-  .pp2{margin-top:6px;font-size:13px;color:#374151}
-  .toolbar{display:flex;gap:8px;margin:12px 0}
+  .conj b{color:var(--yd)}
+  .pp2{margin-top:6px;font-size:13px;color:#c2410c}
+  .toolbar{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
   .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer}
   .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn.y{background:var(--y);color:#1f2937;border-color:var(--y)}
+  .btn.sm{padding:7px 11px;font-size:13px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:var(--ybg);border-bottom:1px solid var(--yb);border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--y);color:#1f2937;font-size:13px;font-weight:700}
+  .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .de-block{color:var(--ink);font-weight:500;line-height:1.8;margin:0}
+  .ru-block{color:#374151;line-height:1.7;margin:8px 0 0}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--yd);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .cardwrap{max-width:380px;margin:0 auto}
+  .card{background:#fff;border:2px solid var(--y);border-radius:16px;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer;transition:.12s}
+  .card:active{transform:scale(.99)} .card.back{background:var(--ybg)}
+  .c-text{font-size:26px;font-weight:700;color:var(--ink)} .card.back .c-text{color:var(--yd)} .c-hint{font-size:12px;color:var(--muted)}
+  .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
+  .cnav #cCount{color:var(--muted);font-weight:600}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .de{min-width:140px;color:var(--yd);font-weight:700}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:150px}
+  .wq input:focus{outline:none;border-color:var(--y)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .score{font-weight:700;margin-top:8px}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
+  .mchip.de{font-weight:700;color:var(--yd)} .mchip.sel{border-color:var(--y);background:var(--ybg)}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -37,63 +72,120 @@
   <h1>Глаголы — Тема 1 «Знакомство и семья»</h1>
   <div class="subnav">
     <a href="thema-01.html">← Тема</a>
-    <a href="otto-szene-1.html">Существительные</a>
     <a class="active" href="verben-thema-01.html">Глаголы</a>
     <a href="thema-01.html#andere">Другое</a>
   </div>
-  <p class="lead">Строки: глагол · перевод · прошедшее. Кнопка «форма» — спряжение по местоимениям. 👁 — спрятать переводы и проверить себя.</p>
-  <div class="toolbar"><button class="btn primary" id="eye" onclick="toggleRu()">🙈 Скрыть переводы</button></div>
-  <p class="vlegend"><span class="vbadge reg">прав.</span> правильный (по правилу) &nbsp;·&nbsp; <span class="vbadge irr">непр.</span> неправильный (особый — запоминать)</p>
+  <p class="lead">Глагол · 🔊 озвучка · перевод · прошедшее (Perfekt) · «форма» — спряжение по местоимениям. Внизу — упражнения, чтобы запомнить.</p>
 
-  <div class="sec">Правильные (слабые)</div>
+  <div class="part verbs"><span class="pico">📋</span><div><div class="pk">Список</div><h2>Глаголы темы</h2></div></div>
+  <div class="legend"><span><b>✅</b> правильный — по правилу</span><span><b>⚠️</b> неправильный — особый, запоминать</span></div>
+  <div class="toolbar"><button class="btn y" id="eye" onclick="toggleRu()">🙈 Скрыть переводы</button></div>
+
+  <div class="sec">✅ Правильные (слабые)</div>
   <table class="vt" id="t-reg"></table>
-
-  <div class="sec">Неправильные (особые)</div>
+  <div class="sec">⚠️ Неправильные (особые)</div>
   <table class="vt" id="t-irr"></table>
 
-  <div class="note">Прошедшее — Perfekt (hat/ist + форма), это ориентир: подробно прошедшее проходим в L11–L12, тогда и подсветим. Формы сверять перед озвучкой.</div>
+  <div class="part train"><span class="pico">🎯</span><div><div class="pk">Тренируемся</div><h2>Запоминаем глаголы</h2></div></div>
+
+  <div class="panel"><h3>📜 Текст с глаголами</h3>
+    <div class="bh">🇩🇪 Deutsch <button class="formbtn" onclick="toggleSpeak(deText(),this)">🔊 Послушать</button></div>
+    <p class="de-block" id="deText">Hallo! Ich <b>heiße</b> Otto. Ich <b>komme</b> aus Schottland und <b>wohne</b> jetzt in Deutschland. Ich <b>bin</b> Gärtner und <b>arbeite</b> im Garten. Ich <b>lebe</b> allein. Greta <b>kommt</b> aus Italien. Sie <b>spricht</b> Italienisch und Deutsch. Sie <b>hat</b> eine Familie. Die Kinder <b>lernen</b> Deutsch und <b>machen</b> viele Fragen. Wir <b>glauben</b>: zusammen <b>ist</b> es schön!</p>
+    <div class="bh" style="margin-top:12px">🇷🇺 Русский <button class="formbtn" id="ruBtn" onclick="toggleRu2()">Показать перевод</button></div>
+    <p class="ru-block" id="ruText" hidden>Привет! Меня зовут Otto. Я родом из Шотландии и сейчас живу в Германии. Я садовник и работаю в саду. Живу один. Грета родом из Италии. Она говорит по-итальянски и по-немецки. У неё есть семья. Дети учат немецкий и задают много вопросов. Мы думаем: вместе — это здорово!</p>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">1</span>🃏 Карточки</h3>
+    <p class="sub">Немецкий глагол — вспомни перевод, нажми, чтобы перевернуть. Листай ← →.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">2</span>🔗 Соотнеси: глагол ↔ перевод</h3>
+    <p class="sub">Нажми немецкий глагол, потом перевод — пара окрасится. Выбор можно менять.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="toolbar"><button class="btn y sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">3</span>🔤 Напиши перевод</h3>
+    <p class="sub">Дан немецкий глагол — впиши, что он значит по-русски.</p>
+    <div id="writeList"></div>
+    <div class="toolbar"><button class="btn y sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+
+  <div class="scenenav"><a href="thema-01.html">← Тема 1</a><a href="thema-01.html#andere">Другое →</a></div>
 </main>
-<footer>Deutsch A1 · Глаголы по теме · строки + «форма» + глазик</footer>
+<footer>Deutsch A1</footer>
+
+<script src="js/app.js"></script>
 <script>
-const REG = [
-  {inf:'wohnen', ru:'жить (проживать)', pp:'hat gewohnt', c:['wohne','wohnst','wohnt','wohnen','wohnt','wohnen']},
-  {inf:'leben', ru:'жить', pp:'hat gelebt', c:['lebe','lebst','lebt','leben','lebt','leben']},
-  {inf:'lernen', ru:'учить', pp:'hat gelernt', c:['lerne','lernst','lernt','lernen','lernt','lernen']},
-  {inf:'machen', ru:'делать', pp:'hat gemacht', c:['mache','machst','macht','machen','macht','machen']},
-  {inf:'arbeiten', ru:'работать', pp:'hat gearbeitet', c:['arbeite','arbeitest','arbeitet','arbeiten','arbeitet','arbeiten']},
-  {inf:'studieren', ru:'учиться (в вузе)', pp:'hat studiert', c:['studiere','studierst','studiert','studieren','studiert','studieren']},
-  {inf:'planen', ru:'планировать', pp:'hat geplant', c:['plane','planst','plant','planen','plant','planen']},
-  {inf:'glauben', ru:'думать, верить', pp:'hat geglaubt', c:['glaube','glaubst','glaubt','glauben','glaubt','glauben']},
+function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9äöüß]/g,'');}
+const REG=[
+  {inf:'wohnen',ru:'жить (проживать)',pp:'hat gewohnt',c:['wohne','wohnst','wohnt','wohnen','wohnt','wohnen']},
+  {inf:'leben',ru:'жить',pp:'hat gelebt',c:['lebe','lebst','lebt','leben','lebt','leben']},
+  {inf:'lernen',ru:'учить',pp:'hat gelernt',c:['lerne','lernst','lernt','lernen','lernt','lernen']},
+  {inf:'machen',ru:'делать',pp:'hat gemacht',c:['mache','machst','macht','machen','macht','machen']},
+  {inf:'arbeiten',ru:'работать',pp:'hat gearbeitet',c:['arbeite','arbeitest','arbeitet','arbeiten','arbeitet','arbeiten']},
+  {inf:'studieren',ru:'учиться (в вузе)',pp:'hat studiert',c:['studiere','studierst','studiert','studieren','studiert','studieren']},
+  {inf:'planen',ru:'планировать',pp:'hat geplant',c:['plane','planst','plant','planen','plant','planen']},
+  {inf:'glauben',ru:'думать, верить',pp:'hat geglaubt',c:['glaube','glaubst','glaubt','glauben','glaubt','glauben']},
 ];
-const IRR = [
-  {inf:'sein', ru:'быть', pp:'ist gewesen (war)', c:['bin','bist','ist','sind','seid','sind']},
-  {inf:'haben', ru:'иметь', pp:'hat gehabt (hatte)', c:['habe','hast','hat','haben','habt','haben']},
-  {inf:'sprechen', ru:'говорить', pp:'hat gesprochen', c:['spreche','sprichst','spricht','sprechen','sprecht','sprechen']},
-  {inf:'heißen', ru:'зваться', pp:'hat geheißen', c:['heiße','heißt','heißt','heißen','heißt','heißen']},
-  {inf:'kommen', ru:'приходить, быть родом', pp:'ist gekommen', c:['komme','kommst','kommt','kommen','kommt','kommen']},
-  {inf:'gehen', ru:'идти (Wie geht’s)', pp:'ist gegangen', c:['gehe','gehst','geht','gehen','geht','gehen']},
+const IRR=[
+  {inf:'sein',ru:'быть',pp:'ist gewesen (war)',c:['bin','bist','ist','sind','seid','sind']},
+  {inf:'haben',ru:'иметь',pp:'hat gehabt (hatte)',c:['habe','hast','hat','haben','habt','haben']},
+  {inf:'sprechen',ru:'говорить',pp:'hat gesprochen',c:['spreche','sprichst','spricht','sprechen','sprecht','sprechen']},
+  {inf:'heißen',ru:'зваться',pp:'hat geheißen',c:['heiße','heißt','heißt','heißen','heißt','heißen']},
+  {inf:'kommen',ru:'приходить, быть родом',pp:'ist gekommen',c:['komme','kommst','kommt','kommen','kommt','kommen']},
+  {inf:'gehen',ru:'идти',pp:'ist gegangen',c:['gehe','gehst','geht','gehen','geht','gehen']},
 ];
-const PRON = ['ich','du','er/sie/es','wir','ihr','sie/Sie'];
-function rows(list, key){
-  return list.map((v,i)=>`<tr>
-    <td class="de"><span class="vbadge ${key==='r'?'reg':'irr'}">${key==='r'?'прав.':'непр.'}</span>${v.inf}</td>
-    <td class="ru"><span>${v.ru}</span></td>
-    <td class="pp">${v.pp}</td>
-    <td style="text-align:right"><button class="formbtn" onclick="pop('${key}${i}')">форма ▾</button>
-      <div class="pop" id="${key}${i}">
-        <div class="conj">${v.c.map((f,j)=>`<div><b>${PRON[j]}</b> ${v.inf.startsWith('arbeit')||true?'':''}${f}</div>`).join('')}</div>
-        <div class="pp2">Прошедшее (Perfekt): <b>${v.pp}</b></div>
-      </div>
-    </td></tr>`).join('');
-}
-document.getElementById('t-reg').innerHTML = `<tr><th>глагол</th><th>перевод</th><th>прошедшее</th><th></th></tr>`+rows(REG,'r');
-document.getElementById('t-irr').innerHTML = `<tr><th>глагол</th><th>перевод</th><th>прошедшее</th><th></th></tr>`+rows(IRR,'i');
-function pop(id){ document.getElementById(id).classList.toggle('open'); }
-function toggleRu(){
-  document.querySelectorAll('table.vt').forEach(t=>t.classList.toggle('hidden-ru'));
-  const b=document.getElementById('eye'); const on=document.querySelector('table.vt').classList.contains('hidden-ru');
-  b.textContent = on ? '👁 Показать переводы' : '🙈 Скрыть переводы';
-}
+const PRON=['ich','du','er/sie/es','wir','ihr','sie/Sie'];
+const ALL=REG.concat(IRR);
+function rows(list,key){return list.map((v,i)=>`<tr>
+  <td class="de"><span class="em">${key==='r'?'✅':'⚠️'}</span>${v.inf} <button class="say" onclick="speak('${v.inf}')">🔊</button></td>
+  <td class="ru"><span>${v.ru}</span></td>
+  <td class="pp">${v.pp}</td>
+  <td style="text-align:right"><button class="formbtn" onclick="pop('${key}${i}')">форма ▾</button>
+    <div class="pop" id="${key}${i}"><div class="conj">${v.c.map((f,j)=>`<div><b>${PRON[j]}</b> ${f}</div>`).join('')}</div><div class="pp2">Perfekt: <b>${v.pp}</b></div></div>
+  </td></tr>`).join('');}
+document.getElementById('t-reg').innerHTML=`<tr><th>глагол</th><th>перевод</th><th>прошедшее</th><th></th></tr>`+rows(REG,'r');
+document.getElementById('t-irr').innerHTML=`<tr><th>глагол</th><th>перевод</th><th>прошедшее</th><th></th></tr>`+rows(IRR,'i');
+function pop(id){document.getElementById(id).classList.toggle('open');}
+function toggleRu(){document.querySelectorAll('table.vt').forEach(t=>t.classList.toggle('hidden-ru'));const on=document.querySelector('table.vt').classList.contains('hidden-ru');document.getElementById('eye').textContent=on?'👁 Показать переводы':'🙈 Скрыть переводы';}
+function deText(){return document.getElementById('deText').innerText;}
+function toggleRu2(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
+
+// карточки
+let ci=0,flipped=false;
+function renderCard(){const v=ALL[ci];document.getElementById('cText').innerHTML=flipped?`${v.ru}`:`${v.inf} <button class="say" onclick="event.stopPropagation();speak('${v.inf}')">🔊</button>`;document.getElementById('cHint').textContent=flipped?'нажми — назад к немецкому':'нажми — увидеть перевод';document.getElementById('cCount').textContent=`${ci+1} / ${ALL.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%ALL.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+ALL.length)%ALL.length;flipped=false;renderCard();}
+renderCard();
+
+// соотнеси
+const MPOOL=ALL.map(v=>[v.inf,v.ru]);
+const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let MATCH=[],selDe=null,links={},colorOf={},nextC=0;
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){MATCH=shuffle(MPOOL).slice(0,6);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MATCH.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MATCH.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MATCH[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';}
+function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){let ok=0;MATCH.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MATCH.length?'var(--das)':'var(--die)'}">${ok} / ${MATCH.length} верно${ok===MATCH.length?(' — '+praise()):' — поправь пары'}</span>`;}
+renderMatch();
+
+// напиши перевод
+let WRITE=[];
+function renderWrite(){WRITE=shuffle(ALL).slice(0,6);document.getElementById('writeList').innerHTML=WRITE.map((v,i)=>`<div class="wq" data-i="${i}"><span class="de">${v.inf} <button class="say" onclick="speak('${v.inf}')">🔊</button></span><input placeholder="перевод по-русски…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('wScore').textContent='';}
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v.length>=3&&norm(WRITE[i].ru).includes(v);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i].ru;if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно${ok===WRITE.length?(' — '+praise()):''}</span>`;}
+function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=WRITE[i].ru;r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
+renderWrite();
 </script>
 <script src="js/chrome.js"></script>
 </body>
