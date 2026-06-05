@@ -142,6 +142,47 @@ def build_payload():
             "no_cache": v[0] + v[1] + v[2],
         }
 
+    # --- серии (streak) для геймификации ---
+    HARD_DAY = 10_000_000  # «ударный» день: ввод+вывод+создание кэша >= этого
+    active_dates = set(by_day.keys())
+
+    def is_active(d):
+        return d.isoformat() in active_dates
+
+    def is_hard(d):
+        v = by_day.get(d.isoformat())
+        return bool(v) and (v[0] + v[1] + v[2]) >= HARD_DAY
+
+    # текущая серия активных дней (отсчёт от сегодня или вчера назад)
+    streak = 0
+    anchor = today if is_active(today) else (today - datetime.timedelta(days=1))
+    if is_active(anchor):
+        d = anchor
+        while is_active(d):
+            streak += 1
+            d -= datetime.timedelta(days=1)
+
+    # текущая серия «ударных» дней подряд (от последнего активного дня назад)
+    hard_streak = 0
+    if is_active(anchor):
+        d = anchor
+        while is_hard(d):
+            hard_streak += 1
+            d -= datetime.timedelta(days=1)
+
+    # лучшая серия активных дней за всё время
+    best_streak = 0
+    if active_dates:
+        sorted_dates = sorted(datetime.date.fromisoformat(x) for x in active_dates)
+        run = 1
+        best_streak = 1
+        for i in range(1, len(sorted_dates)):
+            if (sorted_dates[i] - sorted_dates[i - 1]).days == 1:
+                run += 1
+            else:
+                run = 1
+            best_streak = max(best_streak, run)
+
     return {
         "today": pack(day_sum(today.isoformat())),
         "week": pack(sum_since(week_start)),
@@ -149,6 +190,10 @@ def build_payload():
         "all_time": pack(all_time),
         "series": series,
         "active_days": len(by_day),
+        "streak": streak,
+        "hard_streak": hard_streak,
+        "best_streak": best_streak,
+        "today_active": is_active(today),
         "generated": datetime.datetime.now().strftime("%H:%M:%S"),
     }
 
@@ -192,13 +237,31 @@ HTML = r"""<!DOCTYPE html>
   .bar{height:10px;border-radius:8px;background:#2a2b50;overflow:hidden;margin-top:10px}
   .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0}
   .bar.warn > i{background:linear-gradient(90deg,#f59e0b,#ef4444)}
-  input.budget{width:150px;background:#0e0f23;border:1px solid var(--line);color:var(--ink);
-        border-radius:10px;padding:8px 10px;font-size:15px;font-weight:700}
-  select{background:#0e0f23;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:7px 8px;font-size:13px}
   .muted{color:var(--muted);font-size:12px;line-height:1.5}
-  .chart{display:flex;align-items:flex-end;gap:5px;height:90px;margin-top:8px}
-  .chart .col{flex:1;background:linear-gradient(180deg,var(--accent2),var(--accent));border-radius:4px 4px 0 0;min-height:2px;position:relative}
-  .chart .col.today{outline:2px solid #fff3;background:linear-gradient(180deg,#fbbf24,#f59e0b)}
+  /* триплет лимита */
+  .trow{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0}
+  .trow .k{color:var(--muted);font-size:13px}
+  .trow .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+  .trow.left .v{font-size:32px;color:#fff}
+  .bar{height:12px;border-radius:8px;background:#2a2b50;overflow:hidden;margin:12px 0 4px}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:width .5s}
+  .bar.warn > i{background:linear-gradient(90deg,#f59e0b,#ef4444)}
+  /* геймификация */
+  .streak{display:flex;align-items:center;gap:14px}
+  .flame{font-size:46px;line-height:1}
+  .streak .num{font-size:38px;font-weight:800;line-height:1}
+  .streak .num small{font-size:17px;font-weight:700;color:var(--muted)}
+  .streak .cap{color:var(--muted);font-size:13px;margin-top:4px}
+  .badge{display:inline-block;margin-top:14px;padding:8px 13px;border-radius:999px;
+         background:linear-gradient(90deg,#f59e0b,#ef4444);color:#fff;font-weight:700;font-size:13px}
+  .days{display:flex;gap:5px;margin-top:16px}
+  .days .d{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+  .days .cell{width:100%;aspect-ratio:1;border-radius:7px;background:#23244a;
+        display:flex;align-items:center;justify-content:center;font-size:13px}
+  .days .cell.l1{background:#3b2d6b}.days .cell.l2{background:#6d4ad6}.days .cell.l3{background:#a78bfa}
+  .days .cell.hard{box-shadow:inset 0 0 0 2px #fbbf24}
+  .days .cell.today{outline:2px solid #fff}
+  .days .lbl{font-size:9px;color:var(--muted)}
   .foot{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}
   a{color:var(--accent2)}
   .note{margin-top:12px;padding:10px 12px;background:#1c1530;border:1px solid #3a2d78;border-radius:12px}
@@ -229,19 +292,20 @@ HTML = r"""<!DOCTYPE html>
       <div class="mid" id="remaining">—</div>
       <div class="bar" id="bar"><i></i></div>
       <div style="margin-top:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <span class="muted">Мой дневной лимит:</span>
-        <input class="budget" id="budget" type="number" min="0" step="100000" placeholder="напр. 5000000">
+        <span class="muted">Дневной ориентир:</span>
+        <input class="budget" id="budget" type="number" min="0" step="500000" placeholder="напр. 20000000">
       </div>
       <div style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
         <span class="muted">Считать от:</span>
         <select id="metric">
-          <option value="total">всего (с кэшем)</option>
           <option value="no_cache">без кэш-чтения</option>
+          <option value="total">всего (с кэшем)</option>
         </select>
       </div>
       <div class="note muted">
-        «Осталось» = ваш лимит − потрачено сегодня. Claude не отдаёт ваш тарифный
-        лимит локально, поэтому число лимита задаёте вы сами (оно сохраняется).
+        «Осталось» = ориентир − потрачено сегодня. Официального лимита подписки
+        в токенах Claude не публикует и локально не отдаёт. По умолчанию здесь
+        ваш практический максимум по замерам (≈20 млн/день) — поправьте под себя.
       </div>
     </div>
   </div>
@@ -313,12 +377,16 @@ function load(){
     });
   }).catch(()=>{});
 }
+// значения по умолчанию (первый запуск): практический максимум и метрика без кэш-чтения
+const DEFAULT_BUDGET='20000000', DEFAULT_METRIC='no_cache';
+if(localStorage.getItem('budget')===null) localStorage.setItem('budget',DEFAULT_BUDGET);
+if(localStorage.getItem('metric')===null) localStorage.setItem('metric',DEFAULT_METRIC);
 // сохранение лимита и метрики
 const bi=document.getElementById('budget');
 bi.value=localStorage.getItem('budget')||'';
 bi.addEventListener('input',()=>{localStorage.setItem('budget',bi.value);load();});
 const mi=document.getElementById('metric');
-mi.value=localStorage.getItem('metric')||'total';
+mi.value=localStorage.getItem('metric')||DEFAULT_METRIC;
 mi.addEventListener('change',()=>{localStorage.setItem('metric',mi.value);load();});
 load();
 setInterval(load,20000);
