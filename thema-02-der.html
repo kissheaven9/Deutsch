@@ -21,12 +21,12 @@
   .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
   .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
   .stage img{width:100%;height:auto;display:block}
-  .lbl{position:absolute;transform:translate(-50%,-50%);font-size:11px;line-height:1.2;max-width:18%}
+  .lbl{position:absolute;transform:translate(-50%,-50%);font-size:11px;line-height:1.2;white-space:nowrap}
   .cov{cursor:pointer;display:inline-block}
   .cov .vv{background:var(--der);color:var(--der);border:2px solid #fff;border-radius:6px;padding:2px 12px;font-weight:700;
     transition:.1s;box-shadow:0 1px 5px #0005}
   .cov.open .vv{background:#fff;color:var(--der);border-color:var(--der);padding:2px 8px}
-  @media(max-width:620px){.lbl{font-size:9px;max-width:22%;padding:2px 3px}}
+  @media(max-width:620px){.lbl{font-size:9px}}
   .wlist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
   @media(max-width:620px){.wlist{grid-template-columns:1fr}}
   .wrow{display:flex;align-items:center;gap:8px;background:#eff3ff;border:1px solid #dbe4ff;border-radius:9px;padding:6px 8px}
@@ -164,12 +164,12 @@ const OBJ=[
   {ru:'кресло',de:'der Sessel',x:40,y:46},
   {ru:'зеркало',de:'der Spiegel',x:54,y:16},
   {ru:'шкаф',de:'der Schrank',x:79,y:22},
-  {ru:'зонт',de:'der Regenschirm',x:95,y:42},
+  {ru:'зонт',de:'der Regenschirm',x:85,y:42},
   {ru:'ковёр',de:'der Teppich',x:33,y:85},
   {ru:'стол',de:'der Tisch',x:62,y:84},
   {ru:'ключи',de:'der Schlüssel',x:67,y:60},
-  {ru:'ручка',de:'der Kugelschreiber',x:84,y:66},
-  {ru:'кошелёк',de:'der Geldbeutel',x:93,y:52},
+  {ru:'ручка',de:'der Kugelschreiber',x:79,y:66},
+  {ru:'кошелёк',de:'der Geldbeutel',x:87,y:52},
 ];
 const stage=document.getElementById('stage');
 OBJ.forEach(o=>{const d=document.createElement('div');d.className='lbl der';d.style.left=o.x+'%';d.style.top=o.y+'%';

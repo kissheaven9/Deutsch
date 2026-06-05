@@ -25,7 +25,9 @@
   .mk.der .mkw{border-color:var(--der);color:var(--der)} .mk.die .mkw{border-color:var(--die);color:var(--die)} .mk.das .mkw{border-color:var(--das);color:var(--das)} .mk.flag .mkw{border-color:var(--accent);color:var(--accent)}
   .mk.open{z-index:5} .mk.open .mkw{display:block}
   .mk.dir-l .mkw{right:140%} .mk.dir-r .mkw{left:140%}
-  .qbanner{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,#000000cc);color:#fff;font-size:14px;font-weight:600;line-height:1.4;padding:26px 14px 12px;z-index:3}
+  .qtask{background:#f5f3ff;border:2px solid var(--accent);color:var(--accent);font-weight:700;line-height:1.35;z-index:4}
+  @media(min-width:621px){.qtask{position:absolute;top:10px;right:10px;max-width:46%;font-size:13px;padding:8px 12px;border-radius:10px;box-shadow:0 3px 12px #0004}}
+  @media(max-width:620px){.qtask{font-size:12px;padding:7px 12px;border:none;border-bottom:2px solid var(--accent);border-radius:0}}
   .qask{position:absolute;transform:translate(-50%,-50%);background:#fffffff2;border:2px solid var(--accent);color:var(--accent);font-weight:800;font-size:13px;line-height:1.25;text-align:center;border-radius:12px;padding:7px 11px;box-shadow:0 2px 10px #0005;z-index:4;max-width:40%;white-space:pre-line}
   .stagehint{font-size:12px;color:var(--muted);margin:6px 0 0}
   .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -257,14 +259,14 @@ const MARKS={
     {x:27,y:62,w:'acht · 8 Finger',g:'das',dir:'r'},{x:47,y:65,w:'sieben · 7 Finger',g:'das',dir:'l'},{x:64,y:62,w:'zehn · 10 Finger',g:'das',dir:'l'},{x:82,y:62,w:'zehn · 10 Finger',g:'das',dir:'l'}],
  3:[{x:16,y:38,w:'der Mann',g:'der',dir:'r'},{x:48,y:21,w:'die Frau',g:'die',dir:'r'},{x:72,y:43,w:'das Kind',g:'das',dir:'l'},{x:88,y:47,w:'das Mädchen',g:'das',dir:'l'},{x:88,y:80,w:'das Tier · Mümmel',g:'das',dir:'l'},{x:30,y:10,w:'Italien 🇮🇹',g:'flag',dir:'r'},{x:42,y:8,w:'Schottland 🏴',g:'flag',dir:'r'},{x:51,y:9,w:'Österreich 🇦🇹',g:'flag',dir:'l'},{x:60,y:11,w:'Polen 🇵🇱',g:'flag',dir:'l'}]
 };
-const BANNER={2:'❓ Тапни точку на ребёнке — узнаешь, сколько пальцев он показывает по-немецки. Сначала скажи сам(а)!'};
+const BANNER={2:'📝 Задание: Сколько пальцев показывают дети? Скажи по-немецки.'};
 const ASK={2:{x:67,y:22,t:'✋ Сколько пальцев?\nСкажи по-немецки!'}};
 
 document.getElementById('app').innerHTML=`
   <h1>${D.title}</h1>
   <p class="lead">${D.sub} <span style="color:var(--muted)">Диалог ${N} из 3 · Тема 1</span></p>
   <div class="scenenav" id="navTop"></div>
-  <div class="stage" id="stage"><img src="${D.img}" alt="${D.title}">${ASK[N]?`<div class="qask" style="left:${ASK[N].x}%;top:${ASK[N].y}%">${ASK[N].t}</div>`:''}${BANNER[N]?`<div class="qbanner">${BANNER[N]}</div>`:''}</div>
+  <div class="stage" id="stage">${BANNER[N]?`<div class="qtask">${BANNER[N]}</div>`:''}<img src="${D.img}" alt="${D.title}"></div>
   <p class="stagehint">Тапни точку на герое или предмете — откроется слово: <b style="color:var(--der)">der Mann</b>, <b style="color:var(--die)">die Frau</b>, <b style="color:var(--das)">das Kind</b> (цвет = род).</p>
 
   <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Читаем диалог</h2></div></div>
