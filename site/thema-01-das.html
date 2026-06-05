@@ -100,7 +100,7 @@
 
   <div class="panel">
     <h3>📜 Текст</h3>
-    <div class="bh">Deutsch (A1 · L1–L3) <button class="ic" onclick="toggleSpeak(deText(), this)">🔊 Послушать</button></div>
+    <div class="bh">Deutsch (A1 · L1–L3) <button class="ic" onclick="toggleSpeak(deText(), this, 'child')">🔊 Послушать</button></div>
     <p class="de-block" id="deText">Hallo, hallo! Ich heiße Theo. Ich bin sieben Jahre alt. Ich wohne in Deutschland — Deutschland ist mein Land. Ich bin ein Kind. Ich lerne das Alphabet und buchstabiere: T-H-E-O — Theo!<br><br>
     Ich frage immer: „Was ist das? Wer ist das? Wie alt bist du? Woher kommst du?“ Das ist ein Interview! Ich mache ein Interview und ein Gespräch — und ein Rätsel ist auch gut.<br><br>
     Ich frage Lina. Lina ist ein Mädchen. Sie ist sechs Jahre alt. „Lina, was machst du? Warum sagst du nichts?“ Aber Lina sagt nichts. Das ist ein Rätsel!<br><br>
@@ -191,7 +191,7 @@ const WORDS=[
   ['das','Tier','зверёк / животное'],['das','Fest','праздник'],['das','Enkelkind','внук / внучка'],
   ['das','Datum','дата'],['das','Geburtsdatum','дата рождения'],
 ];
-document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="speak('${a} ${de}')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
+document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="speak('${a} ${de}','child')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
 function toggleTransAll(btn){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));btn.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
 function deText(){return document.getElementById('deText').innerText;}
 
@@ -217,7 +217,7 @@ const CARDS=[
   {e:'📆',ru:'дата',de:'Datum'},{e:'🎂',ru:'дата рождения',de:'Geburtsdatum'},
 ];
 let ci=0,flipped=false;
-function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">das</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();speak('das ${c.de}')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">das</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();speak('das ${c.de}','child')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
 function flip(){flipped=!flipped;renderCard();}
 function cardNext(){ci=(ci+1)%CARDS.length;flipped=false;renderCard();}
 function cardPrev(){ci=(ci-1+CARDS.length)%CARDS.length;flipped=false;renderCard();}

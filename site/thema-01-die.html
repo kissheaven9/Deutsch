@@ -116,7 +116,7 @@
 
   <div class="panel">
     <h3>📜 Текст</h3>
-    <div class="bh">Deutsch (A1 · L1–L6) <button class="ic" onclick="toggleSpeak(deText(), this)">🔊 Послушать</button></div>
+    <div class="bh">Deutsch (A1 · L1–L6) <button class="ic" onclick="toggleSpeak(deText(), this, 'female')">🔊 Послушать</button></div>
     <p class="de-block" id="deText">Guten Tag, guten Tag! Ich heiße Greta — Mamma mia, endlich lernt ihr mich kennen! Ich bin Italienerin: Ich komme aus Italien, aus Napoli. Aber jetzt wohne ich in Deutschland, in München. Von Beruf bin ich Köchin. Ich habe eine Firma — sie ist klein, aber gut. Meine Partnerin Giulia ist auch Köchin. Ich bin verheiratet — eine Ehefrau und eine Mamma!<br><br>
     Und jetzt das Wichtigste — meine Adresse und meine Nummer! Meine Straße heißt Gartenstraße, meine Hausnummer ist sieben, meine Postleitzahl ist 80331. Also: Gartenstraße sieben, 80331 München — das ist meine Adresse! Meine Telefonnummer ist 0176 33 12 40. Meine E-Mail-Adresse ist greta-koechin@mail.de. Hier ist meine Visitenkarte: „Greta — Köchin, Gartenstraße sieben“.<br><br>
     Ich spreche vier Sprachen: Italienisch, Deutsch, Englisch und ein bisschen Französisch. Ich liebe Sprachen, und ich liebe Musik!<br><br>
@@ -224,7 +224,7 @@ const WORDS=[
   ['die','Nationalität','национальность'],['die','Adresse','адрес'],['die','Straße','улица'],['die','Hausnummer','номер дома'],['die','Postleitzahl','индекс'],['die','Stadt','город'],['die','Telefonnummer','телефон'],['die','E-Mail','эл. почта'],
   ['die','Sprache','язык'],['die','Herkunft','происхождение'],['die','Firma','фирма'],['die','Partnerin','напарница'],['die','Visitenkarte','визитка'],['die','Musik','музыка'],
 ];
-document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="speak('${a} ${de}')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
+document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="speak('${a} ${de}','female')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
 function toggleTransAll(btn){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));btn.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
 function deText(){return document.getElementById('deText').innerText;}
 
@@ -250,7 +250,7 @@ const CARDS=[
   {e:'🗣️',ru:'язык',de:'Sprache'},{e:'🪪',ru:'адрес',de:'Adresse'},{e:'📞',ru:'телефон',de:'Telefonnummer'},{e:'🏙️',ru:'город',de:'Stadt'},{e:'🌍',ru:'национальность',de:'Nationalität'},
 ];
 let ci=0,flipped=false;
-function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">die</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();speak('die ${c.de}')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">die</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();speak('die ${c.de}','female')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
 function flip(){flipped=!flipped;renderCard();}
 function cardNext(){ci=(ci+1)%CARDS.length;flipped=false;renderCard();}
 function cardPrev(){ci=(ci-1+CARDS.length)%CARDS.length;flipped=false;renderCard();}

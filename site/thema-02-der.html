@@ -99,7 +99,7 @@
 
   <div class="panel">
     <h3>📜 Текст</h3>
-    <div class="bh">Deutsch (A1 · L4–L5) <button class="ic" onclick="toggleSpeak(deText(), this)">🔊 Послушать</button></div>
+    <div class="bh">Deutsch (A1 · L4–L5) <button class="ic" onclick="toggleSpeak(deText(), this, 'male')">🔊 Послушать</button></div>
     <p class="de-block" id="deText">Das ist mein Zimmer. Schau mal! Ich kaufe gern — aber immer günstig. Hier ist mein Stuhl: aus Holz, braun und alt. Ich finde, er ist sehr schön — und er kostet nur 49 Euro. Das ist günstig! Mein Sessel ist groß und dunkelrot, alt, aber sehr praktisch. Mein Tisch ist auch aus Holz: schwarz, groß und modern, nicht teuer. Mein Schrank ist weiß und sehr praktisch. Mein Teppich ist rot und orange — schön, oder? Er kostet nur 30 Euro. Mein Spiegel ist klein und alt. Ich bestelle gern online. Mein Kugelschreiber ist aus Metall, dunkelblau und teuer — aber so schön! Mein Bleistift ist gelb und billig. Meine Schlüssel sind aus Metall, groß und klein — ich habe viele! Mein Geldbeutel ist braun und alt, und mein Regenschirm ist grün. Ich finde, mein Zimmer ist schön — und nicht teuer. Das bin ich!</p>
     <div class="bh">Русский</div>
     <p class="ru-block">Это моя комната. Смотри! Покупать люблю — но всегда выгодно. Вот мой стул: из дерева, коричневый и старый. По-моему, очень красивый — и стоит всего 49 евро. Это выгодно! Моё кресло большое и тёмно-красное, старое, но очень удобное. Мой стол тоже из дерева: чёрный, большой и современный, недорогой. Шкаф белый и очень практичный. Ковёр красный с оранжевым — красивый, правда? Стоит всего 30 евро. Зеркало маленькое и старое. Заказывать люблю в интернете. Моя шариковая ручка из металла, тёмно-синяя и дорогая — но такая красивая! Карандаш жёлтый и дешёвый. Ключи металлические, большие и маленькие — их много! Кошелёк коричневый и старый, а зонт зелёный. По-моему, моя комната красивая — и недорогая. Это я!</p>
@@ -182,7 +182,7 @@ const WORDS=[
   ['der','Kaffee','кофе'],['der','Euro','евро'],['der','Preis','цена'],['der','Cent','цент'],['der','Kunststoff','пластик'],
 ];
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
-document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="speak('${a} ${de}')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
+document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="speak('${a} ${de}','male')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
 function toggleTransAll(btn){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));btn.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
 function deText(){return document.getElementById('deText').innerText;}
 
@@ -208,7 +208,7 @@ const CARDS=[
   {e:'☂️',ru:'зонт',de:'Regenschirm'},{e:'🖊️',ru:'шариковая ручка',de:'Kugelschreiber'},{e:'✏️',ru:'карандаш',de:'Bleistift'},{e:'☕',ru:'кофе',de:'Kaffee'},{e:'💶',ru:'евро',de:'Euro'},
 ];
 let ci=0,flipped=false;
-function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">der</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();speak('der ${c.de}')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">der</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();speak('der ${c.de}','male')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
 function flip(){flipped=!flipped;renderCard();}
 function cardNext(){ci=(ci+1)%CARDS.length;flipped=false;renderCard();}
 function cardPrev(){ci=(ci-1+CARDS.length)%CARDS.length;flipped=false;renderCard();}
