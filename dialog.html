@@ -314,13 +314,14 @@ document.getElementById('app').innerHTML=`
 
 function deTxt(){return [...document.querySelectorAll('#deDlg p')].map(p=>{const c=p.cloneNode(true);c.querySelectorAll('.sp,.rem').forEach(e=>e.remove());return c.textContent.replace(/\s+/g,' ').trim();}).filter(Boolean).join(' . ');}
 function speakDialog(btn){
-  const items=[...document.querySelectorAll('#deDlg p')].map(p=>{
+  const items=[...document.querySelectorAll('#deDlg p')].filter(p=>p.querySelector('.sp')).map(p=>{
     const sp=p.querySelector('.sp');
-    const role= sp? (sp.classList.contains('der')?'male':sp.classList.contains('die')?'female':'child') : '';
+    const role= sp.classList.contains('der')?'male':sp.classList.contains('die')?'female':'child';
     const c=p.cloneNode(true); c.querySelectorAll('.sp,.rem').forEach(e=>e.remove());
     return {t:c.textContent.replace(/\s+/g,' ').trim(), role};
-  });
-  speakSequence(items, btn);
+  }).filter(x=>x.t);
+  const urls=items.map((_,i)=>`audio/dlg-${N}-${i}.mp3`);
+  playSeq(urls, btn, items);   // живые голоса из файлов; если файла нет — браузерный голос
 }
 function toggleRuDlg(){const d=document.getElementById('ruDlg'),b=document.getElementById('ruBtn');d.hidden=!d.hidden;b.textContent=d.hidden?'Показать перевод':'Скрыть перевод';}
 
