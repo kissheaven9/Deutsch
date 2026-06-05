@@ -27,6 +27,8 @@
   .box h4{margin:0 0 8px;font-size:14px}
   .muted{color:var(--muted);font-size:13px}
   .lk{font-weight:600;font-size:11px;background:#f3f4f6;color:#374151;border-radius:6px;padding:1px 6px}
+  .gcard .w{cursor:pointer}
+  .gcard .w.flip{background:#f3e8ff!important;border-color:#e9d5ff!important;color:var(--accent)!important}
 </style>
 </head>
 <body>
@@ -110,5 +112,34 @@
   <div class="note">Это структура темы: существительные по роду (3 персонажа) + глаголы + другое + топики — всё по теме, в одном месте. Лексика сверена по Lernwortschatz (Arbeitsbuch). Источник — data/themen/01-kennenlernen-familie.md.</div>
 </main>
 <footer>Deutsch A1 · Тема 1 · существительные (der/die/das) · глаголы · другое</footer>
+<script>
+(function(){
+  const TR={
+    Name:"имя",Vorname:"имя (личное)",Familienname:"фамилия",Herr:"господин",
+    Beruf:"профессия",Job:"работа",Single:"холостяк / одинокий",Partner:"партнёр",
+    Wohnort:"место жительства",Familienstand:"семейное положение",Moment:"момент",
+    Lehrer:"учитель",Arzt:"врач",Tierarzt:"ветеринар",Ingenieur:"инженер",Architekt:"архитектор",
+    Student:"студент",Journalist:"журналист",Friseur:"парикмахер",Verkäufer:"продавец",
+    Kellner:"официант",Schüler:"школьник",Rentner:"пенсионер",Schauspieler:"актёр",Sänger:"певец",
+    Vater:"отец",Papa:"папа",Bruder:"брат",Sohn:"сын",Onkel:"дядя",Großvater:"дедушка",
+    Enkel:"внук",Ehemann:"муж",Verwandte:"родственник / -ца",Mann:"мужчина / муж",
+    Frau:"женщина / госпожа",Familie:"семья",Mutter:"мать",Mama:"мама",Schwester:"сестра",
+    Tochter:"дочь",Oma:"бабушка",Großmutter:"бабушка",Enkelin:"внучка",Ehefrau:"жена",
+    Tante:"тётя",Partnerin:"партнёрша",Firma:"фирма",Stelle:"место / должность",
+    Ausbildung:"профобучение",Herkunft:"происхождение",Zahl:"число",Sprache:"язык",Liste:"список",
+    Lehrerin:"учительница",Ärztin:"врач (ж)",Studentin:"студентка",Krankenschwester:"медсестра",
+    Kind:"ребёнок",Jahr:"год",Alter:"возраст",Land:"страна",Gespräch:"разговор",Alphabet:"алфавит",
+    Interview:"интервью",Rätsel:"загадка",Studium:"учёба (в вузе)",Praktikum:"практика",Tier:"животное",
+    Fest:"праздник",Enkelkind:"внук / внучка",Mitglied:"член (группы)"
+  };
+  document.querySelectorAll('.gcard .w').forEach(w=>{
+    const de=w.textContent.trim(); w.dataset.de=de; w.title='нажми — перевод';
+    w.addEventListener('click',()=>{
+      const flipped=w.classList.toggle('flip');
+      w.textContent = flipped ? (TR[de]||'—') : de;
+    });
+  });
+})();
+</script>
 </body>
 </html>

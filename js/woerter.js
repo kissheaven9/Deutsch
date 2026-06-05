@@ -48,22 +48,22 @@ const WOERTER = { themes: [
     },
     pluralOnly:[["die Eltern","родители"],["die Geschwister","братья и сёстры"],["die Großeltern","бабушка и дедушка"]],
     verbs:[
-      ["wohnen","жить (проживать)","reg",["wohne","wohnst","wohnt","wohnen","wohnt","wohnen"]],
-      ["leben","жить","reg",["lebe","lebst","lebt","leben","lebt","leben"]],
-      ["lernen","учить(ся)","reg",["lerne","lernst","lernt","lernen","lernt","lernen"]],
-      ["machen","делать","reg",["mache","machst","macht","machen","macht","machen"]],
-      ["arbeiten","работать","reg",["arbeite","arbeitest","arbeitet","arbeiten","arbeitet","arbeiten"]],
-      ["studieren","учиться (в вузе)","reg",["studiere","studierst","studiert","studieren","studiert","studieren"]],
-      ["sammeln","собирать / коллекционировать","reg",["sammle","sammelst","sammelt","sammeln","sammelt","sammeln"]],
-      ["glauben","верить / думать","reg",["glaube","glaubst","glaubt","glauben","glaubt","glauben"]],
-      ["planen","планировать","reg",["plane","planst","plant","planen","plant","planen"]],
-      ["zusammenleben","жить вместе","reg",["lebe … zusammen","lebst … zusammen","lebt … zusammen","leben … zusammen","lebt … zusammen","leben … zusammen"]],
-      ["sein","быть","irr",["bin","bist","ist","sind","seid","sind"]],
-      ["haben","иметь","irr",["habe","hast","hat","haben","habt","haben"]],
-      ["sprechen","говорить","irr",["spreche","sprichst","spricht","sprechen","sprecht","sprechen"]],
-      ["heißen","зваться","irr",["heiße","heißt","heißt","heißen","heißt","heißen"]],
-      ["kommen","приходить / быть родом","irr",["komme","kommst","kommt","kommen","kommt","kommen"]],
-      ["gehen","идти","irr",["gehe","gehst","geht","gehen","geht","gehen"]]
+      ["wohnen","жить (проживать)","reg",["wohne","wohnst","wohnt","wohnen","wohnt","wohnen"],"hat gewohnt"],
+      ["leben","жить","reg",["lebe","lebst","lebt","leben","lebt","leben"],"hat gelebt"],
+      ["lernen","учить(ся)","reg",["lerne","lernst","lernt","lernen","lernt","lernen"],"hat gelernt"],
+      ["machen","делать","reg",["mache","machst","macht","machen","macht","machen"],"hat gemacht"],
+      ["arbeiten","работать","reg",["arbeite","arbeitest","arbeitet","arbeiten","arbeitet","arbeiten"],"hat gearbeitet"],
+      ["studieren","учиться (в вузе)","reg",["studiere","studierst","studiert","studieren","studiert","studieren"],"hat studiert"],
+      ["sammeln","собирать / коллекционировать","reg",["sammle","sammelst","sammelt","sammeln","sammelt","sammeln"],"hat gesammelt"],
+      ["glauben","верить / думать","reg",["glaube","glaubst","glaubt","glauben","glaubt","glauben"],"hat geglaubt"],
+      ["planen","планировать","reg",["plane","planst","plant","planen","plant","planen"],"hat geplant"],
+      ["zusammenleben","жить вместе","reg",["lebe … zusammen","lebst … zusammen","lebt … zusammen","leben … zusammen","lebt … zusammen","leben … zusammen"],"hat zusammengelebt"],
+      ["sein","быть","irr",["bin","bist","ist","sind","seid","sind"],"ist gewesen (war)"],
+      ["haben","иметь","irr",["habe","hast","hat","haben","habt","haben"],"hat gehabt (hatte)"],
+      ["sprechen","говорить","irr",["spreche","sprichst","spricht","sprechen","sprecht","sprechen"],"hat gesprochen"],
+      ["heißen","зваться","irr",["heiße","heißt","heißt","heißen","heißt","heißen"],"hat geheißen"],
+      ["kommen","приходить / быть родом","irr",["komme","kommst","kommt","kommen","kommt","kommen"],"ist gekommen"],
+      ["gehen","идти","irr",["gehe","gehst","geht","gehen","geht","gehen"],"ist gegangen"]
     ],
     other:{
       "Прилагательные / состояния":[["alt","старый"],["verheiratet","женат / замужем"],["geschieden","разведён(а)"],["allein","один / одна"],["richtig","правильный"],["falsch","неправильный"]],
@@ -99,13 +99,14 @@ const Dict = (function(){
       <span class="de">${esc(de)}</span><span class="ru">${esc(ru)}</span>${say(de)}</div>`;
   }
   function verbEntry(v){
-    const [inf,ru,type,forms]=v;
+    const [inf,ru,type,forms,pp]=v;
     const rows = forms.map((f,i)=>`<div class="row" onclick="speak('${(PRO[i].split('/')[0]+' '+f.replace(/ … /,' ')).replace(/'/g,"\\'")}')"><span class="pro">${PRO[i]}</span><span class="frm">${esc(f)}</span></div>`).join("");
     const badge = type==="reg"?`<span class="vbadge reg">прав.</span>`:`<span class="vbadge irr">непр.</span>`;
+    const past = pp?`<span class="past" title="Прошедшее (Perfekt)" onclick="event.stopPropagation();speak('${('er '+pp.replace(/\\s*\\(.*\\)/,'')).replace(/'/g,"\\'")}')">⏪ ${esc(pp)}</span>`:"";
     return `<div class="ventry g-verb"${tag(v._t)} data-de="${esc(inf.toLowerCase())}" data-ru="${esc(ru.toLowerCase())}">
       <div class="vhead" onclick="this.parentElement.classList.toggle('open')">
-        ${badge}<span class="de">${esc(inf)}</span><span class="ru">${esc(ru)}</span>${say(inf)}<span class="caret">▶</span></div>
-      <div class="conj"><div class="grid">${rows}</div><div class="tip">Настоящее время. Прошедшее — в отдельном разделе глаголов. Клик по форме — озвучка.</div></div></div>`;
+        ${badge}<span class="de">${esc(inf)}</span>${past}<span class="ru">${esc(ru)}</span>${say(inf)}<span class="caret">▶</span></div>
+      <div class="conj"><div class="grid">${rows}</div><div class="tip">Спряжение в настоящем времени · клик по форме — озвучка.</div></div></div>`;
   }
 
   // склеить одну категорию по всем темам, пометив каждую запись её темой (._t)
@@ -130,7 +131,7 @@ const Dict = (function(){
     h+=genderBlock("das","🧒 Тео",das);
     if(plural.length) h+=`<div class="gwrap"><div class="gtitle"><span class="who">Только множественное число</span></div><div class="pairs">${plural.map(pair).join("")}</div></div>`;
 
-    h+=`<div class="sec">Глаголы <span class="cnt">клик — спряжение (наст. время)</span></div>`;
+    h+=`<div class="sec">Глаголы <span class="cnt">оранжевым — прошедшее (Perfekt) · клик — спряжение</span></div>`;
     h+=`<div class="list" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">${verbs.map(verbEntry).join("")}</div>`;
 
     h+=`<div class="sec">Другое <span class="cnt">фразы, прилагательные, наречия</span></div>`;
