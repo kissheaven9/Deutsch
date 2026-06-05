@@ -17,6 +17,16 @@
   .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700}
   .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
   .hero img{width:100%;border-radius:14px;border:1px solid var(--line);display:block}
+  .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
+  .stage>img{width:100%;height:auto;display:block}
+  .mk{position:absolute;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px #0007;cursor:pointer;padding:0;z-index:2}
+  .mk.der{background:var(--der)} .mk.die{background:var(--die)} .mk.das{background:var(--das)} .mk.flag{background:var(--accent)}
+  .mk .mkw{display:none;position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;background:#fff;border:2px solid;border-radius:8px;padding:3px 8px;box-shadow:0 2px 8px #0006;font-weight:700;font-size:12px;line-height:1.2}
+  .mk.der .mkw{border-color:var(--der);color:var(--der)} .mk.die .mkw{border-color:var(--die);color:var(--die)} .mk.das .mkw{border-color:var(--das);color:var(--das)} .mk.flag .mkw{border-color:var(--accent);color:var(--accent)}
+  .mk.open{z-index:5} .mk.open .mkw{display:block}
+  .mk.dir-l .mkw{right:140%} .mk.dir-r .mkw{left:140%}
+  .qbanner{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,#000000cc);color:#fff;font-size:14px;font-weight:600;line-height:1.4;padding:26px 14px 12px;z-index:3}
+  .stagehint{font-size:12px;color:var(--muted);margin:6px 0 0}
   .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .dlg p{margin:0 0 7px;font-size:15px;line-height:1.55}
   .dlg.de p{color:var(--ink);font-weight:500} .dlg.ru p{color:#374151}
@@ -50,8 +60,9 @@
   .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
   /* распредели по родам */
   .noselect{user-select:none;-webkit-user-select:none}
-  .sortgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
-  @media(max-width:620px){.sortgrid{grid-template-columns:1fr}}
+  .sortgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(7,auto);grid-auto-flow:column;column-gap:28px}
+  @media(max-width:620px){.sortgrid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}}
+  .btn:disabled,.btn[disabled]{opacity:.45;cursor:not-allowed}
   .srow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:8px 0}
   .srow .sw{font-weight:700;min-width:130px}
   .sbtns{display:flex;gap:6px}
@@ -234,11 +245,18 @@ const DIALOGS={
 const N=Math.min(3,Math.max(1,parseInt(new URLSearchParams(location.search).get('n'))||1));
 const D=DIALOGS[N];
 document.title=D.title;
+const MARKS={
+ 1:[{x:14,y:17,w:'der Mann',g:'der',dir:'r'},{x:43,y:23,w:'die Frau',g:'die',dir:'r'},{x:62,y:40,w:'das Kind',g:'das',dir:'l'},{x:84,y:42,w:'das Mädchen',g:'das',dir:'l'}],
+ 2:[{x:13,y:16,w:'der Mann',g:'der',dir:'r'},{x:33,y:19,w:'die Frau',g:'die',dir:'r'},{x:57,y:29,w:'das Kind',g:'das',dir:'l'},{x:76,y:31,w:'das Mädchen',g:'das',dir:'l'},{x:27,y:54,w:'das Kind',g:'das',dir:'r'},{x:47,y:57,w:'das Mädchen',g:'das',dir:'l'}],
+ 3:[{x:16,y:18,w:'der Mann',g:'der',dir:'r'},{x:44,y:21,w:'die Frau',g:'die',dir:'r'},{x:72,y:33,w:'das Kind',g:'das',dir:'l'},{x:88,y:37,w:'das Mädchen',g:'das',dir:'l'},{x:88,y:60,w:'das Tier · Mümmel',g:'das',dir:'l'},{x:30,y:10,w:'Italien 🇮🇹',g:'flag',dir:'r'},{x:42,y:8,w:'Schottland 🏴',g:'flag',dir:'r'},{x:55,y:9,w:'Österreich 🇦🇹',g:'flag',dir:'l'},{x:64,y:11,w:'Polen 🇵🇱',g:'flag',dir:'l'}]
+};
+const BANNER={2:'❓ Скажи по-немецки: сколько пальцев показывает каждый ребёнок? (eins, zwei, drei … zehn)'};
 
 document.getElementById('app').innerHTML=`
   <h1>${D.title}</h1>
   <p class="lead">${D.sub} <span style="color:var(--muted)">Диалог ${N} из 3 · Тема 1</span></p>
-  <div class="hero"><img src="${D.img}" alt="${D.title}"></div>
+  <div class="stage" id="stage"><img src="${D.img}" alt="${D.title}">${BANNER[N]?`<div class="qbanner">${BANNER[N]}</div>`:''}</div>
+  <p class="stagehint">Тапни точку на герое или предмете — откроется слово: <b style="color:var(--der)">der Mann</b>, <b style="color:var(--die)">die Frau</b>, <b style="color:var(--das)">das Kind</b> (цвет = род).</p>
 
   <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Читаем диалог</h2></div></div>
   <div class="panel">
@@ -253,7 +271,7 @@ document.getElementById('app').innerHTML=`
   <div class="panel"><h3>❓ Ответь на вопросы</h3>
     <p class="sub">Отвечай <b>полным предложением</b>; число — <b>словами</b>, не цифрой (например: «Otto ist fünfzig.»). На «да/нет» — полный ответ («Nein, er ist geschieden.»). Перевод вопроса — по кнопке.</p>
     <div id="qa"></div>
-    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="qaCheckAll()">Проверить</button><button class="btn sm" onclick="qaShowAll()">Показать ответы</button></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="qaCheckAll()">Проверить</button><button class="btn sm" id="qaShowBtn" onclick="qaShowAll()" disabled>Показать ответы</button><span class="muted" id="qaHint" style="font-size:12px">откроются после проверки</span></div>
     <div class="score" id="qaScore"></div>
   </div>
 
@@ -286,6 +304,11 @@ document.getElementById('app').innerHTML=`
 function deTxt(){return [...document.querySelectorAll('#deDlg p')].map(p=>{const c=p.cloneNode(true);c.querySelectorAll('.sp,.rem').forEach(e=>e.remove());return c.textContent.replace(/\s+/g,' ').trim();}).filter(Boolean).join(' . ');}
 function toggleRuDlg(){const d=document.getElementById('ruDlg'),b=document.getElementById('ruBtn');d.hidden=!d.hidden;b.textContent=d.hidden?'Показать перевод':'Скрыть перевод';}
 
+// ---- метки на картинке ----
+const stage=document.getElementById('stage');
+function mk(m){const b=document.createElement('button');b.className='mk '+m.g+' dir-'+(m.dir||'l');b.style.left=m.x+'%';b.style.top=m.y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkw">${m.w}</span>`;stage.appendChild(b);}
+(MARKS[N]||[]).forEach(mk);
+
 // ---- nav ----
 document.getElementById('nav').innerHTML =
   (N>1?`<a href="dialog.html?n=${N-1}">← Текст ${N-1}</a>`:`<a href="thema-01.html">← Тема 1</a>`)+
@@ -294,8 +317,8 @@ document.getElementById('nav').innerHTML =
 // ---- вопросы ----
 document.getElementById('qa').innerHTML=D.qa.map((o,i)=>`<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${i+1}. ${o.q} <button class="lk2" onclick="tRu(this)">перевод</button></div><div class="qru" hidden>${o.ru}</div><input class="qin" placeholder="Ответь по-немецки…" autocomplete="off"><div class="qres"></div></div>`).join('');
 function tRu(b){const r=b.closest('.q').querySelector('.qru');r.hidden=!r.hidden;}
-function qaCheckAll(){let ok=0;document.querySelectorAll('#qa .q').forEach(q=>{const inp=q.querySelector('.qin'),res=q.querySelector('.qres');const good=norm(inp.value).length>2&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=good?'var(--das)':'var(--die)';res.style.color=good?'var(--das)':'var(--die)';res.textContent=good?('✓ '+praise()):'✗ попробуй ещё (полным предложением)';if(good)ok++;});document.getElementById('qaScore').innerHTML=`<span style="color:${ok===D.qa.length?'var(--das)':'var(--die)'}">${ok} / ${D.qa.length} верно${ok===D.qa.length?(' — '+praise()):''}</span>`;}
-function qaShowAll(){document.querySelectorAll('#qa .q').forEach(q=>{q.querySelector('.qres').innerHTML='<span class="noselect" style="color:var(--accent)">✔ '+q.dataset.ans+'</span>';});}
+function qaCheckAll(){let ok=0;document.querySelectorAll('#qa .q').forEach(q=>{const inp=q.querySelector('.qin'),res=q.querySelector('.qres');const good=norm(inp.value).length>2&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=good?'var(--das)':'var(--die)';res.style.color=good?'var(--das)':'var(--die)';res.textContent=good?('✓ '+praise()):'✗ попробуй ещё (полным предложением)';if(good)ok++;});document.getElementById('qaScore').innerHTML=`<span style="color:${ok===D.qa.length?'var(--das)':'var(--die)'}">${ok} / ${D.qa.length} верно${ok===D.qa.length?(' — '+praise()):''}</span>`;document.getElementById('qaShowBtn').disabled=false;document.getElementById('qaHint').textContent='';}
+function qaShowAll(){document.querySelectorAll('#qa .q').forEach(q=>{q.querySelector('.qres').innerHTML='<span class="noselect" style="color:var(--accent)">✔ '+q.dataset.ans+'</span>';const inp=q.querySelector('.qin');inp.readOnly=true;inp.classList.add('noselect');inp.style.background='#f3f4f6';});}
 
 // ---- соотнеси (цветные пары) ----
 const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
