@@ -117,6 +117,25 @@
     <div id="exercise"></div>
   </div>
 
+  <div class="panel">
+    <h3>🎧 Аудирование</h3>
+    <p class="sub">Otto говорит про комнату — послушай (можно несколько раз) и впиши ответ. Откроется только после проверки.</p>
+    <div class="hq" data-ans="4">
+      <button class="ic" onclick="playSeq(['audio/hoer-der2-stuehle.mp3'],this,[{t:'In meinem Zimmer habe ich vier Stühle.',role:'male'}])">▶ Сколько стульев у Otto?</button>
+      <input class="qin" inputmode="numeric" placeholder="число (цифры)" autocomplete="off">
+      <button class="btn sm" onclick="hCheck(this)">Проверить</button>
+      <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
+      <span class="hres"></span>
+    </div>
+    <div class="hq" data-ans="Holz">
+      <button class="ic" onclick="playSeq(['audio/hoer-der2-material.mp3'],this,[{t:'Mein Schrank ist aus Holz.',role:'male'}])">▶ Из чего шкаф Otto?</button>
+      <input class="qin" placeholder="материал по-немецки" autocomplete="off">
+      <button class="btn sm" onclick="hCheck(this)">Проверить</button>
+      <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
+      <span class="hres"></span>
+    </div>
+  </div>
+
   <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова</h2></div></div>
 
   <div class="panel">

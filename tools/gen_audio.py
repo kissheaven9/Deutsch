@@ -126,6 +126,24 @@ async def main():
     for inf in VERBS:
         await tts(inf, 'male', os.path.join(AUDIO,'word', slug(inf)+'.mp3'))
     print('слова готовы')
+    # мини-аудирования по героям/сценам/текстам
+    HOER=[
+        ('der1-beruf','male','Ich bin Gärtner von Beruf.'),
+        ('der1-alter','male','Ich bin fünfzig Jahre alt.'),
+        ('das1-alter','child','Ich bin sieben Jahre alt.'),
+        ('das1-kinder','child','Wir sind sechs Kinder.'),
+        ('der2-stuehle','male','In meinem Zimmer habe ich vier Stühle.'),
+        ('der2-material','male','Mein Schrank ist aus Holz.'),
+        ('d1-name','male','Mein Familienname ist MacLeod.'),
+        ('d1-stadt','female','Ich komme aus Neapel, aus Italien.'),
+        ('d2-theo','child','Ich bin sieben Jahre alt.'),
+        ('d2-greta','female','Ich bin achtundvierzig Jahre alt.'),
+        ('d3-noah','child','Mein Freund Noah kommt aus Polen.'),
+        ('d3-lea','child','Lea ist zehn Jahre alt.'),
+    ]
+    for hid, role, text in HOER:
+        await tts(text, role, os.path.join(AUDIO, f'hoer-{hid}.mp3'))
+    print('аудирования готовы')
 
 asyncio.run(main())
 print('Готово.')
