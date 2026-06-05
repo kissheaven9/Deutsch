@@ -143,7 +143,7 @@ def build_payload():
         }
 
     # --- серии (streak) для геймификации ---
-    HARD_DAY = 10_000_000  # «ударный» день: ввод+вывод+создание кэша >= этого
+    HARD_DAY = 8_000_000  # «ударный» день: ввод+вывод+создание кэша >= этого
     active_dates = set(by_day.keys())
 
     def is_active(d):
@@ -162,13 +162,10 @@ def build_payload():
             streak += 1
             d -= datetime.timedelta(days=1)
 
-    # текущая серия «ударных» дней подряд (от последнего активного дня назад)
-    hard_streak = 0
-    if is_active(anchor):
-        d = anchor
-        while is_hard(d):
-            hard_streak += 1
-            d -= datetime.timedelta(days=1)
+    # «ударных» дней за последние 7 дней (включая сегодня)
+    hard_recent = sum(
+        1 for n in range(7) if is_hard(today - datetime.timedelta(days=n))
+    )
 
     # лучшая серия активных дней за всё время
     best_streak = 0
@@ -191,7 +188,7 @@ def build_payload():
         "series": series,
         "active_days": len(by_day),
         "streak": streak,
-        "hard_streak": hard_streak,
+        "hard_recent": hard_recent,
         "best_streak": best_streak,
         "today_active": is_active(today),
         "generated": datetime.datetime.now().strftime("%H:%M:%S"),
@@ -283,113 +280,176 @@ HTML = r"""<!DOCTYPE html>
         <span class="chip"><span class="dot" style="background:var(--cr)"></span>кэш-чтение <b id="t_cr">—</b></span>
       </div>
       <div style="margin-top:14px;font-size:13px;color:var(--muted)">
-        Без учёта кэш-чтения: <b id="t_nocache" style="color:var(--ink)">—</b>
+        С учётом кэш-чтения: <b id="t_withcache" style="color:var(--ink)">—</b>
       </div>
     </div>
 
     <div class="card">
-      <div class="label">Осталось до лимита</div>
-      <div class="mid" id="remaining">—</div>
+      <div class="label">Лимит на сегодня</div>
+      <div class="trow left"><span class="k">Осталось</span><span class="v" id="remaining">—</span></div>
       <div class="bar" id="bar"><i></i></div>
-      <div style="margin-top:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <span class="muted">Дневной ориентир:</span>
-        <input class="budget" id="budget" type="number" min="0" step="500000" placeholder="напр. 20000000">
-      </div>
-      <div style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <span class="muted">Считать от:</span>
-        <select id="metric">
-          <option value="no_cache">без кэш-чтения</option>
-          <option value="total">всего (с кэшем)</option>
-        </select>
-      </div>
+      <div class="trow"><span class="k">Потрачено сегодня</span><span class="v" id="spent">—</span></div>
+      <div class="trow"><span class="k">Всего за день</span><span class="v" id="limit">—</span></div>
       <div class="note muted">
-        «Осталось» = ориентир − потрачено сегодня. Официального лимита подписки
-        в токенах Claude не публикует и локально не отдаёт. По умолчанию здесь
-        ваш практический максимум по замерам (≈20 млн/день) — поправьте под себя.
+        Лимит ≈20 млн/день — ваш практический максимум по замерам (без дешёвого
+        кэш-чтения). Официального лимита в токенах Claude не публикует.
       </div>
     </div>
   </div>
 
   <div class="grid" style="margin-top:16px">
     <div class="card">
+      <div class="label">Ваша серия</div>
+      <div class="streak">
+        <div class="flame" id="flame">🔥</div>
+        <div>
+          <div class="num"><span id="streak">—</span> <small id="streak_word">дней подряд</small></div>
+          <div class="cap" id="streak_cap">—</div>
+        </div>
+      </div>
+      <div id="badge_wrap"></div>
+      <div class="days" id="days"></div>
+    </div>
+    <div class="card">
       <div class="label">Итоги (всего токенов)</div>
       <div class="stat"><span>За эту неделю</span><b id="week">—</b></div>
       <div class="stat"><span>За 30 дней</span><b id="month">—</b></div>
       <div class="stat"><span>За всё время</span><b id="all">—</b></div>
-      <div class="stat"><span>Дней с активностью</span><b id="days">—</b></div>
-    </div>
-    <div class="card">
-      <div class="label">Последние 14 дней</div>
-      <div class="chart" id="chart"></div>
+      <div class="stat"><span>Дней с Claude</span><b id="adays">—</b></div>
     </div>
   </div>
 
   <div class="foot">
-    Обновлено: <span id="gen">—</span> · автообновление каждые 20 c ·
-    точный отчёт со стоимостью: <code>npx ccusage</code>
+    Обновлено: <span id="gen">—</span> · обновляется само ·
+    компактный мини-виджет: <a href="/widget">/widget</a>
   </div>
 </div>
 
 <script>
 const fmt = n => (n||0).toLocaleString('ru-RU');
+const DAILY_LIMIT = 20000000;   // практический максимум/день (без кэш-чтения)
+const HARD = 8000000;           // «ударный» день
+function plural(n,a,b,c){const m=Math.abs(n)%100,d=n%10;
+  if(m>10&&m<20)return c;if(d>1&&d<5)return b;if(d===1)return a;return c;}
 function load(){
   fetch('/api/usage').then(r=>r.json()).then(d=>{
     const t=d.today;
-    document.getElementById('today_total').innerHTML = fmt(t.total)+'<small>токенов</small>';
+    // герой: главное число — без кэш-чтения (осмысленное), детали ниже
+    document.getElementById('today_total').innerHTML = fmt(t.no_cache)+'<small>токенов</small>';
     document.getElementById('t_in').textContent=fmt(t.in);
     document.getElementById('t_out').textContent=fmt(t.out);
     document.getElementById('t_cc').textContent=fmt(t.cc);
     document.getElementById('t_cr').textContent=fmt(t.cr);
-    document.getElementById('t_nocache').textContent=fmt(t.no_cache);
-    document.getElementById('week').textContent=fmt(d.week.total);
-    document.getElementById('month').textContent=fmt(d.month.total);
-    document.getElementById('all').textContent=fmt(d.all_time.total);
-    document.getElementById('days').textContent=fmt(d.active_days);
+    document.getElementById('t_withcache').textContent=fmt(t.total);
+    document.getElementById('week').textContent=fmt(d.week.no_cache);
+    document.getElementById('month').textContent=fmt(d.month.no_cache);
+    document.getElementById('all').textContent=fmt(d.all_time.no_cache);
+    document.getElementById('adays').textContent=fmt(d.active_days);
     document.getElementById('gen').textContent=d.generated;
 
-    // осталось
-    const metric=document.getElementById('metric').value;
-    const used = metric==='no_cache' ? t.no_cache : t.total;
-    const budget=parseFloat(localStorage.getItem('budget')||'')||0;
-    const rem=document.getElementById('remaining');
+    // лимит-триплет: Всего / Потрачено / Осталось (метрика — без кэш-чтения)
+    const used=t.no_cache, left=DAILY_LIMIT-used;
+    document.getElementById('remaining').textContent=fmt(Math.max(0,left))+(left<0?' (превышен)':'');
+    document.getElementById('spent').textContent=fmt(used);
+    document.getElementById('limit').textContent=fmt(DAILY_LIMIT);
+    const pct=Math.min(100,Math.round(used/DAILY_LIMIT*100));
     const bar=document.getElementById('bar');
-    if(budget>0){
-      const left=budget-used;
-      rem.textContent=fmt(Math.max(0,left))+(left<0?' (превышен!)':'');
-      const pct=Math.min(100,Math.round(used/budget*100));
-      bar.querySelector('i').style.width=pct+'%';
-      bar.classList.toggle('warn',pct>=85);
-    } else {
-      rem.textContent='— задайте лимит';
-      bar.querySelector('i').style.width='0%';
-    }
+    bar.querySelector('i').style.width=pct+'%';
+    bar.classList.toggle('warn',pct>=85);
 
-    // график
-    const c=document.getElementById('chart'); c.innerHTML='';
-    const max=Math.max(1,...d.series.map(s=>s.in+s.out+s.cc+s.cr));
+    // серия (геймификация)
+    document.getElementById('streak').textContent=d.streak;
+    document.getElementById('streak_word').textContent=plural(d.streak,'день подряд','дня подряд','дней подряд');
+    document.getElementById('flame').textContent=d.streak>0?'🔥':'💤';
+    document.getElementById('streak_cap').textContent=
+      'Вы с Claude уже '+d.active_days+' '+plural(d.active_days,'день','дня','дней')+
+      ' · рекорд серии '+d.best_streak;
+    const bw=document.getElementById('badge_wrap');
+    if(d.hard_recent>=1){
+      bw.innerHTML='<span class="badge">💪 '+d.hard_recent+' '+
+        plural(d.hard_recent,'день','дня','дней')+' ударной работы за неделю</span>';
+    } else if(!d.today_active && d.streak>0){
+      bw.innerHTML='<span class="badge" style="background:linear-gradient(90deg,#6d4ad6,#a78bfa)">'+
+        'Не теряйте серию — поработайте сегодня</span>';
+    } else { bw.innerHTML=''; }
+
+    // дни (Duolingo-стиль): клетки по интенсивности, 🔥 — ударные
+    const c=document.getElementById('days'); c.innerHTML='';
+    const max=Math.max(1,...d.series.map(s=>s.in+s.out+s.cc));
     d.series.forEach((s,i)=>{
-      const tot=s.in+s.out+s.cc+s.cr;
-      const col=document.createElement('div');
-      col.className='col'+(i===d.series.length-1?' today':'');
-      col.style.height=Math.max(2,Math.round(tot/max*88))+'px';
-      col.title=s.date+': '+fmt(tot)+' токенов';
-      c.appendChild(col);
+      const nc=s.in+s.out+s.cc;
+      const lvl=nc===0?0:(nc>=HARD?3:(nc>=max*0.4?2:1));
+      const isToday=i===d.series.length-1;
+      const dd=document.createElement('div'); dd.className='d';
+      const cell=document.createElement('div');
+      cell.className='cell'+(lvl?(' l'+lvl):'')+(nc>=HARD?' hard':'')+(isToday?' today':'');
+      cell.textContent=nc>=HARD?'🔥':'';
+      cell.title=s.date+': '+fmt(nc)+' токенов (без кэш-чтения)';
+      const lbl=document.createElement('div'); lbl.className='lbl'; lbl.textContent=s.date.slice(8);
+      dd.appendChild(cell); dd.appendChild(lbl); c.appendChild(dd);
     });
   }).catch(()=>{});
 }
-// значения по умолчанию (первый запуск): практический максимум и метрика без кэш-чтения
-const DEFAULT_BUDGET='20000000', DEFAULT_METRIC='no_cache';
-if(localStorage.getItem('budget')===null) localStorage.setItem('budget',DEFAULT_BUDGET);
-if(localStorage.getItem('metric')===null) localStorage.setItem('metric',DEFAULT_METRIC);
-// сохранение лимита и метрики
-const bi=document.getElementById('budget');
-bi.value=localStorage.getItem('budget')||'';
-bi.addEventListener('input',()=>{localStorage.setItem('budget',bi.value);load();});
-const mi=document.getElementById('metric');
-mi.value=localStorage.getItem('metric')||DEFAULT_METRIC;
-mi.addEventListener('change',()=>{localStorage.setItem('metric',mi.value);load();});
 load();
 setInterval(load,20000);
+</script>
+</body>
+</html>"""
+
+
+WIDGET_HTML = r"""<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Токены</title>
+<style>
+  *{box-sizing:border-box;-webkit-user-select:none}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;color:#eef0ff;
+       background:linear-gradient(160deg,#241a52 0%,#15162e 100%);padding:14px 16px}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .ttl{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9aa0c8}
+  .streak{font-size:13px;font-weight:700}
+  .left{font-size:34px;font-weight:800;line-height:1;letter-spacing:-1px}
+  .left small{font-size:12px;color:#9aa0c8;font-weight:600;display:block;margin-top:2px}
+  .bar{height:9px;border-radius:6px;background:#2a2b50;overflow:hidden;margin:10px 0 8px}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);width:0;transition:width .5s}
+  .bar.warn > i{background:linear-gradient(90deg,#f59e0b,#ef4444)}
+  .grid{display:flex;justify-content:space-between;font-size:12px;color:#9aa0c8}
+  .grid b{display:block;color:#eef0ff;font-size:15px;font-variant-numeric:tabular-nums}
+  a{color:#a78bfa;text-decoration:none;font-size:11px}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="ttl">Осталось сегодня</div>
+    <div class="streak" id="streak">🔥 —</div>
+  </div>
+  <div class="left"><span id="remaining">—</span><small>из 20 000 000 токенов/день</small></div>
+  <div class="bar" id="bar"><i></i></div>
+  <div class="grid">
+    <div>Потрачено<b id="spent">—</b></div>
+    <div style="text-align:right">Всего за день<b id="limit">20 000 000</b></div>
+  </div>
+<script>
+const fmt=n=>(n||0).toLocaleString('ru-RU');
+const LIMIT=20000000;
+function plural(n,a,b,c){const m=Math.abs(n)%100,d=n%10;
+  if(m>10&&m<20)return c;if(d>1&&d<5)return b;if(d===1)return a;return c;}
+function load(){
+  fetch('/api/usage').then(r=>r.json()).then(d=>{
+    const used=d.today.no_cache, left=LIMIT-used;
+    document.getElementById('remaining').textContent=fmt(Math.max(0,left));
+    document.getElementById('spent').textContent=fmt(used);
+    document.getElementById('streak').textContent=(d.streak>0?'🔥 ':'💤 ')+d.streak+' '+
+      plural(d.streak,'день','дня','дней');
+    const pct=Math.min(100,Math.round(used/LIMIT*100));
+    const bar=document.getElementById('bar');
+    bar.querySelector('i').style.width=pct+'%';
+    bar.classList.toggle('warn',pct>=85);
+  }).catch(()=>{});
+}
+load(); setInterval(load,20000);
 </script>
 </body>
 </html>"""
@@ -399,7 +459,18 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, *args):
         pass  # тихо
 
+    def _send_html(self, html):
+        body = html.encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def do_GET(self):
+        if self.path.startswith("/widget"):
+            self._send_html(WIDGET_HTML)
+            return
         if self.path.startswith("/api/usage"):
             try:
                 body = json.dumps(build_payload()).encode("utf-8")

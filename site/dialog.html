@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Текст-диалог · Тема 1</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  h1{font-size:28px}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
+  .ic{border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer;font-size:14px;padding:7px 10px}
+  .part{display:flex;align-items:center;gap:14px;margin:30px 0 12px;padding:13px 18px;border-radius:16px;border:1px solid var(--line)}
+  .part .pico{font-size:28px}.part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}.part h2{margin:2px 0 0;font-size:22px}
+  .part.read{background:#f1f5f9} .part.text{background:#faf5ff} .part.train{background:#f3e8ff;border-color:#e9d5ff}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:#f5f3ff;border-bottom:1px solid #eee6fb;border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700}
+  .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .hero img{width:100%;border-radius:14px;border:1px solid var(--line);display:block}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .dlg p{margin:0 0 7px;font-size:15px;line-height:1.55}
+  .dlg.de p{color:var(--ink);font-weight:500} .dlg.ru p{color:#374151}
+  .dlg .sp{font-weight:700}
+  .dlg .sp.der{color:var(--der)} .dlg .sp.die{color:var(--die)} .dlg .sp.das{color:var(--das)}
+  .dlg .rem,.dlg p.rem{color:#9ca3af;font-style:italic;font-size:13px}
+  .leg{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin:0 0 8px}
+  .leg b.der{color:var(--der)}.leg b.die{color:var(--die)}.leg b.das{color:var(--das)}
+  /* вопросы / напиши / перевод */
+  .q{border-top:1px solid var(--line);padding:9px 0}
+  .qq{font-weight:600;color:var(--ink);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .lk2{border:none;background:#f3e8ff;color:var(--accent);border-radius:7px;font-size:12px;padding:2px 8px;cursor:pointer}
+  .qru{color:var(--muted);font-size:13px;margin:3px 0}
+  .qact{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+  .qin{flex:1;min-width:150px;border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:14px;font-family:inherit}
+  .qin:focus{outline:none;border-color:var(--accent)}
+  .btn.sm{padding:7px 11px;font-size:13px}
+  .qres{margin-top:5px;font-size:14px;font-weight:600}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .ru{min-width:130px;color:#374151}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:150px}
+  .wq input:focus{outline:none;border-color:var(--accent)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .score{font-weight:700;margin-top:8px}
+  /* соотнеси */
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
+  .mchip.de{font-weight:700;color:var(--accent)} .mchip.sel{border-color:var(--accent);background:#f3e8ff}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
+  /* распредели по родам */
+  .srow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:8px 0}
+  .srow .sw{font-weight:700;min-width:130px}
+  .sbtns{display:flex;gap:6px}
+  .sbtns button{border:2px solid var(--line);background:#fff;border-radius:8px;padding:5px 12px;font-weight:700;cursor:pointer;font-size:14px;color:#6b7280}
+  .sbtns button.der.on{background:var(--der);color:#fff;border-color:var(--der)}
+  .sbtns button.die.on{background:var(--die);color:#fff;border-color:var(--die)}
+  .sbtns button.das.on{background:var(--das);color:#fff;border-color:var(--das)}
+  .srow.ok{background:#f0fdf4}.srow.bad{background:#fef2f2}
+  .srow .mark{font-weight:800;margin-left:auto}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a></div></header>
+<main class="wrap">
+  <div id="app"></div>
+  <div class="scenenav" id="nav"></div>
+</main>
+<footer>Deutsch A1</footer>
+
+<script src="js/app.js"></script>
+<script>
+function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
+const DIALOGS={
+ 1:{ title:'Текст 1 — Знакомство во дворе', img:'img/dialog-1.png',
+   sub:'Соседи знакомятся: имена, фамилия по буквам, откуда родом, как дела. L1.',
+   de:`<p><span class="sp die">Greta:</span> Guten Tag! Hallo! Ich heiße Greta. Und wie heißen Sie?</p>
+   <p><span class="sp der">Otto:</span> …Guten Tag. Ich bin Otto.</p>
+   <p><span class="sp die">Greta:</span> Otto! Sehr angenehm! Und wie ist Ihr Familienname?</p>
+   <p><span class="sp der">Otto:</span> MacLeod.</p>
+   <p><span class="sp die">Greta:</span> Und wie schreibt man das?</p>
+   <p><span class="sp der">Otto:</span> M — A — C — L — E — O — D. MacLeod.</p>
+   <p><span class="sp die">Greta:</span> Mamma mia, schön! Und woher kommen Sie, Otto?</p>
+   <p><span class="sp der">Otto:</span> Ich komme aus Schottland. Und jetzt wohne ich hier in Deutschland.</p>
+   <p><span class="sp die">Greta:</span> Und ich komme aus Italien, aus Neapel! Ich wohne jetzt auch hier. Wie geht’s, Otto?</p>
+   <p><span class="sp der">Otto:</span> …Nicht so gut.</p>
+   <p><span class="sp die">Greta:</span> Oh nein, nein! Uns geht es gut! <span class="rem">(lacht)</span></p>
+   <p class="rem">(Kinder kommen)</p>
+   <p><span class="sp das">Theo:</span> Hallo! Wer sind Sie? Wie heißen Sie? Woher kommen Sie? Und warum sind Sie hier?</p>
+   <p><span class="sp die">Greta:</span> <span class="rem">(lacht)</span> Du fragst so viel! Ich bin Greta. Und wer bist du?</p>
+   <p><span class="sp das">Theo:</span> Ich bin Theo! Und das ist Lina.</p>
+   <p><span class="sp die">Greta:</span> Hallo, Theo! Hallo, Lina! Und woher kommt ihr, Kinder?</p>
+   <p><span class="sp das">Theo:</span> Wir kommen aus Deutschland! Und Otto? Woher kommt Otto?</p>
+   <p><span class="sp der">Otto:</span> Aus Schottland.</p>
+   <p><span class="sp das">Theo:</span> Oh! Cool!</p>
+   <p><span class="sp die">Greta:</span> Und Lina? Wie geht’s, Lina?</p>
+   <p><span class="sp das">Theo:</span> Lina sagt nichts! <span class="rem">(lacht)</span></p>
+   <p><span class="sp die">Greta:</span> Okay! Auf Wiedersehen, Otto! Tschüss, Kinder!</p>
+   <p><span class="sp der">Otto:</span> …Tschüss.</p>`,
+   ru:`<p><span class="sp die">Грета:</span> Добрый день! Здравствуйте! Меня зовут Грета. А как вас зовут?</p>
+   <p><span class="sp der">Otto:</span> …Здравствуйте. Я Otto.</p>
+   <p><span class="sp die">Грета:</span> Otto! Очень приятно! А как ваша фамилия?</p>
+   <p><span class="sp der">Otto:</span> MacLeod.</p>
+   <p><span class="sp die">Грета:</span> А как это пишется?</p>
+   <p><span class="sp der">Otto:</span> M — A — C — L — E — O — D. MacLeod.</p>
+   <p><span class="sp die">Грета:</span> Mamma mia, красиво! А откуда вы, Otto?</p>
+   <p><span class="sp der">Otto:</span> Я из Шотландии. А теперь живу здесь, в Германии.</p>
+   <p><span class="sp die">Грета:</span> А я из Италии, из Неаполя! Тоже теперь живу здесь. Как дела, Otto?</p>
+   <p><span class="sp der">Otto:</span> …Не очень.</p>
+   <p><span class="sp die">Грета:</span> О нет-нет! У нас всё хорошо! <span class="rem">(смеётся)</span></p>
+   <p class="rem">(подбегают дети)</p>
+   <p><span class="sp das">Тео:</span> Привет! А вы кто? Как вас зовут? Откуда вы? А почему вы здесь?</p>
+   <p><span class="sp die">Грета:</span> <span class="rem">(смеётся)</span> Как много ты спрашиваешь! Я Грета. А ты кто?</p>
+   <p><span class="sp das">Тео:</span> Я Тео! А это Lina.</p>
+   <p><span class="sp die">Грета:</span> Привет, Тео! Привет, Lina! А вы откуда, дети?</p>
+   <p><span class="sp das">Тео:</span> Мы отсюда, из Германии! А Otto? Откуда Otto?</p>
+   <p><span class="sp der">Otto:</span> Из Шотландии.</p>
+   <p><span class="sp das">Тео:</span> О! Здо́рово!</p>
+   <p><span class="sp die">Грета:</span> А Lina? Как дела, Lina?</p>
+   <p><span class="sp das">Тео:</span> Lina ничего не говорит! <span class="rem">(смеётся; Lina молчит и рисует)</span></p>
+   <p><span class="sp die">Грета:</span> Ну хорошо! До свидания, Otto! Пока, дети!</p>
+   <p><span class="sp der">Otto:</span> …Пока.</p>`,
+   qa:[
+     {q:'Wie heißt der Mann aus Schottland?',ru:'Как зовут мужчину из Шотландии?',a:'Er heißt Otto MacLeod.',k:'otto'},
+     {q:'Woher kommt Otto?',ru:'Откуда Otto?',a:'Otto kommt aus Schottland.',k:'schottland'},
+     {q:'Woher kommt Greta?',ru:'Откуда Грета?',a:'Greta kommt aus Italien.',k:'italien'},
+     {q:'Wer sagt nichts?',ru:'Кто молчит?',a:'Lina sagt nichts.',k:'lina'}],
+   match:[['der Familienname','фамилия'],['das Land','страна'],['der Name','имя'],['die Frau','женщина'],['der Herr','господин'],['der Tag','день']],
+   sort:[['Familienname','der'],['Name','der'],['Herr','der'],['Tag','der'],['Frau','die'],['Land','das']],
+   write:[['имя','der Name'],['фамилия','der Familienname'],['страна','das Land'],['женщина','die Frau'],['господин','der Herr']],
+   verbs:[['heißen','зваться'],['kommen','приходить / быть родом'],['wohnen','жить'],['sein','быть'],['gehen','идти']]
+ },
+ 2:{ title:'Текст 2 — Кто кем работает и сколько кому лет', img:'img/dialog-2.png',
+   sub:'Профессии, семейное положение, возраст и числа. L2.',
+   de:`<p><span class="sp die">Greta:</span> Otto! Was machen Sie? Arbeiten Sie?</p>
+   <p><span class="sp der">Otto:</span> Ja. Ich bin Gärtner.</p>
+   <p><span class="sp die">Greta:</span> Gärtner! Und ich bin Köchin. Ich habe eine Firma. Sie ist klein.</p>
+   <p><span class="sp das">Theo:</span> Wie alt sind Sie, Otto?</p>
+   <p><span class="sp der">Otto:</span> …Fünfzig.</p>
+   <p><span class="sp das">Theo:</span> Fünfzig! Viel! Und ich bin sieben!</p>
+   <p><span class="sp das">Lina:</span> Und ich bin sechs.</p>
+   <p><span class="sp das">Theo:</span> Und Sie, Greta?</p>
+   <p><span class="sp die">Greta:</span> <span class="rem">(lacht)</span> Oh, viel, Kinder! Achtundvierzig.</p>
+   <p><span class="sp das">Theo:</span> Und wir sind sechs Kinder! Emil ist fünf, Lina ist sechs, ich und Noah sind sieben, Ben ist acht, Lea ist zehn!</p>
+   <p><span class="sp die">Greta:</span> Bravo, Theo!</p>
+   <p><span class="sp die">Greta:</span> Otto, sind Sie verheiratet?</p>
+   <p><span class="sp der">Otto:</span> Nein. Ich bin geschieden. Ich lebe allein.</p>
+   <p><span class="sp die">Greta:</span> Und ich bin verheiratet. Ich habe eine Tochter und eine Enkelin.</p>
+   <p><span class="sp das">Theo:</span> Und ich bin nicht verheiratet! Ich bin ein Kind! <span class="rem">(lacht)</span></p>
+   <p><span class="sp die">Greta:</span> <span class="rem">(lacht)</span> Natürlich, Theo!</p>
+   <p><span class="sp der">Otto:</span> Und wo wohnen Sie, Greta?</p>
+   <p><span class="sp die">Greta:</span> Hier, hier! Und meine Schwester wohnt auch hier. Und Sie, Otto?</p>
+   <p><span class="sp der">Otto:</span> Auch hier. Ich bin Gärtner und arbeite hier. Und das ist alles.</p>`,
+   ru:`<p><span class="sp die">Грета:</span> Otto! Что вы делаете? Работаете?</p>
+   <p><span class="sp der">Otto:</span> Да. Я садовник.</p>
+   <p><span class="sp die">Грета:</span> Садовник! А я повар. У меня есть фирма. Она маленькая.</p>
+   <p><span class="sp das">Тео:</span> А сколько вам лет, Otto?</p>
+   <p><span class="sp der">Otto:</span> …Пятьдесят.</p>
+   <p><span class="sp das">Тео:</span> Пятьдесят! Много! А мне семь!</p>
+   <p><span class="sp das">Lina:</span> А мне шесть.</p>
+   <p><span class="sp das">Тео:</span> А вам, Грета?</p>
+   <p><span class="sp die">Грета:</span> <span class="rem">(смеётся)</span> Ой, много, дети! Сорок восемь.</p>
+   <p><span class="sp das">Тео:</span> А нас шестеро детей! Эмиль — пять, Lina — шесть, я и Ноа — семь, Бен — восемь, Лея — десять!</p>
+   <p><span class="sp die">Грета:</span> Браво, Тео!</p>
+   <p><span class="sp die">Грета:</span> Otto, а вы женаты?</p>
+   <p><span class="sp der">Otto:</span> Нет. Я разведён. Живу один.</p>
+   <p><span class="sp die">Грета:</span> А я замужем. У меня есть дочь и маленькая внучка.</p>
+   <p><span class="sp das">Тео:</span> А я не женат! Я же ребёнок! <span class="rem">(смеётся)</span></p>
+   <p><span class="sp die">Грета:</span> <span class="rem">(смеётся)</span> Конечно, Тео!</p>
+   <p><span class="sp der">Otto:</span> А вы где живёте, Грета?</p>
+   <p><span class="sp die">Грета:</span> Здесь, здесь! И сестра моя тоже здесь. А вы, Otto?</p>
+   <p><span class="sp der">Otto:</span> Тоже здесь. Я садовник, работаю здесь. И всё.</p>`,
+   qa:[
+     {q:'Was ist Otto von Beruf?',ru:'Кто Otto по профессии?',a:'Otto ist Gärtner.',k:'gärtner'},
+     {q:'Was ist Greta von Beruf?',ru:'Кто Грета по профессии?',a:'Greta ist Köchin.',k:'köchin'},
+     {q:'Wie alt ist Otto?',ru:'Сколько Otto лет?',a:'Otto ist fünfzig.',k:'fünfzig'},
+     {q:'Wie alt ist Theo?',ru:'Сколько Тео лет?',a:'Theo ist sieben.',k:'sieben'},
+     {q:'Ist Otto verheiratet?',ru:'Otto женат?',a:'Nein, er ist geschieden.',k:'geschieden'}],
+   match:[['der Beruf','профессия'],['der Gärtner','садовник'],['die Köchin','повар'],['die Firma','фирма'],['das Alter','возраст'],['das Jahr','год']],
+   sort:[['Beruf','der'],['Gärtner','der'],['Köchin','die'],['Firma','die'],['Tochter','die'],['Alter','das'],['Jahr','das']],
+   write:[['профессия','der Beruf'],['садовник','der Gärtner'],['повар','die Köchin'],['фирма','die Firma'],['возраст','das Alter'],['дочь','die Tochter']],
+   verbs:[['arbeiten','работать'],['wohnen','жить (проживать)'],['leben','жить'],['haben','иметь'],['sein','быть']]
+ },
+ 3:{ title:'Текст 3 — Семья и языки', img:'img/dialog-3.png',
+   sub:'Показывают фото семьи, рассказывают про родню и на каких языках говорят. L3.',
+   de:`<p><span class="sp die">Greta:</span> Hier, das ist meine Familie! Das ist meine Mutter Anna, sie wohnt in Italien. Das ist meine Schwester Lucia, sie wohnt in der Schweiz. Und das ist meine Tochter Mia und meine Enkelin Sofia!</p>
+   <p><span class="sp das">Theo:</span> Die Familie ist groß!</p>
+   <p><span class="sp die">Greta:</span> Ja! Und wir sprechen viele Sprachen! Ich spreche Italienisch, Deutsch und Englisch. Und Sie, Otto? Sprechen Sie auch Deutsch?</p>
+   <p><span class="sp der">Otto:</span> Englisch. Und ein bisschen Deutsch.</p>
+   <p><span class="sp die">Greta:</span> „Ein bisschen“ ist schon gut! Und du, Theo? Sprichst du Deutsch?</p>
+   <p><span class="sp das">Theo:</span> Ich spreche Deutsch! Und meine Freunde kommen aus Polen, aus Österreich, aus Italien!</p>
+   <p><span class="sp die">Greta:</span> Mamma mia, interessant!</p>
+   <p><span class="sp das">Theo:</span> Lina, wer ist das?</p>
+   <p><span class="sp das">Lina:</span> Das ist… ein Tier! Mümmel!</p>
+   <p><span class="sp das">Theo:</span> <span class="rem">(lacht)</span> Das ist Linas Tier, Mümmel!</p>
+   <p><span class="sp der">Otto:</span> Und das ist mein Sohn. Ewan. Und mein Enkel, Finlay. Sie wohnen in Schottland.</p>
+   <p><span class="sp die">Greta:</span> Ein Sohn und ein Enkel! Wie schön, Otto!</p>
+   <p><span class="sp der">Otto:</span> …Ja. Aber weit weg.</p>
+   <p><span class="sp die">Greta:</span> Macht nichts, Otto! Jetzt sind Sie hier, und wir sind auch hier!</p>
+   <p><span class="sp das">Theo:</span> Und wer ist das? Und das? Und warum? <span class="rem">(zeigt auf die Fotos)</span></p>
+   <p><span class="sp die">Greta:</span> <span class="rem">(lacht)</span> Oh, Theo! Du fragst so viel!</p>`,
+   ru:`<p><span class="sp die">Грета:</span> Смотрите, это моя семья! Это моя мама Anna, она живёт в Италии. Это моя сестра Lucia, она живёт в Швейцарии. А это моя дочь Mia и внучка Sofia!</p>
+   <p><span class="sp das">Тео:</span> Семья большая!</p>
+   <p><span class="sp die">Грета:</span> Да! И мы говорим на многих языках! Я говорю по-итальянски, по-немецки и по-английски. А вы, Otto? Вы тоже говорите по-немецки?</p>
+   <p><span class="sp der">Otto:</span> По-английски. И немного по-немецки.</p>
+   <p><span class="sp die">Грета:</span> «Немного» — это уже хорошо! А ты, Тео? Ты говоришь по-немецки?</p>
+   <p><span class="sp das">Тео:</span> Я говорю по-немецки! А мои друзья — из Польши, из Австрии, из Италии!</p>
+   <p><span class="sp die">Грета:</span> Mamma mia, как интересно!</p>
+   <p><span class="sp das">Тео:</span> Lina, а это кто?</p>
+   <p><span class="sp das">Lina:</span> Это… зверёк! Mümmel!</p>
+   <p><span class="sp das">Тео:</span> <span class="rem">(смеётся)</span> Это зверёк Lina — Mümmel!</p>
+   <p><span class="sp der">Otto:</span> А это мой сын. Ewan. И мой внук, Finlay. Они живут в Шотландии.</p>
+   <p><span class="sp die">Грета:</span> Сын и внук! Как хорошо, Otto!</p>
+   <p><span class="sp der">Otto:</span> …Да. Но далеко.</p>
+   <p><span class="sp die">Грета:</span> Ничего, Otto! Теперь вы здесь, и мы тоже здесь!</p>
+   <p><span class="sp das">Тео:</span> А это кто? А это? А почему? <span class="rem">(показывает на фото)</span></p>
+   <p><span class="sp die">Грета:</span> <span class="rem">(смеётся)</span> Ой, Тео! Как много ты спрашиваешь!</p>`,
+   qa:[
+     {q:'Wie viele Sprachen spricht Greta?',ru:'На скольких языках говорит Грета?',a:'Drei Sprachen (Italienisch, Deutsch, Englisch).',k:'drei'},
+     {q:'Wo wohnt Gretas Mutter?',ru:'Где живёт мама Греты?',a:'In Italien.',k:'italien'},
+     {q:'Wo wohnt Lucia?',ru:'Где живёт Lucia?',a:'In der Schweiz.',k:'schweiz'},
+     {q:'Wie heißt Ottos Sohn?',ru:'Как зовут сына Otto?',a:'Er heißt Ewan.',k:'ewan'},
+     {q:'Was ist Mümmel?',ru:'Кто такой Mümmel?',a:'Mümmel ist ein Tier.',k:'tier'}],
+   match:[['die Familie','семья'],['die Mutter','мать'],['die Schwester','сестра'],['der Sohn','сын'],['der Enkel','внук'],['die Sprache','язык']],
+   sort:[['Sohn','der'],['Enkel','der'],['Familie','die'],['Mutter','die'],['Schwester','die'],['Sprache','die'],['Tier','das'],['Land','das']],
+   write:[['семья','die Familie'],['мать','die Mutter'],['сын','der Sohn'],['внук','der Enkel'],['язык','die Sprache'],['зверёк','das Tier']],
+   verbs:[['sprechen','говорить'],['wohnen','жить'],['kommen','быть родом'],['haben','иметь'],['sein','быть']]
+ }
+};
+
+const N=Math.min(3,Math.max(1,parseInt(new URLSearchParams(location.search).get('n'))||1));
+const D=DIALOGS[N];
+document.title=D.title;
+
+document.getElementById('app').innerHTML=`
+  <h1>${D.title}</h1>
+  <p class="lead">${D.sub} <span style="color:var(--muted)">Диалог ${N} из 3 · Тема 1</span></p>
+  <div class="hero"><img src="${D.img}" alt="${D.title}"></div>
+
+  <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Читаем диалог</h2></div></div>
+  <div class="panel">
+    <div class="leg">Реплики по роду героя: <span><b class="der">■ Otto</b> der</span> <span><b class="die">■ Грета</b> die</span> <span><b class="das">■ Тео / Lina</b> das</span></div>
+    <div class="bh">🇩🇪 Deutsch <button class="ic" onclick="toggleSpeak(deTxt(),this)">🔊 Послушать</button></div>
+    <div class="dlg de" id="deDlg">${D.de}</div>
+    <div class="bh" style="margin-top:14px">🇷🇺 Русский</div>
+    <div class="dlg ru">${D.ru}</div>
+  </div>
+
+  <div class="part text"><span class="pico">💬</span><div><div class="pk">Часть 2</div><h2>Вопросы по тексту</h2></div></div>
+  <div class="panel"><div id="qa"></div></div>
+
+  <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова (все рода вперемешку)</h2></div></div>
+  <div class="panel"><h3><span class="exnum">1</span>🔗 Соотнеси: немецкое ↔ русское</h3>
+    <p class="sub">Нажми немецкое слово, потом перевод — пара окрасится. Выбор можно менять.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+  <div class="panel"><h3><span class="exnum">2</span>🧮 Распредели по родам</h3>
+    <p class="sub">У каждого слова выбери его род: der, die или das (по смыслу и по окончанию).</p>
+    <div id="sortList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="sortCheck()">Проверить</button><button class="btn sm" onclick="renderSort()">Ещё раз</button></div>
+    <div class="score" id="sScore"></div>
+  </div>
+  <div class="panel"><h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
+    <p class="sub">Дано слово по-русски — впиши его по-немецки <b>с правильным артиклем</b> (без подсказки).</p>
+    <div id="writeList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+  <div class="panel"><h3><span class="exnum">4</span>🔤 Глаголы: напиши перевод</h3>
+    <p class="sub">Дан немецкий глагол — впиши, что он значит по-русски.</p>
+    <div id="verbList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="verbCheck()">Проверить</button><button class="btn sm" onclick="verbShow()">Показать ответы</button></div>
+    <div class="score" id="vScore"></div>
+  </div>`;
+
+function deTxt(){return document.getElementById('deDlg').innerText;}
+
+// ---- nav ----
+document.getElementById('nav').innerHTML =
+  (N>1?`<a href="dialog.html?n=${N-1}">← Текст ${N-1}</a>`:`<a href="thema-01.html">← Тема 1</a>`)+
+  (N<3?`<a href="dialog.html?n=${N+1}">Текст ${N+1} →</a>`:`<a href="thema-01.html">К теме 1 →</a>`);
+
+// ---- вопросы ----
+document.getElementById('qa').innerHTML=D.qa.map((o,i)=>{const ex=(i===0);return `<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${o.q} <button class="lk2" onclick="tRu(this)">${ex?'Скрыть перевод':'Показать перевод'}</button></div><div class="qru" ${ex?'':'hidden'}>${o.ru}</div><div class="qact"><input class="qin" placeholder="Ответь по-немецки…" value="${ex?o.a:''}"><button class="btn sm" onclick="cAns(this)">Проверить</button><button class="btn sm" onclick="sAns(this)">Показать ответ</button></div><div class="qres" style="${ex?'color:var(--das)':''}">${ex?'✓ Пример — так отвечаем.':''}</div></div>`;}).join('');
+function tRu(b){const r=b.closest('.q').querySelector('.qru');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
+function cAns(b){const q=b.closest('.q'),inp=q.querySelector('.qin'),res=q.querySelector('.qres');const ok=norm(inp.value).length>0&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=ok?'var(--das)':'var(--die)';res.style.color=ok?'var(--das)':'var(--die)';res.textContent=ok?('✓ '+praise()):'✗ Пока не то — попробуй ещё или открой ответ.';}
+function sAns(b){const q=b.closest('.q');q.querySelector('.qres').innerHTML='<span style="color:var(--accent)">Ответ: '+q.dataset.ans+'</span>';}
+
+// ---- соотнеси (цветные пары) ----
+const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let selDe=null,links={},colorOf={},nextC=0;
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){selDe=null;links={};colorOf={};nextC=0;const M=D.match;const order=shuffle(M.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=M.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${M[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';}
+function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){const M=D.match;let ok=0;M.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===M.length?'var(--das)':'var(--die)'}">${ok} / ${M.length} верно${ok===M.length?(' — '+praise()):' — поправь пары'}</span>`;}
+
+// ---- распредели по родам ----
+function renderSort(){document.getElementById('sortList').innerHTML=D.sort.map((p,i)=>`<div class="srow" data-i="${i}" data-g="${p[1]}"><span class="sw">${p[0]}</span><span class="sbtns"><button class="der" onclick="pickG(this,'der')">der</button><button class="die" onclick="pickG(this,'die')">die</button><button class="das" onclick="pickG(this,'das')">das</button></span><span class="mark"></span></div>`).join('');document.getElementById('sScore').textContent='';}
+function pickG(btn,g){const row=btn.closest('.srow');row.dataset.pick=g;row.classList.remove('ok','bad');row.querySelector('.mark').textContent='';row.querySelectorAll('.sbtns button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+function sortCheck(){let ok=0;document.querySelectorAll('#sortList .srow').forEach(r=>{const good=r.dataset.pick===r.dataset.g;if(r.dataset.pick){r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.mark').textContent=good?'✓':('✗ '+r.dataset.g);if(good)ok++;}});document.getElementById('sScore').innerHTML=`<span style="color:${ok===D.sort.length?'var(--das)':'var(--die)'}">${ok} / ${D.sort.length} верно${ok===D.sort.length?(' — '+praise()):''}</span>`;}
+
+// ---- напиши с артиклем ----
+function renderWrite(){document.getElementById('writeList').innerHTML=D.write.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="артикль + слово…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('wScore').textContent='';}
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(D.write[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.write[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===D.write.length?'var(--das)':'var(--die)'}">${ok} / ${D.write.length} верно${ok===D.write.length?(' — '+praise()):''}</span>`;}
+function writeReset(){renderWrite();}
+function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.write[i][1];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
+
+// ---- глаголы: перевод ----
+function renderVerb(){document.getElementById('verbList').innerHTML=D.verbs.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru" style="color:var(--accent);font-weight:700">${p[0]}</span><input placeholder="перевод по-русски…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('vScore').textContent='';}
+function verbCheck(){let ok=0;document.querySelectorAll('#verbList .wq').forEach(r=>{const i=+r.dataset.i;const key=D.verbs[i][1].split(/[ (/]/)[0];const good=norm(r.querySelector('input').value).length>0&&norm(r.querySelector('input').value).includes(norm(key));r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.verbs[i][1];if(good)ok++;});document.getElementById('vScore').innerHTML=`<span style="color:${ok===D.verbs.length?'var(--das)':'var(--die)'}">${ok} / ${D.verbs.length} верно${ok===D.verbs.length?(' — '+praise()):''}</span>`;}
+function verbShow(){document.querySelectorAll('#verbList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.verbs[i][1];r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('vScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
+
+renderMatch();renderSort();renderWrite();renderVerb();
+</script>
+<script src="js/chrome.js"></script>
+</body>
+</html>
