@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Диалоги — Otto, Грета и дети (Темы 1–3, все рода)</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .scene{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:14px 0;box-shadow:0 1px 2px #0000000a;
+    border-left:4px solid var(--accent)}
+  .scene h3{margin:0 0 2px;font-size:17px}
+  .lks{font-size:12px;color:var(--muted);margin:0 0 8px}
+  .lks b{color:var(--accent)}
+  .words{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 12px}
+  .w{font-size:13px;border-radius:7px;padding:2px 8px;font-weight:600;border:1px solid}
+  .w.der{background:#eff3ff;border-color:#bfd3ff;color:#1d4ed8}
+  .w.die{background:#fdecec;border-color:#f6c6c6;color:#b91c1c}
+  .w.das{background:#e8f6ee;border-color:#bbf7d0;color:#15803d}
+  .w.fn{background:#f5f3ff;border-color:#ddd6fe;color:#6d28d9}
+  .w.muted{background:#f3f4f6;border-color:#e5e7eb;color:#6b7280;font-weight:500}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:12px 0 4px}
+  /* диалог */
+  .dlg{margin:0}
+  .dlg p{margin:0 0 7px;font-size:15px;line-height:1.55;color:#374151}
+  .dlg .sp{font-weight:700}
+  .dlg .sp.der{color:var(--der)} .dlg .sp.die{color:var(--die)} .dlg .sp.das{color:var(--das)}
+  .dlg .rem{color:#9ca3af;font-style:italic;font-size:13px}
+  .de-wait{background:#f8fafc;border:1px dashed var(--line);border-radius:10px;padding:9px 12px;margin-top:10px;
+    font-size:13px;color:var(--muted)}
+  .tag{display:inline-block;font-size:11px;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:999px;margin-left:6px}
+  .tag.done{background:#dcfce7;color:#166534}
+  .tag.wait{background:#fef9c3;color:#854d0e}
+  .warn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:12.5px;border-radius:8px;padding:8px 11px;margin:6px 0;line-height:1.5}
+  .leg{display:flex;flex-wrap:wrap;gap:10px;font-size:12.5px;color:var(--muted);margin:2px 0 4px}
+  .leg b.der{color:var(--der)} .leg b.die{color:var(--die)} .leg b.das{color:var(--das)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Диалоги / Темы 1–3 (все рода)</span></div></header>
+<main class="wrap">
+  <h1>Диалоги — Otto, Грета и дети <span style="font-size:14px;color:var(--muted);font-weight:400">Темы 1–3 · все рода</span></h1>
+  <p class="lead">Закрепляющие <b>диалоги-знакомства</b>: герои встречаются и разговаривают. В отличие от «сцен по роду», здесь <b>смешиваются все рода</b> — переиспользуем лексику первых трёх тем (L1–L3). Цель — отработать <b>главные вопросы уровня</b>: как зовут, откуда родом, как дела, кем работаешь, сколько лет, какая семья, на каком языке говоришь.</p>
+
+  <div class="leg">Реплики раскрашены по роду героя:
+    <span><b class="der">■ Otto</b> — der</span>
+    <span><b class="die">■ Грета</b> — die</span>
+    <span><b class="das">■ Тео / Lina (дети)</b> — das</span>
+  </div>
+
+  <div class="warn">
+    <b>Как работаем:</b> утверждаем <b>по одному тексту</b> — читаешь, правишь (имена, реплики, тон, что добавить/убрать). После «ок» по тексту я добавляю под ним <b>немецкий</b> (строго по L1–L3, со сверкой каждого артикля) и промпт картинки.<br>
+    📕 <b>Уровень выверен под L1–L3:</b> без прошедшего, модальных, винительного <i>einen</i> (это L6), императива, предлогов+датив и <i>sein/ihr</i> (это L15). Имена — по буквам; возраст и счёт — числами; страны через <i>kommen aus</i>.
+  </div>
+
+  <!-- ===================== ТЕКСТ 1 ===================== -->
+  <div class="scene">
+    <h3>Текст 1 — Знакомство во дворе <span class="tag wait">на утверждение · фокус Тема 1 (L1)</span></h3>
+    <div class="lks"><b>L1</b> · первая встреча соседей · <i>приветствие, имена и фамилия по буквам, откуда родом (страны), как дела. Otto — молчун, Грета — шумная, Тео — почемучка, Lina молчит и рисует</i></div>
+    <div class="words">
+      <span class="w der">der Familienname</span><span class="w das">das Land</span>
+      <span class="w fn">Ich heiße…</span><span class="w fn">Wie heißen Sie?</span><span class="w fn">Wer bist du?</span><span class="w fn">Woher kommen Sie?</span>
+      <span class="w fn">aus Schottland / Italien / Deutschland</span><span class="w fn">Wie geht's? — Gut / Nicht so gut</span><span class="w fn">по буквам (M-A-C-…)</span>
+      <span class="w muted">W-вопросы: Wer? Woher? Warum? Was?</span><span class="w muted">mein</span>
+    </div>
+    <p class="bh">Текст (русский — на утверждение)</p>
+    <div class="dlg">
+      <p><span class="sp die">Грета:</span> Добрый день! Здравствуйте! Меня зовут Грета. А как вас зовут?</p>
+      <p><span class="sp der">Otto:</span> …Здравствуйте. Я Otto.</p>
+      <p><span class="sp die">Грета:</span> Otto! Очень приятно! А фамилия?</p>
+      <p><span class="sp der">Otto:</span> MacLeod.</p>
+      <p><span class="sp die">Грета:</span> А как это пишется?</p>
+      <p><span class="sp der">Otto:</span> M — A — C — L — E — O — D. MacLeod.</p>
+      <p><span class="sp die">Грета:</span> Mamma mia, красиво! А откуда вы, Otto? Откуда вы родом?</p>
+      <p><span class="sp der">Otto:</span> Я из Шотландии. А теперь живу здесь, в Германии.</p>
+      <p><span class="sp die">Грета:</span> А я из Италии, из Неаполя! Тоже теперь здесь. Как дела, Otto?</p>
+      <p><span class="sp der">Otto:</span> …Не очень.</p>
+      <p><span class="sp die">Грета:</span> О нет-нет! У нас всё хорошо! <span class="rem">(смеётся)</span></p>
+      <p class="rem">(подбегают дети)</p>
+      <p><span class="sp das">Тео:</span> Привет! А вы кто? Как вас зовут? А откуда вы? А почему вы здесь?</p>
+      <p><span class="sp die">Грета:</span> <span class="rem">(смеётся)</span> Сколько вопросов! Я Грета. А ты кто?</p>
+      <p><span class="sp das">Тео:</span> Я Тео! А это Lina.</p>
+      <p><span class="sp die">Грета:</span> Привет, Тео! Привет, Lina! А вы откуда, дети?</p>
+      <p><span class="sp das">Тео:</span> Мы отсюда, из Германии! А Otto? Откуда Otto?</p>
+      <p><span class="sp der">Otto:</span> Из Шотландии.</p>
+      <p><span class="sp das">Тео:</span> О! Здо́рово!</p>
+      <p><span class="sp die">Грета:</span> А Lina? Как дела, Lina?</p>
+      <p><span class="sp das">Тео:</span> Lina ничего не говорит. Она рисует! <span class="rem">(смеётся)</span></p>
+      <p><span class="sp die">Грета:</span> Ну хорошо! До свидания, Otto! Пока, дети!</p>
+      <p><span class="sp der">Otto:</span> …Пока.</p>
+    </div>
+    <div class="de-wait">🇩🇪 Немецкий + промпт картинки добавлю сюда после «ок» по этому тексту.</div>
+  </div>
+
+  <!-- ===================== ТЕКСТ 2 ===================== -->
+  <div class="scene">
+    <h3>Текст 2 — Кто кем работает и сколько кому лет <span class="tag wait">на утверждение · фокус Тема 2 (L2)</span></h3>
+    <div class="lks"><b>L2</b> · профессии, семейное положение, где живут · <i>главное здесь — <b>числа и возраст</b>: дети наперебой считают, кому сколько лет</i></div>
+    <div class="words">
+      <span class="w der">der Beruf</span><span class="w der">der Gärtner</span>
+      <span class="w die">die Köchin</span><span class="w die">die Firma</span><span class="w die">die Tochter</span><span class="w die">die Enkelin</span><span class="w die">die Schwester</span>
+      <span class="w das">das Alter</span><span class="w das">das Jahr</span>
+      <span class="w fn">Wie alt sind Sie? — Ich bin …</span><span class="w fn">von Beruf</span><span class="w fn">verheiratet / geschieden</span><span class="w fn">arbeiten · wohnen · leben · haben</span>
+      <span class="w muted">числа 1–100</span><span class="w muted">nicht</span>
+    </div>
+    <p class="bh">Текст (русский — на утверждение)</p>
+    <div class="dlg">
+      <p><span class="sp die">Грета:</span> Otto! Что вы делаете? Работаете?</p>
+      <p><span class="sp der">Otto:</span> Да. Я садовник.</p>
+      <p><span class="sp die">Грета:</span> Садовник! А я повар. У меня своя фирма, маленькая.</p>
+      <p><span class="sp das">Тео:</span> А сколько вам лет, Otto?</p>
+      <p><span class="sp der">Otto:</span> …Пятьдесят.</p>
+      <p><span class="sp das">Тео:</span> Пятьдесят! Много! А мне семь!</p>
+      <p><span class="sp das">Lina:</span> А мне шесть.</p>
+      <p><span class="sp das">Тео:</span> А вам, Грета?</p>
+      <p><span class="sp die">Грета:</span> <span class="rem">(смеётся)</span> Ой, много, дети! Сорок восемь.</p>
+      <p><span class="sp das">Тео:</span> А у нас в компании шесть детей! Считаю: Эмиль — пять, Lina — шесть, я и Ноа — семь, Бен — восемь, Лея — десять!</p>
+      <p><span class="sp die">Грета:</span> Браво, Тео! Хорошо считаешь!</p>
+      <p><span class="sp die">Грета:</span> Otto, а вы женаты?</p>
+      <p><span class="sp der">Otto:</span> Нет. Я разведён. Живу один.</p>
+      <p><span class="sp die">Грета:</span> А я замужем. У меня дочь и маленькая внучка.</p>
+      <p><span class="sp das">Тео:</span> А я не женат! Я же ребёнок! <span class="rem">(смеётся)</span></p>
+      <p><span class="sp die">Грета:</span> <span class="rem">(смеётся)</span> Конечно, Тео!</p>
+      <p><span class="sp der">Otto:</span> А вы где живёте, Грета?</p>
+      <p><span class="sp die">Грета:</span> Здесь, рядом. И моя сестра тоже здесь. А вы, Otto?</p>
+      <p><span class="sp der">Otto:</span> Тоже здесь. Я садовник, работаю здесь. И всё.</p>
+    </div>
+    <div class="de-wait">🇩🇪 Немецкий + промпт картинки добавлю сюда после «ок» по этому тексту.</div>
+  </div>
+
+  <!-- ===================== ТЕКСТ 3 ===================== -->
+  <div class="scene">
+    <h3>Текст 3 — Семья и языки <span class="tag wait">на утверждение · фокус Тема 3 (L3)</span></h3>
+    <div class="lks"><b>L3</b> · показывают фото семьи, рассказывают про родню · <i>кто <b>на каких языках</b> говорит; дети — кто из какой страны</i></div>
+    <div class="words">
+      <span class="w der">der Sohn</span><span class="w der">der Enkel</span>
+      <span class="w die">die Familie</span><span class="w die">die Mutter</span><span class="w die">die Schwester</span><span class="w die">die Tochter</span><span class="w die">die Enkelin</span><span class="w die">die Sprache</span>
+      <span class="w das">das Tier</span><span class="w das">das Land</span>
+      <span class="w fn">sprechen + языки (Deutsch / Italienisch / Englisch)</span><span class="w fn">ein bisschen</span><span class="w fn">mein / dein</span><span class="w fn">Linas … (родительный с именем)</span>
+      <span class="w muted">aus Polen / Österreich / Italien / die Schweiz</span><span class="w muted">ja / doch</span>
+    </div>
+    <p class="bh">Текст (русский — на утверждение)</p>
+    <div class="dlg">
+      <p><span class="sp die">Грета:</span> Смотрите, это моя семья! Это моя мама Anna, она в Италии. Это моя сестра Lucia, она в Швейцарии. А это моя дочь Mia и внучка Sofia!</p>
+      <p><span class="sp das">Тео:</span> Большая семья!</p>
+      <p><span class="sp die">Грета:</span> Да! И мы говорим на многих языках! Я говорю по-итальянски, по-немецки и по-английски. А вы, Otto? На каких языках говорите?</p>
+      <p><span class="sp der">Otto:</span> По-английски. И немного по-немецки.</p>
+      <p><span class="sp die">Грета:</span> «Немного» — это уже хорошо! А ты, Тео?</p>
+      <p><span class="sp das">Тео:</span> Я говорю по-немецки! А мои друзья — из разных стран! Ноа из Польши, Бен из Австрии, Лея из Италии!</p>
+      <p><span class="sp die">Грета:</span> Mamma mia, как интересно!</p>
+      <p><span class="sp das">Тео:</span> Lina, а кто это на рисунке?</p>
+      <p><span class="sp das">Lina:</span> Это… зверёк! Mümmel!</p>
+      <p><span class="sp das">Тео:</span> <span class="rem">(смеётся)</span> Это зверёк Lina, кролик. Загадка!</p>
+      <p><span class="sp der">Otto:</span> А это мой сын. Ewan. И мой внук, Finlay. Они в Шотландии.</p>
+      <p><span class="sp die">Грета:</span> У вас есть сын и внук! Как хорошо, Otto!</p>
+      <p><span class="sp der">Otto:</span> …Да. Но далеко.</p>
+      <p><span class="sp die">Грета:</span> Ничего, Otto. Теперь вы здесь, а мы — ваши соседи!</p>
+      <p><span class="sp das">Тео:</span> А кто это? А это? А почему? <span class="rem">(показывает на фото)</span></p>
+      <p><span class="sp die">Грета:</span> <span class="rem">(смеётся)</span> Ой, Тео! Опять сколько вопросов!</p>
+    </div>
+    <div class="de-wait">🇩🇪 Немецкий + промпт картинки добавлю сюда после «ок» по этому тексту.</div>
+  </div>
+
+  <div class="note">Три смешанных диалога закрепляют лексику Тем 1–3 (L1→L2→L3) и главные вопросы уровня. Утверждаем по одному; после «ок» по тексту — немецкий (сверка артиклей) + промпт картинки + озвучка. Немецкий перепроверить перед озвучкой.</div>
+</main>
+<footer>Deutsch A1 · Диалоги · Otto + Грета + дети · Темы 1–3 (все рода)</footer>
+</body>
+</html>
