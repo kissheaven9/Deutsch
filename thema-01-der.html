@@ -257,7 +257,7 @@ document.getElementById('exercise').innerHTML=people.map((c,pi)=>{
   return `<details class="qcard"${pi===0?' open':''}><summary><span>${title}</span><span>▾</span></summary><div class="qbody">${qs}</div></details>`;
 }).join('');
 function toggleRu(btn){const ru=btn.closest('.q').querySelector('.qru');ru.hidden=!ru.hidden;btn.textContent=ru.hidden?'Показать перевод':'Скрыть перевод';}
-function checkAns(btn){const q=btn.closest('.q'),inp=q.querySelector('.qin'),res=q.querySelector('.qres');const ok=norm(inp.value).length>0&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=ok?'var(--das)':'var(--die)';res.style.color=ok?'var(--das)':'var(--die)';res.textContent=ok?'✓ Верно!':'✗ Пока не то — попробуй ещё или открой ответ.';}
+function checkAns(btn){const q=btn.closest('.q'),inp=q.querySelector('.qin'),res=q.querySelector('.qres');const ok=norm(inp.value).length>0&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=ok?'var(--das)':'var(--die)';res.style.color=ok?'var(--das)':'var(--die)';res.textContent=ok?('✓ '+praise()):'✗ Пока не то — попробуй ещё или открой ответ.';}
 function showAns(btn){const q=btn.closest('.q');q.querySelector('.qres').innerHTML='<span style="color:var(--accent)">Ответ: '+q.dataset.ans+'</span>';}
 
 /* ---- карточки ---- */
@@ -329,5 +329,6 @@ document.getElementById('gap').innerHTML=GAPPARTS.map(p=> p.t!==undefined ? p.t 
 function gapCheck(){let ok=0;document.querySelectorAll('#gap input').forEach((inp,idx)=>{const good=norm(inp.value)===norm(GANS[idx]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('gScore').innerHTML=`<span style="color:${ok===GANS.length?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${ok===GANS.length?' 🎉':''}</span>`;}
 function gapReset(){document.querySelectorAll('#gap input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--der)';i.style.color='var(--der)';});document.getElementById('gScore').textContent='';}
 </script>
+<script src="js/chrome.js"></script>
 </body>
 </html>

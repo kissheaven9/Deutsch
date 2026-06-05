@@ -40,6 +40,10 @@ function toggleSpeak(text, btn){
 }
 function restartSpeak(text, btn){ _stopAll(); toggleSpeak(text, btn); }
 
+// похвала за правильный ответ
+const PRAISE=['Молодец! 👏','Отлично! 🌟','Супер! ✅','Верно! 🎯','Класс! 💪','Здорово! 🎉','Так держать! 🙌'];
+function praise(){ return PRAISE[Math.floor(Math.random()*PRAISE.length)]; }
+
 // Глазик: скрыть/показать конкретный объект
 function toggleObj(btn){
   const obj = btn.closest('.obj');
