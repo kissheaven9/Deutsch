@@ -206,8 +206,10 @@ const Dict = (function(){
         table{width:100%;border-collapse:collapse} td{padding:4px 8px;border-bottom:1px solid #eee;font-size:14px}
         .art{width:46px;font-weight:700} tr.der .art{color:#2563EB} tr.die .art{color:#DC2626} tr.das .art{color:#16A34A}
         .de{font-weight:600} .ru{color:#6b7280} .pp{color:#c2410c;font-size:12px;white-space:nowrap}
-        @media print{body{padding:0}}
+        .howto{background:#f3e8ff;color:#5b21b6;border:1px solid #e9d5ff;border-radius:10px;padding:10px 14px;margin:0 0 14px;font-size:13px;line-height:1.5}
+        @media print{body{padding:0}.howto{display:none}}
       </style></head><body>
+        <div class="howto">📄 <b>Как сохранить файл:</b> в открывшемся окне печати в поле «Принтер» / «Destination» выбери <b>«Сохранить как PDF» (Save as PDF)</b> и нажми «Сохранить». Это и есть скачивание PDF (в самом PDF этой подсказки не будет).</div>
         <h1>Словарь немецкого A1 — ${esc(themeTitle)}</h1>
         <div class="sub">Раздел: ${esc(gLabel)} · для самостоятельной учёбы</div>
         ${body||"<p>Нет слов для выгрузки.</p>"}
