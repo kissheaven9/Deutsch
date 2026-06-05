@@ -171,7 +171,7 @@ const Dict = (function(){
     }
     q.addEventListener('input',apply);
     root.querySelectorAll('.chip[data-f]').forEach(ch=>ch.addEventListener('click',()=>{
-      fGender=ch.dataset.f; root.querySelectorAll('.chip[data-f]').forEach(c=>c.setAttribute('aria-pressed',c===ch?"true":"false")); apply();
+      fGender=ch.dataset.f; root.querySelectorAll('.chip[data-f]').forEach(c=>c.setAttribute('aria-pressed',c===ch?"true":"false")); apply(); paintPdf();
     }));
     root.querySelectorAll('.chip[data-t]').forEach(ch=>ch.addEventListener('click',()=>{
       fTheme=ch.dataset.t; root.querySelectorAll('.chip[data-t]').forEach(c=>c.setAttribute('aria-pressed',c===ch?"true":"false")); apply();
@@ -182,6 +182,10 @@ const Dict = (function(){
     // ----- Скачать PDF (печать выбранного набора) -----
     const pdfBtn=root.querySelector('.btn-pdf');
     if(pdfBtn) pdfBtn.addEventListener('click',exportPDF);
+    function paintPdf(){ const b=root.querySelector('.btn-pdf'); if(!b) return;
+      const map={all:["#374151","#fff"],der:["#2563EB","#fff"],die:["#DC2626","#fff"],das:["#16A34A","#fff"],verb:["#eab308","#1f2937"],other:["#6D28D9","#fff"]};
+      const c=map[fGender]||map.all; b.style.background=c[0]; b.style.color=c[1]; }
+    paintPdf();
     function grab(sel,isVerb){
       const out=[];
       root.querySelectorAll(sel).forEach(c=>{ if(c.style.display==="none") return;
