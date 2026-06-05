@@ -113,6 +113,15 @@ function restartSpeak(text, btn){ _stopAll(); toggleSpeak(text, btn); }
 const PRAISE=['Молодец! 👏','Отлично! 🌟','Супер! ✅','Верно! 🎯','Класс! 💪','Здорово! 🎉','Так держать! 🙌'];
 function praise(){ return PRAISE[Math.floor(Math.random()*PRAISE.length)]; }
 
+// показать/скрыть русский перевод текста (блок .ru-block сразу после .bh с кнопкой)
+function toggleRuBlock(btn){
+  const blk = btn.closest('.bh') && btn.closest('.bh').nextElementSibling;
+  if(!blk) return;
+  const hidden = blk.hasAttribute('hidden');
+  if(hidden) blk.removeAttribute('hidden'); else blk.setAttribute('hidden','');
+  btn.textContent = hidden ? 'Скрыть перевод' : 'Показать перевод';
+}
+
 // Глазик: скрыть/показать конкретный объект
 function toggleObj(btn){
   const obj = btn.closest('.obj');
