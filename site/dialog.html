@@ -26,6 +26,7 @@
   .mk.open{z-index:5} .mk.open .mkw{display:block}
   .mk.dir-l .mkw{right:140%} .mk.dir-r .mkw{left:140%}
   .qbanner{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,#000000cc);color:#fff;font-size:14px;font-weight:600;line-height:1.4;padding:26px 14px 12px;z-index:3}
+  .qask{position:absolute;transform:translate(-50%,-50%);background:#fffffff2;border:2px solid var(--accent);color:var(--accent);font-weight:800;font-size:13px;line-height:1.25;text-align:center;border-radius:12px;padding:7px 11px;box-shadow:0 2px 10px #0005;z-index:4;max-width:40%;white-space:pre-line}
   .stagehint{font-size:12px;color:var(--muted);margin:6px 0 0}
   .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .dlg p{margin:0 0 7px;font-size:15px;line-height:1.55}
@@ -63,10 +64,10 @@
   .sortgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(7,auto);grid-auto-flow:column;column-gap:28px}
   @media(max-width:620px){.sortgrid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}}
   .btn:disabled,.btn[disabled]{opacity:.45;cursor:not-allowed}
-  .sortdots{display:flex;gap:8px;justify-content:center;margin:12px 0 2px}
-  .pdot{width:11px;height:11px;border-radius:50%;background:#e5e7eb;transition:.15s}
-  .pdot.seen{background:#c4b5fd}
-  .pdot.cur{background:var(--accent);transform:scale(1.3)}
+  .sortdots{display:flex;gap:8px;align-items:center;margin:0}
+  .pdot{width:11px;height:11px;border-radius:50%;background:#fff;border:1.5px solid #cbd5e1;box-sizing:border-box;transition:.15s}
+  .pdot.seen{background:#c4b5fd;border-color:#c4b5fd}
+  .pdot.cur{background:var(--accent);border-color:var(--accent);transform:scale(1.3)}
   .srow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:8px 0}
   .srow .sw{font-weight:700;min-width:130px}
   .sbtns{display:flex;gap:6px}
@@ -254,15 +255,16 @@ const MARKS={
  2:[{x:13,y:16,w:'der Mann',g:'der',dir:'r'},{x:37,y:27,w:'die Frau',g:'die',dir:'r'},
     {x:57,y:38,w:'sieben · 7 Finger',g:'das',dir:'l'},{x:76,y:40,w:'sechs · 6 Finger',g:'das',dir:'l'},
     {x:27,y:62,w:'acht · 8 Finger',g:'das',dir:'r'},{x:47,y:65,w:'sieben · 7 Finger',g:'das',dir:'l'},{x:64,y:62,w:'zehn · 10 Finger',g:'das',dir:'l'},{x:82,y:62,w:'zehn · 10 Finger',g:'das',dir:'l'}],
- 3:[{x:16,y:18,w:'der Mann',g:'der',dir:'r'},{x:48,y:21,w:'die Frau',g:'die',dir:'r'},{x:72,y:43,w:'das Kind',g:'das',dir:'l'},{x:88,y:47,w:'das Mädchen',g:'das',dir:'l'},{x:88,y:76,w:'das Tier · Mümmel',g:'das',dir:'l'},{x:30,y:10,w:'Italien 🇮🇹',g:'flag',dir:'r'},{x:42,y:8,w:'Schottland 🏴',g:'flag',dir:'r'},{x:51,y:9,w:'Österreich 🇦🇹',g:'flag',dir:'l'},{x:60,y:11,w:'Polen 🇵🇱',g:'flag',dir:'l'}]
+ 3:[{x:16,y:38,w:'der Mann',g:'der',dir:'r'},{x:48,y:21,w:'die Frau',g:'die',dir:'r'},{x:72,y:43,w:'das Kind',g:'das',dir:'l'},{x:88,y:47,w:'das Mädchen',g:'das',dir:'l'},{x:88,y:80,w:'das Tier · Mümmel',g:'das',dir:'l'},{x:30,y:10,w:'Italien 🇮🇹',g:'flag',dir:'r'},{x:42,y:8,w:'Schottland 🏴',g:'flag',dir:'r'},{x:51,y:9,w:'Österreich 🇦🇹',g:'flag',dir:'l'},{x:60,y:11,w:'Polen 🇵🇱',g:'flag',dir:'l'}]
 };
 const BANNER={2:'❓ Тапни точку на ребёнке — узнаешь, сколько пальцев он показывает по-немецки. Сначала скажи сам(а)!'};
+const ASK={2:{x:67,y:22,t:'✋ Сколько пальцев?\nСкажи по-немецки!'}};
 
 document.getElementById('app').innerHTML=`
   <h1>${D.title}</h1>
   <p class="lead">${D.sub} <span style="color:var(--muted)">Диалог ${N} из 3 · Тема 1</span></p>
   <div class="scenenav" id="navTop"></div>
-  <div class="stage" id="stage"><img src="${D.img}" alt="${D.title}">${BANNER[N]?`<div class="qbanner">${BANNER[N]}</div>`:''}</div>
+  <div class="stage" id="stage"><img src="${D.img}" alt="${D.title}">${ASK[N]?`<div class="qask" style="left:${ASK[N].x}%;top:${ASK[N].y}%">${ASK[N].t}</div>`:''}${BANNER[N]?`<div class="qbanner">${BANNER[N]}</div>`:''}</div>
   <p class="stagehint">Тапни точку на герое или предмете — откроется слово: <b style="color:var(--der)">der Mann</b>, <b style="color:var(--die)">die Frau</b>, <b style="color:var(--das)">das Kind</b> (цвет = род).</p>
 
   <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Читаем диалог</h2></div></div>
@@ -292,8 +294,7 @@ document.getElementById('app').innerHTML=`
   <div class="panel"><h3><span class="exnum">2</span>🧮 Распредели по родам</h3>
     <p class="sub">У каждого слова выбери его род — der, die или das (по смыслу и по окончанию). Сразу 14 слов; «ещё» — новый набор.</p>
     <div id="sortList" class="sortgrid"></div>
-    <div class="sortdots" id="sortDots"></div>
-    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="sortCheck()">Проверить</button><button class="btn sm" onclick="sortNext()">ещё 14 слов →</button></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="sortCheck()">Проверить</button><button class="btn sm" onclick="sortNext()">ещё 14 слов →</button><span class="sortdots" id="sortDots"></span></div>
     <div class="score" id="sScore"></div>
   </div>
   <div class="panel"><h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
@@ -350,14 +351,15 @@ const _das=[['Kind','das'],['Mädchen','das'],['Jahr','das'],['Alter','das'],['L
 function interleave(arrs){const out=[];let i=0,any=true;while(any){any=false;for(const a of arrs){if(i<a.length){out.push(a[i]);any=true;}}i++;}return out;}
 const SORTPOOL=interleave([_der,_die,_das]);
 const SPP=14, SPAGES=Math.ceil(SORTPOOL.length/SPP);
-let sPage=(N-1)%SPAGES; const sSeen=new Set([sPage]);
+let sPage=(N-1)%SPAGES; const sChecked=new Set();
+function renderDots(){document.getElementById('sortDots').innerHTML=Array.from({length:SPAGES},(_,i)=>`<span class="pdot${i===sPage?' cur':(sChecked.has(i)?' seen':'')}"></span>`).join('');}
 function renderSort(){const items=SORTPOOL.slice(sPage*SPP,sPage*SPP+SPP);
   document.getElementById('sortList').innerHTML=items.map((p,i)=>`<div class="srow" data-i="${i}" data-g="${p[1]}"><span class="sw">${p[0]}</span><span class="sbtns"><button class="der" onclick="pickG(this,'der')">der</button><button class="die" onclick="pickG(this,'die')">die</button><button class="das" onclick="pickG(this,'das')">das</button></span><span class="mark"></span></div>`).join('');
-  document.getElementById('sortDots').innerHTML=Array.from({length:SPAGES},(_,i)=>`<span class="pdot${i===sPage?' cur':(sSeen.has(i)?' seen':'')}"></span>`).join('');
+  renderDots();
   document.getElementById('sScore').textContent='';}
-function sortNext(){sPage=(sPage+1)%SPAGES;sSeen.add(sPage);renderSort();}
+function sortNext(){sPage=(sPage+1)%SPAGES;renderSort();}
 function pickG(btn,g){const row=btn.closest('.srow');row.dataset.pick=g;row.classList.remove('ok','bad');row.querySelector('.mark').textContent='';row.querySelectorAll('.sbtns button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
-function sortCheck(){const rows=[...document.querySelectorAll('#sortList .srow')];let ok=0;rows.forEach(r=>{if(!r.dataset.pick)return;const good=r.dataset.pick===r.dataset.g;r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.mark').textContent=good?'✓':('✗ '+r.dataset.g);if(good)ok++;});document.getElementById('sScore').innerHTML=`<span style="color:${ok===rows.length?'var(--das)':'var(--die)'}">${ok} / ${rows.length} верно${ok===rows.length?(' — '+praise()):' — поправь и проверь'}</span>`;}
+function sortCheck(){const rows=[...document.querySelectorAll('#sortList .srow')];let ok=0;rows.forEach(r=>{if(!r.dataset.pick)return;const good=r.dataset.pick===r.dataset.g;r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.mark').textContent=good?'✓':('✗ '+r.dataset.g);if(good)ok++;});document.getElementById('sScore').innerHTML=`<span style="color:${ok===rows.length?'var(--das)':'var(--die)'}">${ok} / ${rows.length} верно${ok===rows.length?(' — '+praise()):' — поправь и проверь'}</span>`;sChecked.add(sPage);renderDots();}
 
 // ---- напиши с артиклем ----
 function renderWrite(){document.getElementById('writeList').innerHTML=D.write.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="артикль + слово…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('wScore').textContent='';}
