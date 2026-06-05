@@ -166,12 +166,14 @@ function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
 /* ---- метки на детях: das Kind/Mädchen · возраст · страна ---- */
 const stage=document.getElementById('stage');
 function mk(x,y,word,dir){const b=document.createElement('button');b.className='mk dir-'+(dir||'l');b.style.left=x+'%';b.style.top=y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkw">${word}</span>`;stage.appendChild(b);}
-mk(48,40,'Theo · das Kind · 7 · Deutschland','l');
-mk(67,46,'Lina · das Mädchen · 6','l');
-mk(12,46,'Noah · das Kind · 7 · Polen','r');
-mk(30,32,'Ben · das Kind · 8 · Österreich','r');
-mk(27,64,'Emil · das Kind · 5 · Deutschland','r');
-mk(87,40,'Lea · das Mädchen · 10 · Italien','l');
+mk(12,46,'Noah · das Kind · 7 · Polen','r');                 // самая левая — ок
+mk(30,24,'Ben · das Kind · 8 · Österreich','r');             // поднял на волосы (была на глазу)
+mk(27,64,'Emil · das Kind · 5 · Deutschland','r');           // ок
+mk(48,48,'Theo · das Kind · 7 · Deutschland','l');           // опустил
+mk(67,54,'Lina · das Mädchen · 6','l');                      // опустил
+mk(87,48,'Lea · das Mädchen · 10 · Italien','l');            // опустил
+mk(42,80,'das Tier · зверёк Mümmel','r');                    // кролик
+mk(42,9,'das Fest · праздник','r');                          // флажки
 function toggleCovers(btn){const ms=[...document.querySelectorAll('.mk')];const any=ms.some(m=>!m.classList.contains('open'));ms.forEach(m=>m.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть':'👁 Открыть все';}
 
 /* ---- слова сцены (das) ---- */
