@@ -27,6 +27,7 @@ SCENES = [
     ('scene-die1', 'female', 'thema-01-die.html'),
     ('scene-das1', 'child',  'thema-01-das.html'),
     ('scene-der2', 'male',   'thema-02-der.html'),
+    ('scene-verben','male',  'verben-thema-01.html'),
 ]
 def scene_text(fn):
     html = open(os.path.join(ROOT, fn), encoding='utf-8').read()
@@ -65,10 +66,39 @@ def dialog_lines(n, html):
     p = Lines(); p.feed(m.group(1)); return p.lines
 
 async def tts(text, role, out):
+    if os.path.exists(out): return
     cfg = VOICE.get(role, VOICE[''])
-    c = edge_tts.Communicate(text, cfg['voice'], rate=cfg['rate'], pitch=cfg['pitch'])
-    await c.save(out)
-    print('  ✓', os.path.basename(out), '·', role, '·', text[:42])
+    for attempt in range(6):
+        try:
+            c = edge_tts.Communicate(text, cfg['voice'], rate=cfg['rate'], pitch=cfg['pitch'])
+            await c.save(out)
+            print('  ✓', os.path.basename(out), '·', role, '·', text[:38]); return
+        except Exception as e:
+            await asyncio.sleep(2*(attempt+1))
+    print('  ✗ не удалось:', os.path.basename(out))
+
+def slug(s):
+    s = s.lower().replace('ä','ae').replace('ö','oe').replace('ü','ue').replace('ß','ss')
+    s = re.sub(r'[^a-z0-9]+','-', s)
+    return s.strip('-')
+
+# собрать существительные по роду из woerter.js (по строкам, с учётом текущего рода)
+def dict_words():
+    txt = open(os.path.join(ROOT,'js','woerter.js'), encoding='utf-8').read()
+    g=None; out=[]; seen=set()
+    for line in txt.splitlines():
+        if re.search(r'\bder:\[', line): g='der'
+        elif re.search(r'\bdie:\[', line): g='die'
+        elif re.search(r'\bdas:\[', line): g='das'
+        elif re.search(r'\b(verbs|other|andere):', line): g=None
+        if g:
+            for w in re.findall(r'\["([^"]+)"', line):
+                key=(g,w)
+                if key not in seen:
+                    seen.add(key); out.append((g,w))
+    return out
+
+WORD_ROLE={'der':'male','die':'female','das':'child'}
 
 async def main():
     # сцены
@@ -83,6 +113,19 @@ async def main():
         print(f'диалог {n}: {len(lines)} реплик')
         for i,(role,txt) in enumerate(lines):
             await tts(txt, role, os.path.join(AUDIO, f'dlg-{n}-{i}.mp3'))
+    # слова по роду (der→Otto, die→Грета, das→Тео)
+    os.makedirs(os.path.join(AUDIO,'word'), exist_ok=True)
+    words = dict_words()
+    print(f'слов: {len(words)}')
+    for g,w in words:
+        text = f'{g} {w}'
+        await tts(text, WORD_ROLE[g], os.path.join(AUDIO,'word', slug(text)+'.mp3'))
+    # глаголы (мужской голос)
+    VERBS=['wohnen','leben','lernen','machen','arbeiten','studieren','planen','glauben',
+           'sein','haben','sprechen','heißen','kommen','gehen']
+    for inf in VERBS:
+        await tts(inf, 'male', os.path.join(AUDIO,'word', slug(inf)+'.mp3'))
+    print('слова готовы')
 
 asyncio.run(main())
 print('Готово.')

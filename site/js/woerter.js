@@ -80,13 +80,14 @@ const WOERTER = { themes: [
 /* ===================== Рендер (общий для обоих режимов) ===================== */
 const Dict = (function(){
   const esc = s => String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-  const say = de => `<button class="say" title="Озвучить" onclick="event.stopPropagation();speak('${String(de).replace(/'/g,"\\'")}')">🔊</button>`;
+  const say = (text, role) => `<button class="say" title="Озвучить" onclick="event.stopPropagation();playWord('${String(text).replace(/'/g,"\\'")}','${role||''}')">🔊</button>`;
+  const ROLE = {der:'male', die:'female', das:'child'};
   const tag = t => t ? ` data-theme="${t}"` : "";
 
   function nounEntry(art,row,tid){
     const [de,ru]=row;
     return `<div class="entry ${art}"${tag(tid)} data-de="${esc(de.toLowerCase())}" data-ru="${esc(ru.toLowerCase())}">
-      <span class="art">${art}</span><span class="de">${esc(de)}</span><span class="ru">${esc(ru)}</span>${say(de)}</div>`;
+      <span class="art">${art}</span><span class="de">${esc(de)}</span><span class="ru">${esc(ru)}</span>${say(art+' '+de, ROLE[art])}</div>`;
   }
   function genderBlock(art,who,arr){
     if(!arr.length) return "";
@@ -96,7 +97,7 @@ const Dict = (function(){
   function pair(row){
     const [de,ru]=row;
     return `<div class="pair g-other"${tag(row._t)} data-de="${esc(de.toLowerCase())}" data-ru="${esc(ru.toLowerCase())}">
-      <span class="de">${esc(de)}</span><span class="ru">${esc(ru)}</span>${say(de)}</div>`;
+      <span class="de">${esc(de)}</span><span class="ru">${esc(ru)}</span>${say(de,'')}</div>`;
   }
   function verbEntry(v){
     const [inf,ru,type,forms,pp]=v;
@@ -105,7 +106,7 @@ const Dict = (function(){
     const past = pp?`<div class="pastline"><span class="past" title="Прошедшее (Perfekt)" onclick="event.stopPropagation();speak('${('er '+pp.replace(/\\s*\\(.*\\)/,'')).replace(/'/g,"\\'")}')">⏪ Прошедшее (Perfekt): ${esc(pp)}</span></div>`:"";
     return `<div class="ventry g-verb"${tag(v._t)} data-de="${esc(inf.toLowerCase())}" data-ru="${esc(ru.toLowerCase())}">
       <div class="vhead" onclick="this.parentElement.classList.toggle('open')">
-        ${badge}<span class="de">${esc(inf)}</span><span class="ru">${esc(ru)}</span>${say(inf)}<span class="caret">▶</span></div>
+        ${badge}<span class="de">${esc(inf)}</span><span class="ru">${esc(ru)}</span>${say(inf,'male')}<span class="caret">▶</span></div>
       <div class="conj"><div class="grid">${rows}</div>${past}<div class="tip">Настоящее время · клик по форме — озвучка.</div></div></div>`;
   }
 

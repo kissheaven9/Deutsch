@@ -64,6 +64,10 @@
   .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
   .mchip.de{font-weight:700;color:var(--yd)} .mchip.sel{border-color:var(--y);background:var(--ybg)}
   .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
+  .pdots{display:flex;gap:7px;align-items:center}
+  .pdot{width:11px;height:11px;border-radius:50%;background:#fff;border:1.5px solid #cbd5e1;box-sizing:border-box;transition:.15s}
+  .pdot.seen{background:#c4b5fd;border-color:#c4b5fd}
+  .pdot.cur{background:var(--accent);border-color:var(--accent);transform:scale(1.3)}
 </style>
 </head>
 <body>
@@ -89,10 +93,18 @@
   <div class="part train"><span class="pico">🎯</span><div><div class="pk">Тренируемся</div><h2>Запоминаем глаголы</h2></div></div>
 
   <div class="panel"><h3>📜 Текст с глаголами</h3>
-    <div class="bh">🇩🇪 Deutsch <button class="formbtn" onclick="toggleSpeak(deText(),this)">🔊 Послушать</button></div>
-    <p class="de-block" id="deText">Hallo! Ich <b>heiße</b> Otto. Ich <b>komme</b> aus Schottland und <b>wohne</b> jetzt in Deutschland. Ich <b>bin</b> Gärtner und <b>arbeite</b> im Garten. Ich <b>lebe</b> allein. Greta <b>kommt</b> aus Italien. Sie <b>spricht</b> Italienisch und Deutsch. Sie <b>hat</b> eine Familie. Die Kinder <b>lernen</b> Deutsch und <b>machen</b> viele Fragen. Wir <b>glauben</b>: zusammen <b>ist</b> es schön!</p>
+    <div class="bh">🇩🇪 Deutsch <button class="formbtn" onclick="playSeq(['audio/scene-verben.mp3'],this,[{t:deText(),role:'male'}])">🔊 Послушать</button></div>
+    <p class="de-block" id="deText">Hallo! Ich <b>heiße</b> Otto und <b>bin</b> Gärtner. Ich <b>komme</b> aus Schottland, aber jetzt <b>wohne</b> ich in Deutschland und <b>arbeite</b> hier. Ich <b>habe</b> einen kleinen Garten und <b>lebe</b> allein — das ist okay.<br><br>
+    Meine Nachbarin <b>heißt</b> Greta. Sie <b>kommt</b> aus Italien und <b>spricht</b> Italienisch, Deutsch und Englisch. Greta <b>hat</b> eine große Familie und <b>macht</b> gern Pasta. Sie <b>glaubt</b>: Essen ist Liebe!<br><br>
+    Die Kinder <b>heißen</b> Theo und Lina. Sie <b>sind</b> klein und <b>lernen</b> Deutsch. Theo fragt viel und <b>macht</b> oft ein Interview. „Wie <b>geht</b> es dir?“, fragt er immer.<br><br>
+    Mein Sohn <b>heißt</b> Ewan. Er <b>studiert</b> in Edinburgh und <b>plant</b> eine Reise nach Deutschland. Wir <b>wohnen</b> nicht zusammen, aber wir <b>sprechen</b> oft am Telefon.<br><br>
+    Ich <b>glaube</b>, die Familie ist wichtig. Morgen <b>arbeite</b> ich im Garten, dann <b>gehe</b> ich zu Greta. Wir <b>machen</b> Kaffee und <b>sprechen</b> über das Leben. Mir <b>geht</b> es gut!</p>
     <div class="bh" style="margin-top:12px">🇷🇺 Русский <button class="formbtn" id="ruBtn" onclick="toggleRu2()">Показать перевод</button></div>
-    <p class="ru-block" id="ruText" hidden>Привет! Меня зовут Otto. Я родом из Шотландии и сейчас живу в Германии. Я садовник и работаю в саду. Живу один. Грета родом из Италии. Она говорит по-итальянски и по-немецки. У неё есть семья. Дети учат немецкий и задают много вопросов. Мы думаем: вместе — это здорово!</p>
+    <p class="ru-block" id="ruText" hidden>Привет! Меня зовут Отто, я садовник. Я родом из Шотландии, но теперь живу в Германии и работаю здесь. У меня маленький сад, и я живу один — и это нормально.<br><br>
+    Мою соседку зовут Грета. Она из Италии и говорит по-итальянски, по-немецки и по-английски. У Греты большая семья, и она любит готовить пасту. Она считает: еда — это любовь!<br><br>
+    Детей зовут Тео и Лина. Они маленькие и учат немецкий. Тео много спрашивает и часто берёт интервью. «Как дела?» — спрашивает он всегда.<br><br>
+    Моего сына зовут Эван. Он учится в Эдинбурге и планирует поездку в Германию. Мы не живём вместе, но часто разговариваем по телефону.<br><br>
+    Я думаю, семья — это важно. Завтра я работаю в саду, потом иду к Грете. Мы делаем кофе и говорим о жизни. У меня всё хорошо!</p>
   </div>
 
   <div class="panel"><h3><span class="exnum">1</span>🃏 Карточки</h3>
@@ -102,16 +114,16 @@
   </div>
 
   <div class="panel"><h3><span class="exnum">2</span>🔗 Соотнеси: глагол ↔ перевод</h3>
-    <p class="sub">Нажми немецкий глагол, потом перевод — пара окрасится. Выбор можно менять.</p>
+    <p class="sub">Нажми немецкий глагол, потом перевод — пара окрасится. Все глаголы по группам; точки показывают страницы.</p>
     <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
-    <div class="toolbar"><button class="btn y sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="toolbar"><button class="btn y sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="matchNext()">следующие →</button><span class="pdots" id="mDots"></span></div>
     <div class="score" id="mScore"></div>
   </div>
 
   <div class="panel"><h3><span class="exnum">3</span>🔤 Напиши перевод</h3>
-    <p class="sub">Дан немецкий глагол — впиши, что он значит по-русски.</p>
+    <p class="sub">Дан немецкий глагол — впиши, что он значит по-русски. Все глаголы по группам; точки показывают страницы.</p>
     <div id="writeList"></div>
-    <div class="toolbar"><button class="btn y sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button></div>
+    <div class="toolbar"><button class="btn y sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeNext()">продолжить →</button><span class="pdots" id="wDots"></span></div>
     <div class="score" id="wScore"></div>
   </div>
 
@@ -143,14 +155,13 @@ const IRR=[
 const PRON=['ich','du','er/sie/es','wir','ihr','sie/Sie'];
 const ALL=REG.concat(IRR);
 function rows(list,key){return list.map((v,i)=>`<tr>
-  <td class="de"><span class="em">${key==='r'?'✅':'⚠️'}</span>${v.inf} <button class="say" onclick="speak('${v.inf}')">🔊</button></td>
+  <td class="de"><span class="em">${key==='r'?'✅':'⚠️'}</span>${v.inf} <button class="say" onclick="playWord('${v.inf}','male')">🔊</button></td>
   <td class="ru"><span>${v.ru}</span></td>
-  <td class="pp">${v.pp}</td>
-  <td style="text-align:right"><button class="formbtn" onclick="pop('${key}${i}')">форма ▾</button>
+  <td style="text-align:right"><button class="formbtn" onclick="pop('${key}${i}')">форма + прошедшее ▾</button>
     <div class="pop" id="${key}${i}"><div class="conj">${v.c.map((f,j)=>`<div><b>${PRON[j]}</b> ${f}</div>`).join('')}</div><div class="pp2">Perfekt: <b>${v.pp}</b></div></div>
   </td></tr>`).join('');}
-document.getElementById('t-reg').innerHTML=`<tr><th>глагол</th><th>перевод</th><th>прошедшее</th><th></th></tr>`+rows(REG,'r');
-document.getElementById('t-irr').innerHTML=`<tr><th>глагол</th><th>перевод</th><th>прошедшее</th><th></th></tr>`+rows(IRR,'i');
+document.getElementById('t-reg').innerHTML=`<tr><th>глагол</th><th>перевод</th><th></th></tr>`+rows(REG,'r');
+document.getElementById('t-irr').innerHTML=`<tr><th>глагол</th><th>перевод</th><th></th></tr>`+rows(IRR,'i');
 function pop(id){document.getElementById(id).classList.toggle('open');}
 function toggleRu(){document.querySelectorAll('table.vt').forEach(t=>t.classList.toggle('hidden-ru'));const on=document.querySelector('table.vt').classList.contains('hidden-ru');document.getElementById('eye').textContent=on?'👁 Показать переводы':'🙈 Скрыть переводы';}
 function deText(){return document.getElementById('deText').innerText;}
@@ -158,7 +169,7 @@ function toggleRu2(){const r=document.getElementById('ruText'),b=document.getEle
 
 // карточки
 let ci=0,flipped=false;
-function renderCard(){const v=ALL[ci];document.getElementById('cText').innerHTML=flipped?`${v.ru}`:`${v.inf} <button class="say" onclick="event.stopPropagation();speak('${v.inf}')">🔊</button>`;document.getElementById('cHint').textContent=flipped?'нажми — назад к немецкому':'нажми — увидеть перевод';document.getElementById('cCount').textContent=`${ci+1} / ${ALL.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function renderCard(){const v=ALL[ci];document.getElementById('cText').innerHTML=flipped?`${v.ru}`:`${v.inf} <button class="say" onclick="event.stopPropagation();playWord('${v.inf}','male')">🔊</button>`;document.getElementById('cHint').textContent=flipped?'нажми — назад к немецкому':'нажми — увидеть перевод';document.getElementById('cCount').textContent=`${ci+1} / ${ALL.length}`;document.getElementById('card').classList.toggle('back',flipped);}
 function flip(){flipped=!flipped;renderCard();}
 function cardNext(){ci=(ci+1)%ALL.length;flipped=false;renderCard();}
 function cardPrev(){ci=(ci-1+ALL.length)%ALL.length;flipped=false;renderCard();}
@@ -169,21 +180,26 @@ const MPOOL=ALL.map(v=>[v.inf,v.ru]);
 const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 let MATCH=[],selDe=null,links={},colorOf={},nextC=0;
+const MPP=6,MPAGES=Math.ceil(MPOOL.length/MPP);let mPage=0;const mChecked=new Set();
+function mDots(){document.getElementById('mDots').innerHTML=Array.from({length:MPAGES},(_,i)=>`<span class="pdot${i===mPage?' cur':(mChecked.has(i)?' seen':'')}"></span>`).join('');}
+function matchNext(){mPage=(mPage+1)%MPAGES;renderMatch();}
 function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
 function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
-function renderMatch(){MATCH=shuffle(MPOOL).slice(0,6);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MATCH.map((p,i)=>i));
+function renderMatch(){MATCH=MPOOL.slice(mPage*MPP,mPage*MPP+MPP);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MATCH.map((p,i)=>i));
   document.getElementById('mDe').innerHTML=MATCH.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
   document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MATCH[i][1]}</div>`).join('');
-  document.getElementById('mScore').textContent='';}
+  mDots();document.getElementById('mScore').textContent='';}
 function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
 function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
-function matchCheck(){let ok=0;MATCH.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MATCH.length?'var(--das)':'var(--die)'}">${ok} / ${MATCH.length} верно${ok===MATCH.length?(' — '+praise()):' — поправь пары'}</span>`;}
+function matchCheck(){let ok=0;MATCH.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MATCH.length?'var(--das)':'var(--die)'}">${ok} / ${MATCH.length} верно${ok===MATCH.length?(' — '+praise()):' — поправь пары'}</span>`;mChecked.add(mPage);mDots();}
 renderMatch();
 
 // напиши перевод
-let WRITE=[];
-function renderWrite(){WRITE=shuffle(ALL).slice(0,6);document.getElementById('writeList').innerHTML=WRITE.map((v,i)=>`<div class="wq" data-i="${i}"><span class="de">${v.inf} <button class="say" onclick="speak('${v.inf}')">🔊</button></span><input placeholder="перевод по-русски…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('wScore').textContent='';}
-function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v.length>=3&&norm(WRITE[i].ru).includes(v);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i].ru;if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно${ok===WRITE.length?(' — '+praise()):''}</span>`;}
+let WRITE=[];const WPP=7,WPAGES=Math.ceil(ALL.length/WPP);let wPage=0;const wChecked=new Set();
+function wDots(){document.getElementById('wDots').innerHTML=Array.from({length:WPAGES},(_,i)=>`<span class="pdot${i===wPage?' cur':(wChecked.has(i)?' seen':'')}"></span>`).join('');}
+function renderWrite(){WRITE=ALL.slice(wPage*WPP,wPage*WPP+WPP);document.getElementById('writeList').innerHTML=WRITE.map((v,i)=>`<div class="wq" data-i="${i}"><span class="de">${v.inf} <button class="say" onclick="playWord('${v.inf}','male')">🔊</button></span><input placeholder="перевод по-русски…" autocomplete="off"><span class="corr"></span></div>`).join('');wDots();document.getElementById('wScore').textContent='';}
+function writeNext(){wPage=(wPage+1)%WPAGES;renderWrite();}
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v.length>=3&&norm(WRITE[i].ru).includes(v);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i].ru;if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно${ok===WRITE.length?(' — '+praise()):''}</span>`;wChecked.add(wPage);wDots();}
 function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=WRITE[i].ru;r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
 renderWrite();
 </script>
