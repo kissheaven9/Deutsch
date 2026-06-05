@@ -21,12 +21,11 @@
   .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
   .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
   .stage img{width:100%;height:auto;display:block}
-  .lbl{position:absolute;transform:translate(-50%,-50%);background:#fffffff7;border:2px solid var(--der);
-    border-radius:8px;padding:2px 6px;text-align:center;box-shadow:0 1px 5px #0004;font-size:11px;line-height:1.2;max-width:16%}
-  .lbl .ohint{display:block;color:var(--muted);font-size:10px}
+  .lbl{position:absolute;transform:translate(-50%,-50%);font-size:11px;line-height:1.2;max-width:18%}
   .cov{cursor:pointer;display:inline-block}
-  .cov .vv{background:var(--der);color:var(--der);border-radius:4px;padding:0 5px;font-weight:700;transition:.1s;color:var(--der)}
-  .cov.open .vv{background:#eff3ff;color:var(--der)}
+  .cov .vv{background:var(--der);color:var(--der);border:2px solid #fff;border-radius:6px;padding:2px 12px;font-weight:700;
+    transition:.1s;box-shadow:0 1px 5px #0005}
+  .cov.open .vv{background:#fff;color:var(--der);border-color:var(--der);padding:2px 8px}
   @media(max-width:620px){.lbl{font-size:9px;max-width:22%;padding:2px 3px}}
   .wlist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
   @media(max-width:620px){.wlist{grid-template-columns:1fr}}
@@ -168,7 +167,7 @@ const OBJ=[
 ];
 const stage=document.getElementById('stage');
 OBJ.forEach(o=>{const d=document.createElement('div');d.className='lbl der';d.style.left=o.x+'%';d.style.top=o.y+'%';
-  d.innerHTML=`<span class="ohint">${o.ru}</span><span class="cov" onclick="this.classList.toggle('open')"><b class="vv">${o.de}</b></span>`;stage.appendChild(d);});
+  d.innerHTML=`<span class="cov" onclick="this.classList.toggle('open')"><b class="vv">${o.de}</b></span>`;stage.appendChild(d);});
 function toggleCovers(btn){const cs=[...document.querySelectorAll('.cov')];const any=cs.some(c=>!c.classList.contains('open'));cs.forEach(c=>c.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть слова':'👁 Открыть все слова';}
 
 const WORDS=[
