@@ -182,7 +182,7 @@
     <h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
     <p class="sub">Дано слово по-русски — впиши его по-немецки с правильным артиклем (der …).</p>
     <div id="writeList"></div>
-    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
     <div class="score" id="wScore"></div>
   </div>
 
@@ -307,6 +307,7 @@ const WRITE=[['учитель','der Lehrer'],['пенсионер','der Rentner'
 document.getElementById('writeList').innerHTML=WRITE.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="der …" autocomplete="off"><span class="corr"></span></div>`).join('');
 function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v===norm(WRITE[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно</span>`;}
 function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
+function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=WRITE[i][1];r.classList.remove('bad');r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны правильные ответы</span>';}
 
 /* ---- вставь в текст ---- */
 const GAPPARTS=[

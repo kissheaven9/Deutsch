@@ -133,7 +133,7 @@
     <h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
     <p class="sub">Дано слово по-русски — впиши его по-немецки с артиклем (der …).</p>
     <div id="writeList"></div>
-    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
     <div class="score" id="wScore"></div>
   </div>
 
@@ -172,7 +172,7 @@ function toggleCovers(btn){const cs=[...document.querySelectorAll('.cov')];const
 
 const WORDS=[
   ['der','Stuhl','стул'],['der','Sessel','кресло'],['der','Tisch','стол'],['der','Schrank','шкаф'],['der','Teppich','ковёр'],['der','Spiegel','зеркало'],
-  ['der','Schlüssel','ключ(и)'],['der','Geldbeutel','кошелёк'],['der','Regenschirm','зонт'],['der','Kugelschreiber','шариковая ручка'],['der','Bleistift','карандаш'],['der','Föhn','фен'],
+  ['der','Schlüssel','ключ(и)'],['der','Geldbeutel','кошелёк'],['der','Regenschirm','зонт'],['der','Kugelschreiber','шариковая ручка'],['der','Bleistift','карандаш'],
   ['der','Kaffee','кофе'],['der','Euro','евро'],['der','Preis','цена'],['der','Cent','цент'],['der','Kunststoff','пластик'],
 ];
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
@@ -226,10 +226,11 @@ function matchReset(){renderMatch();}
 renderMatch();
 
 /* напиши с артиклем */
-const WRITE=[['ключи','der Schlüssel'],['кошелёк','der Geldbeutel'],['зонт','der Regenschirm'],['шариковая ручка','der Kugelschreiber'],['карандаш','der Bleistift'],['фен','der Föhn']];
+const WRITE=[['ключи','der Schlüssel'],['кошелёк','der Geldbeutel'],['зонт','der Regenschirm'],['шариковая ручка','der Kugelschreiber'],['карандаш','der Bleistift'],['кофе','der Kaffee']];
 document.getElementById('writeList').innerHTML=WRITE.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="der …" autocomplete="off"><span class="corr"></span></div>`).join('');
 function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v===norm(WRITE[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно</span>`;}
 function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
+function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=WRITE[i][1];r.classList.remove('bad');r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны правильные ответы</span>';}
 
 /* вставь в текст */
 const GAPPARTS=[
