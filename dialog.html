@@ -246,15 +246,18 @@ const N=Math.min(3,Math.max(1,parseInt(new URLSearchParams(location.search).get(
 const D=DIALOGS[N];
 document.title=D.title;
 const MARKS={
- 1:[{x:14,y:17,w:'der Mann',g:'der',dir:'r'},{x:43,y:23,w:'die Frau',g:'die',dir:'r'},{x:62,y:40,w:'das Kind',g:'das',dir:'l'},{x:84,y:42,w:'das Mädchen',g:'das',dir:'l'}],
- 2:[{x:13,y:16,w:'der Mann',g:'der',dir:'r'},{x:33,y:19,w:'die Frau',g:'die',dir:'r'},{x:57,y:29,w:'das Kind',g:'das',dir:'l'},{x:76,y:31,w:'das Mädchen',g:'das',dir:'l'},{x:27,y:54,w:'das Kind',g:'das',dir:'r'},{x:47,y:57,w:'das Mädchen',g:'das',dir:'l'}],
+ 1:[{x:14,y:21,w:'der Mann',g:'der',dir:'r'},{x:43,y:27,w:'die Frau',g:'die',dir:'r'},{x:67,y:46,w:'das Kind',g:'das',dir:'l'},{x:86,y:50,w:'das Mädchen',g:'das',dir:'l'}],
+ 2:[{x:13,y:16,w:'der Mann',g:'der',dir:'r'},{x:37,y:27,w:'die Frau',g:'die',dir:'r'},
+    {x:57,y:38,w:'sieben · 7 Finger',g:'das',dir:'l'},{x:76,y:40,w:'sechs · 6 Finger',g:'das',dir:'l'},
+    {x:27,y:62,w:'acht · 8 Finger',g:'das',dir:'r'},{x:47,y:65,w:'sieben · 7 Finger',g:'das',dir:'l'},{x:64,y:62,w:'zehn · 10 Finger',g:'das',dir:'l'},{x:82,y:62,w:'zehn · 10 Finger',g:'das',dir:'l'}],
  3:[{x:16,y:18,w:'der Mann',g:'der',dir:'r'},{x:44,y:21,w:'die Frau',g:'die',dir:'r'},{x:72,y:33,w:'das Kind',g:'das',dir:'l'},{x:88,y:37,w:'das Mädchen',g:'das',dir:'l'},{x:88,y:60,w:'das Tier · Mümmel',g:'das',dir:'l'},{x:30,y:10,w:'Italien 🇮🇹',g:'flag',dir:'r'},{x:42,y:8,w:'Schottland 🏴',g:'flag',dir:'r'},{x:55,y:9,w:'Österreich 🇦🇹',g:'flag',dir:'l'},{x:64,y:11,w:'Polen 🇵🇱',g:'flag',dir:'l'}]
 };
-const BANNER={2:'❓ Скажи по-немецки: сколько пальцев показывает каждый ребёнок? (eins, zwei, drei … zehn)'};
+const BANNER={2:'❓ Тапни точку на ребёнке — узнаешь, сколько пальцев он показывает по-немецки. Сначала скажи сам(а)!'};
 
 document.getElementById('app').innerHTML=`
   <h1>${D.title}</h1>
   <p class="lead">${D.sub} <span style="color:var(--muted)">Диалог ${N} из 3 · Тема 1</span></p>
+  <div class="scenenav" id="navTop"></div>
   <div class="stage" id="stage"><img src="${D.img}" alt="${D.title}">${BANNER[N]?`<div class="qbanner">${BANNER[N]}</div>`:''}</div>
   <p class="stagehint">Тапни точку на герое или предмете — откроется слово: <b style="color:var(--der)">der Mann</b>, <b style="color:var(--die)">die Frau</b>, <b style="color:var(--das)">das Kind</b> (цвет = род).</p>
 
@@ -309,10 +312,11 @@ const stage=document.getElementById('stage');
 function mk(m){const b=document.createElement('button');b.className='mk '+m.g+' dir-'+(m.dir||'l');b.style.left=m.x+'%';b.style.top=m.y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkw">${m.w}</span>`;stage.appendChild(b);}
 (MARKS[N]||[]).forEach(mk);
 
-// ---- nav ----
-document.getElementById('nav').innerHTML =
-  (N>1?`<a href="dialog.html?n=${N-1}">← Текст ${N-1}</a>`:`<a href="thema-01.html">← Тема 1</a>`)+
+// ---- nav (верх и низ) ----
+const navHtml=(N>1?`<a href="dialog.html?n=${N-1}">← Текст ${N-1}</a>`:`<a href="thema-01.html">← Тема 1</a>`)+
   (N<3?`<a href="dialog.html?n=${N+1}">Текст ${N+1} →</a>`:`<a href="thema-01.html">К теме 1 →</a>`);
+document.getElementById('nav').innerHTML=navHtml;
+document.getElementById('navTop').innerHTML=navHtml;
 
 // ---- вопросы ----
 document.getElementById('qa').innerHTML=D.qa.map((o,i)=>`<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${i+1}. ${o.q} <button class="lk2" onclick="tRu(this)">перевод</button></div><div class="qru" hidden>${o.ru}</div><input class="qin" placeholder="Ответь по-немецки…" autocomplete="off"><div class="qres"></div></div>`).join('');
