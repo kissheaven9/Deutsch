@@ -27,9 +27,12 @@ function _utterRole(text, role){ const u=new SpeechSynthesisUtterance(text); u.l
 // и НЕ продолжают прежний текст (баг: озвучка слова продолжала текст).
 let _q=[], _qi=0, _qBtn=null, _gen=0, _qRole='';
 let _sq=[], _sqi=0, _sqBtn=null;
+let _au=null, _auList=[], _aui=0, _auBtn=null, _auGen=0, _auFb=null;
 function _stopAll(){ _gen++; _q=[]; _qi=0; _sq=[]; _sqi=0;
+  _auGen++; try{ if(_au){ _au.pause(); _au.src=''; } }catch(e){} _au=null; _auList=[]; _aui=0;
   if(_qBtn){ _qBtn.textContent='🔊 Послушать'; _qBtn=null; }
   if(_sqBtn){ _sqBtn.textContent='🔊 Послушать'; _sqBtn=null; }
+  if(_auBtn){ _auBtn.textContent='🔊 Послушать'; _auBtn=null; }
   try{ window.speechSynthesis.cancel(); }catch(e){} }
 function _seq(){
   if(_qi>=_q.length){ if(_qBtn){ _qBtn.textContent='🔊 Послушать'; _qBtn=null; } return; }
@@ -54,6 +57,28 @@ function _seqRole(){
   u.onend=()=>{ if(my!==_gen) return; _sqi++; _seqRole(); };
   u.onerror=()=>{ if(my!==_gen) return; _sqi++; _seqRole(); };
   window.speechSynthesis.speak(u);
+}
+// проигрывание готовых аудиофайлов (живые нейроголоса); fallback=[{t,role}] на случай отсутствия файла
+function playSeq(urls, btn, fallback){
+  if(_au && _aui<_auList.length){
+    if(!_au.paused){ _au.pause(); if(btn) btn.textContent='▶ Продолжить'; return; }
+    _au.play(); if(btn) btn.textContent='⏸ Пауза'; return;
+  }
+  _stopAll();
+  if(!urls || !urls.length){ if(fallback) speakSequence(fallback, btn); return; }
+  _auGen++; _auList=urls; _aui=0; _auBtn=btn; _auFb=fallback||null; if(btn) btn.textContent='⏸ Пауза';
+  _auPlay();
+}
+function _auPlay(){
+  if(_aui>=_auList.length){ if(_auBtn){ _auBtn.textContent='🔊 Послушать'; _auBtn=null; } _au=null; return; }
+  const my=_auGen; _au=new Audio(_auList[_aui]);
+  _au.onended=()=>{ if(my!==_auGen) return; _aui++; _auPlay(); };
+  _au.onerror=()=>{ if(my!==_auGen) return;
+    const it=_auFb && _auFb[_aui];
+    if(it && it.t){ const u=_utterRole(it.t, it.role); u.onend=()=>{ if(my!==_auGen) return; _aui++; _auPlay(); }; u.onerror=u.onend; try{ window.speechSynthesis.speak(u); }catch(e){ _aui++; _auPlay(); } }
+    else { _aui++; _auPlay(); }
+  };
+  _au.play().catch(()=>{ if(_au && _au.onerror) _au.onerror(); });
 }
 // короткое слово — останавливает любой текст и говорит только слово
 function speak(text, role){
