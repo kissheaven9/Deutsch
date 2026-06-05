@@ -102,7 +102,7 @@ const Dict = (function(){
   function verbEntry(v){
     const [inf,ru,type,forms,pp]=v;
     const rows = forms.map((f,i)=>`<div class="row" onclick="speak('${(PRO[i].split('/')[0]+' '+f.replace(/ … /,' ')).replace(/'/g,"\\'")}')"><span class="pro">${PRO[i]}</span><span class="frm">${esc(f)}</span></div>`).join("");
-    const badge = type==="reg"?`<span class="vbadge reg">прав.</span>`:`<span class="vbadge irr">непр.</span>`;
+    const badge = type==="reg"?`<span class="em" title="правильный">✅</span>`:`<span class="em" title="неправильный">⚠️</span>`;
     const past = pp?`<div class="pastline"><span class="past" title="Прошедшее (Perfekt)" onclick="event.stopPropagation();speak('${('er '+pp.replace(/\\s*\\(.*\\)/,'')).replace(/'/g,"\\'")}')">⏪ Прошедшее (Perfekt): ${esc(pp)}</span></div>`:"";
     return `<div class="ventry g-verb"${tag(v._t)} data-de="${esc(inf.toLowerCase())}" data-ru="${esc(ru.toLowerCase())}">
       <div class="vhead" onclick="this.parentElement.classList.toggle('open')">
