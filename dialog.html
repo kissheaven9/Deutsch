@@ -331,8 +331,10 @@ function mk(m){const b=document.createElement('button');b.className='mk '+m.g+' 
 (MARKS[N]||[]).forEach(mk);
 
 // ---- nav (верх и низ) ----
-const navHtml=(N>1?`<a href="dialog.html?n=${N-1}">← Текст ${N-1}</a>`:`<a href="thema-01.html">← Тема 1</a>`)+
-  (N<3?`<a href="dialog.html?n=${N+1}">Текст ${N+1} →</a>`:`<a href="thema-01.html">К теме 1 →</a>`);
+const navHtml=
+  (N>1?`<a href="dialog.html?n=${N-1}">← Текст ${N-1}</a>`:'<span></span>')+
+  `<a href="thema-01.html" style="background:#f3e8ff;color:var(--accent)">⬆ К теме «Знакомство и семья»</a>`+
+  (N<3?`<a href="dialog.html?n=${N+1}">Текст ${N+1} →</a>`:'<span></span>');
 document.getElementById('nav').innerHTML=navHtml;
 document.getElementById('navTop').innerHTML=navHtml;
 

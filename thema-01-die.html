@@ -224,7 +224,7 @@ const WORDS=[
   ['die','Nationalität','национальность'],['die','Adresse','адрес'],['die','Straße','улица'],['die','Hausnummer','номер дома'],['die','Postleitzahl','индекс'],['die','Stadt','город'],['die','Telefonnummer','телефон'],['die','E-Mail','эл. почта'],
   ['die','Sprache','язык'],['die','Herkunft','происхождение'],['die','Firma','фирма'],['die','Partnerin','напарница'],['die','Visitenkarte','визитка'],['die','Musik','музыка'],
 ];
-document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="speak('${a} ${de}','female')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
+document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="playWord('${a} ${de}','female')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
 function toggleTransAll(btn){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));btn.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
 function deText(){return document.getElementById('deText').innerText;}
 
@@ -250,7 +250,7 @@ const CARDS=[
   {e:'🗣️',ru:'язык',de:'Sprache'},{e:'🪪',ru:'адрес',de:'Adresse'},{e:'📞',ru:'телефон',de:'Telefonnummer'},{e:'🏙️',ru:'город',de:'Stadt'},{e:'🌍',ru:'национальность',de:'Nationalität'},
 ];
 let ci=0,flipped=false;
-function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">die</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();speak('die ${c.de}','female')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">die</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();playWord('die ${c.de}','female')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
 function flip(){flipped=!flipped;renderCard();}
 function cardNext(){ci=(ci+1)%CARDS.length;flipped=false;renderCard();}
 function cardPrev(){ci=(ci-1+CARDS.length)%CARDS.length;flipped=false;renderCard();}

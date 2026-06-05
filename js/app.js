@@ -80,6 +80,17 @@ function _auPlay(){
   };
   _au.play().catch(()=>{ if(_au && _au.onerror) _au.onerror(); });
 }
+// слаг для имени аудиофайла слова (совпадает с генератором tools/gen_audio.py)
+function _slug(s){ return String(s).toLowerCase()
+  .replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss')
+  .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
+// слово голосом героя: живой файл если есть, иначе браузерный голос с тембром роли
+function playWord(text, role){
+  _stopAll();
+  const my=++_auGen, a=new Audio('audio/word/'+_slug(text)+'.mp3'); _au=a;
+  a.onerror=()=>{ if(my!==_auGen) return; _au=null; speak(text, role); };
+  a.play().catch(()=>{ if(my!==_auGen) return; _au=null; speak(text, role); });
+}
 // короткое слово — останавливает любой текст и говорит только слово
 function speak(text, role){
   try{ _stopAll(); window.speechSynthesis.speak(_utterRole(text, role||'')); }
