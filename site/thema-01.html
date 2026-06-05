@@ -11,8 +11,9 @@
   .muted{color:var(--muted);font-size:13px}
   .lk{font-weight:600;font-size:11px;background:#f3f4f6;color:#374151;border-radius:6px;padding:1px 6px}
   /* строки рода: фото слева, слова справа */
-  .grow{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
-  .grow .gphoto{width:150px;height:150px;object-fit:cover;border-radius:12px;flex:none;background:#f1f5f9}
+  .grow{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-left-width:5px;border-radius:14px;padding:14px;margin:12px 0}
+  .grow.der{border-left-color:var(--der)} .grow.die{border-left-color:var(--die)} .grow.das{border-left-color:var(--das)}
+  .grow .gphoto{width:180px;height:200px;object-fit:contain;border-radius:12px;flex:none;background:#f8fafc}
   .grow .ginfo{flex:1;min-width:0;display:flex;flex-direction:column}
   .grow .ghead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:16px}
   .grow .gloves{font-size:12px;color:var(--muted)}
@@ -86,13 +87,13 @@
   </div>
 
   <div class="grow das">
-    <div class="gph-ph">🧒</div>
+    <img class="gphoto" src="img/teo-main.png" alt="Тео и Lina" style="object-position:50% 20%">
     <div class="ginfo">
-      <div class="ghead"><span class="pill das">das</span> <b>Тео и Миа</b> <span class="gloves">только с <b>das</b></span></div>
+      <div class="ghead"><span class="pill das">das</span> <b>Тео и Lina</b> <span class="gloves">только с <b>das</b></span></div>
       <div class="words">
-        <span class="w">Kind</span><span class="w">Jahr</span><span class="w">Alter</span><span class="w">Land</span><span class="w">Gespräch</span><span class="w">Alphabet</span><span class="w">Interview</span><span class="w">Rätsel</span><span class="w">Studium</span><span class="w">Praktikum</span><span class="w">Tier</span><span class="w">Fest</span><span class="w">Enkelkind</span><span class="w">Mitglied</span>
+        <span class="w">Kind</span><span class="w">Mädchen</span><span class="w">Jahr</span><span class="w">Alter</span><span class="w">Land</span><span class="w">Gespräch</span><span class="w">Alphabet</span><span class="w">Interview</span><span class="w">Rätsel</span><span class="w">Studium</span><span class="w">Praktikum</span><span class="w">Tier</span><span class="w">Fest</span><span class="w">Enkelkind</span><span class="w">Mitglied</span>
       </div>
-      <span class="go soon">Сцена Тео — скоро</span>
+      <a class="go" href="thema-01-das.html">▶ Начать изучение →</a>
     </div>
   </div>
 
@@ -155,7 +156,7 @@ const TR={
   Lehrerin:"учительница",Ärztin:"врач (ж)",Studentin:"студентка",Krankenschwester:"медсестра",
   Nationalität:"национальность",Adresse:"адрес",Straße:"улица",Hausnummer:"номер дома",Postleitzahl:"индекс",Stadt:"город",Telefonnummer:"телефон",Nummer:"номер","E-Mail":"эл. почта",Visitenkarte:"визитка",Information:"информация",
   Köchin:"повар",Sängerin:"певица",Friseurin:"парикмахер (ж)",Verkäuferin:"продавщица",Rentnerin:"пенсионерка",Musik:"музыка",
-  Kind:"ребёнок",Jahr:"год",Alter:"возраст",Land:"страна",Gespräch:"разговор",Alphabet:"алфавит",Interview:"интервью",Rätsel:"загадка",Studium:"учёба (в вузе)",Praktikum:"практика",Tier:"животное",Fest:"праздник",Enkelkind:"внук / внучка",Mitglied:"член (группы)"
+  Kind:"ребёнок",Mädchen:"девочка",Jahr:"год",Alter:"возраст",Land:"страна",Gespräch:"разговор",Alphabet:"алфавит",Interview:"интервью",Rätsel:"загадка",Studium:"учёба (в вузе)",Praktikum:"практика",Tier:"животное",Fest:"праздник",Enkelkind:"внук / внучка",Mitglied:"член (группы)"
 };
 document.querySelectorAll('.grow .w').forEach(w=>{
   const de=w.textContent.trim(); w.dataset.de=de; w.title='нажми — перевод';

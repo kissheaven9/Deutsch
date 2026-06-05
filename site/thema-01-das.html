@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Тема 1 · das → Тео и Lina: я и дети</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  h1{font-size:30px}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
+  .ic{border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer;font-size:14px;padding:7px 10px}
+  .ic:active{background:#f3f4f6}
+  .part{display:flex;align-items:center;gap:14px;margin:34px 0 14px;padding:14px 18px;border-radius:16px;border:1px solid var(--line)}
+  .part .pico{font-size:30px;line-height:1}
+  .part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .part h2{margin:2px 0 0;font-size:24px}
+  .part.read{background:#f1f5f9} .part.text{background:#faf5ff} .part.train{background:#f3e8ff;border-color:#e9d5ff}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:18px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:#f0fdf4;border-bottom:1px solid #bbf7d0;border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700;flex:none}
+  .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
+  .stage img{width:100%;height:auto;display:block}
+  .mk{position:absolute;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;
+    background:var(--das);border:2px solid #fff;box-shadow:0 1px 4px #0007;cursor:pointer;padding:0;z-index:2;display:flex;align-items:center;justify-content:center}
+  .mk:active{filter:brightness(1.15)}
+  .mk .mkw{display:none;position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;
+    background:#fff;border:2px solid var(--das);color:#15803d;font-weight:700;font-size:12px;border-radius:8px;padding:3px 8px;box-shadow:0 2px 8px #0005}
+  .mk.open{z-index:5} .mk.open .mkw{display:block}
+  .mk.dir-l .mkw{right:135%} .mk.dir-r .mkw{left:135%}
+  .wlist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  @media(max-width:620px){.wlist{grid-template-columns:1fr}}
+  .wrow{display:flex;align-items:center;gap:8px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:9px;padding:6px 8px}
+  .wrow .de{font-weight:700;color:var(--das);font-size:15px}
+  .wrow .de .art{opacity:.7}
+  .wrow .ru{color:#374151;font-size:13px;flex:1;text-align:right}
+  .wrow.noru .ru{visibility:hidden;position:relative}
+  .wrow.noru .ru::after{content:"·····";position:absolute;right:0;color:#9ca3af;visibility:visible}
+  .de-block{color:var(--ink);font-weight:500;line-height:1.7;margin:0 0 14px}
+  .ru-block{color:#374151;line-height:1.7;margin:0}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .qcard{border:1px solid var(--line);border-radius:12px;background:#fff;margin:8px 0;overflow:hidden}
+  .qcard>summary{cursor:pointer;padding:11px 14px;font-weight:700;color:var(--das);list-style:none;display:flex;justify-content:space-between}
+  .qcard>summary::-webkit-details-marker{display:none}
+  .qbody{padding:2px 14px 12px}
+  .q{border-top:1px solid var(--line);padding:9px 0}
+  .qq{font-weight:600;color:var(--ink);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .lk2{border:none;background:#f3e8ff;color:var(--accent);border-radius:7px;font-size:12px;padding:2px 8px;cursor:pointer}
+  .qru{color:var(--muted);font-size:13px;margin:3px 0}
+  .qact{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+  .qin{flex:1;min-width:150px;border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:14px;font-family:inherit}
+  .qin:focus{outline:none;border-color:var(--accent)}
+  .btn.sm{padding:7px 11px;font-size:13px}
+  .exb{background:var(--das);color:#fff;border-radius:6px;font-size:11px;padding:1px 7px}
+  .qres{margin-top:5px;font-size:14px;font-weight:600}
+  .cardwrap{max-width:380px;margin:0 auto}
+  .card{background:#fff;border:2px solid var(--das);border-radius:16px;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer;transition:.12s}
+  .card:active{transform:scale(.99)} .card.back{background:#e8f6ee}
+  .c-emoji{font-size:52px;line-height:1} .c-text{font-size:25px;font-weight:700;color:var(--ink)}
+  .card.back .c-text{color:var(--das)} .c-text .art{opacity:.7} .c-hint{font-size:12px;color:var(--muted)}
+  .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
+  .cnav #cCount{color:var(--muted);font-weight:600}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
+  .mchip.de{font-weight:700;color:var(--das)} .mchip.sel{border-color:var(--accent);background:#f3e8ff}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .ru{min-width:130px;color:#374151}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:140px}
+  .wq input:focus{outline:none;border-color:var(--accent)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .gap{line-height:2.4;font-size:16px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .gap input{border:none;border-bottom:2px solid var(--das);width:140px;font-size:15px;font-family:inherit;text-align:center;color:var(--das);font-weight:700}
+  .gap input:focus{outline:none;background:#e8f6ee} .gap .hint{color:var(--muted);font-size:12px}
+  .score{font-weight:700;margin-top:8px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ <a href="thema-01.html">Тема 1</a> / <b style="color:var(--das)">das → Тео и Lina</b></span></div></header>
+<main class="wrap">
+  <h1><span class="pill das">das</span> &nbsp;Тео-почемучка и дети</h1>
+  <p class="lead">Любопытный Тео знакомит с детьми: у каждого свой возраст и страна. «Ребёнок» = das Kind, «девочка» = das Mädchen — всё среднего рода. Тапни зелёную точку на ребёнке — узнаешь, кто это, сколько лет и откуда. <a href="thema-01-der.html" style="color:var(--der)">der</a> · <a href="thema-01-die.html" style="color:var(--die)">die</a></p>
+
+  <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Изучение</h2></div></div>
+
+  <div class="panel">
+    <h3>🖼 Тео и дети</h3>
+    <p class="sub">У каждого ребёнка — зелёная точка. Тап: das Kind / das Mädchen · возраст · страна.</p>
+    <div class="bar"><button class="ic" onclick="toggleCovers(this)">👁 Открыть все</button></div>
+    <div class="stage" id="stage"><img src="img/teo-szene-1.png" alt="Тео и дети"></div>
+  </div>
+
+  <div class="panel">
+    <h3>🔤 Слова сцены <span class="pill das" style="font-size:12px;padding:3px 9px">das</span></h3>
+    <div class="bar"><button class="ic" id="trBtn" onclick="toggleTransAll(this)">🙈 Скрыть переводы</button><span style="color:var(--muted);font-size:13px">🔊 — послушать · 👁 — скрыть перевод</span></div>
+    <div class="wlist" id="wlist"></div>
+  </div>
+
+  <div class="panel">
+    <h3>📜 Текст</h3>
+    <div class="bh">Deutsch (A1 · L1–L3) <button class="ic" onclick="toggleSpeak(deText(), this)">🔊 Послушать</button></div>
+    <p class="de-block" id="deText">Hallo, hallo! Ich heiße Theo. Ich bin sieben Jahre alt. Ich wohne in Deutschland — Deutschland ist mein Land. Ich bin ein Kind. Ich lerne das Alphabet und buchstabiere: T-H-E-O — Theo!<br><br>
+    Ich frage immer: „Was ist das? Wer ist das? Wie alt bist du? Woher kommst du?“ Das ist ein Interview! Ich mache ein Interview und ein Gespräch — und ein Rätsel ist auch gut.<br><br>
+    Ich frage Lina. Lina ist ein Mädchen. Sie ist sechs Jahre alt. „Lina, was machst du? Warum sagst du nichts?“ Aber Lina sagt nichts. Das ist ein Rätsel!<br><br>
+    Wir sind sechs Kinder! Noah ist ein Kind. Er ist sieben Jahre alt, wie ich, und kommt aus Polen. Ben ist auch ein Kind. Er ist acht Jahre alt und kommt aus Österreich. Emil ist ein Kind. Er ist fünf Jahre alt, klein, und kommt aus Deutschland. Lea ist ein Mädchen. Sie ist zehn Jahre alt und kommt aus Italien. Alle Kinder haben ein Alter, und alle haben ein Land!<br><br>
+    Wir haben auch ein Tier. Wie heißt das Tier? Das ist ein Rätsel... Es heißt Mümmel!<br><br>
+    Ich bin auch ein Enkelkind. Bald ist ein Fest — und das ist schön! Dann bin ich acht.</p>
+    <div class="bh">Русский</div>
+    <p class="ru-block">Привет, привет! Меня зовут Тео. Мне семь лет. Я живу в Германии — Германия моя страна. Я ребёнок. Учу алфавит и говорю по буквам: T-H-E-O — Тео!<br><br>
+    Я всё время спрашиваю: «Что это? Кто это? Сколько тебе лет? Откуда ты?» Это интервью! Беру интервью и завожу разговор — а загадки тоже хорошо.<br><br>
+    Спрашиваю Lina. Lina — девочка. Ей шесть лет. «Lina, что ты делаешь? Почему молчишь?» А Lina молчит. Вот загадка!<br><br>
+    Нас шестеро детей! Noah — ребёнок. Ему семь, как мне, и он из Польши. Ben тоже ребёнок. Ему восемь, он из Австрии. Emil — ребёнок. Ему пять, он маленький, из Германии. Lea — девочка. Ей десять, она из Италии. У всех детей есть возраст, и у всех есть страна!<br><br>
+    А ещё у нас есть зверёк. Как его зовут? Это загадка… Его зовут Mümmel!<br><br>
+    Я ещё и внук. Скоро праздник — и это здорово! Тогда мне будет восемь.</p>
+  </div>
+
+  <div class="part text"><span class="pico">💬</span><div><div class="pk">Часть 2</div><h2>Работа с текстом</h2></div></div>
+  <div class="panel">
+    <h3>❓ Вопросы по тексту</h3>
+    <p class="sub">Прочитай вопрос (перевод — по кнопке), впиши ответ и проверь себя.</p>
+    <div id="exercise"></div>
+  </div>
+
+  <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова</h2></div></div>
+
+  <div class="panel">
+    <h3><span class="exnum">1</span>🃏 Карточки — тренировка</h3>
+    <p class="sub">Картинка и русское слово — вспомни немецкое, нажми, чтобы перевернуть. Листай ← →.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-emoji" id="cEmoji"></div><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="exnum">2</span>🔗 Соотнеси: немецкое ↔ русское</h3>
+    <p class="sub">Нажми немецкое слово, потом перевод — пара окрасится в свой цвет. Выбор можно менять.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="matchReset()">Попробовать ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
+    <p class="sub">Дано слово по-русски — впиши его по-немецки с артиклем (das …).</p>
+    <div id="writeList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="exnum">4</span>🧩 Вставь слово в текст</h3>
+    <p class="sub">По смыслу понятно, какое слово пропущено — впиши его по-немецки.</p>
+    <div class="gap" id="gap"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapReset()">Ещё раз</button></div>
+    <div class="score" id="gScore"></div>
+  </div>
+
+  <div class="note">Сцена 1 сериала про Тео (das, L1–L3). Текст утверждён (авторский чат). Канон — data/story/teo-bible.md. Подружка — Lina (das Mädchen). Позиции точек правятся легко — скажи, если съехало.</div>
+</main>
+<footer>Deutsch A1 · Тема 1 · das → Тео и Lina · я и дети</footer>
+
+<script src="js/app.js"></script>
+<script>
+function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß0-9]/g,'');}
+/* ---- метки на детях: das Kind/Mädchen · возраст · страна ---- */
+const stage=document.getElementById('stage');
+function mk(x,y,word,dir){const b=document.createElement('button');b.className='mk dir-'+(dir||'l');b.style.left=x+'%';b.style.top=y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkw">${word}</span>`;stage.appendChild(b);}
+mk(48,40,'Theo · das Kind · 7 · Deutschland','l');
+mk(67,46,'Lina · das Mädchen · 6','l');
+mk(12,46,'Noah · das Kind · 7 · Polen','r');
+mk(30,32,'Ben · das Kind · 8 · Österreich','r');
+mk(27,64,'Emil · das Kind · 5 · Deutschland','r');
+mk(87,40,'Lea · das Mädchen · 10 · Italien','l');
+function toggleCovers(btn){const ms=[...document.querySelectorAll('.mk')];const any=ms.some(m=>!m.classList.contains('open'));ms.forEach(m=>m.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть':'👁 Открыть все';}
+
+/* ---- слова сцены (das) ---- */
+const WORDS=[
+  ['das','Kind','ребёнок'],['das','Mädchen','девочка'],['das','Alter','возраст'],['das','Jahr','год'],['das','Land','страна'],
+  ['das','Alphabet','алфавит'],['das','Gespräch','разговор'],['das','Interview','интервью'],['das','Rätsel','загадка'],
+  ['das','Tier','зверёк / животное'],['das','Fest','праздник'],['das','Enkelkind','внук / внучка'],
+];
+document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="speak('${a} ${de}')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
+function toggleTransAll(btn){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));btn.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
+function deText(){return document.getElementById('deText').innerText;}
+
+/* ---- вопросы ---- */
+const QA=[
+  {q:'Wie heißt der Junge mit dem Buch?',ru:'Как зовут мальчика с книгой?',a:'Er heißt Theo.',k:'theo'},
+  {q:'Wie alt ist Theo?',ru:'Сколько Тео лет?',a:'Er ist sieben Jahre alt.',k:'sieben'},
+  {q:'Woher kommt Noah?',ru:'Откуда Noah?',a:'Er kommt aus Polen.',k:'polen'},
+  {q:'Wie alt ist Ben?',ru:'Сколько Ben лет?',a:'Er ist acht Jahre alt.',k:'acht'},
+  {q:'Woher kommt Lea?',ru:'Откуда Lea?',a:'Sie kommt aus Italien.',k:'italien'},
+  {q:'Was ist Lina?',ru:'Кто такая Lina?',a:'Lina ist ein Mädchen.',k:'mädchen'},
+];
+document.getElementById('exercise').innerHTML=QA.map((o,i)=>{const ex=(i===0);return `<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${o.q} <button class="lk2" onclick="toggleRu(this)">${ex?'Скрыть перевод':'Показать перевод'}</button>${ex?' <span class="exb">пример</span>':''}</div><div class="qru" ${ex?'':'hidden'}>${o.ru}</div><div class="qact"><input class="qin" placeholder="Ответь по-немецки…" value="${ex?o.a:''}"><button class="btn sm" onclick="checkAns(this)">Проверить</button><button class="btn sm" onclick="showAns(this)">Показать ответ</button></div><div class="qres" style="${ex?'color:var(--das)':''}">${ex?'✓ Пример — так отвечаем. Дальше сам(а).':''}</div></div>`;}).join('');
+function toggleRu(btn){const ru=btn.closest('.q').querySelector('.qru');ru.hidden=!ru.hidden;btn.textContent=ru.hidden?'Показать перевод':'Скрыть перевод';}
+function checkAns(btn){const q=btn.closest('.q'),inp=q.querySelector('.qin'),res=q.querySelector('.qres');const ok=norm(inp.value).length>0&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=ok?'var(--das)':'var(--die)';res.style.color=ok?'var(--das)':'var(--die)';res.textContent=ok?'✓ Верно!':'✗ Пока не то — попробуй ещё или открой ответ.';}
+function showAns(btn){const q=btn.closest('.q');q.querySelector('.qres').innerHTML='<span style="color:var(--accent)">Ответ: '+q.dataset.ans+'</span>';}
+
+/* ---- карточки ---- */
+const CARDS=[
+  {e:'👦',ru:'ребёнок',de:'Kind'},{e:'👧',ru:'девочка',de:'Mädchen'},{e:'🎂',ru:'возраст',de:'Alter'},{e:'📅',ru:'год',de:'Jahr'},{e:'🗺️',ru:'страна',de:'Land'},
+  {e:'🔤',ru:'алфавит',de:'Alphabet'},{e:'💬',ru:'разговор',de:'Gespräch'},{e:'🎤',ru:'интервью',de:'Interview'},{e:'❓',ru:'загадка',de:'Rätsel'},
+  {e:'🐰',ru:'зверёк',de:'Tier'},{e:'🎉',ru:'праздник',de:'Fest'},{e:'👶',ru:'внук',de:'Enkelkind'},
+];
+let ci=0,flipped=false;
+function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">das</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();speak('das ${c.de}')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%CARDS.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+CARDS.length)%CARDS.length;flipped=false;renderCard();}
+renderCard();
+
+/* ---- соотнеси ---- */
+const MATCH=[['das Kind','ребёнок'],['das Mädchen','девочка'],['das Alter','возраст'],['das Jahr','год'],['das Land','страна'],['das Tier','зверёк']];
+const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let selDe=null,links={},colorOf={},nextC=0;
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,color){if(!el)return;el.querySelector('.dot')?.remove();if(color){el.style.background=color+'22';el.style.borderColor=color;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${color}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MATCH.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MATCH.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MATCH[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';}
+function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const owner=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,owner!==undefined?colorOf[owner]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){let ok=0;MATCH.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MATCH.length?'var(--das)':'var(--die)'}">${ok} / ${MATCH.length} верно${ok===MATCH.length?' 🎉':' — поправь пары и проверь ещё раз'}</span>`;}
+function matchReset(){renderMatch();}
+renderMatch();
+
+/* ---- напиши ---- */
+const WRITE=[['интервью','das Interview'],['разговор','das Gespräch'],['загадка','das Rätsel'],['алфавит','das Alphabet'],['праздник','das Fest'],['внук','das Enkelkind']];
+document.getElementById('writeList').innerHTML=WRITE.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="das …" autocomplete="off"><span class="corr"></span></div>`).join('');
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v===norm(WRITE[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно</span>`;}
+function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
+function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=WRITE[i][1];r.classList.remove('bad');r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны правильные ответы</span>';}
+
+/* ---- вставь в текст ---- */
+const GAPPARTS=[
+  {t:'Theo ist ein '},{a:'Kind',h:'ребёнок'},{t:'. Lina ist ein '},{a:'Mädchen',h:'девочка'},{t:'. Theo lernt das '},{a:'Alphabet',h:'алфавит'},{t:'. '},
+  {t:'Er macht ein '},{a:'Interview',h:'интервью'},{t:' und fragt alle. Jedes Kind hat ein '},{a:'Alter',h:'возраст'},{t:' und ein '},{a:'Land',h:'страна'},{t:'. Bald ist ein '},{a:'Fest',h:'праздник'},{t:'!'},
+];
+const GANS=GAPPARTS.filter(p=>p.a).map(p=>p.a);
+let gk=0;
+document.getElementById('gap').innerHTML=GAPPARTS.map(p=> p.t!==undefined ? p.t : `<input data-i="${gk++}" placeholder="…" autocomplete="off"><span class="hint"> (${p.h})</span>`).join('');
+function gapCheck(){let ok=0;document.querySelectorAll('#gap input').forEach((inp,idx)=>{const good=norm(inp.value)===norm(GANS[idx]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('gScore').innerHTML=`<span style="color:${ok===GANS.length?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${ok===GANS.length?' 🎉':''}</span>`;}
+function gapReset(){document.querySelectorAll('#gap input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--das)';i.style.color='var(--das)';});document.getElementById('gScore').textContent='';}
+</script>
+</body>
+</html>
