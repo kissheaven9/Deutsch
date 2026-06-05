@@ -195,33 +195,36 @@ const Dict = (function(){
       return out;
     }
     function exportPDF(){
+      if(!window.html2pdf){ alert("PDF-модуль не загрузился (нужен интернет при первом разе). Обнови страницу и попробуй ещё раз."); return; }
       const der=grab('.entry.der'),die=grab('.entry.die'),das=grab('.entry.das'),verbs=grab('.ventry',true),other=grab('.pair');
       const themeTitle = themes.length===1 ? themes[0].title : "все темы";
       const activeG=root.querySelector('.chip[data-f][aria-pressed="true"]');
       const gLabel=activeG?activeG.textContent.trim():"Все";
-      const tbl=(title,rows,g)=>{ if(!rows.length) return "";
-        const trs=rows.map(r=>`<tr class="${g||""}"><td class="art">${esc(r.art)}</td><td class="de">${esc(r.de)}</td><td class="ru">${esc(r.ru)}</td><td class="pp">${esc(r.pp)}</td></tr>`).join("");
-        return `<h2>${esc(title)}</h2><table>${trs}</table>`; };
-      const body = tbl("Мужской род — der",der,"der")+tbl("Женский род — die",die,"die")+tbl("Средний род — das",das,"das")+tbl("Глаголы",verbs,"")+tbl("Другое",other,"");
-      const html=`<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Словарь A1</title><style>
-        body{font-family:-apple-system,"Inter",Arial,sans-serif;color:#1f2937;padding:24px;max-width:760px;margin:auto}
-        h1{font-size:22px;margin:0} .sub{color:#6b7280;margin:2px 0 14px;font-size:13px}
-        h2{font-size:15px;margin:18px 0 6px;border-bottom:2px solid #e5e7eb;padding-bottom:4px}
-        table{width:100%;border-collapse:collapse} td{padding:4px 8px;border-bottom:1px solid #eee;font-size:14px}
-        .art{width:46px;font-weight:700} tr.der .art{color:#2563EB} tr.die .art{color:#DC2626} tr.das .art{color:#16A34A}
-        .de{font-weight:600} .ru{color:#6b7280} .pp{color:#c2410c;font-size:12px;white-space:nowrap}
-        .howto{background:#f3e8ff;color:#5b21b6;border:1px solid #e9d5ff;border-radius:10px;padding:10px 14px;margin:0 0 14px;font-size:13px;line-height:1.5}
-        @media print{body{padding:0}.howto{display:none}}
-      </style></head><body>
-        <div class="howto">📄 <b>Как сохранить файл:</b> в открывшемся окне печати в поле «Принтер» / «Destination» выбери <b>«Сохранить как PDF» (Save as PDF)</b> и нажми «Сохранить». Это и есть скачивание PDF (в самом PDF этой подсказки не будет).</div>
-        <h1>Словарь немецкого A1 — ${esc(themeTitle)}</h1>
-        <div class="sub">Раздел: ${esc(gLabel)} · для самостоятельной учёбы</div>
-        ${body||"<p>Нет слов для выгрузки.</p>"}
-        <script>window.onload=function(){setTimeout(function(){window.print();},200);};<\/script>
-      </body></html>`;
-      const w=window.open("","_blank");
-      if(!w){ alert("Разрешите всплывающие окна, чтобы сохранить PDF."); return; }
-      w.document.write(html); w.document.close();
+      const total=der.length+die.length+das.length+verbs.length+other.length;
+      const col=(t,c,rows)=> rows.length? `<div class="col"><div class="ch" style="color:${c};border-color:${c}55">${t} · ${rows.length}</div>${rows.map(r=>`<div class="r"><b style="color:${c}">${esc(r.art)}</b><span>${esc(r.de)}</span><i>${esc(r.ru)}</i></div>`).join("")}</div>`:"";
+      const nouns=[col("der","#2563EB",der),col("die","#DC2626",die),col("das","#16A34A",das)].filter(Boolean).join("");
+      const list2=(t,c,rows,withPp)=> rows.length? `<div class="ch" style="color:${c};border-color:${c}55">${t} · ${rows.length}</div><div class="g2">${rows.map(r=>`<div class="r"><span>${esc(r.de)}</span><i>${esc(r.ru)}${withPp&&r.pp?' · '+esc(r.pp):''}</i></div>`).join("")}</div>`:"";
+      const el=document.createElement('div');
+      el.innerHTML=`<style>
+        .pdfdoc{font-family:"Inter",Arial,sans-serif;color:#1f2937;width:760px;padding:4px 6px;box-sizing:border-box}
+        .pdfdoc h1{font-size:17px;margin:0} .pdfdoc .sub{color:#6b7280;font-size:11px;margin:1px 0 8px}
+        .pdfdoc .cols{display:flex;gap:14px;align-items:flex-start} .pdfdoc .col{flex:1;min-width:0}
+        .pdfdoc .ch{font-weight:800;font-size:12px;margin:9px 0 3px;border-bottom:1.5px solid #e5e7eb;padding-bottom:2px}
+        .pdfdoc .r{font-size:11px;padding:1px 0;display:flex;gap:4px;align-items:baseline;break-inside:avoid}
+        .pdfdoc .r b{min-width:22px;font-weight:700} .pdfdoc .r span{font-weight:600} .pdfdoc .r i{color:#6b7280;font-style:normal;margin-left:auto;text-align:right;padding-left:6px}
+        .pdfdoc .g2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+      </style><div class="pdfdoc">
+        <h1>Словарь A1 — ${esc(themeTitle)}</h1>
+        <div class="sub">Раздел: ${esc(gLabel)} · ${total} слов · для самостоятельной учёбы</div>
+        ${nouns?`<div class="cols">${nouns}</div>`:""}
+        ${list2("Глаголы","#a16207",verbs,true)}
+        ${list2("Другое","#6D28D9",other,false)}
+      </div>`;
+      el.style.cssText="position:fixed;left:-10000px;top:0";
+      document.body.appendChild(el);
+      const opt={margin:[8,8,10,8],filename:`slovar-${themeTitle}-${gLabel}.pdf`,image:{type:'jpeg',quality:0.97},
+        html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}};
+      html2pdf().set(opt).from(el.firstElementChild.nextElementSibling||el).save().then(()=>el.remove()).catch(()=>el.remove());
     }
   }
 
