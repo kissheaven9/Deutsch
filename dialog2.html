@@ -135,10 +135,10 @@ const DIALOGS={
      {q:'Welche Farbe hat der Sessel?',ru:'Какого цвета кресло?',a:'Der Sessel ist rot.',k:'rot'},
      {q:'Aus welchem Material ist die Lampe?',ru:'Из какого материала лампа?',a:'Die Lampe ist aus Glas.',k:'glas'},
      {q:'Wie viel kostet die Lampe?',ru:'Сколько стоит лампа?',a:'Die Lampe kostet neun Euro.',k:'neun'}],
-   match:[['der Tisch','стол'],['der Spiegel','зеркало'],['der Sessel','кресло'],['die Lampe','лампа'],['die Tasche','сумка'],['das Bett','кровать']],
-   sort:[['Tisch','der'],['Spiegel','der'],['Sessel','der'],['Schrank','der'],['Lampe','die'],['Tasche','die'],['Uhr','die'],['Bett','das'],['Regal','das'],['Bild','das']],
-   write:[['стол','der Tisch'],['зеркало','der Spiegel'],['кресло','der Sessel'],['лампа','die Lampe'],['сумка','die Tasche'],['кровать','das Bett']],
-   verbs:[['sein','быть'],['haben','иметь'],['kosten','стоить'],['finden','находить / считать'],['sehen','видеть'],['kommen','приходить']]
+   match:[['der Tisch','стол'],['der Spiegel','зеркало'],['die Lampe','лампа'],['die Tasche','сумка'],['das Bett','кровать'],['das Regal','полка']],
+   sort:[['Tisch','der'],['Spiegel','der'],['Sessel','der'],['Lampe','die'],['Tasche','die'],['Uhr','die'],['Bett','das'],['Regal','das'],['Bild','das']],
+   write:[['стол','der Tisch'],['зеркало','der Spiegel'],['лампа','die Lampe'],['сумка','die Tasche'],['кровать','das Bett'],['полка','das Regal']],
+   verbs:[['haben','иметь'],['sein','быть'],['sehen','видеть']]
  },
  2:{ title:'Текст 2 — Грета в гостях у Carla', img:'img/dialog2-2.png',
    sub:'Грета у соседки Carla смотрит её вещи: цена, материал, цвета, оценка. Рода вперемешку (der/die/das). L4–L5.',
@@ -180,10 +180,10 @@ const DIALOGS={
      {q:'Wie viel kostet der Spiegel?',ru:'Сколько стоит зеркало?',a:'Der Spiegel kostet neunundneunzig Euro.',k:'neunundneunzig'},
      {q:'Wie viel kostet die Lampe?',ru:'Сколько стоит лампа?',a:'Die Lampe kostet neun Euro.',k:'neun'},
      {q:'Wie ist der Sessel?',ru:'Какое кресло?',a:'Der Sessel ist neu, rot und praktisch.',k:'neu'}],
-   match:[['der Tisch','стол'],['der Spiegel','зеркало'],['die Lampe','лампа'],['die Tasche','сумка'],['das Sofa','диван'],['das Regal','полка']],
-   sort:[['Tisch','der'],['Stuhl','der'],['Spiegel','der'],['Sessel','der'],['Lampe','die'],['Tasche','die'],['Uhr','die'],['Sofa','das'],['Regal','das'],['Buch','das']],
-   write:[['стол','der Tisch'],['зеркало','der Spiegel'],['лампа','die Lampe'],['сумка','die Tasche'],['диван','das Sofa'],['полка','das Regal']],
-   verbs:[['kosten','стоить'],['finden','находить / считать'],['sein','быть'],['haben','иметь'],['sehen','видеть']]
+   match:[['der Schrank','шкаф'],['der Stuhl','стул'],['die Brille','очки'],['die Flasche','бутылка'],['das Sofa','диван'],['das Buch','книга']],
+   sort:[['Schrank','der'],['Stuhl','der'],['Schlüssel','der'],['Brille','die'],['Kette','die'],['Flasche','die'],['Sofa','das'],['Buch','das'],['Auto','das']],
+   write:[['шкаф','der Schrank'],['стул','der Stuhl'],['очки','die Brille'],['бутылка','die Flasche'],['диван','das Sofa'],['книга','das Buch']],
+   verbs:[['finden','находить / считать'],['kosten','стоить']]
  },
  3:{ title:'Текст 3 — Otto делает онлайн-покупки', img:'img/dialog2-3.png',
    sub:'Otto смотрит онлайн-магазин и рассказывает, что увидел: цена, скидка, цвет, материал. Рода вперемешку (der/die/das). L4–L5.',
@@ -194,10 +194,10 @@ const DIALOGS={
      {q:'Wie viel kostet der Geldbeutel?',ru:'Сколько стоит кошелёк?',a:'Der Geldbeutel kostet fünf Euro.',k:'fünf'},
      {q:'Aus welchem Material ist das Taschentuch?',ru:'Из какого материала салфетки?',a:'Das Taschentuch ist aus Papier.',k:'papier'},
      {q:'Was ist zu teuer?',ru:'Что слишком дорогое?',a:'Der Schrank ist zu teuer.',k:'schrank'}],
-   match:[['der Geldbeutel','кошелёк'],['der Schrank','шкаф'],['das Taschentuch','салфетки'],['die Uhr','часы'],['das Sofa','диван'],['das Regal','полка']],
-   sort:[['Geldbeutel','der'],['Kugelschreiber','der'],['Schrank','der'],['Spiegel','der'],['Uhr','die'],['Kamera','die'],['Feuerzeug','das'],['Taschentuch','das'],['Sofa','das'],['Regal','das']],
-   write:[['диван','das Sofa'],['кошелёк','der Geldbeutel'],['шкаф','der Schrank'],['салфетки','das Taschentuch'],['часы','die Uhr'],['полка','das Regal']],
-   verbs:[['sehen','видеть'],['kaufen','покупать'],['kosten','стоить'],['finden','находить / считать'],['sein','быть']]
+   match:[['der Geldbeutel','кошелёк'],['der Kugelschreiber','ручка'],['die Kamera','камера'],['die Sonnenbrille','солнечные очки'],['das Taschentuch','салфетки'],['das Feuerzeug','зажигалка']],
+   sort:[['Geldbeutel','der'],['Kugelschreiber','der'],['Regenschirm','der'],['Kamera','die'],['Sonnenbrille','die'],['Seife','die'],['Taschentuch','das'],['Feuerzeug','das'],['Handy','das']],
+   write:[['кошелёк','der Geldbeutel'],['ручка','der Kugelschreiber'],['камера','die Kamera'],['солнечные очки','die Sonnenbrille'],['салфетки','das Taschentuch'],['зажигалка','das Feuerzeug']],
+   verbs:[['kaufen','покупать'],['bestellen','заказывать']]
  }
 };
 
