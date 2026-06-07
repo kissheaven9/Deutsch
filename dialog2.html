@@ -234,7 +234,7 @@ document.getElementById('app').innerHTML=`
   <h1>${D.title}</h1>
   <p class="lead">${D.sub} <span style="color:var(--muted)">Диалог ${N} из 3 · Тема 2</span></p>
   <div class="scenenav" id="navTop"></div>
-  <div class="stage" id="stage">${BANNER[N]?`<div class="qtask">${BANNER[N]}</div>`:''}<img src="${D.img}" alt="${D.title}" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'imgwait',textContent:'🎨 Картинка появится после генерации по промпту ниже (файл ${D.img})'}))"></div>
+  <div class="stage" id="stage">${BANNER[N]?`<div class="qtask">${BANNER[N]}</div>`:''}<img src="${D.img}" alt="${D.title}"></div>
   <p class="stagehint">Тапни <b>серую точку</b> на предмете — сначала угадай артикль (der/die/das) сам, потом проверь себя: откроется слово с правильным артиклем.</p>
   
 
