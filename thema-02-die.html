@@ -78,7 +78,11 @@
 <header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Тема 2 / <b style="color:var(--die)">die → Грета</b></span></div></header>
 <main class="wrap">
   <h1><span class="pill die">die</span> &nbsp;Грета — возле дома</h1>
-  <p class="lead">Тема 2 (Быт). У Греты рассыпалась сумка — всё женского рода и всё в ЦВЕТАХ! Под текстом — слова, вопросы, аудирование (цвета) и упражнения. <a href="thema-02.html" style="color:var(--die)">↑ Тема 2</a></p>
+  <p class="lead">Тема 2 (Быт). У Греты рассыпалась сумка — всё женского рода и всё в ЦВЕТАХ! Под текстом — слова, вопросы, аудирование (цвета) и упражнения.</p>
+  <div class="scenenav" style="margin:8px 0 4px">
+    <a href="thema-01-die.html">← Тема 1: Грета</a>
+    <a href="thema-02.html" style="background:#f3e8ff;color:var(--accent)">↑ Тема 2 (Быт)</a>
+  </div>
 
   <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Изучение</h2></div></div>
 
@@ -186,9 +190,9 @@
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zа-яё0-9äöüß]/g,'');}
 /* плашки на картинке Греты */
 const OBJ=[
-  {de:'die Lampe',x:20,y:11},{de:'die Sonne',x:92,y:9},{de:'die Schwester',x:82,y:32},{de:'die Flasche',x:10,y:52},
-  {de:'die Tasche',x:52,y:56},{de:'die Uhr',x:33,y:68},{de:'die Kette',x:41,y:74},{de:'die Bürste',x:52,y:76},
-  {de:'die Seife',x:60,y:73},{de:'die Sonnenbrille',x:69,y:76},{de:'die Kamera',x:83,y:76},
+  {de:'die Sonne',x:92,y:9},{de:'die Schwester',x:82,y:32},{de:'die Flasche',x:10,y:56},
+  {de:'die Tasche',x:56,y:60},{de:'die Uhr',x:33,y:84},{de:'die Kette',x:41,y:78},{de:'die Bürste',x:52,y:82},
+  {de:'die Seife',x:60,y:79},{de:'die Sonnenbrille',x:69,y:84},{de:'die Kamera',x:83,y:84},
 ];
 const stage=document.getElementById('stage');
 OBJ.forEach(o=>{const d=document.createElement('div');d.className='lbl die';d.style.left=o.x+'%';d.style.top=o.y+'%';
