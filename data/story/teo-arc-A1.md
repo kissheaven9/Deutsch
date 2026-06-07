@@ -12,6 +12,8 @@
 
 **Движок Тео (см. bible):** он рассказывает про **детей** (das Kind / das Mädchen), их возраст (das Alter/Jahr) и страны (das Land), и проживает с подружкой Lina и друзьями маленькие **приключения**. У каждого ребёнка — своя черта/история.
 
+**Принципы (из bible, держать во всех сценах):** (1) **сцены — преимущественно дома/в комнате** (кроме транспорта), меняем ракурс (на диване / в комнате / перед домом); (2) **характер вбивает абстрактные слова повторами**: радостный → das Glück, вечно в проблемах → das Problem, всё по акции → das Sonderangebot, любит телефон → das Handy/Telefon, свой магазин → das Geschäft.
+
 ---
 
 ## 1. Story bible — кто такой Тео (кратко; полный — [teo-bible.md](teo-bible.md))
@@ -37,7 +39,7 @@
 | Сцена | Уроки | Тематика | das-слова (целевые) | Статус |
 |---|---|---|---|---|
 | **1. Знакомство: Тео-почемучка, подружка и друзья** | L1–L3 | 🧒❓ Я и дети | имя(heißen) + **das Kind/Mädchen** (Тео, подружка Lina, друзья) + **das Alter/Jahr** (кому сколько) + **das Land** (кто откуда) + почемучкины слова **das Interview/Rätsel/Gespräch/Alphabet** + **das Tier** (зверёк) + **das Fest** (скоро праздник) + das Enkelkind (он чей-то внук). _У Otto эта тема — мужская родня, у Греты — женская + анкета; у Тео — ДЕТИ._ | **черновик готов** |
-| **2. Детская комната: вещи** | L4,L5 | 🧸 Вещи | das Bett/Sofa/Regal/Zimmer/Bild/Glück/Geschäft/Sonderangebot + das Auto/Buch/Handy/Telefon/Ding/Material/Wort/Problem/Haus; материалы (Holz/Papier/Metall/Plastik/Glas); ВСЕ цвета; цена/оценка (finden/kosten, günstig/teuer/billig/praktisch); sehen/bestellen. Сценка: Lina рисует домик (das Bild), у Тео 10 машинок всех цветов, одной не хватает | **черновик готов** |
+| **2. Детская комната: вещи** | L4,L5 | 🧸 Вещи | das Bett/Sofa/Regal/Zimmer/Bild/Glück/Geschäft/Sonderangebot + das Auto/Buch/Handy/Telefon/Ding/Material/Wort/Haus/Feuerzeug/Taschentuch; **МАТЕРИАЛЫ** (Holz/Papier/Metall/Plastik/Glas) — ось Тео (цвет→Грета); цена/оценка (finden/kosten, günstig/teuer/billig); sehen. Сценка: Тео в комнате **теряет любимый телефон** и ищет (паника = das Problem); всё «по акции» (das Sonderangebot ×6); радостный (das Glück ×4); любимый магазин машинок (das Geschäft); находит зажигалку (das Feuerzeug — «не для детей»); сопливый → платочек (das Taschentuch); Lina рисует домик (das Bild). _Принцип: сцены — дома._ ⏳ из L4–L5 не вошли: **das Hotel** → в сцену-поездку/город; **das Formular** → подыскать сцену. | **черновик готов** |
 | **3. Планшет и вопросы (онлайн)** | L6 | 📱 Гаджеты | das Tablet/Passwort/Büro/WLAN; brauchen, отрицание. Почемучка «гуглит» загадки | сверить |
 | **4. Выходные детей** | L7,L8 | 🎡 Досуг | das Hobby/Konzert/Radio/Internet/Studio; das Wochenende/Kino/Schwimmbad/Museum/Theater/Café. können (что умеют дети) | сверить |
 | **5. Детский стол (еда)** | L9 | 🍞 Еда | das Brot/Brötchen/Ei/Müsli/Eis/Wasser/Würstchen/Obst/Fleisch/Getränk/Stück/Dessert; das Frühstück/Mittagessen/Abendessen. Мороженое! mögen/möchte/essen | сверить |
