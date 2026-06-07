@@ -119,3 +119,7 @@ footer .ftag{color:#9aa4b2;font-size:13px}
 .vbadge.irr{background:#fde68a;color:#b45309}
 .vlegend{font-size:12px;color:var(--muted);margin:4px 0 0}
 .vlegend .vbadge{margin-right:3px}
+/* кнопки-переходы к героям в навигации — по роду */
+.scenenav a.cder{background:#eff3ff;color:var(--der);border-color:#dbe4ff;font-weight:700}
+.scenenav a.cdie{background:#fdecec;color:var(--die);border-color:#fbcfe2;font-weight:700}
+.scenenav a.cdas{background:#e8f6ee;color:var(--das);border-color:#bbf7d0;font-weight:700}

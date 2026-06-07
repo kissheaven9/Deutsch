@@ -120,7 +120,7 @@
 
   <div class="panel">
     <h3>🎧 Аудирование — Otto в магазине</h3>
-    <p class="sub">Otto пришёл в магазин и спрашивает у продавца цены. Послушай разговор (голоса разные!), потом впиши цены <b>цифрами</b>. Главное слово — <b style="color:var(--der)">der Preis</b> (цена, мужской род). Ответ открывается после проверки.</p>
+    <p class="sub">Otto пришёл в магазин и спрашивает у продавца цены. Послушай разговор, потом впиши цены <b>цифрами</b>. Главное слово — <b style="color:var(--der)">der Preis</b> (цена, мужской род). Ответ открывается после проверки.</p>
     <div class="bar"><button class="ic" id="shopBtn" onclick="playSeq(SHOP,this,SHOPFB)">▶ Послушать разговор в магазине</button></div>
     <div class="hq" data-ans="80"><span style="width:100%;font-weight:600">Wie viel kostet der Tisch?</span><input class="qin" inputmode="numeric" placeholder="€ цифрами" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
     <div class="hq" data-ans="100"><span style="width:100%;font-weight:600">Wie viel kostet der Schrank?</span><input class="qin" inputmode="numeric" placeholder="€ цифрами" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
@@ -164,8 +164,8 @@
 
   <div class="scenenav">
     <a href="thema-02.html" style="background:#f3e8ff;color:var(--accent)">↑ Тема 2 (Быт)</a>
-    <a href="thema-02-die.html">Грета →</a>
-    <a href="thema-02-das.html">Тео →</a>
+    <a class="cdie" href="thema-02-die.html">Грета →</a>
+    <a class="cdas" href="thema-02-das.html">Тео →</a>
   </div>
 </main>
 <footer>
@@ -181,13 +181,13 @@ const OBJ=[
   {ru:'стол',de:'der Tisch',x:47,y:42},
   {ru:'шкаф',de:'der Schrank',x:72,y:18},
   {ru:'кресло',de:'der Sessel',x:89,y:44},
-  {ru:'ковёр',de:'der Teppich',x:40,y:64},
-  {ru:'зеркало',de:'der Spiegel',x:13,y:74},
-  {ru:'ключи',de:'der Schlüssel',x:27,y:74},
-  {ru:'кошелёк',de:'der Geldbeutel',x:42,y:74},
-  {ru:'ручка',de:'der Kugelschreiber',x:55,y:74},
-  {ru:'карандаш',de:'der Bleistift',x:68,y:74},
-  {ru:'зонт',de:'der Regenschirm',x:88,y:74},
+  {ru:'ковёр',de:'der Teppich',x:40,y:69},
+  {ru:'зеркало',de:'der Spiegel',x:13,y:79},
+  {ru:'ключи',de:'der Schlüssel',x:27,y:79},
+  {ru:'кошелёк',de:'der Geldbeutel',x:42,y:79},
+  {ru:'ручка',de:'der Kugelschreiber',x:55,y:79},
+  {ru:'карандаш',de:'der Bleistift',x:68,y:79},
+  {ru:'зонт',de:'der Regenschirm',x:88,y:79},
 ];
 const stage=document.getElementById('stage');
 OBJ.forEach(o=>{const d=document.createElement('div');d.className='lbl der';d.style.left=o.x+'%';d.style.top=o.y+'%';
