@@ -46,7 +46,7 @@ function _seq(){
 // очередь реплик с РАЗНЫМИ голосами: items=[{t,role}] (для диалогов)
 function speakSequence(items, btn){
   const sy=window.speechSynthesis; if(!sy){ alert('Озвучка недоступна в этом браузере'); return; }
-  if(_sq.length && _sqi<_sq.length){
+  if(_sq.length && _sqi<_sq.length && btn===_sqBtn){
     if(sy.speaking && !sy.paused){ sy.pause(); if(btn) btn.textContent='▶ Продолжить'; return; }
     if(sy.paused){ sy.resume(); if(btn) btn.textContent='⏸ Пауза'; return; }
   }
@@ -62,7 +62,8 @@ function _seqRole(){
 }
 // проигрывание готовых аудиофайлов (живые нейроголоса); fallback=[{t,role}] на случай отсутствия файла
 function playSeq(urls, btn, fallback){
-  if(_au && _aui<_auList.length){
+  // пауза/продолжение — только если жмут ТУ ЖЕ кнопку; другая кнопка → стоп старого и играем заново
+  if(_au && _aui<_auList.length && btn===_auBtn){
     if(!_au.paused){ _au.pause(); if(btn) btn.textContent='▶ Продолжить'; return; }
     _au.play(); if(btn) btn.textContent='⏸ Пауза'; return;
   }

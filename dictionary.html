@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>Словарь</title>
 <link rel="stylesheet" href="css/style.css?v=3">
 <style>
@@ -110,6 +111,20 @@
   }
 
   Dict.init({ mount: document.getElementById('dict'), thema: (thema && t) ? thema : null });
+
+  // авто-выбор рода (?g=der|die|das) и авто-скачивание PDF (?pdf=1) — для кнопок «Словарь PDF» на темах/сценах
+  (function(){
+    const g=params.get('g'), wantPdf=params.get('pdf')==='1';
+    if(g){ const chip=document.querySelector(`.chip[data-f="${g}"]`); if(chip) chip.click(); }
+    if(wantPdf){
+      let tries=0;
+      const timer=setInterval(()=>{
+        tries++;
+        if(window.html2pdf){ clearInterval(timer); const b=document.querySelector('.btn-pdf'); if(b) b.click(); }
+        else if(tries>40){ clearInterval(timer); }
+      },150);
+    }
+  })();
 </script>
 <script src="js/chrome.js?v=3"></script>
 </body>

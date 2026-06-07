@@ -73,6 +73,45 @@ const WOERTER = { themes: [
     },
     countries:[["Deutschland","Германия"],["die Schweiz","Швейцария"],["die Türkei","Турция"],["die USA","США"],["Eritrea","Эритрея"],["Spanien","Испания"],["Frankreich","Франция"],["Österreich","Австрия"],["Polen","Польша"]],
     langs:[["Deutsch","немецкий"],["Englisch","английский"],["Spanisch","испанский"],["Russisch","русский"],["Chinesisch","китайский"],["Polnisch","польский"],["Französisch","французский"],["Italienisch","итальянский"],["Türkisch","турецкий"]]
+  },
+  {
+    id:"02", title:"Быт (дом и вещи)", lessons:"L4–L5",
+    nouns:{
+      der:[
+        ["Stuhl","стул"],["Sessel","кресло"],["Tisch","стол"],["Schrank","шкаф"],["Teppich","ковёр"],
+        ["Spiegel","зеркало"],["Schlüssel","ключ(и)"],["Geldbeutel","кошелёк"],["Regenschirm","зонт"],
+        ["Kugelschreiber","шариковая ручка"],["Bleistift","карандаш"],["Kunststoff","пластик (материал)"],
+        ["Preis","цена"],["Euro","евро"],["Cent","цент"]
+      ],
+      die:[
+        ["Tasche","сумка"],["Brille","очки"],["Sonnenbrille","солнечные очки"],["Uhr","часы"],["Lampe","лампа"],
+        ["Möbel","мебель"],["Kette","бусы / цепочка"],["Flasche","бутылка"],["Kamera","камера"],
+        ["Bürste","щётка"],["Seife","мыло"],["Sonne","солнце"],["Farbe","цвет"]
+      ],
+      das:[
+        ["Zimmer","комната"],["Bett","кровать"],["Sofa","диван"],["Regal","полка"],["Auto","машинка"],
+        ["Buch","книга"],["Bild","рисунок / картинка"],["Haus","дом"],["Handy","мобильник"],["Telefon","телефон"],
+        ["Material","материал"],["Geschäft","магазин"],["Sonderangebot","акция / скидка"],["Glück","счастье / удача"],
+        ["Problem","проблема"],["Ding","вещь"],["Wort","слово"],["Feuerzeug","зажигалка"],["Taschentuch","платочек"],
+        ["Holz","дерево"],["Metall","металл"],["Plastik","пластик"],["Glas","стекло"],["Papier","бумага"]
+      ]
+    },
+    pluralOnly:[],
+    verbs:[
+      ["kosten","стоить","reg",["koste","kostest","kostet","kosten","kostet","kosten"],"hat gekostet"],
+      ["kaufen","покупать","reg",["kaufe","kaufst","kauft","kaufen","kauft","kaufen"],"hat gekauft"],
+      ["bestellen","заказывать","reg",["bestelle","bestellst","bestellt","bestellen","bestellt","bestellen"],"hat bestellt"],
+      ["finden","находить / считать","irr",["finde","findest","findet","finden","findet","finden"],"hat gefunden"],
+      ["sehen","видеть","irr",["sehe","siehst","sieht","sehen","seht","sehen"],"hat gesehen"],
+      ["haben","иметь","irr",["habe","hast","hat","haben","habt","haben"],"hat gehabt (hatte)"],
+      ["sein","быть","irr",["bin","bist","ist","sind","seid","sind"],"ist gewesen (war)"]
+    ],
+    other:{
+      "Цвета":[["weiß","белый"],["gelb","жёлтый"],["orange","оранжевый"],["rot","красный"],["grün","зелёный"],["blau","синий"],["braun","коричневый"],["schwarz","чёрный"],["grau","серый"],["hell-","светло-"],["dunkel-","тёмно-"]],
+      "Оценка / свойства":[["schön","красивый"],["hässlich","некрасивый"],["teuer","дорогой"],["günstig","выгодный"],["billig","дешёвый"],["praktisch","практичный"],["modern","современный"],["groß","большой"],["klein","маленький"],["alt","старый"],["neu","новый"],["zu teuer","слишком дорого"]],
+      "Материал / фразы":[["aus Holz","из дерева"],["aus Plastik","из пластика"],["aus Metall","из металла"],["aus Glas","из стекла"],["aus Papier","из бумаги"],["Wie viel kostet …?","сколько стоит …?"],["ein Sonderangebot","по скидке / акция"]],
+      "Слова-помощники":[["ein / eine","один / одна (неопр. артикль)"],["kein / keine","не / никакой"],["mein","мой"],["dein","твой"],["sehr","очень"],["nur","только"],["hier","здесь"],["und","и"],["aber","но"],["oder","или"]]
+    }
   }
   /* следующие темы добавляются сюда — словарь станет накопительным автоматически */
 ]};
