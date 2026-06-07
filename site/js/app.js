@@ -19,6 +19,7 @@ function roleVoice(role){
   if(role==='male'||role==='der')   return { voice:_voiceByNames(_MAS)||bestDeVoice(), pitch:0.8,  rate:0.92 }; // Otto — ниже, спокойнее
   if(role==='female'||role==='die') return { voice:_voiceByNames(_FEM)||bestDeVoice(), pitch:1.12, rate:1.0  }; // Грета
   if(role==='child'||role==='das')  return { voice:_voiceByNames(_FEM)||bestDeVoice(), pitch:1.55, rate:1.07 }; // дети — выше, живее
+  if(role==='seller')               return { voice:_voiceByNames(['amala','ingrid','marlene'])||_voiceByNames(_FEM)||bestDeVoice(), pitch:0.96, rate:0.98 }; // продавец — другой женский
   return { voice:bestDeVoice(), pitch:1.0, rate:0.94 };
 }
 function _utterRole(text, role){ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; const r=roleVoice(role); if(r.voice)u.voice=r.voice; u.pitch=r.pitch; u.rate=r.rate; return u; }
@@ -149,14 +150,10 @@ function hlText(rootId, nouns, gcls){
     const t=node.nodeValue; re.lastIndex=0; if(!re.test(t)) return; re.lastIndex=0;
     const frag=document.createDocumentFragment(); let last=0,m;
     while((m=re.exec(t))){
-      const art=m[1], noun=m[2], idx=m.index, full=m[0];
+      const idx=m.index, full=m[0];
       if(idx>last) frag.appendChild(document.createTextNode(t.slice(last,idx)));
       const span=document.createElement('span'); span.className='hl '+gcls;
-      const isDef = art && (['der','die','das'].indexOf(art.toLowerCase())>=0);
-      const tag = '<i class="arttag">'+gcls+'</i>';
-      if(isDef)      span.textContent = full;                              // «der Gärtner»
-      else if(art)   span.innerHTML  = escH(art)+' '+escH(noun)+tag;       // «ein Mädchen ᵈᵃˢ»
-      else           span.innerHTML  = escH(noun)+tag;                     // «Gärtner ᵈᵉʳ»
+      span.textContent = full;                 // подсвечиваем слово с его артиклем (der/die/das/ein/mein…), без доп.пометки
       frag.appendChild(span); last=idx+full.length;
       if(full.length===0) re.lastIndex++;
     }

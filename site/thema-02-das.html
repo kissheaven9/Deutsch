@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сцена 2 · das → Тео: моя комната</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  h1{font-size:30px}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
+  .ic{border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer;font-size:14px;padding:7px 10px}
+  .ic:active{background:#f3f4f6}
+  .part{display:flex;align-items:center;gap:14px;margin:34px 0 14px;padding:14px 18px;border-radius:16px;border:1px solid var(--line)}
+  .part .pico{font-size:30px;line-height:1}
+  .part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .part h2{margin:2px 0 0;font-size:24px}
+  .part.read{background:#f1f5f9} .part.text{background:#faf5ff} .part.train{background:#f3e8ff;border-color:#e9d5ff}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:18px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:#f0fdf4;border-bottom:1px solid #bbf7d0;border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700;flex:none}
+  .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
+  .stage img{width:100%;height:auto;display:block}
+  .lbl{position:absolute;transform:translate(-50%,-50%);font-size:11px;line-height:1.2;white-space:nowrap}
+  .cov{cursor:pointer;display:inline-block}
+  .cov .vv{background:var(--das);color:var(--das);border:2px solid #fff;border-radius:6px;padding:2px 12px;font-weight:700;transition:.1s;box-shadow:0 1px 5px #0005}
+  .cov.open .vv{background:#fff;color:var(--das);border-color:var(--das);padding:2px 8px}
+  @media(max-width:620px){.lbl{font-size:9px}
+    .cov .vv{padding:0;width:16px;height:16px;border-radius:50%;display:inline-block;overflow:hidden;color:transparent;box-shadow:0 1px 4px #0007}
+    .cov.open .vv{width:auto;height:auto;padding:2px 8px;border-radius:6px;color:var(--das);overflow:visible}}
+  .wlist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  @media(max-width:620px){.wlist{grid-template-columns:1fr}}
+  .wrow{display:flex;align-items:center;gap:8px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:9px;padding:6px 8px}
+  .wrow .de{font-weight:700;color:var(--das);font-size:15px}
+  .wrow .de .art{opacity:.7}
+  .wrow .ru{color:#374151;font-size:13px;flex:1;text-align:right}
+  .wrow.noru .ru{visibility:hidden;position:relative}
+  .wrow.noru .ru::after{content:"·····";position:absolute;right:0;color:#9ca3af;visibility:visible}
+  .de-block{color:var(--ink);font-weight:500;line-height:1.8;margin:0 0 14px}
+  .ru-block{color:#374151;line-height:1.7;margin:0}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .q{border-top:1px solid var(--line);padding:9px 0}
+  .qq{font-weight:600;color:var(--ink);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .lk2{border:none;background:#f3e8ff;color:var(--accent);border-radius:7px;font-size:12px;padding:2px 8px;cursor:pointer}
+  .qru{color:var(--muted);font-size:13px;margin:3px 0}
+  .qact{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+  .qin{flex:1;min-width:150px;border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:14px;font-family:inherit}
+  .qin:focus{outline:none;border-color:var(--accent)}
+  .btn.sm{padding:7px 11px;font-size:13px}
+  .exb{background:var(--das);color:#fff;border-radius:6px;font-size:11px;padding:1px 7px}
+  .qres{margin-top:5px;font-size:14px;font-weight:600}
+  .cardwrap{max-width:380px;margin:0 auto}
+  .card{background:#fff;border:2px solid var(--das);border-radius:16px;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer;transition:.12s}
+  .card:active{transform:scale(.99)} .card.back{background:#e8f6ee}
+  .c-emoji{font-size:52px;line-height:1} .c-text{font-size:25px;font-weight:700;color:var(--ink)}
+  .card.back .c-text{color:var(--das)} .c-text .art{opacity:.7} .c-hint{font-size:12px;color:var(--muted)}
+  .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
+  .cnav #cCount{color:var(--muted);font-weight:600}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
+  .mchip.de{font-weight:700;color:var(--das)} .mchip.sel{border-color:var(--accent);background:#f3e8ff}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .ru{min-width:130px;color:#374151}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:140px}
+  .wq input:focus{outline:none;border-color:var(--accent)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .gap{line-height:2.4;font-size:16px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .gap input{border:none;border-bottom:2px solid var(--das);width:140px;font-size:15px;font-family:inherit;text-align:center;color:var(--das);font-weight:700}
+  .gap input:focus{outline:none;background:#e8f6ee} .gap .hint{color:var(--muted);font-size:12px}
+  .score{font-weight:700;margin-top:8px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Сцена 2 / <b style="color:var(--das)">das → Тео</b></span></div></header>
+<main class="wrap">
+  <h1><span class="pill das">das</span> &nbsp;Сцена 2 — Моя комната</h1>
+  <p class="lead">Тео в своей комнате: всё среднего рода, всё «из чего-то» (материал!), всё по акции — и он теряет телефон. Под текстом — слова, вопросы, аудирование и упражнения. <a href="thema-01-das.html" style="color:var(--das)">← Сцена 1 (Тео)</a></p>
+
+  <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Изучение</h2></div></div>
+
+  <div class="panel">
+    <h3>🖼 Комната Тео</h3>
+    <p class="sub">Тапни плашку, чтобы открыть немецкое слово (всё среднего рода).</p>
+    <div class="bar"><button class="ic" onclick="toggleCovers(this)">👁 Открыть все слова</button></div>
+    <div class="stage" id="stage"><img src="img/teo-szene-2.png" alt="Комната Тео"></div>
+  </div>
+
+  <div class="panel">
+    <h3>🔤 Слова сцены <span class="pill das" style="font-size:12px;padding:3px 9px">das</span></h3>
+    <div class="bar"><button class="ic" id="trBtn" onclick="toggleTransAll(this)">🙈 Скрыть переводы</button><span style="color:var(--muted);font-size:13px">🔊 — послушать · 👁 — скрыть перевод</span></div>
+    <div class="wlist" id="wlist"></div>
+  </div>
+
+  <div class="panel">
+    <h3>📜 Текст</h3>
+    <div class="bh">Deutsch (A1 · L4–L5) <button class="ic" onclick="playSeq(['audio/scene-das2.mp3'],this,[{t:deText(),role:'child'}])">🔊 Послушать</button></div>
+    <p class="de-block" id="deText">Das ist mein Zimmer! Hier sind ein Bett, ein Sofa und ein Regal. Mein Regal ist aus Holz. Das Regal kostet zwanzig Euro — ein Sonderangebot!<br><br>
+    Ich habe viele Dinge — viele Autos! Aber das Material — das ist mein Ding! Ich frage immer: „Was ist das Material? Aus Holz? Aus Metall? Aus Plastik?“ Ein Auto ist aus Metall, ein Auto ist aus Plastik. Holz, Metall, Plastik, Glas und Papier — das ist das Material! „Material“ — das ist mein Wort! Mein Geschäft ist online: ich sehe viele Autos, und alles ist ein Sonderangebot! Ein Auto kostet nur drei Euro — das finde ich gut. Ich bestelle ein Auto online, und ich kaufe noch ein Auto — auch ein Sonderangebot! Das Geschäft hat viele Autos. Mein Geschäft ist sehr gut!<br><br>
+    „Was ist das?“, frage ich immer. Oh, hier ist ein Feuerzeug! Aber ein Kind hat kein Feuerzeug — nein, nein! Und hier ist mein Taschentuch, aus Papier — ich habe immer ein Taschentuch.<br><br>
+    Aber was ist mein Glück? Mein Telefon! Mein Handy ist klein, aus Glas und Metall. Ich finde mein Telefon sehr gut — mein Handy ist mein Glück! Das Handy kostet zehn Euro — auch ein Sonderangebot. Mein Buch ist auch aus Papier und kostet nur zwei Euro — auch ein Sonderangebot!<br><br>
+    Aber jetzt habe ich ein Problem — ein Problem! Ich bestelle online, aber wo ist mein Telefon? Wo ist mein Handy? Ich sehe es nicht! Hier? Nein. Da? Nein! Mein Handy ist nicht hier. Oh, das ist ein Problem, ein Problem!<br><br>
+    Lina ist auch hier. Sie macht ein Bild aus Papier: ein Haus! Ich finde Linas Bild schön. „Lina, wo ist mein Handy?“<br><br>
+    Und mein Telefon? Da ist es! Oh, was für ein Glück! Mein Zimmer, meine Autos, mein Telefon — alles ist ein Sonderangebot. Das Material ist mein Ding — und das ist mein Glück!</p>
+    <div class="bh">🇷🇺 Русский <button class="ic" onclick="toggleRuBlock(this)">Показать перевод</button></div>
+    <p class="ru-block" hidden>Это моя комната! Вот кровать, диван и полка. Моя полка из дерева. Полка стоит двадцать евро — по акции!<br><br>
+    У меня много вещей — много машинок! Но материал — вот что моё! Я всё время спрашиваю: «Из чего это? Из дерева? Из металла? Из пластика?» Одна машинка из металла, одна из пластика. Дерево, металл, пластик, стекло и бумага — вот это материал! «Материал» — вот моё слово! Мой магазин — онлайн: я вижу много машинок, и всё по акции! Машинка стоит всего три евро — по-моему, отлично. Заказываю машинку онлайн и покупаю ещё одну — тоже по акции! В магазине много машинок. Мой магазин очень хороший!<br><br>
+    «Что это?» — спрашиваю я всё время. О, вот зажигалка! Но у ребёнка нет зажигалки — нет-нет! А вот мой платочек, из бумаги — у меня всегда есть платочек.<br><br>
+    Но что для меня счастье? Мой телефон! Мобильник маленький, из стекла и металла. Телефон мне очень нравится — мобильник это моё счастье! Мобильник стоит десять евро — тоже по акции. Книжка тоже из бумаги и стоит всего два евро — тоже по акции!<br><br>
+    Но сейчас у меня проблема — проблема! Я заказываю онлайн, а где мой телефон? Где мобильник? Не вижу! Тут? Нет. Там? Нет! Мобильника тут нет. Ох, вот это проблема, проблема!<br><br>
+    Lina тоже здесь. Она рисует на бумаге — домик! По-моему, рисунок красивый. «Lina, где мой мобильник?»<br><br>
+    А телефон? Вот он! Ох, вот это счастье! Моя комната, мои машинки, мой телефон — всё по акции. Материал — вот что моё, и это моё счастье!</p>
+  </div>
+
+  <div class="part text"><span class="pico">💬</span><div><div class="pk">Часть 2</div><h2>Работа с текстом</h2></div></div>
+  <div class="panel">
+    <h3>❓ Вопросы по тексту</h3>
+    <p class="sub">Прочитай вопрос (перевод — по кнопке), впиши ответ и проверь себя.</p>
+    <div id="exercise"></div>
+  </div>
+
+  <div class="panel">
+    <h3>🎧 Аудирование — Тео и Lina играют в магазин</h3>
+    <p class="sub">Тео покупает у Lina и спрашивает про <b>материал</b> и акции. Послушай разговор (голоса разные!), потом впиши, <b>из какого материала</b> вещь. Ответ — после проверки.</p>
+    <div class="bar"><button class="ic" onclick="playSeq(SHOP,this,SHOPFB)">▶ Послушать игру в магазин</button></div>
+    <div class="hq" data-ans="Plastik"><span style="width:100%;font-weight:600">Aus was ist das Auto?</span><input class="qin" placeholder="материал по-немецки" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
+    <div class="hq" data-ans="Holz"><span style="width:100%;font-weight:600">Aus was ist das Regal?</span><input class="qin" placeholder="материал по-немецки" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
+    <div class="hq" data-ans="Papier"><span style="width:100%;font-weight:600">Aus was ist das Buch?</span><input class="qin" placeholder="материал по-немецки" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
+    <div class="hq" data-ans="Glas"><span style="width:100%;font-weight:600">Aus was ist das Handy?</span><input class="qin" placeholder="материал по-немецки" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
+    <div class="hq" data-ans="2"><span style="width:100%;font-weight:600">Was kostet das Buch? (€ цифрами)</span><input class="qin" inputmode="numeric" placeholder="€ цифрами" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
+  </div>
+
+  <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова</h2></div></div>
+
+  <div class="panel">
+    <h3><span class="exnum">1</span>🃏 Карточки — тренировка</h3>
+    <p class="sub">Картинка и русское слово — вспомни немецкое, нажми, чтобы перевернуть. Листай ← →.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-emoji" id="cEmoji"></div><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="exnum">2</span>🔗 Соотнеси: немецкое ↔ русское</h3>
+    <p class="sub">Нажми немецкое слово, потом перевод — пара окрасится. Выбор можно менять.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
+    <p class="sub">Дано слово по-русски — впиши его по-немецки с артиклем (das …).</p>
+    <div id="writeList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+
+  <div class="panel">
+    <h3><span class="exnum">4</span>🧩 Вставь слово в текст</h3>
+    <p class="sub">По смыслу понятно, какое слово пропущено — впиши его по-немецки.</p>
+    <div class="gap" id="gap"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapReset()">Ещё раз</button></div>
+    <div class="score" id="gScore"></div>
+  </div>
+
+  <div class="scenenav">
+    <a href="thema-01-das.html">← Сцена 1 (Тео)</a>
+    <a href="index.html" style="background:#f3e8ff;color:var(--accent)">⬆ Главная</a>
+    <a href="thema-02-der.html">Комната Otto →</a>
+  </div>
+</main>
+<footer>
+  <div class="fnav"><a href="index.html">🏠 Главная</a><a href="dictionary.html">📖 Словарь</a><a href="thema-01.html">📚 Тема 1</a></div>
+  Deutsch A1 · учим немецкую лексику вместе с Otto, Гретой и детьми
+</footer>
+
+<script src="js/app.js"></script>
+<script>
+function norm(s){return (s||'').toLowerCase().replace(/[^a-zа-яё0-9äöüß]/g,'');}
+/* плашки на картинке комнаты Тео */
+const OBJ=[
+  {de:'das Bett',x:12,y:24},{de:'das Sofa',x:42,y:46},{de:'das Regal',x:80,y:13},
+  {de:'das Auto',x:22,y:74},{de:'das Buch',x:9,y:88},{de:'das Bild',x:72,y:86},{de:'das Taschentuch',x:50,y:64},
+];
+const stage=document.getElementById('stage');
+OBJ.forEach(o=>{const d=document.createElement('div');d.className='lbl das';d.style.left=o.x+'%';d.style.top=o.y+'%';
+  d.innerHTML=`<span class="cov" onclick="this.classList.toggle('open')"><b class="vv">${o.de}</b></span>`;stage.appendChild(d);});
+function toggleCovers(btn){const cs=[...document.querySelectorAll('.cov')];const any=cs.some(c=>!c.classList.contains('open'));cs.forEach(c=>c.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть слова':'👁 Открыть все слова';}
+const WORDS=[
+  ['das','Zimmer','комната'],['das','Bett','кровать'],['das','Sofa','диван'],['das','Regal','полка'],['das','Auto','машинка'],['das','Buch','книга'],['das','Bild','рисунок / картинка'],['das','Haus','дом'],
+  ['das','Handy','мобильник'],['das','Telefon','телефон'],['das','Material','материал'],['das','Geschäft','магазин'],['das','Sonderangebot','акция'],['das','Glück','счастье / удача'],['das','Problem','проблема'],['das','Ding','вещь'],['das','Wort','слово'],['das','Feuerzeug','зажигалка'],['das','Taschentuch','платочек'],
+  ['das','Holz','дерево'],['das','Metall','металл'],['das','Plastik','пластик'],['das','Glas','стекло'],['das','Papier','бумага'],
+];
+document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="playWord('${a} ${de}','child')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
+hlText('deText',WORDS.map(w=>w[1]),WORDS[0][0]);
+function toggleTransAll(btn){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));btn.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
+function deText(){return document.getElementById('deText').innerText;}
+
+/* игра в магазин: Тео (детский) + Lina (другой женский) */
+const SHOPFB=[
+  {t:'Lina, wie viel kostet das Auto?',role:'child'},
+  {t:'Das Auto kostet drei Euro. Es ist aus Plastik.',role:'seller'},
+  {t:'Aus Plastik? Super! Ich kaufe es!',role:'child'},
+  {t:'Und das Regal? Aus was ist es?',role:'child'},
+  {t:'Das Regal ist aus Holz.',role:'seller'},
+  {t:'Aus Holz, hmm. Und das Buch?',role:'child'},
+  {t:'Das Buch ist aus Papier — ein Sonderangebot, nur zwei Euro!',role:'seller'},
+  {t:'Ein Sonderangebot! Toll! Und das Handy?',role:'child'},
+  {t:'Das Handy ist aus Glas und Metall.',role:'seller'},
+  {t:'Aus Glas! Schön!',role:'child'},
+];
+const SHOP=SHOPFB.map((_,i)=>`audio/hoer-shopd-${i+1}.mp3`);
+
+/* вопросы */
+const QA=[
+  {q:'Was ist Theos Lieblingswort?',ru:'Какое любимое слово Тео?',a:'Sein Wort ist „Material“.',k:'material'},
+  {q:'Was kostet das Regal?',ru:'Сколько стоит полка?',a:'Es kostet zwanzig Euro.',k:'zwanzig'},
+  {q:'Aus was ist das Handy?',ru:'Из чего телефон?',a:'Aus Glas und Metall.',k:'glas'},
+  {q:'Was ist Theos Problem?',ru:'Какая у Тео проблема?',a:'Er sieht sein Telefon nicht.',k:'telefon'},
+  {q:'Was macht Lina?',ru:'Что делает Lina?',a:'Sie macht ein Bild — ein Haus.',k:'bild'},
+  {q:'Was kostet das Buch?',ru:'Сколько стоит книга?',a:'Es kostet zwei Euro.',k:'zwei'},
+];
+document.getElementById('exercise').innerHTML=QA.map((o,i)=>{const ex=(i===0);return `<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${o.q} <button class="lk2" onclick="toggleRu(this)">${ex?'Скрыть перевод':'Показать перевод'}</button>${ex?' <span class="exb">пример</span>':''}</div><div class="qru" ${ex?'':'hidden'}>${o.ru}</div><div class="qact"><input class="qin" placeholder="Ответь по-немецки…" value="${ex?o.a:''}"><button class="btn sm" onclick="checkAns(this)">Проверить</button><button class="btn sm" onclick="showAns(this)">Показать ответ</button></div><div class="qres" style="${ex?'color:var(--das)':''}">${ex?'✓ Пример — так отвечаем. Дальше сам(а).':''}</div></div>`;}).join('');
+function toggleRu(btn){const ru=btn.closest('.q').querySelector('.qru');ru.hidden=!ru.hidden;btn.textContent=ru.hidden?'Показать перевод':'Скрыть перевод';}
+function checkAns(btn){const q=btn.closest('.q'),inp=q.querySelector('.qin'),res=q.querySelector('.qres');const ok=norm(inp.value).length>0&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=ok?'var(--das)':'var(--die)';res.style.color=ok?'var(--das)':'var(--die)';res.textContent=ok?('✓ '+praise()):'✗ Пока не то — попробуй ещё или открой ответ.';}
+function showAns(btn){const q=btn.closest('.q');if(!q.querySelector('.qres').textContent.trim()){alert('Сначала впиши ответ и нажми «Проверить».');return;}q.querySelector('.qres').innerHTML='<span style="color:var(--accent)">Ответ: '+q.dataset.ans+'</span>';}
+
+/* карточки */
+const CARDS=[
+  {e:'🚪',ru:'комната',de:'Zimmer'},{e:'🛏️',ru:'кровать',de:'Bett'},{e:'🛋️',ru:'диван',de:'Sofa'},{e:'🗄️',ru:'полка',de:'Regal'},{e:'🚗',ru:'машинка',de:'Auto'},{e:'📕',ru:'книга',de:'Buch'},{e:'🖼️',ru:'рисунок',de:'Bild'},{e:'🏠',ru:'дом',de:'Haus'},
+  {e:'📱',ru:'мобильник',de:'Handy'},{e:'☎️',ru:'телефон',de:'Telefon'},{e:'🧱',ru:'материал',de:'Material'},{e:'🏪',ru:'магазин',de:'Geschäft'},{e:'🏷️',ru:'акция',de:'Sonderangebot'},{e:'🍀',ru:'счастье',de:'Glück'},{e:'❗',ru:'проблема',de:'Problem'},{e:'📦',ru:'вещь',de:'Ding'},{e:'🔤',ru:'слово',de:'Wort'},
+  {e:'🪵',ru:'дерево',de:'Holz'},{e:'🔩',ru:'металл',de:'Metall'},{e:'🧴',ru:'пластик',de:'Plastik'},{e:'🥛',ru:'стекло',de:'Glas'},{e:'📄',ru:'бумага',de:'Papier'},
+];
+let ci=0,flipped=false;
+function renderCard(){const c=CARDS[ci];document.getElementById('cEmoji').textContent=c.e;document.getElementById('cText').innerHTML=flipped?`<span class="art">das</span> ${c.de} <button class="ic" style="padding:2px 7px" onclick="event.stopPropagation();playWord('das ${c.de}','child')">🔊</button>`:c.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми, чтобы увидеть немецкое';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%CARDS.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+CARDS.length)%CARDS.length;flipped=false;renderCard();}
+renderCard();
+
+/* соотнеси */
+const MATCH=[['das Material','материал'],['das Handy','мобильник'],['das Geschäft','магазин'],['das Glück','счастье'],['das Auto','машинка'],['das Zimmer','комната']];
+const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let selDe=null,links={},colorOf={},nextC=0;
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MATCH.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MATCH.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MATCH[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';}
+function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){let ok=0;MATCH.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MATCH.length?'var(--das)':'var(--die)'}">${ok} / ${MATCH.length} верно${ok===MATCH.length?(' — '+praise()):' — поправь пары'}</span>`;}
+renderMatch();
+
+/* напиши */
+const WRITE=[['материал','das Material'],['машинка','das Auto'],['полка','das Regal'],['телефон','das Telefon'],['дом','das Haus'],['книга','das Buch']];
+document.getElementById('writeList').innerHTML=WRITE.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="das …" autocomplete="off"><span class="corr"></span></div>`).join('');
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v===norm(WRITE[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно</span>`;}
+function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
+function writeShow(){if(!document.getElementById('wScore').textContent.trim()){alert('Сначала впиши ответы и нажми «Проверить».');return;}document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=WRITE[i][1];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
+
+/* вставь в текст */
+const GAPPARTS=[
+  {t:'Das ist mein '},{a:'Zimmer',h:'комната'},{t:'. Mein Regal ist aus '},{a:'Holz',h:'дерево'},{t:'. Ein Auto ist aus '},{a:'Metall',h:'металл'},{t:'. '},
+  {t:'„Material“ ist mein '},{a:'Wort',h:'слово'},{t:'. Mein '},{a:'Handy',h:'мобильник'},{t:' ist mein Glück. Aber wo ist mein '},{a:'Telefon',h:'телефон'},{t:'? Lina macht ein '},{a:'Bild',h:'рисунок'},{t:'!'},
+];
+const GANS=GAPPARTS.filter(p=>p.a).map(p=>p.a);
+let gk=0;
+document.getElementById('gap').innerHTML=GAPPARTS.map(p=> p.t!==undefined ? p.t : `<input data-i="${gk++}" placeholder="…" autocomplete="off"><span class="hint"> (${p.h})</span>`).join('');
+function gapCheck(){let ok=0;document.querySelectorAll('#gap input').forEach((inp,idx)=>{const good=norm(inp.value)===norm(GANS[idx]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('gScore').innerHTML=`<span style="color:${ok===GANS.length?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${ok===GANS.length?' 🎉':''}</span>`;}
+function gapReset(){document.querySelectorAll('#gap input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--das)';i.style.color='var(--das)';});document.getElementById('gScore').textContent='';}
+</script>
+<script src="js/chrome.js"></script>
+</body>
+</html>

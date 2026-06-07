@@ -13,6 +13,7 @@ VOICE = {
     'male':   dict(voice='de-DE-KillianNeural', rate='-4%',  pitch='-2Hz'),
     'female': dict(voice='de-DE-KatjaNeural',   rate='+0%',  pitch='+0Hz'),
     'child':  dict(voice='de-DE-SeraphinaMultilingualNeural', rate='+8%', pitch='+28Hz'),
+    'seller': dict(voice='de-DE-AmalaNeural', rate='+0%', pitch='+0Hz'),
     '':       dict(voice='de-DE-KatjaNeural',   rate='+0%',  pitch='+0Hz'),
 }
 
@@ -28,6 +29,7 @@ SCENES = [
     ('scene-das1', 'child',  'thema-01-das.html'),
     ('scene-der2', 'male',   'thema-02-der.html'),
     ('scene-verben','male',  'verben-thema-01.html'),
+    ('scene-das2',  'child', 'thema-02-das.html'),
 ]
 def scene_text(fn):
     html = open(os.path.join(ROOT, fn), encoding='utf-8').read()
@@ -144,6 +146,41 @@ async def main():
     for hid, role, text in HOER:
         await tts(text, role, os.path.join(AUDIO, f'hoer-{hid}.mp3'))
     print('аудирования готовы')
+    # диалог-магазин Otto + продавец (мужской + другой женский)
+    SHOP_DER=[
+        ('male','Guten Tag! Wie viel kostet der Tisch?'),
+        ('seller','Der Tisch kostet achtzig Euro. Er ist aus Holz.'),
+        ('male','Aus Holz? Nein, danke! Ich kaufe nur Kunststoff.'),
+        ('seller','Der Schrank kostet hundert Euro. Er ist aus Kunststoff.'),
+        ('male','Aus Kunststoff? Sehr gut! Der Preis ist okay.'),
+        ('seller','Der Stuhl kostet fünfundzwanzig Euro, auch aus Kunststoff.'),
+        ('male','Gut! Und der Regenschirm?'),
+        ('seller','Der Regenschirm kostet zwölf Euro.'),
+        ('male','Danke! Der Preis ist immer gut!'),
+    ]
+    for i,(role,text) in enumerate(SHOP_DER):
+        await tts(text, role, os.path.join(AUDIO, f'hoer-shop-{i+1}.mp3'))
+    # игра в магазин Тео + Lina (детский + другой женский), фокус — материал
+    SHOP_DAS=[
+        ('child','Lina, wie viel kostet das Auto?'),
+        ('seller','Das Auto kostet drei Euro. Es ist aus Plastik.'),
+        ('child','Aus Plastik? Super! Ich kaufe es!'),
+        ('child','Und das Regal? Aus was ist es?'),
+        ('seller','Das Regal ist aus Holz.'),
+        ('child','Aus Holz, hmm. Und das Buch?'),
+        ('seller','Das Buch ist aus Papier — ein Sonderangebot, nur zwei Euro!'),
+        ('child','Ein Sonderangebot! Toll! Und das Handy?'),
+        ('seller','Das Handy ist aus Glas und Metall.'),
+        ('child','Aus Glas! Schön!'),
+    ]
+    for i,(role,text) in enumerate(SHOP_DAS):
+        await tts(text, role, os.path.join(AUDIO, f'hoer-shopd-{i+1}.mp3'))
+    # слова сцены Тео-комната (детский голос)
+    DAS2=['Zimmer','Bett','Sofa','Regal','Auto','Buch','Bild','Haus','Handy','Telefon','Material','Geschäft',
+          'Sonderangebot','Glück','Problem','Ding','Wort','Feuerzeug','Taschentuch','Holz','Metall','Plastik','Glas','Papier']
+    for w in DAS2:
+        await tts('das '+w, 'child', os.path.join(AUDIO,'word', slug('das '+w)+'.mp3'))
+    print('магазины и слова Тео готовы')
 
 asyncio.run(main())
 print('Готово.')
