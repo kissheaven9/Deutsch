@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Текст-диалог · Тема 2</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+  h1{font-size:28px}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
+  .ic{border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer;font-size:14px;padding:7px 10px}
+  .part{display:flex;align-items:center;gap:14px;margin:30px 0 12px;padding:13px 18px;border-radius:16px;border:1px solid var(--line)}
+  .part .pico{font-size:28px}.part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}.part h2{margin:2px 0 0;font-size:22px}
+  .part.read{background:#f1f5f9} .part.text{background:#faf5ff} .part.train{background:#f3e8ff;border-color:#e9d5ff}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:#f5f3ff;border-bottom:1px solid #eee6fb;border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700}
+  .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
+  .stage>img{width:100%;height:auto;display:block}
+  .imgwait{background:#f8fafc;color:#9ca3af;font-size:14px;line-height:1.5;padding:40px 20px;text-align:center;border-radius:14px;border:1px dashed var(--line)}
+  .mk{position:absolute;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px #0007;cursor:pointer;padding:0;z-index:2}
+  .mk{background:#475569}   /* серые точки — РОД НЕ выдаём, ученик угадывает сам */
+  .mk.gray{background:#9ca3af} .mk.gray .mkw{border-color:#9ca3af;color:#374151}
+  .mk.gray .mkw.der{border-color:var(--der);color:var(--der)} .mk.gray .mkw.die{border-color:var(--die);color:var(--die)} .mk.gray .mkw.das{border-color:var(--das);color:var(--das)}
+  .mk .mkw{display:none;position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;background:#fff;border:2px solid;border-radius:8px;padding:3px 8px;box-shadow:0 2px 8px #0006;font-weight:700;font-size:12px;line-height:1.2}
+  .mk .mkw{border-color:#94a3b8;color:#334155}   /* подпись нейтральная; артикль виден только в самом слове */
+  .mk.open{z-index:5} .mk.open .mkw{display:block}
+  .mk.dir-l .mkw{right:140%} .mk.dir-r .mkw{left:140%}
+  .stagehint{font-size:12px;color:var(--muted);margin:6px 0 0}
+  details.promptbox{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:10px 14px;margin:12px 0}
+  details.promptbox summary{cursor:pointer;font-weight:700;color:#a16207;font-size:14px}
+  .prompt{white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.55;color:#374151;margin-top:8px}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .dlg p{margin:0 0 7px;font-size:15px;line-height:1.55}
+  .dlg.de p{color:var(--ink);font-weight:500} .dlg.ru p{color:#374151}
+  .dlg .sp{font-weight:700}
+  .dlg .sp.der{color:var(--der)} .dlg .sp.die{color:var(--die)} .dlg .sp.das{color:var(--das)}
+  .dlg .sp.carla{color:#b8860b}   /* Carla — жёлтый (розовый сливался с красным Греты) */
+  .dlg .sp.theo{color:#2563eb}    /* Тео — синий (чтобы отличать от Lina) */
+  .dlg .rem,.dlg p.rem{color:#9ca3af;font-style:italic;font-size:13px}
+  .leg{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin:0 0 8px}
+  .leg b{font-weight:800}
+  .q{border-top:1px solid var(--line);padding:9px 0}
+  .qq{font-weight:600;color:var(--ink);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .lk2{border:none;background:#f3e8ff;color:var(--accent);border-radius:7px;font-size:12px;padding:2px 8px;cursor:pointer}
+  .qru{color:var(--muted);font-size:13px;margin:3px 0}
+  .qin{flex:1;min-width:150px;border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:14px;font-family:inherit}
+  .qin:focus{outline:none;border-color:var(--accent)}
+  .btn.sm{padding:7px 11px;font-size:13px}
+  .qres{margin-top:5px;font-size:14px;font-weight:600}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .ru{min-width:130px;color:#374151}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:150px}
+  .wq input:focus{outline:none;border-color:var(--accent)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .score{font-weight:700;margin-top:8px}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
+  .mchip.de{font-weight:700;color:var(--accent)} .mchip.sel{border-color:var(--accent);background:#f3e8ff}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
+  .noselect{user-select:none;-webkit-user-select:none}
+  .sortgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(7,auto);grid-auto-flow:column;column-gap:28px}
+  @media(max-width:620px){.sortgrid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}}
+  .btn:disabled,.btn[disabled]{opacity:.45;cursor:not-allowed}
+  .sortdots{display:flex;gap:8px;align-items:center;margin:0}
+  .pdot{width:11px;height:11px;border-radius:50%;background:#fff;border:1.5px solid #cbd5e1;box-sizing:border-box;transition:.15s}
+  .pdot.seen{background:#c4b5fd;border-color:#c4b5fd}
+  .pdot.cur{background:var(--accent);border-color:var(--accent);transform:scale(1.3)}
+  .srow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:8px 0}
+  .srow .sw{font-weight:700;min-width:130px}
+  .sbtns{display:flex;gap:6px}
+  .sbtns button{border:2px solid var(--line);background:#fff;border-radius:8px;padding:5px 12px;font-weight:700;cursor:pointer;font-size:14px;color:#6b7280}
+  .sbtns button.der.on{background:var(--der);color:#fff;border-color:var(--der)}
+  .sbtns button.die.on{background:var(--die);color:#fff;border-color:var(--die)}
+  .sbtns button.das.on{background:var(--das);color:#fff;border-color:var(--das)}
+  .srow.ok{background:#f0fdf4}.srow.bad{background:#fef2f2}
+  .srow .mark{font-weight:800;margin-left:auto}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb" id="crumb"></span></div></header>
+<main class="wrap">
+  <div id="app"></div>
+  <div class="scenenav" id="nav"></div>
+</main>
+<footer>Deutsch A1</footer>
+
+<script src="js/app.js?v=3"></script>
+<script>
+function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9äöüß]/g,'');}
+const DIALOGS={
+ 1:{ title:'Текст 1 — Выходные у Греты', img:'img/dialog3-1.png',
+   sub:'Грета и Carla про музыку, гитару и вечеринку. Рода вперемешку (der/die/das). L6–L7.',
+   de:`<p><span class="sp die">Greta:</span> Mamma mia, am Wochenende habe ich eine Party! Ich spiele Gitarre und höre Musik.</p>
+   <p><span class="sp die carla">Carla:</span> Schön! Spielst du auch im Verein?</p>
+   <p><span class="sp die">Greta:</span> Nein, ich spiele zu Hause. Theo kommt auch — er bringt ein Spiel.</p>
+   <p><span class="sp die carla">Carla:</span> Toll! Lina spielt ein Instrument, sie ist im Konzert gut.</p>
+   <p><span class="sp die">Greta:</span> Wir tanzen, singen und haben Spaß. Musik ist mein Leben!</p>`,
+   ru:`<p><span class="sp die">Грета:</span> Mamma mia, на выходных у меня вечеринка! Я играю на гитаре и слушаю музыку.</p>
+   <p><span class="sp die carla">Carla:</span> Здорово! Ты играешь и в клубе?</p>
+   <p><span class="sp die">Грета:</span> Нет, играю дома. Тео тоже придёт — принесёт игру.</p>
+   <p><span class="sp die carla">Carla:</span> Класс! Lina играет на инструменте, она хороша на концерте.</p>
+   <p><span class="sp die">Грета:</span> Мы танцуем, поём и веселимся. Музыка — моя жизнь!</p>`,
+   qa:[{q:'Was hat Greta am Wochenende?',ru:'Что у Греты на выходных?',a:'Eine Party.',k:'party'},{q:'Was spielt Greta?',ru:'На чём играет Грета?',a:'Gitarre.',k:'gitarre'},{q:'Was spielt Lina?',ru:'На чём играет Lina?',a:'Ein Instrument.',k:'instrument'}],
+   match:[['die Musik','музыка'],['die Gitarre','гитара'],['der Verein','клуб'],['das Konzert','концерт'],['das Spiel','игра'],['die Party','вечеринка']],
+   sort:[['Verein','der'],['Tanz','der'],['Musik','die'],['Gitarre','die'],['Party','die'],['Spiel','das'],['Konzert','das'],['Instrument','das']],
+   write:[['музыка','die Musik'],['гитара','die Gitarre'],['клуб','der Verein'],['концерт','das Konzert'],['игра','das Spiel'],['вечеринка','die Party']],
+   verbs:[['spielen','играть'],['hören','слушать'],['singen','петь']]
+ },
+ 2:{ title:'Текст 2 — Otto в парке', img:'img/dialog3-2.png',
+   sub:'Otto и Тео про спорт, футбол и парк. Рода вперемешку. L6–L7.',
+   de:`<p><span class="sp der">Otto:</span> Theo, am Samstag spiele ich Fußball im Park. Kommst du?</p>
+   <p><span class="sp das theo">Theo:</span> Ja! Ich fahre Fahrrad in den Park.</p>
+   <p><span class="sp der">Otto:</span> Super! Im Verein treffe ich Freunde. Wir machen auch einen Spaziergang.</p>
+   <p><span class="sp das theo">Theo:</span> Und am Sonntag?</p>
+   <p><span class="sp der">Otto:</span> Am Sonntag sehe ich einen Film. Aber Sport ist mein Hobby — jeden Tag!</p>`,
+   ru:`<p><span class="sp der">Отто:</span> Тео, в субботу я играю в футбол в парке. Придёшь?</p>
+   <p><span class="sp das theo">Тео:</span> Да! Я приеду в парк на велосипеде.</p>
+   <p><span class="sp der">Отто:</span> Супер! В клубе я встречаю друзей. Ещё мы делаем прогулку.</p>
+   <p><span class="sp das theo">Тео:</span> А в воскресенье?</p>
+   <p><span class="sp der">Отто:</span> В воскресенье смотрю фильм. Но спорт — моё хобби, каждый день!</p>`,
+   qa:[{q:'Was spielt Otto im Park?',ru:'Во что Otto играет в парке?',a:'Fußball.',k:'fußball'},{q:'Wie fährt Theo in den Park?',ru:'Как Тео едет в парк?',a:'Mit dem Fahrrad.',k:'fahrrad'},{q:'Was ist Ottos Hobby?',ru:'Какое хобби у Otto?',a:'Sport.',k:'sport'}],
+   match:[['der Sport','спорт'],['der Fußball','футбол'],['der Park','парк'],['der Computer','компьютер'],['das Fahrrad','велосипед'],['das Wochenende','выходные']],
+   sort:[['Sport','der'],['Fußball','der'],['Park','der'],['Spaziergang','der'],['Film','der'],['Reise','die'],['Pause','die'],['Wochenende','das'],['Fahrrad','das']],
+   write:[['спорт','der Sport'],['футбол','der Fußball'],['парк','der Park'],['прогулка','der Spaziergang'],['велосипед','das Fahrrad'],['выходные','das Wochenende']],
+   verbs:[['treffen','встречать'],['sehen','видеть'],['fahren','ехать']]
+ },
+ 3:{ title:'Текст 3 — Тео и Lina: хобби', img:'img/dialog3-3.png',
+   sub:'Тео и Lina про кино, велосипед, бассейн и игры. Рода вперемешку. L6–L7.',
+   de:`<p><span class="sp das theo">Theo:</span> Lina, am Wochenende gehen wir ins Kino!</p>
+   <p><span class="sp das lina">Lina:</span> Ja! Und danach ins Café.</p>
+   <p><span class="sp das theo">Theo:</span> Ich schwimme gern im Schwimmbad. Schwimmst du auch?</p>
+   <p><span class="sp das lina">Lina:</span> Manchmal. Ich spiele lieber ein Instrument. Am Freitag habe ich ein Konzert.</p>
+   <p><span class="sp das theo">Theo:</span> Cool! Ich lese ein Buch und male.</p>
+   <p><span class="sp das lina">Lina:</span> Unser Hobby ist Spielen — zusammen ist es am besten!</p>`,
+   ru:`<p><span class="sp das theo">Тео:</span> Lina, на выходных мы идём в кино!</p>
+   <p><span class="sp das lina">Lina:</span> Да! А потом в кафе.</p>
+   <p><span class="sp das theo">Тео:</span> Я люблю плавать в бассейне. Ты тоже плаваешь?</p>
+   <p><span class="sp das lina">Lina:</span> Иногда. Я лучше играю на инструменте. В пятницу у меня концерт.</p>
+   <p><span class="sp das theo">Тео:</span> Круто! Я читаю книгу и рисую.</p>
+   <p><span class="sp das lina">Lina:</span> Наше хобби — играть, вместе лучше всего!</p>`,
+   qa:[{q:'Wohin gehen sie am Wochenende?',ru:'Куда они идут на выходных?',a:'Ins Kino.',k:'kino'},{q:'Wo schwimmt Theo?',ru:'Где Тео плавает?',a:'Im Schwimmbad.',k:'schwimmbad'},{q:'Was spielt Lina?',ru:'На чём играет Lina?',a:'Ein Instrument.',k:'instrument'}],
+   match:[['das Hobby','хобби'],['das Kino','кино'],['das Café','кафе'],['das Schwimmbad','бассейн'],['das Theater','театр'],['die Bibliothek','библиотека']],
+   sort:[['Ausflug','der'],['Tag','der'],['Bibliothek','die'],['Zeit','die'],['Woche','die'],['Hobby','das'],['Kino','das'],['Café','das'],['Schwimmbad','das'],['Theater','das']],
+   write:[['хобби','das Hobby'],['кино','das Kino'],['кафе','das Café'],['бассейн','das Schwimmbad'],['театр','das Theater'],['библиотека','die Bibliothek']],
+   verbs:[['schwimmen','плавать'],['lesen','читать'],['malen','рисовать'],['können','мочь']]
+ }
+};
+
+const N=Math.min(3,Math.max(1,parseInt(new URLSearchParams(location.search).get('n'))||1));
+const D=DIALOGS[N];
+document.title=D.title;
+{const cr=document.getElementById('crumb');if(cr)cr.innerHTML=`/ <a href="thema-03.html">Тема 3: Свободное время</a> / Текст ${N}`;}
+const MARKS={
+ 1:[{x:30,y:30,w:'die Gitarre',dir:'r'},{x:55,y:40,w:'die Musik',dir:'l'},{x:70,y:60,w:'das Konzert',dir:'l'}],
+ 2:[{x:30,y:35,w:'der Fußball',dir:'r'},{x:55,y:45,w:'der Park',dir:'l'},{x:70,y:65,w:'das Fahrrad',dir:'l'}],
+ 3:[{x:30,y:30,w:'das Kino',dir:'r'},{x:55,y:45,w:'das Schwimmbad',dir:'l'},{x:70,y:60,w:'das Instrument',dir:'l'}]
+};
+const BANNER={};
+const LEGS={};
+
+document.getElementById('app').innerHTML=`
+  <h1>${D.title}</h1>
+  <p class="lead">${D.sub} <span style="color:var(--muted)">Диалог ${N} из 3 · Тема 3</span></p>
+  <div class="scenenav" id="navTop"></div>
+  <div class="stage" id="stage">${BANNER[N]?`<div class="qtask">${BANNER[N]}</div>`:''}<img src="${D.img}" alt="${D.title}"></div>
+  <p class="stagehint">Тапни <b>серую точку</b> на предмете — сначала угадай артикль (der/die/das) сам, потом проверь себя: откроется слово с правильным артиклем.</p>
+  
+
+  <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Читаем диалог</h2></div></div>
+  <div class="panel">
+    <div class="leg">${LEGS[N]||''}</div>
+    <div class="bh">🇩🇪 Deutsch <button class="ic" onclick="speakDialog(this)">🔊 Послушать (по голосам)</button></div>
+    <div class="dlg de" id="deDlg">${D.de}</div>
+    <div class="bh" style="margin-top:14px">🇷🇺 Русский <button class="ic" id="ruBtn" onclick="toggleRuDlg()">Показать перевод</button></div>
+    <div class="dlg ru" id="ruDlg" hidden>${D.ru}</div>
+  </div>
+
+  <div class="part text"><span class="pico">💬</span><div><div class="pk">Часть 2</div><h2>Вопросы по тексту</h2></div></div>
+  <div class="panel"><h3>❓ Ответь на вопросы</h3>
+    <p class="sub">Отвечай <b>полным предложением</b>; число — <b>словами</b> (например: «Die Lampe kostet neun Euro.»). Перевод вопроса — по кнопке.</p>
+    <div id="qa"></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="qaCheckAll()">Проверить</button><button class="btn sm" id="qaShowBtn" onclick="qaShowAll()" disabled>Показать ответы</button><span class="muted" id="qaHint" style="font-size:12px">откроются после проверки</span></div>
+    <div class="score" id="qaScore"></div>
+  </div>
+
+  <div class="panel" id="hoerPanel"><h3>🎧 Аудирование</h3>
+    <p class="sub">Послушай (можно несколько раз) и впиши ответ.</p>
+    <div id="hoerWrap"></div>
+  </div>
+
+  <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова (все рода вперемешку)</h2></div></div>
+  <div class="panel"><h3><span class="exnum">1</span>🔗 Соотнеси: немецкое ↔ русское</h3>
+    <p class="sub">Нажми немецкое слово, потом перевод — пара окрасится. Выбор можно менять.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+  <div class="panel"><h3><span class="exnum">2</span>🧮 Распредели по родам</h3>
+    <p class="sub">У каждого слова выбери род — der, die или das. «ещё» — новый набор.</p>
+    <div id="sortList" class="sortgrid"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="sortCheck()">Проверить</button><button class="btn sm" onclick="sortNext()">ещё слова →</button><span class="sortdots" id="sortDots"></span></div>
+    <div class="score" id="sScore"></div>
+  </div>
+  <div class="panel"><h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
+    <p class="sub">Дано слово по-русски — впиши его по-немецки <b>с правильным артиклем</b>.</p>
+    <div id="writeList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+  <div class="panel"><h3><span class="exnum">4</span>🔤 Глаголы: напиши перевод</h3>
+    <p class="sub">Дан немецкий глагол — впиши, что он значит по-русски.</p>
+    <div id="verbList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="verbCheck()">Проверить</button><button class="btn sm" onclick="verbShow()">Показать ответы</button></div>
+    <div class="score" id="vScore"></div>
+  </div>`;
+
+function speakDialog(btn){
+  const items=[...document.querySelectorAll('#deDlg p')].filter(p=>p.querySelector('.sp')).map(p=>{
+    const sp=p.querySelector('.sp');
+    const role= sp.classList.contains('carla')?'carla'
+              : sp.classList.contains('lina')?'childgirl'
+              : sp.classList.contains('der')?'male'
+              : sp.classList.contains('die')?'female':'child';
+    const c=p.cloneNode(true); c.querySelectorAll('.sp,.rem').forEach(e=>e.remove());
+    return {t:c.textContent.replace(/\s+/g,' ').trim(), role};
+  }).filter(x=>x.t);
+  const urls=items.map((_,i)=>`audio/dlg3-${N}-${i}.mp3`);
+  playSeq(urls, btn, items);
+}
+function toggleRuDlg(){const d=document.getElementById('ruDlg'),b=document.getElementById('ruBtn');d.hidden=!d.hidden;b.textContent=d.hidden?'Показать перевод':'Скрыть перевод';}
+
+// ---- метки на картинке ----
+const stage=document.getElementById('stage');
+function mk(m){const art=(m.w.match(/^(der|die|das)/)||[''])[0];const b=document.createElement('button');b.className='mk gray dir-'+(m.dir||'l');b.style.left=m.x+'%';b.style.top=m.y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkw ${art}">${m.w}</span>`;stage.appendChild(b);}
+if(stage.querySelector('img')) (MARKS[N]||[]).forEach(mk);
+
+// ---- nav (верх и низ) ----
+const navHtml=
+  (N>1?`<a href="dialog2.html?n=${N-1}">← Текст ${N-1}</a>`:'<span></span>')+
+  `<a href="thema-03.html" style="background:#f3e8ff;color:var(--accent)">⬆ К теме «Быт (дом)»</a>`+
+  (N<3?`<a href="dialog2.html?n=${N+1}">Текст ${N+1} →</a>`:'<span></span>');
+document.getElementById('nav').innerHTML=navHtml;
+document.getElementById('navTop').innerHTML=navHtml;
+
+// ---- мини-аудирования ----
+const HOER={
+ 1:[{f:'d2a-preise-spiegel',role:'child',q:'Послушай ЦЕНЫ (их несколько!). Сколько стоит зеркало — der Spiegel?',t:'Der Tisch kostet dreißig Euro, die Lampe neun Euro und der Spiegel neunundneunzig Euro.',a:'99',ph:'евро (цифрами)',num:1},
+    {f:'d2a-preise-bett',role:'female',q:'Послушай ЦЕНЫ (их несколько!). Сколько стоит кровать — das Bett?',t:'Der Schrank kostet hundertfünfzig Euro, das Bett achtzig Euro und das Regal fünfundzwanzig Euro.',a:'80',ph:'евро (цифрами)',num:1}],
+ 2:[{f:'d2b-sofa',role:'female',q:'Какого цвета диван?',t:'Das Sofa ist grün und groß.',a:'grün',ph:'цвет'},
+    {f:'d2b-spiegel',role:'female',q:'Сколько стоит зеркало?',t:'Der Spiegel kostet neunundneunzig Euro.',a:'99',ph:'цена (цифры)',num:1}],
+ 3:[{f:'d2c-sofa',role:'male',q:'Сколько стоит диван сейчас?',t:'Das Sofa kostet jetzt nur fünfzig Euro.',a:'50',ph:'цена (цифры)',num:1},
+    {f:'d2c-tisch',role:'male',q:'Из какого материала стол?',t:'Der Tisch ist aus Holz.',a:'Holz',ph:'материал'}]
+};
+document.getElementById('hoerWrap').innerHTML=(HOER[N]||[]).map(h=>`<div class="hq" data-ans="${h.a}"><button class="ic" onclick="playSeq(['audio/hoer-${h.f}.mp3'],this,[{t:'${h.t.replace(/'/g,"\\'")}',role:'${h.role}'}])">▶ ${h.q}</button><input class="qin" ${h.num?'inputmode="numeric"':''} placeholder="${h.ph}" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>`).join('');
+
+// ---- вопросы ----
+document.getElementById('qa').innerHTML=D.qa.map((o,i)=>`<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${i+1}. ${o.q} <button class="lk2" onclick="tRu(this)">перевод</button></div><div class="qru" hidden>${o.ru}</div><input class="qin" placeholder="Ответь по-немецки…" autocomplete="off"><div class="qres"></div></div>`).join('');
+function tRu(b){const r=b.closest('.q').querySelector('.qru');r.hidden=!r.hidden;}
+function qaCheckAll(){let ok=0;document.querySelectorAll('#qa .q').forEach(q=>{const inp=q.querySelector('.qin'),res=q.querySelector('.qres');const good=norm(inp.value).length>2&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=good?'var(--das)':'var(--die)';res.style.color=good?'var(--das)':'var(--die)';res.textContent=good?('✓ '+praise()):'✗ попробуй ещё (полным предложением)';if(good)ok++;});document.getElementById('qaScore').innerHTML=`<span style="color:${ok===D.qa.length?'var(--das)':'var(--die)'}">${ok} / ${D.qa.length} верно${ok===D.qa.length?(' — '+praise()):''}</span>`;document.getElementById('qaShowBtn').disabled=false;document.getElementById('qaHint').textContent='';}
+function qaShowAll(){document.querySelectorAll('#qa .q').forEach(q=>{q.querySelector('.qres').innerHTML='<span class="noselect" style="color:var(--accent)">✔ '+q.dataset.ans+'</span>';const inp=q.querySelector('.qin');inp.readOnly=true;inp.classList.add('noselect');inp.style.background='#f3f4f6';});}
+
+// ---- соотнеси ----
+const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let selDe=null,links={},colorOf={},nextC=0;
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){selDe=null;links={};colorOf={};nextC=0;const M=D.match;const order=shuffle(M.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=M.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${M[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';}
+function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){const M=D.match;let ok=0;M.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===M.length?'var(--das)':'var(--die)'}">${ok} / ${M.length} верно${ok===M.length?(' — '+praise()):' — поправь пары'}</span>`;}
+
+// ---- распредели по родам ----
+const _der=[['Stuhl','der'],['Sessel','der'],['Tisch','der'],['Schrank','der'],['Teppich','der'],['Spiegel','der'],['Schlüssel','der'],['Geldbeutel','der'],['Regenschirm','der'],['Kugelschreiber','der'],['Bleistift','der'],['Preis','der']];
+const _die=[['Tasche','die'],['Brille','die'],['Uhr','die'],['Lampe','die'],['Kette','die'],['Flasche','die'],['Kamera','die'],['Bürste','die'],['Seife','die'],['Farbe','die'],['Sonne','die'],['Möbel','die']];
+const _das=[['Bett','das'],['Sofa','das'],['Regal','das'],['Bild','das'],['Zimmer','das'],['Buch','das'],['Handy','das'],['Auto','das'],['Telefon','das'],['Material','das'],['Geschäft','das'],['Sonderangebot','das'],['Holz','das'],['Glas','das'],['Metall','das'],['Plastik','das'],['Papier','das']];
+function interleave(arrs){const out=[];let i=0,any=true;while(any){any=false;for(const a of arrs){if(i<a.length){out.push(a[i]);any=true;}}i++;}return out;}
+const SORTPOOL=interleave([_der,_die,_das]);
+const SPP=14, SPAGES=Math.ceil(SORTPOOL.length/SPP);
+let sPage=(N-1)%SPAGES; const sChecked=new Set();
+function renderDots(){document.getElementById('sortDots').innerHTML=Array.from({length:SPAGES},(_,i)=>`<span class="pdot${i===sPage?' cur':(sChecked.has(i)?' seen':'')}"></span>`).join('');}
+function renderSort(){const items=SORTPOOL.slice(sPage*SPP,sPage*SPP+SPP);
+  document.getElementById('sortList').innerHTML=items.map((p,i)=>`<div class="srow" data-i="${i}" data-g="${p[1]}"><span class="sw">${p[0]}</span><span class="sbtns"><button class="der" onclick="pickG(this,'der')">der</button><button class="die" onclick="pickG(this,'die')">die</button><button class="das" onclick="pickG(this,'das')">das</button></span><span class="mark"></span></div>`).join('');
+  renderDots();document.getElementById('sScore').textContent='';}
+function sortNext(){sPage=(sPage+1)%SPAGES;renderSort();}
+function pickG(btn,g){const row=btn.closest('.srow');row.dataset.pick=g;row.classList.remove('ok','bad');row.querySelector('.mark').textContent='';row.querySelectorAll('.sbtns button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+function sortCheck(){const rows=[...document.querySelectorAll('#sortList .srow')];let ok=0;rows.forEach(r=>{if(!r.dataset.pick)return;const good=r.dataset.pick===r.dataset.g;r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.mark').textContent=good?'✓':('✗ '+r.dataset.g);if(good)ok++;});document.getElementById('sScore').innerHTML=`<span style="color:${ok===rows.length?'var(--das)':'var(--die)'}">${ok} / ${rows.length} верно${ok===rows.length?(' — '+praise()):' — поправь и проверь'}</span>`;sChecked.add(sPage);renderDots();}
+
+// ---- напиши с артиклем ----
+function renderWrite(){document.getElementById('writeList').innerHTML=D.write.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="артикль + слово…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('wScore').textContent='';}
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(D.write[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.write[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===D.write.length?'var(--das)':'var(--die)'}">${ok} / ${D.write.length} верно${ok===D.write.length?(' — '+praise()):''}</span>`;}
+function writeReset(){renderWrite();}
+function writeShow(){if(!document.getElementById('wScore').textContent.trim()){alert('Сначала впиши ответы и нажми «Проверить».');return;}document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.write[i][1];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
+
+// ---- глаголы ----
+function renderVerb(){document.getElementById('verbList').innerHTML=D.verbs.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru" style="color:var(--accent);font-weight:700">${p[0]}</span><input placeholder="перевод по-русски…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('vScore').textContent='';}
+function verbCheck(){let ok=0;document.querySelectorAll('#verbList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v.length>=3 && norm(D.verbs[i][1]).includes(v);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.verbs[i][1];if(good)ok++;});document.getElementById('vScore').innerHTML=`<span style="color:${ok===D.verbs.length?'var(--das)':'var(--die)'}">${ok} / ${D.verbs.length} верно${ok===D.verbs.length?(' — '+praise()):''}</span>`;}
+function verbShow(){if(!document.getElementById('vScore').textContent.trim()){alert('Сначала впиши ответы и нажми «Проверить».');return;}document.querySelectorAll('#verbList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.verbs[i][1];r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('vScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
+
+renderMatch();renderSort();renderWrite();renderVerb();
+</script>
+<script src="js/chrome.js?v=3"></script>
+</body>
+</html>

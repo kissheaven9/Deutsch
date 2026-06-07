@@ -34,6 +34,10 @@ SCENES = [
     ('scene-das2',  'child', 'thema-02-das.html'),
     ('scene-die2',  'female','thema-02-die.html'),
     ('scene-verben2','female', 'verben-thema-02.html'),
+    ('scene-der3', 'male',   'thema-03-der.html'),
+    ('scene-die3', 'female', 'thema-03-die.html'),
+    ('scene-das3', 'child',  'thema-03-das.html'),
+    ('scene-verben3','female','verben-thema-03.html'),
 ]
 def scene_text(fn):
     html = open(os.path.join(ROOT, fn), encoding='utf-8').read()
@@ -128,6 +132,12 @@ async def main():
         print(f'диалог2 {n}: {len(lines)} реплик')
         for i,(role,txt) in enumerate(lines):
             await tts(txt, role, os.path.join(AUDIO, f'dlg2-{n}-{i}.mp3'))
+    d3html = open(os.path.join(ROOT,'dialog3.html'), encoding='utf-8').read()
+    for n in (1,2,3):
+        lines = dialog_lines(n, d3html)
+        print(f'диалог3 {n}: {len(lines)} реплик')
+        for i,(role,txt) in enumerate(lines):
+            await tts(txt, role, os.path.join(AUDIO, f'dlg3-{n}-{i}.mp3'))
     # слова по роду (der→Otto, die→Грета, das→Тео)
     os.makedirs(os.path.join(AUDIO,'word'), exist_ok=True)
     words = dict_words()
@@ -138,7 +148,8 @@ async def main():
     # глаголы (мужской голос)
     VERBS=['wohnen','leben','lernen','machen','arbeiten','studieren','planen','glauben',
            'sein','haben','sprechen','heißen','kommen','gehen',
-           'kaufen','kosten','bestellen','sehen','finden']
+           'kaufen','kosten','bestellen','sehen','finden',
+           'spielen','hören','tanzen','kochen','malen','fotografieren','lesen','schwimmen','fahren','singen','treffen','können']
     for inf in VERBS:
         await tts(inf, 'male', os.path.join(AUDIO,'word', slug(inf)+'.mp3'))
     # слова сцен, которых нет в словаре (иначе fallback на робота)
@@ -155,10 +166,18 @@ async def main():
     PROPS=['schön','hässlich','teuer','günstig','billig','praktisch','modern','groß','klein','alt','neu']
     for w in PROPS:
         await tts(w, 'male', os.path.join(AUDIO,'word', slug(w)+'.mp3'))
+    HAEUFIG=['gern','nicht gern','oft','manchmal','immer','nie','jeden Tag','zusammen','mit']
+    for w in HAEUFIG:
+        await tts(w, 'female', os.path.join(AUDIO,'word', slug(w)+'.mp3'))
+    TAGE=['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag','am Wochenende']
+    for w in TAGE:
+        await tts(w, 'male', os.path.join(AUDIO,'word', slug(w)+'.mp3'))
     print('слова готовы')
     # тексты раздела «Другое»
     ANDERE=[
         ('andere-farben','female','Mamma mia, ich liebe Farben! Meine Tasche ist rot, meine Lampe ist gelb, meine Flasche ist grün. Der Himmel ist blau, die Wolke ist weiß. Meine Brille ist schwarz, meine Bürste ist orange. Nur grau mag ich nicht — grau ist langweilig! Hellblau und dunkelgrün sind auch schön. Mamma mia, das Leben ist bunt!'),
+        ('andere-haeufig','female','Was machen wir in der Freizeit? Ich höre oft Musik und spiele gern Gitarre. Manchmal tanze ich. Otto spielt immer Fußball — jeden Tag! Theo liest gern, aber er kocht nicht gern. Wir machen viel zusammen, mit Freunden. Langweilig? Nie!'),
+        ('andere-tage','male','Meine Woche: Am Montag spiele ich Fußball. Am Dienstag und Mittwoch arbeite ich im Garten. Am Donnerstag lese ich, am Freitag treffe ich Freunde. Am Samstag und Sonntag ist Wochenende — am Wochenende fahre ich Fahrrad. Schön!'),
         ('andere-eigenschaften','male','Was kaufe ich? Das Sofa ist schön und modern, aber teuer — zweihundert Euro! Der Stuhl ist klein und praktisch, nur günstig. Die alte Lampe ist nicht neu, aber billig. Das große Regal ist hässlich — nein, danke! Ich finde: praktisch und günstig ist gut, zu teuer ist schlecht.'),
     ]
     for sid,role,text in ANDERE:
@@ -244,6 +263,16 @@ async def main():
     ]
     for i,(role,text) in enumerate(SHOP_DIE):
         await tts(text, role, os.path.join(AUDIO, f'hoer-shopg-{i+1}.mp3'))
+    # аудирования сцен Темы 3
+    SPORT3=[('male','Hallo! Am Montag spiele ich Fußball im Park.'),('male','Am Mittwoch gehe ich in den Verein und treffe Freunde.'),('male','Am Samstag mache ich einen langen Spaziergang.'),('male','Am Sonntag sehe ich einen Film am Computer. Sport ist mein Hobby!')]
+    for i,(role,text) in enumerate(SPORT3):
+        await tts(text, role, os.path.join(AUDIO, f'hoer-sport3-{i+1}.mp3'))
+    MUSIK3=[('female','Mamma mia! Am Freitag spiele ich Gitarre.'),('female','Am Samstag habe ich eine Party — Musik und Freunde!'),('female','Manchmal mache ich eine Reise. Ich kaufe eine Karte.'),('female','In der Pause lese ich in der Bibliothek. Musik ist mein Leben!')]
+    for i,(role,text) in enumerate(MUSIK3):
+        await tts(text, role, os.path.join(AUDIO, f'hoer-musik3-{i+1}.mp3'))
+    HOBBY3=[('child','Lina, am Wochenende gehen wir ins Kino!'),('childgirl','Ja! Und ich spiele ein Instrument im Konzert.'),('child','Ich fahre Fahrrad und schwimme im Schwimmbad.'),('childgirl','Super! Spielen ist unser Hobby!')]
+    for i,(role,text) in enumerate(HOBBY3):
+        await tts(text, role, os.path.join(AUDIO, f'hoer-hobby3-{i+1}.mp3'))
     print('слова Otto/Греты-комната готовы')
 
 asyncio.run(main())
