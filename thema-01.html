@@ -23,6 +23,13 @@
   .grow .go{align-self:flex-start;margin-top:10px;color:#fff;font-weight:700;text-decoration:none;border-radius:11px;padding:9px 15px}
   .grow.der .go{background:var(--der)} .grow.die .go{background:var(--die)} .grow.das .go{background:var(--das)}
   .grow .go.soon{background:#f1f5f9;color:#9ca3af}
+  .gactions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  .gactions .go{margin-top:0}
+  .gpdf{border:1px solid #fde68a;background:#fffbeb;color:#a16207;font-weight:700;border-radius:11px;padding:9px 13px;text-decoration:none;font-size:14px}
+  .dictrow{display:flex;gap:10px;align-items:stretch;margin:24px 0 14px}
+  .dictrow .dictbig{margin:0;flex:1}
+  .pdfside{display:flex;flex-direction:column;justify-content:center;text-align:center;border:1px solid #fde68a;background:#fffbeb;color:#a16207;font-weight:700;border-radius:18px;padding:12px 18px;text-decoration:none;font-size:14px;line-height:1.3;flex:none}
+  @media(max-width:560px){.dictrow{flex-direction:column}}
   .gph-ph{width:150px;height:150px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;font-size:54px;background:#e8f6ee}
   @media(max-width:560px){.grow{flex-direction:column}.grow .gphoto{width:100%;height:230px;object-fit:cover}.gph-ph{width:100%;height:190px}}
   .words{display:flex;flex-wrap:wrap;gap:5px}
@@ -88,7 +95,7 @@
       <div class="words">
         <span class="w">Name</span><span class="w">Vorname</span><span class="w">Familienname</span><span class="w">Herr</span><span class="w">Beruf</span><span class="w">Job</span><span class="w">Single</span><span class="w">Partner</span><span class="w">Wohnort</span><span class="w">Familienstand</span><span class="w">Moment</span><span class="w">Gärtner</span><span class="w">Lehrer</span><span class="w">Arzt</span><span class="w">Tierarzt</span><span class="w">Ingenieur</span><span class="w">Architekt</span><span class="w">Student</span><span class="w">Journalist</span><span class="w">Friseur</span><span class="w">Verkäufer</span><span class="w">Kellner</span><span class="w">Schüler</span><span class="w">Rentner</span><span class="w">Schauspieler</span><span class="w">Sänger</span><span class="w">Vater</span><span class="w">Papa</span><span class="w">Bruder</span><span class="w">Sohn</span><span class="w">Onkel</span><span class="w">Großvater</span><span class="w">Enkel</span><span class="w">Ehemann</span><span class="w">Verwandte</span><span class="w">Mann</span>
       </div>
-      <a class="go" href="thema-01-der.html">▶ Начать изучение →</a>
+      <div class="gactions"><a class="go" href="thema-01-der.html">▶ Начать изучение →</a><a class="gpdf" href="dictionary.html?thema=01&g=der&pdf=1">📄 Словарь PDF</a></div>
     </div>
   </div>
 
@@ -99,7 +106,7 @@
       <div class="words">
         <span class="w">Frau</span><span class="w">Familie</span><span class="w">Mutter</span><span class="w">Mama</span><span class="w">Schwester</span><span class="w">Tochter</span><span class="w">Oma</span><span class="w">Großmutter</span><span class="w">Enkelin</span><span class="w">Ehefrau</span><span class="w">Tante</span><span class="w">Verwandte</span><span class="w">Nationalität</span><span class="w">Herkunft</span><span class="w">Sprache</span><span class="w">Adresse</span><span class="w">Straße</span><span class="w">Hausnummer</span><span class="w">Postleitzahl</span><span class="w">Stadt</span><span class="w">Telefonnummer</span><span class="w">Nummer</span><span class="w">E-Mail</span><span class="w">Visitenkarte</span><span class="w">Information</span><span class="w">Liste</span><span class="w">Zahl</span><span class="w">Musik</span><span class="w">Köchin</span><span class="w">Sängerin</span><span class="w">Ärztin</span><span class="w">Friseurin</span><span class="w">Verkäuferin</span><span class="w">Lehrerin</span><span class="w">Studentin</span><span class="w">Krankenschwester</span><span class="w">Rentnerin</span><span class="w">Partnerin</span><span class="w">Firma</span><span class="w">Stelle</span><span class="w">Ausbildung</span>
       </div>
-      <a class="go" href="thema-01-die.html">▶ Начать изучение →</a>
+      <div class="gactions"><a class="go" href="thema-01-die.html">▶ Начать изучение →</a><a class="gpdf" href="dictionary.html?thema=01&g=die&pdf=1">📄 Словарь PDF</a></div>
     </div>
   </div>
 
@@ -110,7 +117,7 @@
       <div class="words">
         <span class="w">Kind</span><span class="w">Mädchen</span><span class="w">Jahr</span><span class="w">Alter</span><span class="w">Land</span><span class="w">Gespräch</span><span class="w">Alphabet</span><span class="w">Interview</span><span class="w">Rätsel</span><span class="w">Studium</span><span class="w">Praktikum</span><span class="w">Tier</span><span class="w">Fest</span><span class="w">Enkelkind</span><span class="w">Datum</span><span class="w">Geburtsdatum</span><span class="w">Mitglied</span>
       </div>
-      <a class="go" href="thema-01-das.html">▶ Начать изучение →</a>
+      <div class="gactions"><a class="go" href="thema-01-das.html">▶ Начать изучение →</a><a class="gpdf" href="dictionary.html?thema=01&g=das&pdf=1">📄 Словарь PDF</a></div>
     </div>
   </div>
 
@@ -139,14 +146,17 @@
     </div>
   </div>
 
-  <a class="dictbig" href="dictionary.html?thema=01">
-    <div class="db-ico">📖</div>
-    <div class="db-body">
-      <div class="db-title">Словарь темы 1 — все слова</div>
-      <div class="db-sub">Все слова темы с переводом, озвучкой и самопроверкой (глазик). der/die/das + глаголы.</div>
-      <span class="db-search">🔍 Открыть словарь →</span>
-    </div>
-  </a>
+  <div class="dictrow">
+    <a class="dictbig" href="dictionary.html?thema=01">
+      <div class="db-ico">📖</div>
+      <div class="db-body">
+        <div class="db-title">Словарь темы 1 — все слова</div>
+        <div class="db-sub">Все слова темы с переводом, озвучкой и самопроверкой (глазик). der/die/das + глаголы.</div>
+        <span class="db-search">🔍 Открыть словарь →</span>
+      </div>
+    </a>
+    <a class="pdfside" href="dictionary.html?thema=01&pdf=1">📄 Скачать<br>словарь PDF</a>
+  </div>
 
   <div class="sec">Тексты по теме (диалоги · все рода)</div>
   <p class="muted" style="margin-top:0">Закрепляющие диалоги: Otto, Грета и дети знакомятся — рода вперемешку. Читай немецкий → русский, отвечай на вопросы и закрепляй слова.</p>
@@ -154,6 +164,11 @@
     <a class="txtcard" href="dialog.html?n=1"><img src="img/dialog-1.png" alt="Текст 1"><div class="tc-b"><div class="tc-t">Текст 1 — Знакомство во дворе</div><div class="tc-s">Имена, откуда родом, как дела (L1)</div><span class="tc-go">Читать →</span></div></a>
     <a class="txtcard" href="dialog.html?n=2"><img src="img/dialog-2.png" alt="Текст 2"><div class="tc-b"><div class="tc-t">Текст 2 — Кто кем работает</div><div class="tc-s">Профессии, возраст, числа (L2)</div><span class="tc-go">Читать →</span></div></a>
     <a class="txtcard" href="dialog.html?n=3"><img src="img/dialog-3.png" alt="Текст 3"><div class="tc-b"><div class="tc-t">Текст 3 — Семья и языки</div><div class="tc-s">Родня, на каких языках говорят (L3)</div><span class="tc-go">Читать →</span></div></a>
+  </div>
+
+  <div class="scenenav" style="margin-top:24px">
+    <a href="index.html" style="background:#f3e8ff;color:var(--accent)">🏠 Главная</a>
+    <a href="thema-02.html">Тема 2: Быт →</a>
   </div>
 
 </main>
