@@ -113,7 +113,44 @@ const WOERTER = { themes: [
       "Слова-помощники":[["ein / eine","один / одна (неопр. артикль)"],["kein / keine","не / никакой"],["mein","мой"],["dein","твой"],["sehr","очень"],["nur","только"],["hier","здесь"],["und","и"],["aber","но"],["oder","или"]]
     }
   }
-  /* следующие темы добавляются сюда — словарь станет накопительным автоматически */
+,{
+    id:"03", title:"Свободное время", lessons:"L6–L7",
+    nouns:{
+      der:[
+        ["Sport","спорт"],["Fußball","футбол"],["Film","фильм"],["Computer","компьютер"],["Park","парк"],
+        ["Spaziergang","прогулка"],["Verein","клуб / секция"],["Tanz","танец"],["Ausflug","вылазка / экскурсия"],["Tag","день"]
+      ],
+      die:[
+        ["Musik","музыка"],["Freizeit","свободное время"],["Party","вечеринка"],["Reise","поездка"],["Gitarre","гитара"],
+        ["Karte","билет / карта"],["Pause","перерыв"],["Woche","неделя"],["Zeit","время"],["Bibliothek","библиотека"]
+      ],
+      das:[
+        ["Hobby","хобби"],["Kino","кино"],["Konzert","концерт"],["Spiel","игра"],["Fahrrad","велосипед"],
+        ["Schwimmbad","бассейн"],["Café","кафе"],["Instrument","инструмент"],["Wochenende","выходные"],["Theater","театр"]
+      ]
+    },
+    pluralOnly:[],
+    verbs:[
+      ["spielen","играть","reg",["spiele","spielst","spielt","spielen","spielt","spielen"],"hat gespielt"],
+      ["hören","слушать","reg",["höre","hörst","hört","hören","hört","hören"],"hat gehört"],
+      ["tanzen","танцевать","reg",["tanze","tanzt","tanzt","tanzen","tanzt","tanzen"],"hat getanzt"],
+      ["kochen","готовить","reg",["koche","kochst","kocht","kochen","kocht","kochen"],"hat gekocht"],
+      ["malen","рисовать","reg",["male","malst","malt","malen","malt","malen"],"hat gemalt"],
+      ["fotografieren","фотографировать","reg",["fotografiere","fotografierst","fotografiert","fotografieren","fotografiert","fotografieren"],"hat fotografiert"],
+      ["lesen","читать","irr",["lese","liest","liest","lesen","lest","lesen"],"hat gelesen"],
+      ["schwimmen","плавать","irr",["schwimme","schwimmst","schwimmt","schwimmen","schwimmt","schwimmen"],"ist geschwommen"],
+      ["fahren","ехать / кататься","irr",["fahre","fährst","fährt","fahren","fahrt","fahren"],"ist gefahren"],
+      ["singen","петь","irr",["singe","singst","singt","singen","singt","singen"],"hat gesungen"],
+      ["treffen","встречать","irr",["treffe","triffst","trifft","treffen","trefft","treffen"],"hat getroffen"],
+      ["können","мочь / уметь","irr",["kann","kannst","kann","können","könnt","können"],"hat gekonnt"]
+    ],
+    other:{
+      "Как часто / как":[["gern","охотно (нравится)"],["nicht gern","не нравится"],["oft","часто"],["manchmal","иногда"],["immer","всегда"],["nie","никогда"],["jeden Tag","каждый день"],["zusammen","вместе"],["mit","с (кем-то)"]],
+      "Дни недели":[["Montag","понедельник"],["Dienstag","вторник"],["Mittwoch","среда"],["Donnerstag","четверг"],["Freitag","пятница"],["Samstag","суббота"],["Sonntag","воскресенье"],["am Wochenende","на выходных"]],
+      "Слова-помощники":[["am","в (день)"],["dann","потом"],["auch","тоже"],["heute","сегодня"],["und","и"],["aber","но"],["oder","или"],["sehr","очень"]]
+    }
+  }
+    /* следующие темы добавляются сюда — словарь станет накопительным автоматически */
 ]};
 
 /* ===================== Рендер (общий для обоих режимов) ===================== */
