@@ -50,7 +50,7 @@ class Lines(HTMLParser):
         if tag=='span' and 'sp' in cls.split():
             self.in_sp=True; self.has_sp=True
             cl=cls.split()
-            self.role = 'carla' if 'carla' in cl else 'male' if 'der' in cl else 'female' if 'die' in cl else 'child' if 'das' in cl else ''
+            self.role = 'carla' if 'carla' in cl else 'childgirl' if 'lina' in cl else 'male' if 'der' in cl else 'female' if 'die' in cl else 'child' if 'das' in cl else ''
         if tag=='span' and 'rem' in cls.split():
             self.skip+=1
     def handle_endtag(self, tag):
@@ -156,10 +156,10 @@ async def main():
         ('d3-lea','child','Lea ist zehn Jahre alt.'),
         ('d2a-lampe','child','Die Lampe kostet neun Euro.'),
         ('d2a-spiegel','child','Der Spiegel kostet neunundneunzig Euro.'),
-        ('d2b-tasche','female','Die Tasche ist rot.'),
-        ('d2b-glas','female','Die Lampe ist aus Glas.'),
-        ('d2c-buch','child','Das Buch kostet fünf Euro.'),
-        ('d2c-sofa','child','Kein Sofa ist aus Plastik.'),
+        ('d2b-sofa','female','Das Sofa ist grün und groß.'),
+        ('d2b-spiegel','female','Der Spiegel kostet neunundneunzig Euro.'),
+        ('d2c-sofa','male','Das Sofa kostet jetzt nur fünfzig Euro.'),
+        ('d2c-tisch','male','Der Tisch ist aus Holz.'),
     ]
     for hid, role, text in HOER:
         await tts(text, role, os.path.join(AUDIO, f'hoer-{hid}.mp3'))
