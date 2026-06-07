@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Словарь</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=3">
 <style>
   /* словарь (база — css/style.css; данные и рендер — js/woerter.js) */
   .tools{position:sticky;top:54px;background:var(--bg);padding:10px 0;z-index:4;border-bottom:1px solid var(--line)}
@@ -89,9 +89,9 @@
 </main>
 <footer id="foot">Deutsch A1 · словарь</footer>
 
-<script src="js/app.js"></script>
+<script src="js/app.js?v=3"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="js/woerter.js"></script>
+<script src="js/woerter.js?v=3"></script>
 <script>
   const params = new URLSearchParams(location.search);
   const thema = params.get('thema');               // напр. "01" → словарь только темы; пусто → общий
@@ -111,6 +111,6 @@
 
   Dict.init({ mount: document.getElementById('dict'), thema: (thema && t) ? thema : null });
 </script>
-<script src="js/chrome.js"></script>
+<script src="js/chrome.js?v=3"></script>
 </body>
 </html>

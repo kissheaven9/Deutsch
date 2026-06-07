@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Сцена 2 · der → Otto: моя мебель (дом)</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=3">
 <style>
   h1{font-size:30px}
   .bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
@@ -93,7 +93,7 @@
     <h3>🖼 Комната Otto</h3>
     <p class="sub">Под каждой вещью — русская подсказка, немецкое слово скрыто. Тапни плашку, чтобы открыть слово и род.</p>
     <div class="bar"><button class="ic" onclick="toggleCovers(this)">👁 Открыть все слова</button></div>
-    <div class="stage" id="stage"><img src="img/otto-szene-2.png" alt="Комната Otto"></div>
+    <div class="stage" id="stage"><img src="img/otto-szene-2b.png" alt="Комната Otto"></div>
   </div>
 
   <div class="panel">
@@ -172,7 +172,7 @@
   Deutsch A1 · учим немецкую лексику вместе с Otto, Гретой и детьми
 </footer>
 
-<script src="js/app.js"></script>
+<script src="js/app.js?v=3"></script>
 <script>
 /* подписи: русская подсказка видна, немецкое слово скрыто */
 const OBJ=[
@@ -280,6 +280,6 @@ document.getElementById('gap').innerHTML=GAPPARTS.map(p=> p.t!==undefined ? p.t 
 function gapCheck(){let ok=0;document.querySelectorAll('#gap input').forEach((inp,idx)=>{const good=norm(inp.value)===norm(GANS[idx]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('gScore').innerHTML=`<span style="color:${ok===GANS.length?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${ok===GANS.length?' 🎉':''}</span>`;}
 function gapReset(){document.querySelectorAll('#gap input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--der)';i.style.color='var(--der)';});document.getElementById('gScore').textContent='';}
 </script>
-<script src="js/chrome.js"></script>
+<script src="js/chrome.js?v=3"></script>
 </body>
 </html>

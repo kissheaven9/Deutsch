@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Текст-диалог · Тема 1</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=3">
 <style>
   h1{font-size:28px}
   .bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
@@ -89,7 +89,7 @@
 </main>
 <footer>Deutsch A1</footer>
 
-<script src="js/app.js"></script>
+<script src="js/app.js?v=3"></script>
 <script>
 function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9äöüß]/g,'');}
 const DIALOGS={
@@ -403,6 +403,6 @@ function verbShow(){if(!document.getElementById('vScore').textContent.trim()){al
 
 renderMatch();renderSort();renderWrite();renderVerb();
 </script>
-<script src="js/chrome.js"></script>
+<script src="js/chrome.js?v=3"></script>
 </body>
 </html>
