@@ -105,9 +105,9 @@
   <div class="panel">
     <h3>📜 Текст</h3>
     <div class="bh">Deutsch (A1 · L4–L5) <button class="ic" onclick="playSeq(['audio/scene-der2.mp3'],this,[{t:deText(),role:'male'}])">🔊 Послушать</button></div>
-    <p class="de-block" id="deText">Das ist mein Zimmer. Schau mal! Ich kaufe gern — aber immer günstig. Hier ist mein Stuhl: aus Holz, braun und alt. Ich finde, er ist sehr schön — und er kostet nur 49 Euro. Das ist günstig! Mein Sessel ist groß und dunkelrot, alt, aber sehr praktisch. Mein Tisch ist auch aus Holz: schwarz, groß und modern, nicht teuer. Mein Schrank ist weiß und sehr praktisch. Mein Teppich ist rot und orange — schön, oder? Er kostet nur 30 Euro. Mein Spiegel ist klein und alt. Ich bestelle gern online. Mein Kugelschreiber ist aus Metall, dunkelblau und teuer — aber so schön! Mein Bleistift ist gelb und billig. Meine Schlüssel sind aus Metall, groß und klein — ich habe viele! Mein Geldbeutel ist braun und alt, und mein Regenschirm ist grün. Ich finde, mein Zimmer ist schön — und nicht teuer. Das bin ich!</p>
+    <p class="de-block" id="deText">Das ist mein Zimmer. Ich kaufe immer günstig und praktisch. Fast alles ist aus Kunststoff — das ist billig und praktisch! Mein Stuhl ist aus Kunststoff, blau. Er kostet nur 12 Euro und 50 Cent — günstig! Mein Tisch ist auch aus Kunststoff, weiß und groß: 24 Euro und 90 Cent. Mein Schrank ist aus Kunststoff, schwarz und sehr praktisch — 39 Euro. Mein Sessel ist alt und rot, nicht teuer: 19 Euro. Mein Teppich ist grün und kostet nur 9 Euro und 99 Cent. Mein Spiegel ist klein: 4 Euro und 50 Cent. Mein Kugelschreiber ist auch aus Kunststoff, dunkelblau — nur 1 Euro! Mein Bleistift ist aus Kunststoff, gelb: 50 Cent. Mein Geldbeutel ist braun, mein Regenschirm ist orange — alles billig, alles praktisch. Der Preis ist immer gut! Ich finde: Kunststoff ist praktisch, billig und gut. Das bin ich!</p>
     <div class="bh">🇷🇺 Русский <button class="ic" onclick="toggleRuBlock(this)">Показать перевод</button></div>
-    <p class="ru-block" hidden>Это моя комната. Смотри! Покупать люблю — но всегда выгодно. Вот мой стул: из дерева, коричневый и старый. По-моему, очень красивый — и стоит всего 49 евро. Это выгодно! Моё кресло большое и тёмно-красное, старое, но очень удобное. Мой стол тоже из дерева: чёрный, большой и современный, недорогой. Шкаф белый и очень практичный. Ковёр красный с оранжевым — красивый, правда? Стоит всего 30 евро. Зеркало маленькое и старое. Заказывать люблю в интернете. Моя шариковая ручка из металла, тёмно-синяя и дорогая — но такая красивая! Карандаш жёлтый и дешёвый. Ключи металлические, большие и маленькие — их много! Кошелёк коричневый и старый, а зонт зелёный. По-моему, моя комната красивая — и недорогая. Это я!</p>
+    <p class="ru-block" hidden>Это моя комната. Я всегда покупаю выгодно и практично. Почти всё из пластика — это дёшево и практично! Мой стул из пластика, синий. Стоит всего 12 евро 50 центов — выгодно! Мой стол тоже из пластика, белый и большой: 24 евро 90 центов. Шкаф из пластика, чёрный и очень практичный — 39 евро. Кресло старое и красное, недорогое: 19 евро. Ковёр зелёный, стоит всего 9 евро 99 центов. Зеркало маленькое: 4 евро 50 центов. Шариковая ручка тоже из пластика, тёмно-синяя — всего 1 евро! Карандаш из пластика, жёлтый: 50 центов. Кошелёк коричневый, зонт оранжевый — всё дёшево, всё практично. Цена всегда хорошая! По-моему, пластик — это практично, дёшево и хорошо. Это я!</p>
   </div>
 
   <div class="part text"><span class="pico">💬</span><div><div class="pk">Часть 2</div><h2>Работа с текстом</h2></div></div>
@@ -118,22 +118,14 @@
   </div>
 
   <div class="panel">
-    <h3>🎧 Аудирование</h3>
-    <p class="sub">Otto говорит про комнату — послушай (можно несколько раз) и впиши ответ. Откроется только после проверки.</p>
-    <div class="hq" data-ans="4">
-      <button class="ic" onclick="playSeq(['audio/hoer-der2-stuehle.mp3'],this,[{t:'In meinem Zimmer habe ich vier Stühle.',role:'male'}])">▶ Сколько стульев у Otto?</button>
-      <input class="qin" inputmode="numeric" placeholder="число (цифры)" autocomplete="off">
-      <button class="btn sm" onclick="hCheck(this)">Проверить</button>
-      <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
-      <span class="hres"></span>
-    </div>
-    <div class="hq" data-ans="Holz">
-      <button class="ic" onclick="playSeq(['audio/hoer-der2-material.mp3'],this,[{t:'Mein Schrank ist aus Holz.',role:'male'}])">▶ Из чего шкаф Otto?</button>
-      <input class="qin" placeholder="материал по-немецки" autocomplete="off">
-      <button class="btn sm" onclick="hCheck(this)">Проверить</button>
-      <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
-      <span class="hres"></span>
-    </div>
+    <h3>🎧 Аудирование — Otto в магазине</h3>
+    <p class="sub">Otto пришёл в магазин и спрашивает у продавца цены. Послушай разговор (голоса разные!), потом впиши цены <b>цифрами</b>. Главное слово — <b style="color:var(--der)">der Preis</b> (цена, мужской род). Ответ открывается после проверки.</p>
+    <div class="bar"><button class="ic" id="shopBtn" onclick="playSeq(SHOP,this,SHOPFB)">▶ Послушать разговор в магазине</button></div>
+    <div class="hq" data-ans="80"><span style="width:100%;font-weight:600">Wie viel kostet der Tisch?</span><input class="qin" inputmode="numeric" placeholder="€ цифрами" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
+    <div class="hq" data-ans="100"><span style="width:100%;font-weight:600">Wie viel kostet der Schrank?</span><input class="qin" inputmode="numeric" placeholder="€ цифрами" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
+    <div class="hq" data-ans="25"><span style="width:100%;font-weight:600">Wie viel kostet der Stuhl?</span><input class="qin" inputmode="numeric" placeholder="€ цифрами" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
+    <div class="hq" data-ans="12"><span style="width:100%;font-weight:600">Wie viel kostet der Regenschirm?</span><input class="qin" inputmode="numeric" placeholder="€ цифрами" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
+    <div class="hq" data-ans="Kunststoff"><span style="width:100%;font-weight:600">Какой материал Otto покупает? (а другой — отказывается)</span><input class="qin" placeholder="материал по-немецки" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>
   </div>
 
   <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова</h2></div></div>
@@ -184,17 +176,17 @@
 <script>
 /* подписи: русская подсказка видна, немецкое слово скрыто */
 const OBJ=[
-  {ru:'кофе',de:'der Kaffee',x:24,y:33},
-  {ru:'стул',de:'der Stuhl',x:12,y:54},
-  {ru:'кресло',de:'der Sessel',x:40,y:46},
-  {ru:'зеркало',de:'der Spiegel',x:54,y:16},
-  {ru:'шкаф',de:'der Schrank',x:79,y:22},
-  {ru:'зонт',de:'der Regenschirm',x:85,y:42},
-  {ru:'ковёр',de:'der Teppich',x:33,y:85},
-  {ru:'стол',de:'der Tisch',x:62,y:84},
-  {ru:'ключи',de:'der Schlüssel',x:67,y:60},
-  {ru:'ручка',de:'der Kugelschreiber',x:79,y:66},
-  {ru:'кошелёк',de:'der Geldbeutel',x:87,y:52},
+  {ru:'стул',de:'der Stuhl',x:12,y:44},
+  {ru:'стол',de:'der Tisch',x:47,y:42},
+  {ru:'шкаф',de:'der Schrank',x:72,y:18},
+  {ru:'кресло',de:'der Sessel',x:89,y:44},
+  {ru:'ковёр',de:'der Teppich',x:40,y:64},
+  {ru:'зеркало',de:'der Spiegel',x:13,y:74},
+  {ru:'ключи',de:'der Schlüssel',x:27,y:74},
+  {ru:'кошелёк',de:'der Geldbeutel',x:42,y:74},
+  {ru:'ручка',de:'der Kugelschreiber',x:55,y:74},
+  {ru:'карандаш',de:'der Bleistift',x:68,y:74},
+  {ru:'зонт',de:'der Regenschirm',x:88,y:74},
 ];
 const stage=document.getElementById('stage');
 OBJ.forEach(o=>{const d=document.createElement('div');d.className='lbl der';d.style.left=o.x+'%';d.style.top=o.y+'%';
@@ -212,15 +204,27 @@ hlText('deText',WORDS.map(w=>w[1]),WORDS[0][0]);
 function toggleTransAll(btn){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));btn.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
 function deText(){return document.getElementById('deText').innerText;}
 
+/* диалог в магазине: Otto (мужской) + продавец (другой женский) */
+const SHOPFB=[
+  {t:'Guten Tag! Wie viel kostet der Tisch?',role:'male'},
+  {t:'Der Tisch kostet achtzig Euro. Er ist aus Holz.',role:'seller'},
+  {t:'Aus Holz? Nein, danke! Ich kaufe nur Kunststoff.',role:'male'},
+  {t:'Der Schrank kostet hundert Euro. Er ist aus Kunststoff.',role:'seller'},
+  {t:'Aus Kunststoff? Sehr gut! Der Preis ist okay.',role:'male'},
+  {t:'Der Stuhl kostet fünfundzwanzig Euro, auch aus Kunststoff.',role:'seller'},
+  {t:'Gut! Und der Regenschirm?',role:'male'},
+  {t:'Der Regenschirm kostet zwölf Euro.',role:'seller'},
+  {t:'Danke! Der Preis ist immer gut!',role:'male'},
+];
+const SHOP=SHOPFB.map((_,i)=>`audio/hoer-shop-${i+1}.mp3`);
+
 /* вопросы по тексту */
 const QA=[
-  {q:'Wie ist der Stuhl?',ru:'Какой стул?',a:'Er ist aus Holz, braun und alt.',k:'braun'},
-  {q:'Was kostet der Stuhl?',ru:'Сколько стоит стул?',a:'Er kostet 49 Euro.',k:'49'},
-  {q:'Welche Farbe hat der Sessel?',ru:'Какого цвета кресло?',a:'Er ist dunkelrot.',k:'dunkelrot'},
-  {q:'Aus was ist der Tisch?',ru:'Из чего стол?',a:'Aus Holz.',k:'holz'},
-  {q:'Welche Farbe hat der Schrank?',ru:'Какого цвета шкаф?',a:'Er ist weiß.',k:'weiß'},
-  {q:'Was kostet der Teppich?',ru:'Сколько стоит ковёр?',a:'Er kostet 30 Euro.',k:'30'},
-  {q:'Welche Farbe hat der Regenschirm?',ru:'Какого цвета зонт?',a:'Er ist grün.',k:'grün'},
+  {q:'Aus was ist fast alles in Ottos Zimmer?',ru:'Из чего почти всё в комнате?',a:'Fast alles ist aus Kunststoff.',k:'kunststoff'},
+  {q:'Welche Farbe hat der Stuhl?',ru:'Какого цвета стул?',a:'Er ist blau.',k:'blau'},
+  {q:'Wie viel kostet der Schrank?',ru:'Сколько стоит шкаф?',a:'Er kostet 39 Euro.',k:'39'},
+  {q:'Welche Farbe hat der Teppich?',ru:'Какого цвета ковёр?',a:'Er ist grün.',k:'grün'},
+  {q:'Wie findet Otto Kunststoff?',ru:'Как Otto относится к пластику?',a:'Praktisch, billig und gut.',k:'praktisch'},
 ];
 document.getElementById('exercise').innerHTML=QA.map((o,i)=>{const ex=(i===0);return `<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${o.q} <button class="lk2" onclick="toggleRu(this)">${ex?'Скрыть перевод':'Показать перевод'}</button>${ex?' <span class="exb">пример</span>':''}</div><div class="qru" ${ex?'':'hidden'}>${o.ru}</div><div class="qact"><input class="qin" placeholder="Ответь по-немецки…" value="${ex?o.a:''}"><button class="btn sm" onclick="checkAns(this)">Проверить</button><button class="btn sm" onclick="showAns(this)">Показать ответ</button></div><div class="qres" style="${ex?'color:var(--das)':''}">${ex?'✓ Пример — так отвечаем. Дальше сам(а).':''}</div></div>`;}).join('');
 function toggleRu(btn){const ru=btn.closest('.q').querySelector('.qru');ru.hidden=!ru.hidden;btn.textContent=ru.hidden?'Показать перевод':'Скрыть перевод';}
