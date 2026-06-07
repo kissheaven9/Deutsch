@@ -15,6 +15,11 @@ img{max-width:100%}
 .hres{font-weight:600;font-size:14px;width:100%}
 .noselect{user-select:none;-webkit-user-select:none}
 .btn:disabled,.btn[disabled]{opacity:.45;cursor:not-allowed}
+/* подсветка изучаемых слов в тексте сцены */
+.hl{border-radius:5px;padding:0 3px;font-weight:600;white-space:nowrap}
+.hl.der{background:#e7eeff;color:var(--der)}
+.hl.die{background:#fde4ef;color:var(--die)}
+.hl.das{background:#d8f5e3;color:#15803d}
 body{margin:0;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   background:var(--bg);color:var(--ink);line-height:1.55;-webkit-text-size-adjust:100%}
 a{color:inherit;text-decoration:none}

@@ -253,6 +253,7 @@ function toggleCovers(btn){const cs=[...document.querySelectorAll('.cov')];const
 
 /* ---- слова ---- */
 document.getElementById('wlist').innerHTML=WORDS.map(([a,de,ru])=>`<div class="wrow"><button class="ic" style="padding:3px 7px" onclick="playWord('${a} ${de}','male')">🔊</button><span class="de"><span class="art">${a}</span> ${de}</span><span class="ru">${ru}</span><button class="ic" style="padding:3px 7px" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
+hlText('deText',WORDS.map(w=>w[1]),WORDS[0][0]);
 function toggleTransAll(btn){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));btn.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
 function deText(){return document.getElementById('deText').innerText;}
 

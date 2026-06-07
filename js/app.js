@@ -134,6 +134,29 @@ function hCheck(btn){
 }
 function hShow(btn){ const row=btn.closest('.hq'); row.querySelector('.hres').innerHTML='<span class="noselect" style="color:var(--accent)">Ответ: '+(row.dataset.ans||'')+'</span>'; }
 
+// подсветка изучаемых слов в тексте сцены (с артиклем): nouns — массив сущ., gcls — der/die/das
+function hlText(rootId, nouns, gcls){
+  const root=document.getElementById(rootId); if(!root || !nouns || !nouns.length) return;
+  const arts='der|die|das|den|dem|des|ein|eine|einen|einem|einer|eines|mein|meine|meinen|meinem|meiner|sein|seine|seinen|ihr|ihre|ihren|kein|keine|keinen';
+  const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const alt=nouns.slice().sort((a,b)=>b.length-a.length).map(esc).join('|');
+  const re=new RegExp('(?:\\b(?:'+arts+')\\s+)?\\b('+alt+')\\b','g');
+  const walker=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+  const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node=>{
+    const t=node.nodeValue; re.lastIndex=0; if(!re.test(t)) return; re.lastIndex=0;
+    const frag=document.createDocumentFragment(); let last=0,m;
+    while((m=re.exec(t))){
+      if(m.index>last) frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+      const span=document.createElement('span'); span.className='hl '+gcls; span.textContent=m[0];
+      frag.appendChild(span); last=m.index+m[0].length;
+      if(m[0].length===0) re.lastIndex++;
+    }
+    if(last<t.length) frag.appendChild(document.createTextNode(t.slice(last)));
+    node.parentNode.replaceChild(frag,node);
+  });
+}
+
 // Глазик: скрыть/показать конкретный объект
 function toggleObj(btn){
   const obj = btn.closest('.obj');
