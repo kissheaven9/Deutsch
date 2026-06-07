@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Глаголы — Тема 2</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+  :root{--y:#eab308;--yd:#a16207;--yb:#fde68a;--ybg:#fefce8}
+  .subnav{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+  .subnav a{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:#fff;color:#374151;text-decoration:none}
+  .subnav a.active{background:var(--y);color:#1f2937;border-color:var(--y)}
+  .part{display:flex;align-items:center;gap:14px;margin:28px 0 12px;padding:13px 18px;border-radius:16px;border:1px solid var(--line)}
+  .part.verbs{background:var(--ybg);border-color:var(--yb)} .part.train{background:#f3e8ff;border-color:#e9d5ff}
+  .part .pico{font-size:28px}.part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--yd);font-weight:700}.part.train .pk{color:var(--accent)}.part h2{margin:2px 0 0;font-size:22px}
+  .sec{margin:18px 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--yd);font-weight:700}
+  .legend{font-size:13px;color:#374151;margin:4px 0 10px;display:flex;gap:16px;flex-wrap:wrap}
+  table.vt{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--yb);border-radius:12px;overflow:hidden}
+  .vt th{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:1px solid var(--yb)}
+  .vt td{padding:9px 12px;border-bottom:1px solid #f1f1f4;font-size:15px;vertical-align:middle}
+  .vt tr:last-child td{border-bottom:none}
+  .vt .de{font-weight:700;color:var(--yd);white-space:nowrap}
+  .vt .de .em{font-size:15px;margin-right:3px}
+  .vt .ru{color:#374151;font-size:14px}
+  .vt .pp{color:#c2410c;font-size:13px}
+  .say{border:none;background:none;cursor:pointer;font-size:15px;opacity:.6;padding:2px}
+  .say:hover{opacity:1}
+  .hidden-ru .ru span{visibility:hidden;position:relative}
+  .hidden-ru .ru span::after{content:"▢▢▢";position:absolute;left:0;color:#d4d4d8;visibility:visible}
+  .formbtn{border:1px solid var(--yb);background:var(--ybg);border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer;color:var(--yd);font-weight:700}
+  .formbtn:active{background:#fef08a}
+  .pop{display:none;margin-top:6px;background:var(--ybg);border:1px solid var(--yb);border-radius:10px;padding:10px 12px}
+  .pop.open{display:block}
+  .conj{display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;font-size:14px}
+  .conj b{color:var(--yd)}
+  .pp2{margin-top:6px;font-size:13px;color:#c2410c}
+  .toolbar{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn.y{background:var(--y);color:#1f2937;border-color:var(--y)}
+  .btn.sm{padding:7px 11px;font-size:13px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:var(--ybg);border-bottom:1px solid var(--yb);border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--y);color:#1f2937;font-size:13px;font-weight:700}
+  .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .de-block{color:var(--ink);font-weight:500;line-height:1.8;margin:0}
+  .ru-block{color:#374151;line-height:1.7;margin:8px 0 0}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--yd);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .cardwrap{max-width:380px;margin:0 auto}
+  .card{background:#fff;border:2px solid var(--y);border-radius:16px;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer;transition:.12s}
+  .card:active{transform:scale(.99)} .card.back{background:var(--ybg)}
+  .c-text{font-size:26px;font-weight:700;color:var(--ink)} .card.back .c-text{color:var(--yd)} .c-hint{font-size:12px;color:var(--muted)}
+  .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
+  .cnav #cCount{color:var(--muted);font-weight:600}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .de{min-width:140px;color:var(--yd);font-weight:700}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:150px}
+  .wq input:focus{outline:none;border-color:var(--y)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .score{font-weight:700;margin-top:8px}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
+  .mchip.de{font-weight:700;color:var(--yd)} .mchip.sel{border-color:var(--y);background:var(--ybg)}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
+  .pdots{display:flex;gap:7px;align-items:center}
+  .pdot{width:11px;height:11px;border-radius:50%;background:#fff;border:1.5px solid #cbd5e1;box-sizing:border-box;transition:.15s}
+  .pdot.seen{background:#c4b5fd;border-color:#c4b5fd}
+  .pdot.cur{background:var(--accent);border-color:var(--accent);transform:scale(1.3)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Тема 2 / Глаголы</span></div></header>
+<main class="wrap">
+  <h1>Глаголы — Тема 2 «Быт (дом и вещи)»</h1>
+  <div class="subnav">
+    <a href="thema-02.html">← Тема</a>
+    <a class="active" href="verben-thema-02.html">Глаголы</a>
+    <a href="thema-02.html#andere">Другое</a>
+  </div>
+  <p class="lead">Глаголы покупок и быта: 🔊 озвучка · перевод · прошедшее (Perfekt) · «форма» — спряжение по местоимениям. Внизу — упражнения, чтобы запомнить.</p>
+
+  <div class="part verbs"><span class="pico">📋</span><div><div class="pk">Список</div><h2>Глаголы темы</h2></div></div>
+  <div class="legend"><span><b>✅</b> правильный — по правилу</span><span><b>⚠️</b> неправильный — особый, запоминать</span></div>
+  <div class="toolbar"><button class="btn y" id="eye" onclick="toggleRu()">🙈 Скрыть переводы</button></div>
+
+  <div class="sec">✅ Правильные (слабые)</div>
+  <table class="vt" id="t-reg"></table>
+  <div class="sec">⚠️ Неправильные (особые)</div>
+  <table class="vt" id="t-irr"></table>
+
+  <div class="part train"><span class="pico">🎯</span><div><div class="pk">Тренируемся</div><h2>Запоминаем глаголы</h2></div></div>
+
+  <div class="panel"><h3>📜 Текст с глаголами</h3>
+    <div class="bh">🇩🇪 Deutsch <button class="formbtn" onclick="playSeq(['audio/scene-verben2.mp3'],this,[{t:deText(),role:'male'}])">🔊 Послушать</button></div>
+    <p class="de-block" id="deText">Hallo! Ich <b>bin</b> Otto. Heute <b>kaufe</b> ich online. Ich <b>sehe</b> viele Dinge: ein Sofa, einen Tisch, eine Lampe. Was <b>kostet</b> das Sofa? Hundert Euro — das <b>finde</b> ich zu teuer! Aber der Geldbeutel <b>kostet</b> nur fünf Euro. Den <b>kaufe</b> ich! Ich <b>bestelle</b> auch ein Taschentuch.<br><br>
+    Greta <b>hat</b> viele Sachen zu Hause. Sie <b>sieht</b> eine rote Tasche und sagt: „Wie schön!“ Sie <b>findet</b> die Farbe toll. Greta <b>kauft</b> gern, aber sie <b>bestellt</b> nicht online.<br><br>
+    Theo und Lina spielen Geschäft. Theo <b>ist</b> der Kunde. „Was <b>kostet</b> das Auto?“, fragt er. „Drei Euro“, sagt Lina. „Das <b>finde</b> ich günstig! Ich <b>kaufe</b> es.“ Theo <b>hat</b> jetzt ein Auto aus Plastik. Er <b>ist</b> glücklich!<br><br>
+    Wir <b>haben</b> alle viele Dinge. Wir <b>sehen</b>, <b>kaufen</b> und <b>bestellen</b>. Aber teuer? Nein, danke — wir <b>finden</b> immer ein Sonderangebot!</p>
+    <div class="bh" style="margin-top:12px">🇷🇺 Русский <button class="formbtn" id="ruBtn" onclick="toggleRu2()">Показать перевод</button></div>
+    <p class="ru-block" id="ruText" hidden>Привет! Я Отто. Сегодня я покупаю онлайн. Я вижу много вещей: диван, стол, лампу. Сколько стоит диван? Сто евро — по-моему, слишком дорого! А кошелёк стоит всего пять евро. Его беру! Ещё заказываю салфетки.<br><br>
+    У Греты дома много вещей. Она видит красную сумку и говорит: «Как красиво!» Цвет ей очень нравится. Грета любит покупать, но онлайн не заказывает.<br><br>
+    Тео и Лина играют в магазин. Тео — покупатель. «Сколько стоит машинка?» — спрашивает он. «Три евро», — говорит Лина. «По-моему, дёшево! Беру». Теперь у Тео машинка из пластика. Он счастлив!<br><br>
+    У всех нас много вещей. Мы смотрим, покупаем и заказываем. Но дорого? Нет, спасибо — мы всегда находим скидку!</p>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">1</span>🃏 Карточки</h3>
+    <p class="sub">Немецкий глагол — вспомни перевод, нажми, чтобы перевернуть. Листай ← →.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">2</span>🔗 Соотнеси: глагол ↔ перевод</h3>
+    <p class="sub">Нажми немецкий глагол, потом перевод — пара окрасится. Точки показывают страницы.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="toolbar"><button class="btn y sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="matchNext()">следующие →</button><span class="pdots" id="mDots"></span></div>
+    <div class="score" id="mScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">3</span>🔤 Напиши перевод</h3>
+    <p class="sub">Дан немецкий глагол — впиши, что он значит по-русски. Точки показывают страницы.</p>
+    <div id="writeList"></div>
+    <div class="toolbar"><button class="btn y sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeNext()">продолжить →</button><span class="pdots" id="wDots"></span></div>
+    <div class="score" id="wScore"></div>
+  </div>
+
+  <div class="scenenav"><a href="thema-02.html">← Тема 2</a><a href="thema-02.html#andere">Другое →</a></div>
+</main>
+<footer>Deutsch A1</footer>
+
+<script src="js/app.js?v=3"></script>
+<script>
+function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9äöüß]/g,'');}
+const REG=[
+  {inf:'kaufen',ru:'покупать',pp:'hat gekauft',c:['kaufe','kaufst','kauft','kaufen','kauft','kaufen']},
+  {inf:'kosten',ru:'стоить',pp:'hat gekostet',c:['koste','kostest','kostet','kosten','kostet','kosten']},
+  {inf:'bestellen',ru:'заказывать',pp:'hat bestellt',c:['bestelle','bestellst','bestellt','bestellen','bestellt','bestellen']},
+];
+const IRR=[
+  {inf:'sehen',ru:'видеть, смотреть',pp:'hat gesehen',c:['sehe','siehst','sieht','sehen','seht','sehen']},
+  {inf:'finden',ru:'находить; считать (мнение)',pp:'hat gefunden',c:['finde','findest','findet','finden','findet','finden']},
+  {inf:'haben',ru:'иметь',pp:'hat gehabt (hatte)',c:['habe','hast','hat','haben','habt','haben']},
+  {inf:'sein',ru:'быть',pp:'ist gewesen (war)',c:['bin','bist','ist','sind','seid','sind']},
+];
+const PRON=['ich','du','er/sie/es','wir','ihr','sie/Sie'];
+const ALL=REG.concat(IRR);
+function rows(list,key){return list.map((v,i)=>`<tr>
+  <td class="de"><span class="em">${key==='r'?'✅':'⚠️'}</span>${v.inf} <button class="say" onclick="playWord('${v.inf}','male')">🔊</button></td>
+  <td class="ru"><span>${v.ru}</span></td>
+  <td style="text-align:right"><button class="formbtn" onclick="pop('${key}${i}')">форма + прошедшее ▾</button>
+    <div class="pop" id="${key}${i}"><div class="conj">${v.c.map((f,j)=>`<div><b>${PRON[j]}</b> ${f}</div>`).join('')}</div><div class="pp2">Perfekt: <b>${v.pp}</b></div></div>
+  </td></tr>`).join('');}
+document.getElementById('t-reg').innerHTML=`<tr><th>глагол</th><th>перевод</th><th></th></tr>`+rows(REG,'r');
+document.getElementById('t-irr').innerHTML=`<tr><th>глагол</th><th>перевод</th><th></th></tr>`+rows(IRR,'i');
+function pop(id){document.getElementById(id).classList.toggle('open');}
+function toggleRu(){document.querySelectorAll('table.vt').forEach(t=>t.classList.toggle('hidden-ru'));const on=document.querySelector('table.vt').classList.contains('hidden-ru');document.getElementById('eye').textContent=on?'👁 Показать переводы':'🙈 Скрыть переводы';}
+function deText(){return document.getElementById('deText').innerText;}
+function toggleRu2(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
+
+// карточки
+let ci=0,flipped=false;
+function renderCard(){const v=ALL[ci];document.getElementById('cText').innerHTML=flipped?`${v.ru}`:`${v.inf} <button class="say" onclick="event.stopPropagation();playWord('${v.inf}','male')">🔊</button>`;document.getElementById('cHint').textContent=flipped?'нажми — назад к немецкому':'нажми — увидеть перевод';document.getElementById('cCount').textContent=`${ci+1} / ${ALL.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%ALL.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+ALL.length)%ALL.length;flipped=false;renderCard();}
+renderCard();
+
+// соотнеси
+const MPOOL=ALL.map(v=>[v.inf,v.ru]);
+const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let MATCH=[],selDe=null,links={},colorOf={},nextC=0;
+const MPP=6,MPAGES=Math.ceil(MPOOL.length/MPP);let mPage=0;const mChecked=new Set();
+function mDots(){document.getElementById('mDots').innerHTML=Array.from({length:MPAGES},(_,i)=>`<span class="pdot${i===mPage?' cur':(mChecked.has(i)?' seen':'')}"></span>`).join('');}
+function matchNext(){mPage=(mPage+1)%MPAGES;renderMatch();}
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){MATCH=MPOOL.slice(mPage*MPP,mPage*MPP+MPP);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MATCH.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MATCH.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MATCH[i][1]}</div>`).join('');
+  mDots();document.getElementById('mScore').textContent='';}
+function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){let ok=0;MATCH.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MATCH.length?'var(--das)':'var(--die)'}">${ok} / ${MATCH.length} верно${ok===MATCH.length?(' — '+praise()):' — поправь пары'}</span>`;mChecked.add(mPage);mDots();}
+renderMatch();
+
+// напиши перевод
+let WRITE=[];const WPP=7,WPAGES=Math.ceil(ALL.length/WPP);let wPage=0;const wChecked=new Set();
+function wDots(){document.getElementById('wDots').innerHTML=Array.from({length:WPAGES},(_,i)=>`<span class="pdot${i===wPage?' cur':(wChecked.has(i)?' seen':'')}"></span>`).join('');}
+function renderWrite(){WRITE=ALL.slice(wPage*WPP,wPage*WPP+WPP);document.getElementById('writeList').innerHTML=WRITE.map((v,i)=>`<div class="wq" data-i="${i}"><span class="de">${v.inf} <button class="say" onclick="playWord('${v.inf}','male')">🔊</button></span><input placeholder="перевод по-русски…" autocomplete="off"><span class="corr"></span></div>`).join('');wDots();document.getElementById('wScore').textContent='';}
+function writeNext(){wPage=(wPage+1)%WPAGES;renderWrite();}
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v.length>=3&&norm(WRITE[i].ru).includes(v);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+WRITE[i].ru;if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WRITE.length?'var(--das)':'var(--die)'}">${ok} / ${WRITE.length} верно${ok===WRITE.length?(' — '+praise()):''}</span>`;wChecked.add(wPage);wDots();}
+function writeShow(){if(!document.getElementById('wScore').textContent.trim()){alert('Сначала впиши ответы и нажми «Проверить».');return;}document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=WRITE[i].ru;r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
+renderWrite();
+</script>
+<script src="js/chrome.js?v=3"></script>
+</body>
+</html>

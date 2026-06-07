@@ -14,7 +14,7 @@ const WOERTER = { themes: [
     nouns:{
       der:[
         ["Name","имя"],["Vorname","имя (личное)"],["Familienname","фамилия"],["Herr","господин"],
-        ["Beruf","профессия"],["Job","работа (job)"],["Single","холостяк / одинокий"],["Partner","партнёр"],
+        ["Beruf","профессия"],["Job","работа (job)"],["Gärtner","садовник"],["Single","холостяк / одинокий"],["Partner","партнёр"],
         ["Wohnort","место жительства"],["Familienstand","семейное положение"],["Moment","момент"],
         ["Satz","предложение"],["Punkt","точка / пункт"],
         ["Ingenieur","инженер"],["Kfz-Mechatroniker","автомеханик"],["Student","студент"],["Journalist","журналист"],
