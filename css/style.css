@@ -20,6 +20,7 @@ img{max-width:100%}
 .hl.der{background:#e7eeff;color:var(--der)}
 .hl.die{background:#fde4ef;color:var(--die)}
 .hl.das{background:#d8f5e3;color:#15803d}
+.hl .arttag{font-size:.7em;font-style:normal;font-weight:700;vertical-align:super;margin-left:1px;opacity:.9}
 body{margin:0;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   background:var(--bg);color:var(--ink);line-height:1.55;-webkit-text-size-adjust:100%}
 a{color:inherit;text-decoration:none}
