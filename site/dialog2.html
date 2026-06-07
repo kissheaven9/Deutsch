@@ -17,7 +17,6 @@
   .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:#f5f3ff;border-bottom:1px solid #eee6fb;border-radius:16px 16px 0 0}
   .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700}
   .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
-  .hero img{width:100%;border-radius:14px;border:1px solid var(--line);display:block}
   .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
   .stage>img{width:100%;height:auto;display:block}
   .imgwait{background:#f8fafc;color:#9ca3af;font-size:14px;line-height:1.5;padding:40px 20px;text-align:center;border-radius:14px;border:1px dashed var(--line)}
@@ -36,9 +35,11 @@
   .dlg.de p{color:var(--ink);font-weight:500} .dlg.ru p{color:#374151}
   .dlg .sp{font-weight:700}
   .dlg .sp.der{color:var(--der)} .dlg .sp.die{color:var(--die)} .dlg .sp.das{color:var(--das)}
+  .dlg .sp.carla{color:#db2777}   /* Carla — розовый (чтобы отличать от Греты) */
+  .dlg .sp.theo{color:#2563eb}    /* Тео — синий (чтобы отличать от Lina) */
   .dlg .rem,.dlg p.rem{color:#9ca3af;font-style:italic;font-size:13px}
   .leg{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin:0 0 8px}
-  .leg b.der{color:var(--der)}.leg b.die{color:var(--die)}.leg b.das{color:var(--das)}
+  .leg b{font-weight:800}
   .q{border-top:1px solid var(--line);padding:9px 0}
   .qq{font-weight:600;color:var(--ink);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .lk2{border:none;background:#f3e8ff;color:var(--accent);border-radius:7px;font-size:12px;padding:2px 8px;cursor:pointer}
@@ -90,108 +91,104 @@
 <script>
 function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9äöüß]/g,'');}
 const DIALOGS={
- 1:{ title:'Текст 1 — Тео в гостях у Лины', img:'img/dialog2-1.png',
-   sub:'Дома у Лины: вещи разного рода — цвет, материал, цена, оценка. Потом заходят в комнату мамы. L4–L5.',
-   prompt:`Тёплая детская книжная иллюстрация (не фотореализм), уютная квартира. Тео в гостях у подружки Лины; рядом мама Лины.
+ 1:{ title:'Текст 1 — В комнате мамы Лины', img:'img/dialog2-1.png',
+   sub:'Тео и Лина заходят в красивую комнату мамы и рассматривают вещи: цвет, материал, цена, оценка. L4–L5.',
+   prompt:`Тёплая детская книжная иллюстрация (не фотореализм), уютная красивая комната мамы. Тео и Лина зашли в комнату мамы Лины и с восхищением рассматривают вещи.
 
-ТЕО — любопытный мальчик ~7 лет, рыжеватый вихор, большие глаза, тычет пальцем в предметы и спрашивает; в руках детский планшет.
-ЛИНА — тихая мечтательная девочка ~6 лет, показывает свою комнату, в руках рисунок (на рисунке зверёк-кролик).
-МАМА Лины — тёплая улыбчивая взрослая женщина, показывает свою комнату.
+ТЕО — любопытный мальчик ~7 лет, рыжеватый вихор, большие глаза, восхищённо показывает пальцем на предметы; в руках детский планшет.
+ЛИНА — тихая мечтательная девочка ~6 лет, показывает Тео мамину комнату; рядом её рисунок с кроликом.
+МАМА Лины — тёплая улыбчивая женщина, появляется в дверях в конце.
 
-Комната Лины: белая кровать, деревянная коричневая полка, маленький зелёный диван, жёлтая лампа, синий ковёр, рисунок с кроликом, книжка.
-Комната мамы (видно рядом / в дверном проёме): деревянный коричневый стол, большое зеркало, белый шкаф, красное кресло, красные часы, большая жёлтая сумка, чёрные очки, телефон.
+Красивая комната мамы: деревянный коричневый большой стол, большое зеркало, белый шкаф, красное кресло, синий ковёр, жёлтая лампа из стекла, красные часы, большая жёлтая сумка, чёрные очки, маленькая цепочка-бусы, картинка на стене, белая кровать, деревянная полка, старая книжка.
 
-Очень много цветов (красный, жёлтый, зелёный, синий, белый, коричневый, чёрный). Тёплый дневной свет, добрый уютный настрой. Без текста, букв и цифр в изображении.`,
-   de:`<p><span class="sp das">Theo:</span> Hallo, Lina! Was hast du da? So viele Dinge!</p>
-   <p><span class="sp das">Lina:</span> Das ist mein Zimmer. Hier sind ein Bett, ein Regal, ein Sofa und eine Lampe.</p>
-   <p><span class="sp das">Theo:</span> Dein Bett ist weiß und das Sofa ist grün und klein! Ist das Sofa aus Plastik?</p>
-   <p><span class="sp das">Lina:</span> Nein, kein Plastik! Das Regal ist aus Holz — braun.</p>
-   <p><span class="sp das">Theo:</span> Und der Teppich ist blau! Schön! Wie viel kostet die Lampe?</p>
-   <p><span class="sp das">Lina:</span> Die Lampe ist gelb. Nur neun Euro — ein Sonderangebot!</p>
-   <p><span class="sp das">Theo:</span> Günstig! Und das ist ein Bild. Hier ist ein Tier!</p>
-   <p><span class="sp das">Lina:</span> Ja, mein Bild. Und hier ist ein Buch.</p>
-   <p><span class="sp das">Theo:</span> Mama, was ist das?</p>
-   <p><span class="sp die">Mama:</span> Das ist Linas Zimmer, Theo. Und hier ist mein Zimmer.</p>
-   <p><span class="sp das">Theo:</span> Oh! Auch viele Dinge! Ein Tisch, ein Spiegel, ein Schrank, ein Sessel…</p>
-   <p><span class="sp die">Mama:</span> Ja. Der Tisch ist aus Holz, braun und alt. Der Spiegel ist groß, aber teuer. Der Schrank ist weiß, neu und modern.</p>
-   <p><span class="sp das">Theo:</span> Und der Sessel ist rot! Und die Uhr ist rot, die Tasche ist gelb, die Brille ist schwarz, die Kette ist klein…</p>
-   <p><span class="sp die">Mama:</span> Das ist meine Tasche — gelb und groß. Meine Brille ist schwarz. Und mein Handy ist neu.</p>
-   <p><span class="sp das">Theo:</span> So viele Farben! Rot, gelb, grün, blau, weiß, braun, schwarz!</p>
-   <p><span class="sp die">Mama:</span> <span class="rem">(lacht)</span> Ja, Theo! Alles ist aus Holz, Glas oder Metall.</p>
-   <p><span class="sp das">Theo:</span> Dein Zimmer ist schön, Lina! Und das Tier? Wo ist das Tier?</p>
-   <p><span class="sp das">Lina:</span> <span class="rem">(lacht)</span> Hier — das Bild!</p>
-   <p><span class="sp das">Theo:</span> Ah, ein Tier, ein Bild! Cool!</p>`,
-   ru:`<p><span class="sp das">Тео:</span> Привет, Lina! Что это у тебя? Сколько всего!</p>
-   <p><span class="sp das">Lina:</span> Это моя комната. Тут кровать, полка, диван и лампа.</p>
-   <p><span class="sp das">Тео:</span> Твоя кровать белая, а диван зелёный и маленький! Диван из пластика?</p>
-   <p><span class="sp das">Lina:</span> Нет, никакого пластика! Полка из дерева — коричневая.</p>
-   <p><span class="sp das">Тео:</span> А ковёр синий! Красиво! Сколько стоит лампа?</p>
-   <p><span class="sp das">Lina:</span> Лампа жёлтая. Всего девять евро — по скидке!</p>
-   <p><span class="sp das">Тео:</span> Выгодно! А это картинка. Тут зверёк!</p>
-   <p><span class="sp das">Lina:</span> Да, мой рисунок. А вот книжка.</p>
-   <p><span class="sp das">Тео:</span> Мама, а это что?</p>
-   <p><span class="sp die">Мама:</span> Это комната Lina, Тео. А вот моя комната.</p>
-   <p><span class="sp das">Тео:</span> О! Тоже много всего! Стол, зеркало, шкаф, кресло…</p>
-   <p><span class="sp die">Мама:</span> Да. Стол из дерева, коричневый и старый. Зеркало большое, но дорогое. Шкаф белый, новый и современный.</p>
-   <p><span class="sp das">Тео:</span> А кресло красное! И часы красные, сумка жёлтая, очки чёрные, цепочка маленькая…</p>
-   <p><span class="sp die">Мама:</span> Это моя сумка — жёлтая и большая. Очки у меня чёрные. А телефон новый.</p>
-   <p><span class="sp das">Тео:</span> Сколько цветов! Красный, жёлтый, зелёный, синий, белый, коричневый, чёрный!</p>
-   <p><span class="sp die">Мама:</span> <span class="rem">(смеётся)</span> Да, Тео! Всё из дерева, стекла или металла.</p>
-   <p><span class="sp das">Тео:</span> Твоя комната красивая, Lina! А зверёк? Где зверёк?</p>
-   <p><span class="sp das">Lina:</span> <span class="rem">(смеётся)</span> Вот — на рисунке!</p>
-   <p><span class="sp das">Тео:</span> А, зверёк, рисунок! Класс!</p>`,
+Очень много цветов (красный, жёлтый, синий, зелёный, белый, коричневый, чёрный), уютно и нарядно. Тёплый дневной свет, восхищённый настрой «как красиво!». Без текста, букв и цифр в изображении.`,
+   de:`<p><span class="sp das">Lina:</span> Theo, hier! Das ist Mamas Zimmer.</p>
+   <p><span class="sp das theo">Theo:</span> Oh, wie schön! So viele Dinge!</p>
+   <p><span class="sp das">Lina:</span> Ja! Der Tisch ist aus Holz, braun und groß. Schön, oder?</p>
+   <p><span class="sp das theo">Theo:</span> Und der Spiegel! Der Spiegel ist groß. Aber teuer?</p>
+   <p><span class="sp das">Lina:</span> Ja, sehr teuer — neunundneunzig Euro! Der Schrank ist weiß und neu.</p>
+   <p><span class="sp das theo">Theo:</span> Der Sessel ist rot, der Teppich ist blau! Ist der Sessel aus Holz?</p>
+   <p><span class="sp das">Lina:</span> Nein, der Sessel ist nicht aus Holz. Aber er ist praktisch.</p>
+   <p><span class="sp das theo">Theo:</span> Und die Lampe? Die Lampe ist gelb und modern!</p>
+   <p><span class="sp das">Lina:</span> Die Lampe ist aus Glas. Nur neun Euro — ein Sonderangebot!</p>
+   <p><span class="sp das theo">Theo:</span> Günstig! Und die Uhr ist rot, die Tasche ist gelb, die Brille ist schwarz, die Kette ist klein…</p>
+   <p><span class="sp das">Lina:</span> Mamas Tasche ist groß und schön. Und hier — ein Bild!</p>
+   <p><span class="sp das theo">Theo:</span> Das Bild ist schön! Das Bett ist weiß, das Regal ist aus Holz, das Buch ist alt.</p>
+   <p><span class="sp das">Lina:</span> Mamas Zimmer ist schön, oder? So viele Farben — rot, gelb, blau, grün, weiß, braun, schwarz!</p>
+   <p><span class="sp das theo">Theo:</span> Ja, sehr schön! Aber wo ist Mama?</p>
+   <p><span class="sp das">Lina:</span> <span class="rem">(lacht)</span> Hier ist Mama — sie kommt!</p>
+   <p><span class="sp die">Mama:</span> Mein Zimmer ist schön, oder, Kinder?</p>
+   <p><span class="sp das theo">Theo:</span> Sehr schön! Alles ist aus Holz, Glas und Metall!</p>`,
+   ru:`<p><span class="sp das">Lina:</span> Тео, сюда! Это комната мамы.</p>
+   <p><span class="sp das theo">Тео:</span> О, как красиво! Сколько всего!</p>
+   <p><span class="sp das">Lina:</span> Да! Стол из дерева, коричневый и большой. Красиво, правда?</p>
+   <p><span class="sp das theo">Тео:</span> А зеркало! Зеркало большое. Но дорогое?</p>
+   <p><span class="sp das">Lina:</span> Да, очень дорогое — девяносто девять евро! Шкаф белый и новый.</p>
+   <p><span class="sp das theo">Тео:</span> Кресло красное, ковёр синий! Кресло из дерева?</p>
+   <p><span class="sp das">Lina:</span> Нет, кресло не из дерева. Но удобное.</p>
+   <p><span class="sp das theo">Тео:</span> А лампа? Лампа жёлтая и современная!</p>
+   <p><span class="sp das">Lina:</span> Лампа из стекла. Всего девять евро — по скидке!</p>
+   <p><span class="sp das theo">Тео:</span> Выгодно! А часы красные, сумка жёлтая, очки чёрные, цепочка маленькая…</p>
+   <p><span class="sp das">Lina:</span> Мамина сумка большая и красивая. А вот — картинка!</p>
+   <p><span class="sp das theo">Тео:</span> Картинка красивая! Кровать белая, полка из дерева, книжка старая.</p>
+   <p><span class="sp das">Lina:</span> Мамина комната красивая, правда? Сколько цветов — красный, жёлтый, синий, зелёный, белый, коричневый, чёрный!</p>
+   <p><span class="sp das theo">Тео:</span> Да, очень красиво! А где мама?</p>
+   <p><span class="sp das">Lina:</span> <span class="rem">(смеётся)</span> Вот мама — идёт!</p>
+   <p><span class="sp die">Мама:</span> Моя комната красивая, правда, дети?</p>
+   <p><span class="sp das theo">Тео:</span> Очень красиво! Всё из дерева, стекла и металла!</p>`,
    qa:[
-     {q:'Welche Farbe hat Linas Bett?',ru:'Какого цвета кровать Лины?',a:'Das Bett ist weiß.',k:'weiß'},
-     {q:'Aus welchem Material ist das Regal?',ru:'Из какого материала полка?',a:'Das Regal ist aus Holz.',k:'holz'},
-     {q:'Wie viel kostet die Lampe?',ru:'Сколько стоит лампа?',a:'Die Lampe kostet neun Euro.',k:'neun'},
-     {q:'Wie ist der Spiegel?',ru:'Какое зеркало?',a:'Der Spiegel ist groß, aber teuer.',k:'teuer'}],
-   match:[['das Bett','кровать'],['das Regal','полка'],['die Lampe','лампа'],['der Tisch','стол'],['der Spiegel','зеркало'],['der Schrank','шкаф']],
-   sort:[['Tisch','der'],['Spiegel','der'],['Schrank','der'],['Sessel','der'],['Lampe','die'],['Tasche','die'],['Bett','das'],['Regal','das'],['Sofa','das'],['Bild','das']],
-   write:[['кровать','das Bett'],['полка','das Regal'],['лампа','die Lampe'],['зеркало','der Spiegel'],['шкаф','der Schrank'],['стол','der Tisch']],
-   verbs:[['sein','быть'],['haben','иметь'],['kosten','стоить'],['finden','находить / считать'],['sehen','видеть']]
+     {q:'Wessen Zimmer ist das?',ru:'Чья это комната?',a:'Das ist Mamas Zimmer.',k:'mamas'},
+     {q:'Wie viel kostet der Spiegel?',ru:'Сколько стоит зеркало?',a:'Der Spiegel kostet neunundneunzig Euro.',k:'neunundneunzig'},
+     {q:'Welche Farbe hat der Sessel?',ru:'Какого цвета кресло?',a:'Der Sessel ist rot.',k:'rot'},
+     {q:'Aus welchem Material ist die Lampe?',ru:'Из какого материала лампа?',a:'Die Lampe ist aus Glas.',k:'glas'},
+     {q:'Wie viel kostet die Lampe?',ru:'Сколько стоит лампа?',a:'Die Lampe kostet neun Euro.',k:'neun'}],
+   match:[['der Tisch','стол'],['der Spiegel','зеркало'],['der Sessel','кресло'],['die Lampe','лампа'],['die Tasche','сумка'],['das Bett','кровать']],
+   sort:[['Tisch','der'],['Spiegel','der'],['Sessel','der'],['Schrank','der'],['Lampe','die'],['Tasche','die'],['Uhr','die'],['Bett','das'],['Regal','das'],['Bild','das']],
+   write:[['стол','der Tisch'],['зеркало','der Spiegel'],['кресло','der Sessel'],['лампа','die Lampe'],['сумка','die Tasche'],['кровать','das Bett']],
+   verbs:[['sein','быть'],['haben','иметь'],['kosten','стоить'],['finden','находить / считать'],['sehen','видеть'],['kommen','приходить']]
  },
  2:{ title:'Текст 2 — Грета в гостях у Carla', img:'img/dialog2-2.png',
-   sub:'Грета у сестры-соседки Carla: вещи Carla — цена, материал, цвета, оценка. L4–L5.',
-   prompt:`Тёплая книжная иллюстрация (не фотореализм), уютная квартира. Грета пришла в гости к сестре-соседке Carla; они вместе рассматривают вещи Carla.
+   sub:'Грета у соседки Carla: вещи Carla — цена, материал, цвета, оценка. L4–L5.',
+   prompt:`Тёплая книжная иллюстрация (не фотореализм), уютная квартира. Грета пришла в гости к соседке Carla; они вместе рассматривают вещи Carla.
 
 ГРЕТА — тёплая округлая итальянка ~48 лет, круглые очки, тёмные кудри, яркая одежда, восхищённо всплёскивает руками.
-CARLA — сестра Греты, похожа на неё, тоже тёплая и улыбчивая (парикмахер), с гордостью показывает свои вещи.
+CARLA — соседка Греты (немка), приветливая, спокойная, с гордостью показывает свои вещи. Отличается от Греты по виду (другая причёска/одежда), чтобы их было легко различить.
 
 На виду вещи Carla: красная большая сумка, жёлтая лампа из стекла, красные часы, чёрные очки, маленькая цепочка-бусы, новая камера, синяя бутылка, зелёная щётка, белое мыло, большое зеркало, коричневое деревянное кресло.
 
 Очень много ярких цветов (красный, жёлтый, зелёный, синий, белый, чёрный, оранжевый), ничего серого. Тёплый домашний свет, радостный женский настрой. Без текста, букв и цифр в изображении.`,
    de:`<p><span class="sp die">Greta:</span> Carla! Was hast du da? So schön!</p>
-   <p><span class="sp die">Carla:</span> Mamma mia, Greta! Hier — meine Tasche! Sie ist rot und groß.</p>
+   <p><span class="sp die carla">Carla:</span> Hallo, Greta! Hier — meine Tasche! Sie ist rot und groß.</p>
    <p><span class="sp die">Greta:</span> Wie viel kostet die Tasche?</p>
-   <p><span class="sp die">Carla:</span> Nur neunzehn Euro — ein Sonderangebot!</p>
+   <p><span class="sp die carla">Carla:</span> Nur neunzehn Euro — ein Sonderangebot!</p>
    <p><span class="sp die">Greta:</span> Günstig! Und die Lampe ist gelb und modern. Aus Glas?</p>
-   <p><span class="sp die">Carla:</span> Ja, die Lampe ist aus Glas. Sie ist neu. Schön, oder?</p>
+   <p><span class="sp die carla">Carla:</span> Ja, die Lampe ist aus Glas. Sie ist neu. Schön, oder?</p>
    <p><span class="sp die">Greta:</span> Sehr schön! Und die Uhr ist rot, die Brille ist schwarz, die Kette ist klein. Und die Kamera!</p>
-   <p><span class="sp die">Carla:</span> Meine Kamera ist neu, aber teuer. Und hier — die Flasche ist blau, die Bürste ist grün, die Seife ist weiß.</p>
+   <p><span class="sp die carla">Carla:</span> Meine Kamera ist neu, aber teuer. Und hier — die Flasche ist blau, die Bürste ist grün, die Seife ist weiß.</p>
    <p><span class="sp die">Greta:</span> Mamma mia, so viele Dinge! Und das ist dein Spiegel?</p>
-   <p><span class="sp die">Carla:</span> Ja, der Spiegel ist groß, aber sehr teuer — neunundneunzig Euro!</p>
+   <p><span class="sp die carla">Carla:</span> Ja, der Spiegel ist groß, aber sehr teuer — neunundneunzig Euro!</p>
    <p><span class="sp die">Greta:</span> Teuer! Und der Sessel? Aus Holz?</p>
-   <p><span class="sp die">Carla:</span> Ja, der Sessel ist aus Holz, braun und alt. Aber praktisch.</p>
+   <p><span class="sp die carla">Carla:</span> Ja, der Sessel ist aus Holz, braun und alt. Aber praktisch.</p>
    <p><span class="sp die">Greta:</span> Und die Farben! Rot, gelb, grün, blau, weiß, schwarz, orange! Bei dir ist nichts grau!</p>
-   <p><span class="sp die">Carla:</span> <span class="rem">(lacht)</span> Nein, kein Grau! Ich finde Farben schön.</p>
+   <p><span class="sp die carla">Carla:</span> <span class="rem">(lacht)</span> Nein, kein Grau! Ich finde Farben schön.</p>
    <p><span class="sp die">Greta:</span> Ich auch! Deine Möbel sind modern und deine Dinge sind günstig. Bravo, Carla!</p>
-   <p><span class="sp die">Carla:</span> Danke, Greta! Mamma mia, alles ist schön bei uns!</p>`,
+   <p><span class="sp die carla">Carla:</span> Danke, Greta! Alles ist schön bei mir!</p>`,
    ru:`<p><span class="sp die">Грета:</span> Carla! Что это у тебя? Как красиво!</p>
-   <p><span class="sp die">Carla:</span> Mamma mia, Грета! Вот — моя сумка! Она красная и большая.</p>
+   <p><span class="sp die carla">Carla:</span> Привет, Грета! Вот — моя сумка! Она красная и большая.</p>
    <p><span class="sp die">Грета:</span> Сколько стоит сумка?</p>
-   <p><span class="sp die">Carla:</span> Всего девятнадцать евро — по скидке!</p>
+   <p><span class="sp die carla">Carla:</span> Всего девятнадцать евро — по скидке!</p>
    <p><span class="sp die">Грета:</span> Выгодно! А лампа жёлтая и современная. Из стекла?</p>
-   <p><span class="sp die">Carla:</span> Да, лампа из стекла. Она новая. Красиво, правда?</p>
+   <p><span class="sp die carla">Carla:</span> Да, лампа из стекла. Она новая. Красиво, правда?</p>
    <p><span class="sp die">Грета:</span> Очень красиво! А часы красные, очки чёрные, цепочка маленькая. И камера!</p>
-   <p><span class="sp die">Carla:</span> Моя камера новая, но дорогая. А вот — бутылка синяя, щётка зелёная, мыло белое.</p>
+   <p><span class="sp die carla">Carla:</span> Моя камера новая, но дорогая. А вот — бутылка синяя, щётка зелёная, мыло белое.</p>
    <p><span class="sp die">Грета:</span> Mamma mia, сколько всего! А это твоё зеркало?</p>
-   <p><span class="sp die">Carla:</span> Да, зеркало большое, но очень дорогое — девяносто девять евро!</p>
+   <p><span class="sp die carla">Carla:</span> Да, зеркало большое, но очень дорогое — девяносто девять евро!</p>
    <p><span class="sp die">Грета:</span> Дорого! А кресло? Из дерева?</p>
-   <p><span class="sp die">Carla:</span> Да, кресло из дерева, коричневое и старое. Но удобное.</p>
+   <p><span class="sp die carla">Carla:</span> Да, кресло из дерева, коричневое и старое. Но удобное.</p>
    <p><span class="sp die">Грета:</span> А цвета! Красный, жёлтый, зелёный, синий, белый, чёрный, оранжевый! У тебя ничего серого!</p>
-   <p><span class="sp die">Carla:</span> <span class="rem">(смеётся)</span> Нет, никакого серого! Я люблю цвета.</p>
+   <p><span class="sp die carla">Carla:</span> <span class="rem">(смеётся)</span> Нет, никакого серого! Я люблю цвета.</p>
    <p><span class="sp die">Грета:</span> Я тоже! Мебель у тебя современная, а вещи недорогие. Браво, Carla!</p>
-   <p><span class="sp die">Carla:</span> Спасибо, Грета! Mamma mia, у нас всё красиво!</p>`,
+   <p><span class="sp die carla">Carla:</span> Спасибо, Грета! У меня всё красиво!</p>`,
    qa:[
      {q:'Welche Farbe hat Carlas Tasche?',ru:'Какого цвета сумка Carla?',a:'Die Tasche ist rot.',k:'rot'},
      {q:'Wie viel kostet die Tasche?',ru:'Сколько стоит сумка?',a:'Die Tasche kostet neunzehn Euro.',k:'neunzehn'},
@@ -205,44 +202,34 @@ CARLA — сестра Греты, похожа на неё, тоже тёпла
  },
  3:{ title:'Текст 3 — Тео шопится онлайн', img:'img/dialog2-3.png',
    sub:'Тео заказывает вещи на сайте: дорого / по скидке / из чего / нравится — не нравится. L4–L5.',
-   prompt:`Тёплая детская книжная иллюстрация (не фотореализм). Тео сидит и «шопится» онлайн — рассматривает товары на экране планшета; рядом подружка Лина.
+   prompt:`Тёплая детская книжная иллюстрация (не фотореализм). Тео сидит и «шопится» онлайн — рассматривает товары на экране планшета; потом подходит подружка Лина.
 
 ТЕО — любопытный мальчик ~7 лет, рыжеватый вихор, увлечённо смотрит в детский планшет, тычет пальцем в экран, лицо то радостное, то расстроенное.
-ЛИНА — тихая девочка ~6 лет, заглядывает и смотрит вместе с ним; рядом её рисунок с кроликом.
+ЛИНА — тихая девочка ~6 лет, подходит и смотрит вместе с ним; рядом её рисунок с кроликом.
 
 Вокруг — «карточки товаров» онлайн-магазина, нарисованные как картинки предметов: красная модная лампа, большой зелёный диван, белая кровать, полка, книжка, телефон. У одних — пустые ценники-кружки, у других значок-бирка «скидка» (без текста).
 
 Тео радуется дешёвой лампе и расстроен, что нет пластикового дивана (рядом можно нарисовать смешной перечёркнутый пластиковый диван).
 
 Тёплый свет, забавный живой настрой шопинга. Без текста, букв и цифр в изображении (ценники и бирки — пустые).`,
-   de:`<p><span class="sp das">Theo:</span> Oh, so viele Dinge hier! Eine Lampe, ein Sofa, ein Bett, ein Regal, ein Buch!</p>
-   <p><span class="sp das">Theo:</span> Die Lampe ist rot und modern. Wie viel kostet die Lampe? … Neun Euro! Günstig! Die kaufe ich!</p>
-   <p><span class="sp das">Theo:</span> Und das Sofa? Das Sofa ist grün und groß, aber teuer — zweihundert Euro! Oh nein, zu teuer!</p>
-   <p><span class="sp das">Theo:</span> Ein Sofa aus Plastik? … Nein, kein Sofa ist aus Plastik. Schade!</p>
+   de:`<p><span class="sp das theo">Theo:</span> Oh, so viele Dinge hier! Eine Lampe, ein Sofa, ein Bett, ein Regal, ein Buch! Die Lampe ist rot und modern. Wie viel kostet die Lampe? … Neun Euro! Günstig! Die kaufe ich! Und das Sofa? Das Sofa ist grün und groß, aber teuer — zweihundert Euro! Oh nein, zu teuer! Ein Sofa aus Plastik? … Nein, kein Sofa ist aus Plastik. Schade!</p>
    <p><span class="sp das">Lina:</span> <span class="rem">(kommt)</span> Was machst du, Theo?</p>
-   <p><span class="sp das">Theo:</span> Ich kaufe online! Hier — eine Lampe, ein Buch, ein Bild!</p>
+   <p><span class="sp das theo">Theo:</span> Ich kaufe online! Hier — eine Lampe, ein Buch, ein Bild!</p>
    <p><span class="sp das">Lina:</span> Das Buch ist schön! Wie viel kostet das Buch?</p>
-   <p><span class="sp das">Theo:</span> Nur fünf Euro — ein Sonderangebot! Das bestelle ich.</p>
-   <p><span class="sp das">Theo:</span> Und das Bett? Das Bett ist weiß und neu, aber sehr teuer — hundert Euro. Zu teuer!</p>
+   <p><span class="sp das theo">Theo:</span> Nur fünf Euro — ein Sonderangebot! Das bestelle ich. Und das Bett? Das Bett ist weiß und neu, aber sehr teuer — hundert Euro. Zu teuer!</p>
    <p><span class="sp das">Lina:</span> Und das Handy?</p>
-   <p><span class="sp das">Theo:</span> Mein Handy ist alt. Das Handy hier ist neu und modern — das kaufe ich!</p>
-   <p><span class="sp das">Theo:</span> So! Eine Lampe, ein Buch, ein Handy — alles günstig! Aber kein Sofa aus Plastik. Schade!</p>
+   <p><span class="sp das theo">Theo:</span> Mein Handy ist alt. Das Handy hier ist neu und modern — das kaufe ich! So! Eine Lampe, ein Buch, ein Handy — alles günstig! Aber kein Sofa aus Plastik. Schade!</p>
    <p><span class="sp das">Lina:</span> <span class="rem">(lacht)</span> Ein Sofa aus Plastik? Nein, Theo!</p>
-   <p><span class="sp das">Theo:</span> <span class="rem">(lacht)</span> Okay, kein Plastik-Sofa! Aber die Lampe ist schön — und billig!</p>`,
-   ru:`<p><span class="sp das">Тео:</span> О, сколько всего тут! Лампа, диван, кровать, полка, книжка!</p>
-   <p><span class="sp das">Тео:</span> Лампа красная и современная. Сколько стоит лампа? … Девять евро! Выгодно! Беру!</p>
-   <p><span class="sp das">Тео:</span> А диван? Диван зелёный и большой, но дорогой — двести евро! О нет, слишком дорого!</p>
-   <p><span class="sp das">Тео:</span> Диван из пластика? … Нет, ни один диван не из пластика. Жаль!</p>
+   <p><span class="sp das theo">Theo:</span> <span class="rem">(lacht)</span> Okay, kein Plastik-Sofa! Aber die Lampe ist schön — und billig!</p>`,
+   ru:`<p><span class="sp das theo">Тео:</span> О, сколько всего тут! Лампа, диван, кровать, полка, книжка! Лампа красная и современная. Сколько стоит лампа? … Девять евро! Выгодно! Беру! А диван? Диван зелёный и большой, но дорогой — двести евро! О нет, слишком дорого! Диван из пластика? … Нет, ни один диван не из пластика. Жаль!</p>
    <p><span class="sp das">Lina:</span> <span class="rem">(подходит)</span> Что ты делаешь, Тео?</p>
-   <p><span class="sp das">Тео:</span> Я покупаю онлайн! Вот — лампа, книжка, картинка!</p>
+   <p><span class="sp das theo">Тео:</span> Я покупаю онлайн! Вот — лампа, книжка, картинка!</p>
    <p><span class="sp das">Lina:</span> Книжка красивая! Сколько стоит книжка?</p>
-   <p><span class="sp das">Тео:</span> Всего пять евро — по скидке! Заказываю.</p>
-   <p><span class="sp das">Тео:</span> А кровать? Кровать белая и новая, но очень дорогая — сто евро. Слишком дорого!</p>
+   <p><span class="sp das theo">Тео:</span> Всего пять евро — по скидке! Заказываю. А кровать? Кровать белая и новая, но очень дорогая — сто евро. Слишком дорого!</p>
    <p><span class="sp das">Lina:</span> А телефон?</p>
-   <p><span class="sp das">Тео:</span> Мой телефон старый. А этот телефон новый и современный — беру!</p>
-   <p><span class="sp das">Тео:</span> Вот! Лампа, книжка, телефон — всё недорого! Но пластикового дивана нет. Жаль!</p>
+   <p><span class="sp das theo">Тео:</span> Мой телефон старый. А этот телефон новый и современный — беру! Вот! Лампа, книжка, телефон — всё недорого! Но пластикового дивана нет. Жаль!</p>
    <p><span class="sp das">Lina:</span> <span class="rem">(смеётся)</span> Диван из пластика? Нет, Тео!</p>
-   <p><span class="sp das">Тео:</span> <span class="rem">(смеётся)</span> Ладно, без пластикового дивана! Зато лампа красивая — и дешёвая!</p>`,
+   <p><span class="sp das theo">Тео:</span> <span class="rem">(смеётся)</span> Ладно, без пластикового дивана! Зато лампа красивая — и дешёвая!</p>`,
    qa:[
      {q:'Wie viel kostet die Lampe?',ru:'Сколько стоит лампа?',a:'Die Lampe kostet neun Euro.',k:'neun'},
      {q:'Wie ist das Sofa?',ru:'Какой диван?',a:'Das Sofa ist grün, groß und teuer.',k:'teuer'},
@@ -260,26 +247,28 @@ const D=DIALOGS[N];
 document.title=D.title;
 {const cr=document.getElementById('crumb');if(cr)cr.innerHTML=`/ <a href="thema-02.html">Тема 2: Быт</a> / Текст ${N}`;}
 const MARKS={
- 1:[{x:18,y:40,w:'das Bett',g:'das',dir:'r'},{x:38,y:30,w:'das Regal',g:'das',dir:'r'},{x:30,y:60,w:'das Sofa',g:'das',dir:'r'},{x:50,y:25,w:'die Lampe',g:'die',dir:'l'},
-    {x:70,y:35,w:'der Tisch',g:'der',dir:'l'},{x:84,y:28,w:'der Spiegel',g:'der',dir:'l'},{x:88,y:55,w:'die Uhr',g:'die',dir:'l'},{x:64,y:62,w:'die Tasche',g:'die',dir:'l'}],
+ 1:[{x:24,y:34,w:'der Tisch',g:'der',dir:'r'},{x:46,y:26,w:'der Spiegel',g:'der',dir:'l'},{x:64,y:30,w:'der Schrank',g:'der',dir:'l'},
+    {x:30,y:60,w:'der Sessel',g:'der',dir:'r'},{x:50,y:24,w:'die Lampe',g:'die',dir:'l'},{x:82,y:40,w:'die Uhr',g:'die',dir:'l'},
+    {x:70,y:60,w:'die Tasche',g:'die',dir:'l'},{x:16,y:46,w:'das Bett',g:'das',dir:'r'},{x:86,y:62,w:'das Bild',g:'das',dir:'l'}],
  2:[{x:22,y:42,w:'die Tasche',g:'die',dir:'r'},{x:42,y:30,w:'die Lampe',g:'die',dir:'r'},{x:60,y:34,w:'die Kamera',g:'die',dir:'l'},
     {x:78,y:30,w:'der Spiegel',g:'der',dir:'l'},{x:84,y:58,w:'der Sessel',g:'der',dir:'l'},{x:54,y:60,w:'die Flasche',g:'die',dir:'l'},{x:36,y:62,w:'die Kette',g:'die',dir:'r'}],
  3:[{x:24,y:32,w:'die Lampe',g:'die',dir:'r'},{x:46,y:34,w:'das Sofa',g:'das',dir:'l'},{x:66,y:30,w:'das Bett',g:'das',dir:'l'},
     {x:30,y:60,w:'das Buch',g:'das',dir:'r'},{x:52,y:62,w:'das Regal',g:'das',dir:'l'},{x:74,y:60,w:'das Handy',g:'das',dir:'l'}]
 };
 const BANNER={3:'📝 Задание: Что Тео покупает, а что — нет? Назови по-немецки.'};
+const LEG=`Кто говорит: <span><b class="die" style="color:var(--die)">■ Грета / мама</b></span> <span><b style="color:#db2777">■ Carla</b></span> <span><b style="color:#2563eb">■ Тео</b></span> <span><b class="das" style="color:var(--das)">■ Lina</b></span>`;
 
 document.getElementById('app').innerHTML=`
   <h1>${D.title}</h1>
   <p class="lead">${D.sub} <span style="color:var(--muted)">Диалог ${N} из 3 · Тема 2</span></p>
   <div class="scenenav" id="navTop"></div>
-  <div class="stage" id="stage">${BANNER[N]?`<div class="qtask">${BANNER[N]}</div>`:''}<img src="${D.img}" alt="${D.title}" onerror="this.parentNode.innerHTML='&lt;div class=\\'imgwait\\'&gt;🎨 Картинка появится после генерации по промпту ниже.&lt;br&gt;(файл ${D.img})&lt;/div&gt;'"></div>
+  <div class="stage" id="stage">${BANNER[N]?`<div class="qtask">${BANNER[N]}</div>`:''}<img src="${D.img}" alt="${D.title}" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'imgwait',textContent:'🎨 Картинка появится после генерации по промпту ниже (файл ${D.img})'}))"></div>
   <p class="stagehint">Тапни точку на предмете — откроется слово с артиклем: <b style="color:var(--der)">der</b>, <b style="color:var(--die)">die</b>, <b style="color:var(--das)">das</b> (цвет = род).</p>
   <details class="promptbox"><summary>🎨 Промпт для картинки (скопируй в генератор изображений)</summary><div class="prompt">${D.prompt}</div></details>
 
   <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Читаем диалог</h2></div></div>
   <div class="panel">
-    <div class="leg">Реплики по роду героя: <span><b class="der">■ Otto</b> der</span> <span><b class="die">■ Грета / Carla / мама</b> die</span> <span><b class="das">■ Тео / Lina</b> das</span></div>
+    <div class="leg">${LEG}</div>
     <div class="bh">🇩🇪 Deutsch <button class="ic" onclick="speakDialog(this)">🔊 Послушать (по голосам)</button></div>
     <div class="dlg de" id="deDlg">${D.de}</div>
     <div class="bh" style="margin-top:14px">🇷🇺 Русский <button class="ic" id="ruBtn" onclick="toggleRuDlg()">Показать перевод</button></div>
@@ -288,7 +277,7 @@ document.getElementById('app').innerHTML=`
 
   <div class="part text"><span class="pico">💬</span><div><div class="pk">Часть 2</div><h2>Вопросы по тексту</h2></div></div>
   <div class="panel"><h3>❓ Ответь на вопросы</h3>
-    <p class="sub">Отвечай <b>полным предложением</b>; число — <b>словами</b>, не цифрой (например: «Die Lampe kostet neun Euro.»). Перевод вопроса — по кнопке.</p>
+    <p class="sub">Отвечай <b>полным предложением</b>; число — <b>словами</b> (например: «Die Lampe kostet neun Euro.»). Перевод вопроса — по кнопке.</p>
     <div id="qa"></div>
     <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="qaCheckAll()">Проверить</button><button class="btn sm" id="qaShowBtn" onclick="qaShowAll()" disabled>Показать ответы</button><span class="muted" id="qaHint" style="font-size:12px">откроются после проверки</span></div>
     <div class="score" id="qaScore"></div>
@@ -328,7 +317,9 @@ document.getElementById('app').innerHTML=`
 function speakDialog(btn){
   const items=[...document.querySelectorAll('#deDlg p')].filter(p=>p.querySelector('.sp')).map(p=>{
     const sp=p.querySelector('.sp');
-    const role= sp.classList.contains('der')?'male':sp.classList.contains('die')?'female':'child';
+    const role= sp.classList.contains('carla')?'carla'
+              : sp.classList.contains('der')?'male'
+              : sp.classList.contains('die')?'female':'child';
     const c=p.cloneNode(true); c.querySelectorAll('.sp,.rem').forEach(e=>e.remove());
     return {t:c.textContent.replace(/\s+/g,' ').trim(), role};
   }).filter(x=>x.t);
@@ -353,9 +344,9 @@ document.getElementById('navTop').innerHTML=navHtml;
 // ---- мини-аудирования ----
 const HOER={
  1:[{f:'d2a-lampe',role:'child',q:'Сколько стоит лампа?',t:'Die Lampe kostet neun Euro.',a:'9',ph:'цена (цифры)',num:1},
-    {f:'d2a-regal',role:'child',q:'Из какого материала полка?',t:'Das Regal ist aus Holz.',a:'Holz',ph:'материал'}],
- 2:[{f:'d2b-spiegel',role:'female',q:'Сколько стоит зеркало?',t:'Der Spiegel kostet neunundneunzig Euro.',a:'99',ph:'цена (цифры)',num:1},
-    {f:'d2b-tasche',role:'female',q:'Какого цвета сумка Carla?',t:'Die Tasche ist rot.',a:'rot',ph:'цвет'}],
+    {f:'d2a-spiegel',role:'child',q:'Сколько стоит зеркало?',t:'Der Spiegel kostet neunundneunzig Euro.',a:'99',ph:'цена (цифры)',num:1}],
+ 2:[{f:'d2b-tasche',role:'female',q:'Какого цвета сумка Carla?',t:'Die Tasche ist rot.',a:'rot',ph:'цвет'},
+    {f:'d2b-glas',role:'female',q:'Из какого материала лампа?',t:'Die Lampe ist aus Glas.',a:'glas',ph:'материал'}],
  3:[{f:'d2c-buch',role:'child',q:'Сколько стоит книжка?',t:'Das Buch kostet fünf Euro.',a:'5',ph:'цена (цифры)',num:1},
     {f:'d2c-sofa',role:'child',q:'Из чего НЕТ дивана?',t:'Kein Sofa ist aus Plastik.',a:'Plastik',ph:'материал'}]
 };

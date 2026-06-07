@@ -75,13 +75,18 @@ function playSeq(urls, btn, fallback){
 function _auPlay(){
   if(_aui>=_auList.length){ if(_auBtn){ _auBtn.textContent='🔊 Послушать'; _auBtn=null; } _au=null; return; }
   const my=_auGen; _au=new Audio(_auList[_aui]);
-  _au.onended=()=>{ if(my!==_auGen) return; _aui++; _auPlay(); };
-  _au.onerror=()=>{ if(my!==_auGen) return;
+  let handled=false;                                   // защита от двойного срабатывания (onerror + play().catch)
+  const next=()=>{ if(my!==_auGen) return; _aui++; _auPlay(); };
+  _au.onended=()=>{ if(handled||my!==_auGen) return; handled=true; next(); };
+  const fail=()=>{ if(handled||my!==_auGen) return; handled=true;   // файла нет → один раз озвучить фолбэком (или пропустить)
     const it=_auFb && _auFb[_aui];
-    if(it && it.t){ const u=_utterRole(it.t, it.role); u.onend=()=>{ if(my!==_auGen) return; _aui++; _auPlay(); }; u.onerror=u.onend; try{ window.speechSynthesis.speak(u); }catch(e){ _aui++; _auPlay(); } }
-    else { _aui++; _auPlay(); }
+    if(it && it.t){ try{ window.speechSynthesis.cancel(); }catch(e){}
+      const u=_utterRole(it.t, it.role); u.onend=next; u.onerror=next;
+      try{ window.speechSynthesis.speak(u); }catch(e){ next(); } }
+    else { next(); }
   };
-  _au.play().catch(()=>{ if(_au && _au.onerror) _au.onerror(); });
+  _au.onerror=fail;
+  _au.play().catch(()=>fail());
 }
 // слаг для имени аудиофайла слова (совпадает с генератором tools/gen_audio.py)
 function _slug(s){ return String(s).toLowerCase()

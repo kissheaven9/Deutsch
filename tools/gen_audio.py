@@ -15,6 +15,7 @@ VOICE = {
     'child':  dict(voice='de-DE-SeraphinaMultilingualNeural', rate='+8%', pitch='+28Hz'),
     'seller': dict(voice='de-DE-AmalaNeural', rate='+0%', pitch='+0Hz'),
     'childgirl': dict(voice='de-DE-AmalaNeural', rate='+5%', pitch='+45Hz'),
+    'carla':  dict(voice='de-DE-AmalaNeural', rate='+0%', pitch='+6Hz'),  # Carla — другой женский голос (не как Грета=Katja)
     '':       dict(voice='de-DE-KatjaNeural',   rate='+0%',  pitch='+0Hz'),
 }
 
@@ -48,7 +49,8 @@ class Lines(HTMLParser):
             self.cur=[]; self.role=''; self.has_sp=False
         if tag=='span' and 'sp' in cls.split():
             self.in_sp=True; self.has_sp=True
-            self.role = 'male' if 'der' in cls.split() else 'female' if 'die' in cls.split() else 'child' if 'das' in cls.split() else ''
+            cl=cls.split()
+            self.role = 'carla' if 'carla' in cl else 'male' if 'der' in cl else 'female' if 'die' in cl else 'child' if 'das' in cl else ''
         if tag=='span' and 'rem' in cls.split():
             self.skip+=1
     def handle_endtag(self, tag):
@@ -65,7 +67,8 @@ class Lines(HTMLParser):
             self.cur.append(data)
 
 def dialog_lines(n, html):
-    m = re.search(r'%d:\{[^`]*?de:`(.*?)`,\s*ru:' % n, html, re.S)
+    # .*? (DOTALL) — чтобы перешагнуть поле prompt:`...` с бэктиками (есть в dialog2.html)
+    m = re.search(r'%d:\{.*?\bde:`(.*?)`,\s*ru:' % n, html, re.S)
     if not m: return []
     p = Lines(); p.feed(m.group(1)); return p.lines
 
@@ -117,6 +120,13 @@ async def main():
         print(f'диалог {n}: {len(lines)} реплик')
         for i,(role,txt) in enumerate(lines):
             await tts(txt, role, os.path.join(AUDIO, f'dlg-{n}-{i}.mp3'))
+    # диалоги Темы 2 (dialog2.html) → dlg2-N-i (Carla — отдельный голос)
+    d2html = open(os.path.join(ROOT,'dialog2.html'), encoding='utf-8').read()
+    for n in (1,2,3):
+        lines = dialog_lines(n, d2html)
+        print(f'диалог2 {n}: {len(lines)} реплик')
+        for i,(role,txt) in enumerate(lines):
+            await tts(txt, role, os.path.join(AUDIO, f'dlg2-{n}-{i}.mp3'))
     # слова по роду (der→Otto, die→Грета, das→Тео)
     os.makedirs(os.path.join(AUDIO,'word'), exist_ok=True)
     words = dict_words()
@@ -144,6 +154,12 @@ async def main():
         ('d2-greta','female','Ich bin achtundvierzig Jahre alt.'),
         ('d3-noah','child','Mein Freund Noah kommt aus Polen.'),
         ('d3-lea','child','Lea ist zehn Jahre alt.'),
+        ('d2a-lampe','child','Die Lampe kostet neun Euro.'),
+        ('d2a-spiegel','child','Der Spiegel kostet neunundneunzig Euro.'),
+        ('d2b-tasche','female','Die Tasche ist rot.'),
+        ('d2b-glas','female','Die Lampe ist aus Glas.'),
+        ('d2c-buch','child','Das Buch kostet fünf Euro.'),
+        ('d2c-sofa','child','Kein Sofa ist aus Plastik.'),
     ]
     for hid, role, text in HOER:
         await tts(text, role, os.path.join(AUDIO, f'hoer-{hid}.mp3'))
