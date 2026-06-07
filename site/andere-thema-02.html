@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Другое — Тема 2</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+  :root{--p:#6d28d9;--pb:#e9d5ff;--pbg:#f5f3ff}
+  .subnav{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+  .subnav a{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:#fff;color:#374151;text-decoration:none}
+  .subnav a.active{background:var(--p);color:#fff;border-color:var(--p)}
+  .part{display:flex;align-items:center;gap:14px;margin:26px 0 12px;padding:13px 18px;border-radius:16px;border:1px solid var(--pb);background:var(--pbg)}
+  .part .pico{font-size:28px}.part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--p);font-weight:700}.part h2{margin:2px 0 0;font-size:22px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:var(--pbg);border-bottom:1px solid var(--pb);border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--p);color:#fff;font-size:13px;font-weight:700}
+  .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .toolbar{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer}
+  .btn.p{background:var(--p);color:#fff;border-color:var(--p)} .btn.sm{padding:7px 11px;font-size:13px}
+  .say{border:none;background:none;cursor:pointer;font-size:15px;opacity:.6;padding:2px}.say:hover{opacity:1}
+  .wlist{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  @media(max-width:620px){.wlist{grid-template-columns:1fr}}
+  .wrow{display:flex;align-items:center;gap:9px;background:var(--pbg);border:1px solid var(--pb);border-radius:10px;padding:7px 10px}
+  .sw{width:18px;height:18px;border-radius:5px;border:1px solid #0002;flex:none}
+  .wrow .de{font-weight:700;color:var(--p);font-size:15px}
+  .wrow .ru{color:#374151;font-size:13px;flex:1;text-align:right}
+  .wrow.noru .ru{visibility:hidden;position:relative}
+  .wrow.noru .ru::after{content:"·····";position:absolute;right:0;color:#9ca3af;visibility:visible}
+  .de-block{color:var(--ink);font-weight:500;line-height:1.85;margin:0}
+  .ru-block{color:#374151;line-height:1.7;margin:8px 0 0}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--p);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .cardwrap{max-width:380px;margin:0 auto}
+  .card{background:#fff;border:2px solid var(--p);border-radius:16px;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:18px;text-align:center;cursor:pointer;transition:.12s}
+  .card:active{transform:scale(.99)} .card.back{background:var(--pbg)}
+  .c-sw{width:54px;height:54px;border-radius:12px;border:1px solid #0002}
+  .c-text{font-size:26px;font-weight:700;color:var(--ink)} .card.back .c-text{color:var(--p)} .c-hint{font-size:12px;color:var(--muted)}
+  .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
+  .cnav #cCount{color:var(--muted);font-weight:600}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .ru{min-width:140px;color:#374151}.wq .sw{margin-right:-4px}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:150px}
+  .wq input:focus{outline:none;border-color:var(--p)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .score{font-weight:700;margin-top:8px}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px}
+  .mchip.de{font-weight:700;color:var(--p)} .mchip.sel{border-color:var(--p);background:var(--pbg)}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:6px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Тема 2 / Другое</span></div></header>
+<main class="wrap">
+  <h1 id="h1">Другое — Тема 2</h1>
+  <div class="subnav">
+    <a href="thema-02.html">← Тема</a>
+    <a href="verben-thema-02.html">Глаголы</a>
+    <a class="active" id="navFarben" href="andere-thema-02.html?cat=farben">🎨 Цвета</a>
+    <a id="navEig" href="andere-thema-02.html?cat=eigenschaften">⭐ Оценка/свойства</a>
+  </div>
+  <p class="lead" id="lead"></p>
+
+  <div class="part"><span class="pico" id="pico">🎨</span><div><div class="pk">Изучение</div><h2 id="secTitle">Слова</h2></div></div>
+  <div class="panel"><h3>🔤 Слова <span id="catBadge"></span></h3>
+    <div class="toolbar"><button class="btn p" id="eye" onclick="toggleRuAll(this)">🙈 Скрыть переводы</button><span class="sub" style="margin:0">🔊 — послушать · 👁 в строке — скрыть перевод</span></div>
+    <div class="wlist" id="wlist"></div>
+  </div>
+
+  <div class="panel"><h3>📜 Текст</h3>
+    <div id="imgSlot"></div>
+    <div class="bh">🇩🇪 Deutsch <button class="btn sm" id="playBtn">🔊 Послушать</button></div>
+    <p class="de-block" id="deText"></p>
+    <div class="bh" style="margin-top:12px">🇷🇺 Русский <button class="btn sm" id="ruBtn" onclick="toggleRu2()">Показать перевод</button></div>
+    <p class="ru-block" id="ruText" hidden></p>
+  </div>
+
+  <div class="part"><span class="pico">🎯</span><div><div class="pk">Тренируемся</div><h2>Запоминаем</h2></div></div>
+
+  <div class="panel"><h3><span class="exnum">1</span>🃏 Карточки</h3>
+    <p class="sub">Русское слово — вспомни немецкое, нажми, чтобы перевернуть. Листай ← →.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-sw" id="cSw" hidden></div><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">2</span>🔗 Соотнеси: немецкое ↔ русское</h3>
+    <p class="sub">Нажми немецкое слово, потом перевод — пара окрасится.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="toolbar"><button class="btn p sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">3</span>✍️ Напиши по-немецки</h3>
+    <p class="sub">Дано слово по-русски — впиши его по-немецки.</p>
+    <div id="writeList"></div>
+    <div class="toolbar"><button class="btn p sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+
+  <div class="scenenav"><a href="thema-02.html#andere">← Тема 2 · Другое</a><a id="otherCat" href="#">другая категория →</a></div>
+</main>
+<footer>Deutsch A1 · Тема 2 · Другое</footer>
+
+<script src="js/app.js?v=3"></script>
+<script>
+function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-яäöüß0-9-]/g,'');}
+const HEX={weiß:'#ffffff',gelb:'#facc15',orange:'#fb923c',rot:'#ef4444',grün:'#22c55e',blau:'#3b82f6',braun:'#92400e',schwarz:'#1f2937',grau:'#9ca3af',hellblau:'#7dd3fc',dunkelgrün:'#166534'};
+const DATA={
+  farben:{title:'🎨 Цвета',role:'female',pico:'🎨',
+    lead:'Цвета — любимое у Греты. Послушай, скрой перевод и поучи; потом текст, карточки и упражнения.',
+    words:[['weiß','белый'],['gelb','жёлтый'],['orange','оранжевый'],['rot','красный'],['grün','зелёный'],['blau','синий'],['braun','коричневый'],['schwarz','чёрный'],['grau','серый'],['hellblau','светло-синий'],['dunkelgrün','тёмно-зелёный']],
+    de:'Mamma mia, ich liebe Farben! Meine Tasche ist <b>rot</b>, meine Lampe ist <b>gelb</b>, meine Flasche ist <b>grün</b>. Der Himmel ist <b>blau</b>, die Wolke ist <b>weiß</b>. Meine Brille ist <b>schwarz</b>, meine Bürste ist <b>orange</b>. Nur <b>grau</b> mag ich nicht — grau ist langweilig! <b>Hellblau</b> und <b>dunkelgrün</b> sind auch schön. Mamma mia, das Leben ist bunt!',
+    ru:'Mamma mia, я люблю цвета! Сумка красная, лампа жёлтая, бутылка зелёная. Небо синее, облако белое. Очки чёрные, щётка оранжевая. Только серый не люблю — серый скучный! Светло-синий и тёмно-зелёный тоже красивые. Mamma mia, жизнь — разноцветная!',
+    audio:'audio/andere-farben.mp3'},
+  eigenschaften:{title:'⭐ Оценка / свойства',role:'male',pico:'⭐',
+    lead:'Какой предмет: красивый, дорогой, практичный? Послушай, скрой перевод и поучи; потом текст, карточки и упражнения.',
+    words:[['schön','красивый'],['hässlich','некрасивый'],['teuer','дорогой'],['günstig','выгодный'],['billig','дешёвый'],['praktisch','практичный'],['modern','современный'],['groß','большой'],['klein','маленький'],['alt','старый'],['neu','новый']],
+    de:'Was kaufe ich? Das Sofa ist <b>schön</b> und <b>modern</b>, aber <b>teuer</b> — zweihundert Euro! Der Stuhl ist <b>klein</b> und <b>praktisch</b>, nur <b>günstig</b>. Die <b>alte</b> Lampe ist nicht <b>neu</b>, aber <b>billig</b>. Das <b>große</b> Regal ist <b>hässlich</b> — nein, danke! Ich finde: praktisch und günstig ist gut, zu teuer ist schlecht.',
+    ru:'Что я покупаю? Диван красивый и современный, но дорогой — двести евро! Стул маленький и практичный, совсем недорогой. Старая лампа не новая, но дешёвая. Большая полка некрасивая — нет, спасибо! По-моему: практично и выгодно — хорошо, слишком дорого — плохо.',
+    audio:'audio/andere-eigenschaften.mp3'},
+};
+const cat=(new URLSearchParams(location.search).get('cat')==='eigenschaften')?'eigenschaften':'farben';
+const D=DATA[cat], ROLE=D.role;
+document.title='Другое — '+D.title;
+document.getElementById('h1').textContent=D.title+' — Тема 2';
+document.getElementById('lead').textContent=D.lead;
+document.getElementById('pico').textContent=D.pico;
+document.getElementById('catBadge').textContent='';
+document.querySelectorAll('.subnav a').forEach(a=>a.classList.remove('active'));
+document.getElementById(cat==='farben'?'navFarben':'navEig').classList.add('active');
+document.getElementById('otherCat').href='andere-thema-02.html?cat='+(cat==='farben'?'eigenschaften':'farben');
+document.getElementById('otherCat').textContent=(cat==='farben'?'⭐ Оценка/свойства':'🎨 Цвета')+' →';
+function sw(de){return HEX[de]?`<span class="sw" style="background:${HEX[de]}"></span>`:'';}
+
+// слова
+document.getElementById('wlist').innerHTML=D.words.map(([de,ru])=>`<div class="wrow">${sw(de)}<button class="say" onclick="playWord('${de}','${ROLE}')">🔊</button><span class="de">${de}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.wrow').classList.toggle('noru')">👁</button></div>`).join('');
+function toggleRuAll(b){const rows=[...document.querySelectorAll('.wrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));b.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
+
+// текст
+document.getElementById('deText').innerHTML=D.de;
+document.getElementById('ruText').innerHTML=D.ru;
+document.getElementById('playBtn').onclick=function(){playSeq([D.audio],this,[{t:document.getElementById('deText').innerText,role:ROLE}]);};
+function toggleRu2(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
+
+// карточки
+let ci=0,flipped=false;
+function renderCard(){const [de,ru]=D.words[ci];const swEl=document.getElementById('cSw');
+  if(HEX[de]){swEl.hidden=false;swEl.style.background=HEX[de];}else swEl.hidden=true;
+  document.getElementById('cText').innerHTML=flipped?`${de} <button class="say" onclick="event.stopPropagation();playWord('${de}','${ROLE}')">🔊</button>`:ru;
+  document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми — увидеть немецкое';
+  document.getElementById('cCount').textContent=`${ci+1} / ${D.words.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%D.words.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+D.words.length)%D.words.length;flipped=false;renderCard();}
+renderCard();
+
+// соотнеси
+const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7','#ec4899','#14b8a6'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let MA=[],selDe=null,links={},colorOf={},nextC=0;
+const MPP=6;let mStart=0;
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){MA=D.words.slice(mStart,mStart+MPP);if(MA.length<2){mStart=0;MA=D.words.slice(0,MPP);}selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MA.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MA.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${sw(p[0])}${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MA[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';mStart=(mStart+MPP)>=D.words.length?0:mStart+MPP;}
+function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){let ok=0;MA.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MA.length?'var(--das)':'var(--die)'}">${ok} / ${MA.length} верно${ok===MA.length?(' — '+praise()):' — поправь пары'}</span>`;}
+renderMatch();
+
+// напиши по-немецки
+document.getElementById('writeList').innerHTML=D.words.map(([de,ru],i)=>`<div class="wq" data-i="${i}">${sw(de)}<span class="ru">${ru}</span><input placeholder="по-немецки…" autocomplete="off"><span class="corr"></span></div>`).join('');
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v===norm(D.words[i][0]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.words[i][0];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===D.words.length?'var(--das)':'var(--die)'}">${ok} / ${D.words.length} верно${ok===D.words.length?(' — '+praise()):''}</span>`;}
+function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
+function writeShow(){if(!document.getElementById('wScore').textContent.trim()){alert('Сначала впиши ответы и нажми «Проверить».');return;}document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.words[i][0];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--p)">Показаны ответы</span>';}
+</script>
+<script src="js/chrome.js?v=3"></script>
+</body>
+</html>

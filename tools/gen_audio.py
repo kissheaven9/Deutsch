@@ -148,7 +148,21 @@ async def main():
            ('die','Straße'),('die','Telefonnummer')]
     for g,w in EXTRA:
         await tts(f'{g} {w}', WORD_ROLE[g], os.path.join(AUDIO,'word', slug(f'{g} {w}')+'.mp3'))
+    # «Другое» Темы 2 — цвета (жен.) и оценка/свойства (муж.)
+    COLORS=['weiß','gelb','orange','rot','grün','blau','braun','schwarz','grau','hellblau','dunkelgrün']
+    for w in COLORS:
+        await tts(w, 'female', os.path.join(AUDIO,'word', slug(w)+'.mp3'))
+    PROPS=['schön','hässlich','teuer','günstig','billig','praktisch','modern','groß','klein','alt','neu']
+    for w in PROPS:
+        await tts(w, 'male', os.path.join(AUDIO,'word', slug(w)+'.mp3'))
     print('слова готовы')
+    # тексты раздела «Другое»
+    ANDERE=[
+        ('andere-farben','female','Mamma mia, ich liebe Farben! Meine Tasche ist rot, meine Lampe ist gelb, meine Flasche ist grün. Der Himmel ist blau, die Wolke ist weiß. Meine Brille ist schwarz, meine Bürste ist orange. Nur grau mag ich nicht — grau ist langweilig! Hellblau und dunkelgrün sind auch schön. Mamma mia, das Leben ist bunt!'),
+        ('andere-eigenschaften','male','Was kaufe ich? Das Sofa ist schön und modern, aber teuer — zweihundert Euro! Der Stuhl ist klein und praktisch, nur günstig. Die alte Lampe ist nicht neu, aber billig. Das große Regal ist hässlich — nein, danke! Ich finde: praktisch und günstig ist gut, zu teuer ist schlecht.'),
+    ]
+    for sid,role,text in ANDERE:
+        await tts(text, role, os.path.join(AUDIO, sid+'.mp3'))
     # мини-аудирования по героям/сценам/текстам
     HOER=[
         ('der1-beruf','male','Ich bin Gärtner von Beruf.'),
