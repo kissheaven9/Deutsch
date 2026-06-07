@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Глаголы — Тема 1</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=3">
 <style>
   :root{--y:#eab308;--yd:#a16207;--yb:#fde68a;--ybg:#fefce8}
   .subnav{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
@@ -131,7 +131,7 @@
 </main>
 <footer>Deutsch A1</footer>
 
-<script src="js/app.js"></script>
+<script src="js/app.js?v=3"></script>
 <script>
 function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9äöüß]/g,'');}
 const REG=[
@@ -203,6 +203,6 @@ function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEa
 function writeShow(){if(!document.getElementById('wScore').textContent.trim()){alert('Сначала впиши ответы и нажми «Проверить».');return;}document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=WRITE[i].ru;r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
 renderWrite();
 </script>
-<script src="js/chrome.js"></script>
+<script src="js/chrome.js?v=3"></script>
 </body>
 </html>
