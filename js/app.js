@@ -135,6 +135,8 @@ function hCheck(btn){
   const sb=row.querySelector('.hshow'); if(sb) sb.disabled=false;
 }
 function hShow(btn){ const row=btn.closest('.hq'); row.querySelector('.hres').innerHTML='<span class="noselect" style="color:var(--accent)">Ответ: '+(row.dataset.ans||'')+'</span>'; }
+// «Послушать сначала» — всегда с начала (стоп + проигрывание заново)
+function replaySeq(urls, btn, fallback){ _stopAll(); playSeq(urls, btn, fallback); }
 
 // подсветка изучаемых слов в тексте сцены: ВСЕГДА показываем род.
 // есть определённый артикль (der/die/das) — он внутри подсветки; нет/«ein/mein» — добавляем мини-пометку рода.

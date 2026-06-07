@@ -162,14 +162,14 @@
     <h3>🎧 Аудирование</h3>
     <p class="sub">Otto говорит — послушай (можно несколько раз) и впиши ответ. Откроется только после проверки.</p>
     <div class="hq" data-ans="Gärtner">
-      <button class="ic" onclick="playSeq(['audio/hoer-der1-beruf.mp3'],this,[{t:'Ich bin Gärtner von Beruf.',role:'male'}])">▶ Кто Otto по профессии?</button>
+      <button class="ic" onclick="playSeq(['audio/hoer-der1-beruf.mp3'],this,[{t:'Ich bin Gärtner von Beruf.',role:'male'}])">▶ Кто Otto по профессии?</button><button class="ic" onclick="replaySeq(['audio/hoer-der1-beruf.mp3'],this,[{t:'Ich bin Gärtner von Beruf.',role:'male'}])">↻ Заново</button>
       <input class="qin" placeholder="профессия по-немецки" autocomplete="off">
       <button class="btn sm" onclick="hCheck(this)">Проверить</button>
       <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
       <span class="hres"></span>
     </div>
     <div class="hq" data-ans="50">
-      <button class="ic" onclick="playSeq(['audio/hoer-der1-alter.mp3'],this,[{t:'Ich bin fünfzig Jahre alt.',role:'male'}])">▶ Сколько Otto лет?</button>
+      <button class="ic" onclick="playSeq(['audio/hoer-der1-alter.mp3'],this,[{t:'Ich bin fünfzig Jahre alt.',role:'male'}])">▶ Сколько Otto лет?</button><button class="ic" onclick="replaySeq(['audio/hoer-der1-alter.mp3'],this,[{t:'Ich bin fünfzig Jahre alt.',role:'male'}])">↻ Заново</button>
       <input class="qin" inputmode="numeric" placeholder="возраст (цифры)" autocomplete="off">
       <button class="btn sm" onclick="hCheck(this)">Проверить</button>
       <button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button>
