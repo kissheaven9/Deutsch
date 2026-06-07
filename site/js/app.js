@@ -20,6 +20,7 @@ function roleVoice(role){
   if(role==='female'||role==='die') return { voice:_voiceByNames(_FEM)||bestDeVoice(), pitch:1.12, rate:1.0  }; // Грета
   if(role==='child'||role==='das')  return { voice:_voiceByNames(_FEM)||bestDeVoice(), pitch:1.55, rate:1.07 }; // дети — выше, живее
   if(role==='seller')               return { voice:_voiceByNames(['amala','ingrid','marlene'])||_voiceByNames(_FEM)||bestDeVoice(), pitch:0.96, rate:0.98 }; // продавец — другой женский
+  if(role==='childgirl')            return { voice:_voiceByNames(['amala','ingrid'])||_voiceByNames(_FEM)||bestDeVoice(), pitch:1.7, rate:1.05 }; // девочка (Lina) — детский, другой тембр
   return { voice:bestDeVoice(), pitch:1.0, rate:0.94 };
 }
 function _utterRole(text, role){ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; const r=roleVoice(role); if(r.voice)u.voice=r.voice; u.pitch=r.pitch; u.rate=r.rate; return u; }
