@@ -79,7 +79,10 @@
 - **Притяжательные sein/ihr (его/её) — только с L15.** До этого нельзя «ihre Adresse». Замена: **родительный с именем** (L3) — «Carlas Adresse», «Mias Telefonnummer»; или «mein/dein».
 - **Предлоги с дативом (in/an/auf/neben/vor/zu/mit/bei в значении места) — поздние** (L13–L17). До этого избегать «in der …straße», «auf der Liste», «mit Hanna», «ohne …». Замена: именительный + heißen («Meine Straße heißt …»), «hier/da/draußen», «und». ИСКЛЮЧЕНИЯ, которые можно с L1–L2: **aus/in + страна с артиклем** («aus der Türkei», «in der Schweiz», «in den USA»), **in + город без артикля** («in München»), **bei** («bei Volvo»).
 - **Прошедшее — только с L11/L12** (Perfekt; war/hatte — L12). До этого никакого «war/hat gemacht».
-- **Императив — поздно:** «Sie»-форма с L18, «du/ihr» (komm/iss/nimm) — с L19. До этого приглашать через **möchten/wollen/können** («Möchtest du …?»), а не «Komm, iss!».
+- **«нравится/любить» — поздно.** Глагола `lieben` и `mögen` в ранних уроках нет: **gern** + глагол — L7, **mögen** — L9. До этого НЕ писать «Ich liebe …». Замена на L4: **«… ist schön»**, **«Ich finde … schön/gut»** (finden — L4).
+- **Императив — поздно** (частая ловушка!): «Sie»-форма с L18, «du/ihr» (komm/iss/nimm) — с L19. Сюда же **«Schau mal!», «Schaut!», «Komm!»** — это императив, рано НЕЛЬЗЯ. До этого приглашать через möchten/wollen/können («Möchtest du …?») или просто «Hier ist …», «Das ist …».
+- **Одежда — только тема L20–L22** (die Jacke, der Mantel, die Bluse, die Hose…): в ранние сцены НЕ давать, даже если слово мелькает в Lernwortschatz раньше. (Личные вещи L5 — это сумка/очки/часы/бусы/бутылка, НЕ одежда.)
+- **`suchen` — L6, `brauchen` — L6, `stehen/liegen` (как место) — поздно.** В L4–L5 «где?» — через «Wo ist …?» + sein; «лежит/стоит» — заменять на «ist/sind … hier».
 - **Прилагательные-определения (с окончанием: eine gute Bluse) — позже.** В ранних сценах — **прилагательное-сказуемое**: «Die Bluse ist gut», «Meine Tasche ist groß und rot».
 - **Модальные:** können — L7, müssen/dürfen — L21, sollen — L18, wollen/werden — L17. Не раньше.
 - **Не называть слова чужого рода вообще** (даже как фон): для die-героя избегать der-/das-слов (der Tee/Kaffee, das Brot/Haus/Restaurant), для остальных — аналогично. Если предмет нужен в сценке, а он чужого рода — заменить на синоним своего рода или не называть.
