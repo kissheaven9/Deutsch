@@ -33,6 +33,7 @@ SCENES = [
     ('scene-verben','male',  'verben-thema-01.html'),
     ('scene-das2',  'child', 'thema-02-das.html'),
     ('scene-die2',  'female','thema-02-die.html'),
+    ('scene-verben2','male', 'verben-thema-02.html'),
 ]
 def scene_text(fn):
     html = open(os.path.join(ROOT, fn), encoding='utf-8').read()
@@ -139,6 +140,13 @@ async def main():
            'sein','haben','sprechen','heißen','kommen','gehen']
     for inf in VERBS:
         await tts(inf, 'male', os.path.join(AUDIO,'word', slug(inf)+'.mp3'))
+    # слова сцен, которых нет в словаре (иначе fallback на робота)
+    EXTRA=[('der','Gärtner'),('das','Datum'),('das','Geburtsdatum'),('das','Mädchen'),
+           ('die','Adresse'),('die','E-Mail'),('die','Hausnummer'),('die','Köchin'),
+           ('die','Nationalität'),('die','Nummer'),('die','Postleitzahl'),('die','Stadt'),
+           ('die','Straße'),('die','Telefonnummer')]
+    for g,w in EXTRA:
+        await tts(f'{g} {w}', WORD_ROLE[g], os.path.join(AUDIO,'word', slug(f'{g} {w}')+'.mp3'))
     print('слова готовы')
     # мини-аудирования по героям/сценам/текстам
     HOER=[
