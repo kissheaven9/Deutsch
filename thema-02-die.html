@@ -191,11 +191,12 @@
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zа-яё0-9äöüß]/g,'');}
 /* плашки на картинке Греты */
 const OBJ=[
-  {de:'die Lampe',x:18,y:14},{de:'die Sonne',x:92,y:8},{de:'die Kamera',x:43,y:30},{de:'die Schwester',x:80,y:32},
-  {de:'die Flasche',x:24,y:68},{de:'die Tasche',x:55,y:66},{de:'die Bürste',x:42,y:88},{de:'die Seife',x:53,y:90},{de:'die Sonnenbrille',x:66,y:90},
+  {de:'die Lampe',x:18,y:14},{de:'die Sonne',x:92,y:8},{de:'die Kamera',x:43,y:30,mx:48,my:30},{de:'die Schwester',x:80,y:32},
+  {de:'die Flasche',x:24,y:68,mx:20,my:82},{de:'die Tasche',x:55,y:66},{de:'die Bürste',x:42,y:88,mx:47,my:88},{de:'die Seife',x:53,y:90},{de:'die Sonnenbrille',x:66,y:90},
 ];
 const stage=document.getElementById('stage');
-OBJ.forEach(o=>{const d=document.createElement('div');d.className='lbl die';d.style.left=o.x+'%';d.style.top=o.y+'%';
+const _mob=window.matchMedia('(max-width:620px)').matches;
+OBJ.forEach(o=>{const d=document.createElement('div');d.className='lbl die';const _x=(_mob&&o.mx!=null)?o.mx:o.x,_y=(_mob&&o.my!=null)?o.my:o.y;d.style.left=_x+'%';d.style.top=_y+'%';
   d.innerHTML=`<span class="cov" onclick="this.classList.toggle('open')"><b class="vv">${o.de}</b></span>`;stage.appendChild(d);});
 function toggleCovers(btn){const cs=[...document.querySelectorAll('.cov')];const any=cs.some(c=>!c.classList.contains('open'));cs.forEach(c=>c.classList.toggle('open',any));btn.textContent=any?'🙈 Скрыть слова':'👁 Открыть все слова';}
 
