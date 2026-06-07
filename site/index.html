@@ -96,7 +96,7 @@
 <script>
 (function(){
   try{
-    const T=(window.WOERTER&&WOERTER.themes)||[];
+    const T=(typeof WOERTER!=='undefined' && WOERTER.themes)||[];
     let nouns=0,verbs=0,other=0;
     T.forEach(t=>{
       ['der','die','das'].forEach(g=>nouns+=((t.nouns&&t.nouns[g])||[]).length);
