@@ -21,10 +21,10 @@
   .stage>img{width:100%;height:auto;display:block}
   .imgwait{background:#f8fafc;color:#9ca3af;font-size:14px;line-height:1.5;padding:40px 20px;text-align:center;border-radius:14px;border:1px dashed var(--line)}
   .mk{position:absolute;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px #0007;cursor:pointer;padding:0;z-index:2}
-  .mk.der{background:var(--der)} .mk.die{background:var(--die)} .mk.das{background:var(--das)} .mk.flag{background:var(--accent)}
+  .mk{background:#475569}   /* серые точки — РОД НЕ выдаём, ученик угадывает сам */
   .mk.gray{background:#9ca3af} .mk.gray .mkw{border-color:#9ca3af;color:#374151}
   .mk .mkw{display:none;position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;background:#fff;border:2px solid;border-radius:8px;padding:3px 8px;box-shadow:0 2px 8px #0006;font-weight:700;font-size:12px;line-height:1.2}
-  .mk.der .mkw{border-color:var(--der);color:var(--der)} .mk.die .mkw{border-color:var(--die);color:var(--die)} .mk.das .mkw{border-color:var(--das);color:var(--das)} .mk.flag .mkw{border-color:var(--accent);color:var(--accent)}
+  .mk .mkw{border-color:#94a3b8;color:#334155}   /* подпись нейтральная; артикль виден только в самом слове */
   .mk.open{z-index:5} .mk.open .mkw{display:block}
   .mk.dir-l .mkw{right:140%} .mk.dir-r .mkw{left:140%}
   .stagehint{font-size:12px;color:var(--muted);margin:6px 0 0}
@@ -205,17 +205,19 @@ const D=DIALOGS[N];
 document.title=D.title;
 {const cr=document.getElementById('crumb');if(cr)cr.innerHTML=`/ <a href="thema-02.html">Тема 2: Быт</a> / Текст ${N}`;}
 const MARKS={
- 1:[{x:9,y:58,w:'der Sessel',dir:'r'},{x:12,y:46,w:'die Uhr',dir:'r'},{x:21,y:36,w:'die Lampe',dir:'r'},
-    {x:31,y:41,w:'die Tasche',dir:'r'},{x:21,y:13,w:'der Spiegel',dir:'r'},{x:43,y:17,w:'das Bild',dir:'l'},
-    {x:62,y:30,w:'der Schrank',dir:'l'},{x:85,y:72,w:'das Bett',dir:'l'},{x:46,y:86,w:'der Teppich',dir:'l'}],
- 2:[{x:9,y:42,w:'der Sessel',dir:'r'},{x:33,y:66,w:'die Lampe',dir:'r'},{x:42,y:86,w:'der Tisch',dir:'l'},
-    {x:47,y:80,w:'die Uhr',dir:'l'},{x:54,y:66,w:'die Tasche',dir:'l'},{x:80,y:52,w:'das Sofa',dir:'l'},
-    {x:68,y:20,w:'das Regal',dir:'l'},{x:92,y:30,w:'das Bild',dir:'l'}],
+ 1:[{x:21,y:13,w:'der Spiegel',dir:'r'},{x:43,y:17,w:'das Bild',dir:'r'},{x:62,y:30,w:'der Schrank',dir:'l'},
+    {x:21,y:36,w:'die Lampe',dir:'r'},{x:31,y:41,w:'die Tasche',dir:'r'},{x:12,y:46,w:'die Uhr',dir:'r'},
+    {x:25,y:54,w:'die Brille',dir:'r'},{x:34,y:53,w:'die Kette',dir:'l'},{x:24,y:60,w:'der Tisch',dir:'r'},
+    {x:9,y:58,w:'der Sessel',dir:'r'},{x:85,y:72,w:'das Bett',dir:'l'},{x:46,y:86,w:'der Teppich',dir:'l'}],
+ 2:[{x:9,y:42,w:'der Sessel',dir:'r'},{x:30,y:56,w:'der Stuhl',dir:'r'},{x:33,y:66,w:'die Lampe',dir:'r'},
+    {x:42,y:86,w:'der Tisch',dir:'r'},{x:47,y:80,w:'die Uhr',dir:'l'},{x:54,y:66,w:'die Tasche',dir:'l'},
+    {x:55,y:88,w:'das Buch',dir:'l'},{x:80,y:52,w:'das Sofa',dir:'l'},{x:68,y:20,w:'das Regal',dir:'l'},
+    {x:92,y:30,w:'das Bild',dir:'l'},{x:28,y:93,w:'der Teppich',dir:'r'}],
  3:[{x:60,y:13,w:'das Sofa',dir:'l'},{x:77,y:12,w:'der Tisch',dir:'l'},{x:92,y:15,w:'der Spiegel',dir:'l'},
     {x:60,y:38,w:'der Schrank',dir:'l'},{x:77,y:37,w:'die Uhr',dir:'l'},{x:92,y:38,w:'das Taschentuch',dir:'l'},
     {x:60,y:59,w:'die Kamera',dir:'l'},{x:77,y:58,w:'das Regal',dir:'l'},{x:92,y:59,w:'das Feuerzeug',dir:'l'},
-    {x:67,y:84,w:'der Kugelschreiber',dir:'l'},{x:83,y:84,w:'der Geldbeutel',dir:'l'},
-    {x:11,y:55,w:'der Stuhl',dir:'r'},{x:33,y:80,w:'der Schlüssel',dir:'r'}]
+    {x:67,y:84,w:'der Kugelschreiber',dir:'l'},{x:83,y:84,w:'der Geldbeutel',dir:'l'},{x:17,y:12,w:'die Lampe',dir:'r'},
+    {x:42,y:15,w:'das Bild',dir:'r'},{x:11,y:55,w:'der Stuhl',dir:'r'},{x:33,y:80,w:'der Schlüssel',dir:'r'}]
 };
 const BANNER={3:'📝 Задание: Что Тео покупает, а что — нет? Назови по-немецки.'};
 const LEGS={
@@ -229,7 +231,7 @@ document.getElementById('app').innerHTML=`
   <p class="lead">${D.sub} <span style="color:var(--muted)">Диалог ${N} из 3 · Тема 2</span></p>
   <div class="scenenav" id="navTop"></div>
   <div class="stage" id="stage">${BANNER[N]?`<div class="qtask">${BANNER[N]}</div>`:''}<img src="${D.img}" alt="${D.title}" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'imgwait',textContent:'🎨 Картинка появится после генерации по промпту ниже (файл ${D.img})'}))"></div>
-  <p class="stagehint">Тапни точку на предмете — откроется слово с артиклем: <b style="color:var(--der)">der</b>, <b style="color:var(--die)">die</b>, <b style="color:var(--das)">das</b> (цвет = род).</p>
+  <p class="stagehint">Тапни <b>серую точку</b> на предмете — сначала угадай артикль (der/die/das) сам, потом проверь себя: откроется слово с правильным артиклем.</p>
   
 
   <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Читаем диалог</h2></div></div>
