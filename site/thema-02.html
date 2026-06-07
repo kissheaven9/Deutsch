@@ -3,13 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Тема 2 — Быт (дом)</title>
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Тема 2 — Быт (дом и вещи)</title>
 <link rel="stylesheet" href="css/style.css?v=3">
 <style>
   .sec{margin:30px 0 10px;font-size:18px;color:var(--ink);font-weight:700;padding-left:12px;border-left:4px solid var(--accent)}
+  .sec.verbs{border-left-color:#eab308}
   .sec.nouns{border-left-color:transparent;position:relative}
   .sec.nouns::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:4px;border-radius:3px;background:linear-gradient(180deg,var(--der) 0 33%,var(--die) 33% 66%,var(--das) 66% 100%)}
   .muted{color:var(--muted);font-size:13px}
+  .lk{font-weight:600;font-size:11px;background:#f3f4f6;color:#374151;border-radius:6px;padding:1px 6px}
   .grow{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-left-width:5px;border-radius:14px;padding:14px;margin:12px 0}
   .grow.der{border-left-color:var(--der)} .grow.die{border-left-color:var(--die)} .grow.das{border-left-color:var(--das)}
   .grow .gphoto{width:180px;height:200px;object-fit:contain;border-radius:12px;flex:none;background:#f8fafc}
@@ -17,9 +20,10 @@
   .grow .ghead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:16px}
   .grow .gloves{font-size:12px;color:var(--muted)} .gloves b{font-weight:800}
   .grow.der .gloves b{color:var(--der)} .grow.die .gloves b{color:var(--die)} .grow.das .gloves b{color:var(--das)}
-  .grow .go{align-self:flex-start;margin-top:10px;color:#fff;font-weight:700;text-decoration:none;border-radius:11px;padding:9px 15px}
+  .gactions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  .grow .go{color:#fff;font-weight:700;text-decoration:none;border-radius:11px;padding:9px 15px}
   .grow.der .go{background:var(--der)} .grow.die .go{background:var(--die)} .grow.das .go{background:var(--das)}
-  .grow .go.soon{background:#f1f5f9;color:#9ca3af}
+  .gpdf{border:1px solid #fde68a;background:#fffbeb;color:#a16207;font-weight:700;border-radius:11px;padding:9px 13px;text-decoration:none;font-size:14px}
   @media(max-width:560px){.grow{flex-direction:column}.grow .gphoto{width:100%;height:230px;object-fit:cover}}
   .words{display:flex;flex-wrap:wrap;gap:5px}
   .w{font-size:13px;border-radius:7px;padding:2px 8px;border:1px solid var(--line);cursor:pointer}
@@ -27,9 +31,37 @@
   .grow.die .w{background:#fdecec;border-color:#fbcfe2;color:var(--die)}
   .grow.das .w{background:#e8f6ee;border-color:#bbf7d0;color:var(--das)}
   .w.flip{background:#f3e8ff!important;border-color:#e9d5ff!important;color:var(--accent)!important}
-  .dictbig{display:flex;gap:16px;align-items:center;background:linear-gradient(135deg,#6d28d9,#8b5cf6);color:#fff;border-radius:18px;padding:16px 18px;margin:24px 0 10px;box-shadow:0 8px 22px #6d28d933;text-decoration:none}
+  .box .words .w{background:#f8fafc;border-color:var(--line);color:#374151}
+  .dictbig{display:flex;gap:16px;align-items:center;background:linear-gradient(135deg,#6d28d9,#8b5cf6);color:#fff;border-radius:18px;padding:16px 18px;margin:24px 0 8px;box-shadow:0 8px 22px #6d28d933;text-decoration:none}
   .dictbig .db-ico{font-size:40px;flex:none}.dictbig .db-title{font-size:19px;font-weight:800}.dictbig .db-sub{font-size:13px;opacity:.92;margin-top:2px}
   .dictbig .db-search{margin-top:10px;background:#ffffff26;border:1px solid #ffffff66;border-radius:10px;padding:8px 11px;font-size:13px;display:inline-block}
+  .pdfwide{display:inline-flex;align-items:center;gap:8px;border:1px solid #fde68a;background:#fffbeb;color:#a16207;font-weight:700;border-radius:12px;padding:10px 15px;text-decoration:none;margin:0 0 14px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:620px){.two{grid-template-columns:1fr}}
+  .box{border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px 14px}
+  .box h4{margin:0 0 8px;font-size:14px}
+  .ylink{background:#fef9c3;color:#a16207;border:1px solid #fde68a;border-radius:10px;padding:5px 11px;font-weight:700;font-size:14px;text-decoration:none;display:inline-block}
+  .vchip{position:relative;display:inline-flex;align-items:center;gap:5px;background:#fefce8;border:1px solid #fde68a;border-radius:8px;padding:3px 6px 3px 9px;font-size:13px;margin:3px 4px 0 0}
+  .vchip .vtxt{cursor:pointer;font-weight:700;color:#a16207}
+  .vchip.flip .vtxt{color:#374151}
+  .vchip .vexp{border:none;background:#fde68a;color:#a16207;border-radius:6px;width:18px;height:18px;cursor:pointer;font-size:11px;line-height:1;padding:0}
+  .vchip.open .vexp{background:#a16207;color:#fff}
+  .vchip .vpop{display:none;position:absolute;top:100%;left:0;z-index:20;margin-top:5px;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 20px #00000022;padding:9px 11px;min-width:185px}
+  .vchip.open .vpop{display:block}
+  .vgrid{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;font-size:13px}
+  .vgrid b{color:#a16207;font-weight:700}
+  .vpast{margin-top:7px;font-size:12px;color:#c2410c;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:2px 7px;display:inline-block}
+  .vbadge{display:inline-block;font-size:10px;font-weight:700;border-radius:5px;padding:1px 5px;margin-right:5px}
+  .vbadge.reg{background:#e5e7eb;color:#475569} .vbadge.irr{background:#fde68a;color:#b45309}
+  .txtcards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  @media(max-width:760px){.txtcards{grid-template-columns:1fr}}
+  .txtcard{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;text-decoration:none;color:var(--ink);display:block}
+  .txtcard img{width:100%;height:auto;display:block;background:#f8fafc}
+  .txtcard .tc-ph{height:120px;display:flex;align-items:center;justify-content:center;font-size:40px;background:#f5f3ff}
+  .txtcard .tc-b{padding:12px 16px}
+  .txtcard .tc-t{font-weight:700;font-size:16px}
+  .txtcard .tc-s{color:var(--muted);font-size:13px;margin:2px 0 6px}
+  .txtcard .tc-go{color:var(--accent);font-weight:700;font-size:14px}
 </style>
 </head>
 <body>
@@ -40,7 +72,6 @@
   <div class="scenenav" style="margin:6px 0 8px">
     <a href="thema-01.html">← Тема 1: Знакомство и семья</a>
     <span class="soon">Тема 3 · Свободное время (скоро)</span>
-    <span class="soon">Тема 4 · Еда (скоро)</span>
   </div>
 
   <div class="sec nouns">Существительные — по роду</div>
@@ -52,7 +83,7 @@
       <div class="words">
         <span class="w">Stuhl</span><span class="w">Sessel</span><span class="w">Tisch</span><span class="w">Schrank</span><span class="w">Teppich</span><span class="w">Spiegel</span><span class="w">Schlüssel</span><span class="w">Geldbeutel</span><span class="w">Regenschirm</span><span class="w">Kugelschreiber</span><span class="w">Bleistift</span><span class="w">Kunststoff</span><span class="w">Preis</span><span class="w">Euro</span><span class="w">Cent</span>
       </div>
-      <a class="go" href="thema-02-der.html">▶ Начать изучение →</a>
+      <div class="gactions"><a class="go" href="thema-02-der.html">▶ Начать изучение →</a><a class="gpdf" href="dictionary.html?thema=02&g=der&pdf=1">📄 Словарь PDF</a></div>
     </div>
   </div>
 
@@ -61,9 +92,9 @@
     <div class="ginfo">
       <div class="ghead"><span class="pill die">die</span> <b>Грета</b> <span class="gloves">только с <b>die</b> · цвета</span></div>
       <div class="words">
-        <span class="w">Tasche</span><span class="w">Brille</span><span class="w">Sonnenbrille</span><span class="w">Uhr</span><span class="w">Lampe</span><span class="w">Möbel</span><span class="w">Kette</span><span class="w">Flasche</span><span class="w">Kamera</span><span class="w">Bürste</span><span class="w">Seife</span><span class="w">Sonne</span><span class="w">Farbe</span><span class="w">Schwester</span>
+        <span class="w">Tasche</span><span class="w">Brille</span><span class="w">Sonnenbrille</span><span class="w">Uhr</span><span class="w">Lampe</span><span class="w">Möbel</span><span class="w">Kette</span><span class="w">Flasche</span><span class="w">Kamera</span><span class="w">Bürste</span><span class="w">Seife</span><span class="w">Sonne</span><span class="w">Farbe</span>
       </div>
-      <a class="go" href="thema-02-die.html">▶ Начать изучение →</a>
+      <div class="gactions"><a class="go" href="thema-02-die.html">▶ Начать изучение →</a><a class="gpdf" href="dictionary.html?thema=02&g=die&pdf=1">📄 Словарь PDF</a></div>
     </div>
   </div>
 
@@ -74,31 +105,103 @@
       <div class="words">
         <span class="w">Zimmer</span><span class="w">Bett</span><span class="w">Sofa</span><span class="w">Regal</span><span class="w">Auto</span><span class="w">Buch</span><span class="w">Bild</span><span class="w">Haus</span><span class="w">Handy</span><span class="w">Telefon</span><span class="w">Material</span><span class="w">Geschäft</span><span class="w">Sonderangebot</span><span class="w">Glück</span><span class="w">Problem</span><span class="w">Ding</span><span class="w">Wort</span><span class="w">Feuerzeug</span><span class="w">Taschentuch</span><span class="w">Holz</span><span class="w">Metall</span><span class="w">Plastik</span><span class="w">Glas</span><span class="w">Papier</span>
       </div>
-      <a class="go" href="thema-02-das.html">▶ Начать изучение →</a>
+      <div class="gactions"><a class="go" href="thema-02-das.html">▶ Начать изучение →</a><a class="gpdf" href="dictionary.html?thema=02&g=das&pdf=1">📄 Словарь PDF</a></div>
     </div>
   </div>
 
   <p class="muted">Нажми на слово — покажется перевод. У Otto — цена и пластик (der Preis), у Греты — цвета (die Farbe), у Тео — материал и акции (das Material).</p>
 
+  <div class="sec verbs">Глаголы — <a class="ylink" href="verben-thema-01.html">общий раздел глаголов →</a></div>
+  <div class="two">
+    <div class="box"><h4><span class="vbadge reg">прав.</span> Правильные (слабые)</h4><div class="words" id="verbReg"></div></div>
+    <div class="box"><h4><span class="vbadge irr">непр.</span> Неправильные (особые)</h4><div class="words" id="verbIrr"></div></div>
+  </div>
+  <p class="muted">Нажми на глагол — перевод; на <b style="color:#a16207">▾</b> — спряжение и прошедшее (Perfekt).</p>
+
+  <div class="sec" id="andere">Другое — по теме (цвета, оценка, материал, фразы)</div>
+  <div class="two">
+    <div class="box"><h4>Цвета</h4>
+      <div class="words"><span class="w">weiß</span><span class="w">gelb</span><span class="w">orange</span><span class="w">rot</span><span class="w">grün</span><span class="w">blau</span><span class="w">braun</span><span class="w">schwarz</span><span class="w">grau</span><span class="w">hell-</span><span class="w">dunkel-</span></div>
+    </div>
+    <div class="box"><h4>Оценка / свойства</h4>
+      <div class="words"><span class="w">schön</span><span class="w">hässlich</span><span class="w">teuer</span><span class="w">günstig</span><span class="w">billig</span><span class="w">praktisch</span><span class="w">modern</span><span class="w">groß</span><span class="w">klein</span><span class="w">alt</span><span class="w">neu</span><span class="w">zu teuer</span></div>
+    </div>
+    <div class="box"><h4>Материал / фразы</h4>
+      <div class="words"><span class="w">aus Holz</span><span class="w">aus Plastik</span><span class="w">aus Metall</span><span class="w">aus Glas</span><span class="w">aus Papier</span><span class="w">Wie viel kostet …?</span><span class="w">ein Sonderangebot</span></div>
+    </div>
+    <div class="box"><h4>Слова-помощники</h4>
+      <div class="words"><span class="w">ein / eine</span><span class="w">kein / keine</span><span class="w">mein</span><span class="w">dein</span><span class="w">sehr</span><span class="w">nur</span><span class="w">hier</span><span class="w">und</span><span class="w">aber</span><span class="w">oder</span></div>
+    </div>
+  </div>
+
   <a class="dictbig" href="dictionary.html?thema=02">
     <div class="db-ico">📖</div>
     <div class="db-body">
       <div class="db-title">Словарь темы 2 — все слова</div>
-      <div class="db-sub">Все слова темы с переводом, озвучкой и самопроверкой. der/die/das.</div>
+      <div class="db-sub">Все слова темы с переводом, озвучкой и самопроверкой. der/die/das + глаголы.</div>
       <span class="db-search">🔍 Открыть словарь →</span>
     </div>
   </a>
-</main>
-<footer>Deutsch A1 · Тема 2 · Быт</footer>
+  <a class="pdfwide" href="dictionary.html?thema=02&pdf=1">📄 Скачать словарь темы 2 (PDF)</a>
 
+  <div class="sec">Тексты по теме (диалоги · все рода)</div>
+  <p class="muted" style="margin-top:0">Закрепляющие диалоги: Тео у Лины, Грета у Carla, Тео шопится онлайн — вещи, цвета, материал, цена (рода вперемешку). Читай немецкий → русский, отвечай на вопросы и закрепляй слова.</p>
+  <div class="txtcards">
+    <a class="txtcard" href="dialog2.html?n=1"><div class="tc-ph">🧸</div><div class="tc-b"><div class="tc-t">Текст 1 — Тео в гостях у Лины</div><div class="tc-s">Вещи, цвет, материал, цена (L4–L5)</div><span class="tc-go">Читать →</span></div></a>
+    <a class="txtcard" href="dialog2.html?n=2"><div class="tc-ph">👜</div><div class="tc-b"><div class="tc-t">Текст 2 — Грета у Carla</div><div class="tc-s">Сколько стоит, из чего, как красиво (L4–L5)</div><span class="tc-go">Читать →</span></div></a>
+    <a class="txtcard" href="dialog2.html?n=3"><div class="tc-ph">🛒</div><div class="tc-b"><div class="tc-t">Текст 3 — Тео шопится онлайн</div><div class="tc-s">Дорого / по скидке / нравится (L4–L5)</div><span class="tc-go">Читать →</span></div></a>
+  </div>
+
+  <div class="scenenav" style="margin-top:24px">
+    <a href="thema-01.html">← Тема 1: Знакомство и семья</a>
+    <a href="index.html" style="background:#f3e8ff;color:var(--accent)">🏠 Главная</a>
+    <span class="soon">Тема 3 · Свободное время (скоро)</span>
+  </div>
+</main>
+<footer>Deutsch A1 · Тема 2 · существительные (der/die/das) · глаголы · другое · тексты</footer>
+
+<script src="js/woerter.js?v=3"></script>
 <script>
 const TR={
  Stuhl:"стул",Sessel:"кресло",Tisch:"стол",Schrank:"шкаф",Teppich:"ковёр",Spiegel:"зеркало",Schlüssel:"ключ(и)",Geldbeutel:"кошелёк",Regenschirm:"зонт",Kugelschreiber:"шариковая ручка",Bleistift:"карандаш",Kunststoff:"пластик",Preis:"цена",Euro:"евро",Cent:"цент",
- Tasche:"сумка",Brille:"очки",Sonnenbrille:"солнечные очки",Uhr:"часы",Lampe:"лампа",Möbel:"мебель",Kette:"бусы / цепочка",Flasche:"бутылка",Kamera:"камера",Bürste:"щётка",Seife:"мыло",Sonne:"солнце",Farbe:"цвет",Schwester:"сестра",
+ Tasche:"сумка",Brille:"очки",Sonnenbrille:"солнечные очки",Uhr:"часы",Lampe:"лампа",Möbel:"мебель",Kette:"бусы / цепочка",Flasche:"бутылка",Kamera:"камера",Bürste:"щётка",Seife:"мыло",Sonne:"солнце",Farbe:"цвет",
  Zimmer:"комната",Bett:"кровать",Sofa:"диван",Regal:"полка",Auto:"машинка",Buch:"книга",Bild:"рисунок / картинка",Haus:"дом",Handy:"мобильник",Telefon:"телефон",Material:"материал",Geschäft:"магазин",Sonderangebot:"акция",Glück:"счастье / удача",Problem:"проблема",Ding:"вещь",Wort:"слово",Feuerzeug:"зажигалка",Taschentuch:"платочек",Holz:"дерево",Metall:"металл",Plastik:"пластик",Glas:"стекло",Papier:"бумага"
 };
-document.querySelectorAll('.grow .w').forEach(w=>{const de=w.textContent.trim();w.title='нажми — перевод';
-  w.addEventListener('click',()=>{const f=w.classList.toggle('flip');w.textContent=f?(TR[de]||'—'):de;});});
+const TR2={
+ "weiß":"белый","gelb":"жёлтый","orange":"оранжевый","rot":"красный","grün":"зелёный","blau":"синий","braun":"коричневый","schwarz":"чёрный","grau":"серый","hell-":"светло-","dunkel-":"тёмно-",
+ "schön":"красивый","hässlich":"некрасивый","teuer":"дорогой","günstig":"выгодный","billig":"дешёвый","praktisch":"практичный","modern":"современный","groß":"большой","klein":"маленький","alt":"старый","neu":"новый","zu teuer":"слишком дорого",
+ "aus Holz":"из дерева","aus Plastik":"из пластика","aus Metall":"из металла","aus Glas":"из стекла","aus Papier":"из бумаги","Wie viel kostet …?":"сколько стоит …?","ein Sonderangebot":"по скидке / акция",
+ "ein / eine":"один / одна (неопр.)","kein / keine":"не / никакой","mein":"мой","dein":"твой","sehr":"очень","nur":"только","hier":"здесь","und":"и","aber":"но","oder":"или"
+};
+document.querySelectorAll('.grow .w, .box .words .w').forEach(w=>{
+  const de=w.textContent.trim();
+  w.addEventListener('click',()=>{const f=w.classList.toggle('flip');w.textContent=f?(TR[de]||TR2[de]||'—'):de;});
+});
+
+// глаголы из общего источника (Тема 02)
+const PRON=['ich','du','er/sie/es','wir','ihr','sie/Sie'];
+const VERBS=(WOERTER.themes.find(t=>t.id==="02")||{}).verbs||[];
+function vchip(v){const [inf,ru,type,forms,pp]=v;const grid=forms.map((f,i)=>`<div><b>${PRON[i]}</b> ${f}</div>`).join('');
+  return `<span class="vchip"><span class="vtxt" data-inf="${inf}" data-ru="${ru}">${inf}</span><button class="vexp" title="формы">▾</button><div class="vpop"><div class="vgrid">${grid}</div>${pp?`<div class="vpast">⏪ Perfekt: ${pp}</div>`:""}</div></span>`;}
+document.getElementById('verbReg').innerHTML=VERBS.filter(v=>v[2]==="reg").map(vchip).join('');
+document.getElementById('verbIrr').innerHTML=VERBS.filter(v=>v[2]==="irr").map(vchip).join('');
+document.addEventListener('click',e=>{
+  const tx=e.target.closest('.vtxt');
+  if(tx){const c=tx.closest('.vchip');const f=c.classList.toggle('flip');tx.textContent=f?tx.dataset.ru:tx.dataset.inf;return;}
+  const ex=e.target.closest('.vexp');
+  if(ex){ex.closest('.vchip').classList.toggle('open');}
+});
+
+// счётчики
+function plural(n){const a=n%10,b=n%100;return (a===1&&b!==11)?'слово':((a>=2&&a<=4&&(b<10||b>=20))?'слова':'слов');}
+['der','die','das'].forEach(g=>{const n=document.querySelectorAll('.grow.'+g+' .w').length;const go=document.querySelector('.grow.'+g+' .go');if(go)go.textContent='▶ Начать изучение — '+n+' '+plural(n)+' →';});
+const tNouns=document.querySelectorAll('.grow .w').length;
+const tOther=document.querySelectorAll('.box .words .w').length;
+const tVerbs=VERBS.length, tAll=tNouns+tOther+tVerbs;
+const dsub=document.querySelector('.dictbig .db-sub');
+if(dsub)dsub.textContent=`Всего ${tAll} ${plural(tAll)} темы: ${tNouns} существительных, ${tVerbs} глаголов, ${tOther} другое. Перевод, озвучка, самопроверка.`;
+const dtitle=document.querySelector('.dictbig .db-title');
+if(dtitle)dtitle.textContent=`Словарь темы 2 — ${tAll} ${plural(tAll)}`;
 </script>
 <script src="js/chrome.js?v=3"></script>
 </body>

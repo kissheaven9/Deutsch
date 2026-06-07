@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>Тема 2 · die → Грета: возле дома</title>
 <link rel="stylesheet" href="css/style.css?v=3">
 <style>
@@ -191,7 +192,7 @@ function norm(s){return (s||'').toLowerCase().replace(/[^a-zа-яё0-9äöüß]/
 /* плашки на картинке Греты */
 const OBJ=[
   {de:'die Lampe',x:18,y:14},{de:'die Sonne',x:92,y:8},{de:'die Kamera',x:43,y:30},{de:'die Schwester',x:80,y:32},
-  {de:'die Flasche',x:12,y:44},{de:'die Tasche',x:55,y:66},{de:'die Bürste',x:42,y:88},{de:'die Seife',x:53,y:90},{de:'die Sonnenbrille',x:66,y:90},
+  {de:'die Flasche',x:24,y:68},{de:'die Tasche',x:55,y:66},{de:'die Bürste',x:42,y:88},{de:'die Seife',x:53,y:90},{de:'die Sonnenbrille',x:66,y:90},
 ];
 const stage=document.getElementById('stage');
 OBJ.forEach(o=>{const d=document.createElement('div');d.className='lbl die';d.style.left=o.x+'%';d.style.top=o.y+'%';

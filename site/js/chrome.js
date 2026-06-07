@@ -17,9 +17,13 @@
   // ----- ШАПКА -----
   const head=document.querySelector('header.top .wrap');
   if(head){
+    // сохраняем «хлебные крошки» страницы (Главная › Тема › Страница), чтобы можно было прыгать к родителю
+    const oldCrumb=head.querySelector('.crumb');
+    const crumbHtml=oldCrumb?`<span class="crumb">${oldCrumb.innerHTML}</span>`:'';
     const drop=THEMES.map(t=> t.on ? `<a href="${t.href}">${t.n}</a>` : `<span class="off">${t.n} · скоро</span>`).join('');
     head.innerHTML=
       `<a class="home" href="index.html">🇩🇪 Deutsch A1</a>`+
+      crumbHtml+
       `<span class="navspring"></span>`+
       `<div class="nav-th"><button class="navbtn" id="thBtn" aria-expanded="false">📚 Темы ▾</button>`+
       `<div class="navdrop" id="thDrop">${drop}</div></div>`+

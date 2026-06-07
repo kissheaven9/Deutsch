@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Текст-диалог · Тема 2</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+  h1{font-size:28px}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
+  .ic{border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer;font-size:14px;padding:7px 10px}
+  .part{display:flex;align-items:center;gap:14px;margin:30px 0 12px;padding:13px 18px;border-radius:16px;border:1px solid var(--line)}
+  .part .pico{font-size:28px}.part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}.part h2{margin:2px 0 0;font-size:22px}
+  .part.read{background:#f1f5f9} .part.text{background:#faf5ff} .part.train{background:#f3e8ff;border-color:#e9d5ff}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:#f5f3ff;border-bottom:1px solid #eee6fb;border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700}
+  .panel .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .hero img{width:100%;border-radius:14px;border:1px solid var(--line);display:block}
+  .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
+  .stage>img{width:100%;height:auto;display:block}
+  .imgwait{background:#f8fafc;color:#9ca3af;font-size:14px;line-height:1.5;padding:40px 20px;text-align:center;border-radius:14px;border:1px dashed var(--line)}
+  .mk{position:absolute;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px #0007;cursor:pointer;padding:0;z-index:2}
+  .mk.der{background:var(--der)} .mk.die{background:var(--die)} .mk.das{background:var(--das)} .mk.flag{background:var(--accent)}
+  .mk .mkw{display:none;position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;background:#fff;border:2px solid;border-radius:8px;padding:3px 8px;box-shadow:0 2px 8px #0006;font-weight:700;font-size:12px;line-height:1.2}
+  .mk.der .mkw{border-color:var(--der);color:var(--der)} .mk.die .mkw{border-color:var(--die);color:var(--die)} .mk.das .mkw{border-color:var(--das);color:var(--das)} .mk.flag .mkw{border-color:var(--accent);color:var(--accent)}
+  .mk.open{z-index:5} .mk.open .mkw{display:block}
+  .mk.dir-l .mkw{right:140%} .mk.dir-r .mkw{left:140%}
+  .stagehint{font-size:12px;color:var(--muted);margin:6px 0 0}
+  details.promptbox{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:10px 14px;margin:12px 0}
+  details.promptbox summary{cursor:pointer;font-weight:700;color:#a16207;font-size:14px}
+  .prompt{white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.55;color:#374151;margin-top:8px}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .dlg p{margin:0 0 7px;font-size:15px;line-height:1.55}
+  .dlg.de p{color:var(--ink);font-weight:500} .dlg.ru p{color:#374151}
+  .dlg .sp{font-weight:700}
+  .dlg .sp.der{color:var(--der)} .dlg .sp.die{color:var(--die)} .dlg .sp.das{color:var(--das)}
+  .dlg .rem,.dlg p.rem{color:#9ca3af;font-style:italic;font-size:13px}
+  .leg{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin:0 0 8px}
+  .leg b.der{color:var(--der)}.leg b.die{color:var(--die)}.leg b.das{color:var(--das)}
+  .q{border-top:1px solid var(--line);padding:9px 0}
+  .qq{font-weight:600;color:var(--ink);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .lk2{border:none;background:#f3e8ff;color:var(--accent);border-radius:7px;font-size:12px;padding:2px 8px;cursor:pointer}
+  .qru{color:var(--muted);font-size:13px;margin:3px 0}
+  .qin{flex:1;min-width:150px;border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:14px;font-family:inherit}
+  .qin:focus{outline:none;border-color:var(--accent)}
+  .btn.sm{padding:7px 11px;font-size:13px}
+  .qres{margin-top:5px;font-size:14px;font-weight:600}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .ru{min-width:130px;color:#374151}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:150px}
+  .wq input:focus{outline:none;border-color:var(--accent)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .score{font-weight:700;margin-top:8px}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
+  .mchip.de{font-weight:700;color:var(--accent)} .mchip.sel{border-color:var(--accent);background:#f3e8ff}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px;vertical-align:middle}
+  .noselect{user-select:none;-webkit-user-select:none}
+  .sortgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(7,auto);grid-auto-flow:column;column-gap:28px}
+  @media(max-width:620px){.sortgrid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}}
+  .btn:disabled,.btn[disabled]{opacity:.45;cursor:not-allowed}
+  .sortdots{display:flex;gap:8px;align-items:center;margin:0}
+  .pdot{width:11px;height:11px;border-radius:50%;background:#fff;border:1.5px solid #cbd5e1;box-sizing:border-box;transition:.15s}
+  .pdot.seen{background:#c4b5fd;border-color:#c4b5fd}
+  .pdot.cur{background:var(--accent);border-color:var(--accent);transform:scale(1.3)}
+  .srow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:8px 0}
+  .srow .sw{font-weight:700;min-width:130px}
+  .sbtns{display:flex;gap:6px}
+  .sbtns button{border:2px solid var(--line);background:#fff;border-radius:8px;padding:5px 12px;font-weight:700;cursor:pointer;font-size:14px;color:#6b7280}
+  .sbtns button.der.on{background:var(--der);color:#fff;border-color:var(--der)}
+  .sbtns button.die.on{background:var(--die);color:#fff;border-color:var(--die)}
+  .sbtns button.das.on{background:var(--das);color:#fff;border-color:var(--das)}
+  .srow.ok{background:#f0fdf4}.srow.bad{background:#fef2f2}
+  .srow .mark{font-weight:800;margin-left:auto}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb" id="crumb"></span></div></header>
+<main class="wrap">
+  <div id="app"></div>
+  <div class="scenenav" id="nav"></div>
+</main>
+<footer>Deutsch A1</footer>
+
+<script src="js/app.js?v=3"></script>
+<script>
+function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9äöüß]/g,'');}
+const DIALOGS={
+ 1:{ title:'Текст 1 — Тео в гостях у Лины', img:'img/dialog2-1.png',
+   sub:'Дома у Лины: вещи разного рода — цвет, материал, цена, оценка. Потом заходят в комнату мамы. L4–L5.',
+   prompt:`Тёплая детская книжная иллюстрация (не фотореализм), уютная квартира. Тео в гостях у подружки Лины; рядом мама Лины.
+
+ТЕО — любопытный мальчик ~7 лет, рыжеватый вихор, большие глаза, тычет пальцем в предметы и спрашивает; в руках детский планшет.
+ЛИНА — тихая мечтательная девочка ~6 лет, показывает свою комнату, в руках рисунок (на рисунке зверёк-кролик).
+МАМА Лины — тёплая улыбчивая взрослая женщина, показывает свою комнату.
+
+Комната Лины: белая кровать, деревянная коричневая полка, маленький зелёный диван, жёлтая лампа, синий ковёр, рисунок с кроликом, книжка.
+Комната мамы (видно рядом / в дверном проёме): деревянный коричневый стол, большое зеркало, белый шкаф, красное кресло, красные часы, большая жёлтая сумка, чёрные очки, телефон.
+
+Очень много цветов (красный, жёлтый, зелёный, синий, белый, коричневый, чёрный). Тёплый дневной свет, добрый уютный настрой. Без текста, букв и цифр в изображении.`,
+   de:`<p><span class="sp das">Theo:</span> Hallo, Lina! Was hast du da? So viele Dinge!</p>
+   <p><span class="sp das">Lina:</span> Das ist mein Zimmer. Hier sind ein Bett, ein Regal, ein Sofa und eine Lampe.</p>
+   <p><span class="sp das">Theo:</span> Dein Bett ist weiß und das Sofa ist grün und klein! Ist das Sofa aus Plastik?</p>
+   <p><span class="sp das">Lina:</span> Nein, kein Plastik! Das Regal ist aus Holz — braun.</p>
+   <p><span class="sp das">Theo:</span> Und der Teppich ist blau! Schön! Wie viel kostet die Lampe?</p>
+   <p><span class="sp das">Lina:</span> Die Lampe ist gelb. Nur neun Euro — ein Sonderangebot!</p>
+   <p><span class="sp das">Theo:</span> Günstig! Und das ist ein Bild. Hier ist ein Tier!</p>
+   <p><span class="sp das">Lina:</span> Ja, mein Bild. Und hier ist ein Buch.</p>
+   <p><span class="sp das">Theo:</span> Mama, was ist das?</p>
+   <p><span class="sp die">Mama:</span> Das ist Linas Zimmer, Theo. Und hier ist mein Zimmer.</p>
+   <p><span class="sp das">Theo:</span> Oh! Auch viele Dinge! Ein Tisch, ein Spiegel, ein Schrank, ein Sessel…</p>
+   <p><span class="sp die">Mama:</span> Ja. Der Tisch ist aus Holz, braun und alt. Der Spiegel ist groß, aber teuer. Der Schrank ist weiß, neu und modern.</p>
+   <p><span class="sp das">Theo:</span> Und der Sessel ist rot! Und die Uhr ist rot, die Tasche ist gelb, die Brille ist schwarz, die Kette ist klein…</p>
+   <p><span class="sp die">Mama:</span> Das ist meine Tasche — gelb und groß. Meine Brille ist schwarz. Und mein Handy ist neu.</p>
+   <p><span class="sp das">Theo:</span> So viele Farben! Rot, gelb, grün, blau, weiß, braun, schwarz!</p>
+   <p><span class="sp die">Mama:</span> <span class="rem">(lacht)</span> Ja, Theo! Alles ist aus Holz, Glas oder Metall.</p>
+   <p><span class="sp das">Theo:</span> Dein Zimmer ist schön, Lina! Und das Tier? Wo ist das Tier?</p>
+   <p><span class="sp das">Lina:</span> <span class="rem">(lacht)</span> Hier — das Bild!</p>
+   <p><span class="sp das">Theo:</span> Ah, ein Tier, ein Bild! Cool!</p>`,
+   ru:`<p><span class="sp das">Тео:</span> Привет, Lina! Что это у тебя? Сколько всего!</p>
+   <p><span class="sp das">Lina:</span> Это моя комната. Тут кровать, полка, диван и лампа.</p>
+   <p><span class="sp das">Тео:</span> Твоя кровать белая, а диван зелёный и маленький! Диван из пластика?</p>
+   <p><span class="sp das">Lina:</span> Нет, никакого пластика! Полка из дерева — коричневая.</p>
+   <p><span class="sp das">Тео:</span> А ковёр синий! Красиво! Сколько стоит лампа?</p>
+   <p><span class="sp das">Lina:</span> Лампа жёлтая. Всего девять евро — по скидке!</p>
+   <p><span class="sp das">Тео:</span> Выгодно! А это картинка. Тут зверёк!</p>
+   <p><span class="sp das">Lina:</span> Да, мой рисунок. А вот книжка.</p>
+   <p><span class="sp das">Тео:</span> Мама, а это что?</p>
+   <p><span class="sp die">Мама:</span> Это комната Lina, Тео. А вот моя комната.</p>
+   <p><span class="sp das">Тео:</span> О! Тоже много всего! Стол, зеркало, шкаф, кресло…</p>
+   <p><span class="sp die">Мама:</span> Да. Стол из дерева, коричневый и старый. Зеркало большое, но дорогое. Шкаф белый, новый и современный.</p>
+   <p><span class="sp das">Тео:</span> А кресло красное! И часы красные, сумка жёлтая, очки чёрные, цепочка маленькая…</p>
+   <p><span class="sp die">Мама:</span> Это моя сумка — жёлтая и большая. Очки у меня чёрные. А телефон новый.</p>
+   <p><span class="sp das">Тео:</span> Сколько цветов! Красный, жёлтый, зелёный, синий, белый, коричневый, чёрный!</p>
+   <p><span class="sp die">Мама:</span> <span class="rem">(смеётся)</span> Да, Тео! Всё из дерева, стекла или металла.</p>
+   <p><span class="sp das">Тео:</span> Твоя комната красивая, Lina! А зверёк? Где зверёк?</p>
+   <p><span class="sp das">Lina:</span> <span class="rem">(смеётся)</span> Вот — на рисунке!</p>
+   <p><span class="sp das">Тео:</span> А, зверёк, рисунок! Класс!</p>`,
+   qa:[
+     {q:'Welche Farbe hat Linas Bett?',ru:'Какого цвета кровать Лины?',a:'Das Bett ist weiß.',k:'weiß'},
+     {q:'Aus welchem Material ist das Regal?',ru:'Из какого материала полка?',a:'Das Regal ist aus Holz.',k:'holz'},
+     {q:'Wie viel kostet die Lampe?',ru:'Сколько стоит лампа?',a:'Die Lampe kostet neun Euro.',k:'neun'},
+     {q:'Wie ist der Spiegel?',ru:'Какое зеркало?',a:'Der Spiegel ist groß, aber teuer.',k:'teuer'}],
+   match:[['das Bett','кровать'],['das Regal','полка'],['die Lampe','лампа'],['der Tisch','стол'],['der Spiegel','зеркало'],['der Schrank','шкаф']],
+   sort:[['Tisch','der'],['Spiegel','der'],['Schrank','der'],['Sessel','der'],['Lampe','die'],['Tasche','die'],['Bett','das'],['Regal','das'],['Sofa','das'],['Bild','das']],
+   write:[['кровать','das Bett'],['полка','das Regal'],['лампа','die Lampe'],['зеркало','der Spiegel'],['шкаф','der Schrank'],['стол','der Tisch']],
+   verbs:[['sein','быть'],['haben','иметь'],['kosten','стоить'],['finden','находить / считать'],['sehen','видеть']]
+ },
+ 2:{ title:'Текст 2 — Грета в гостях у Carla', img:'img/dialog2-2.png',
+   sub:'Грета у сестры-соседки Carla: вещи Carla — цена, материал, цвета, оценка. L4–L5.',
+   prompt:`Тёплая книжная иллюстрация (не фотореализм), уютная квартира. Грета пришла в гости к сестре-соседке Carla; они вместе рассматривают вещи Carla.
+
+ГРЕТА — тёплая округлая итальянка ~48 лет, круглые очки, тёмные кудри, яркая одежда, восхищённо всплёскивает руками.
+CARLA — сестра Греты, похожа на неё, тоже тёплая и улыбчивая (парикмахер), с гордостью показывает свои вещи.
+
+На виду вещи Carla: красная большая сумка, жёлтая лампа из стекла, красные часы, чёрные очки, маленькая цепочка-бусы, новая камера, синяя бутылка, зелёная щётка, белое мыло, большое зеркало, коричневое деревянное кресло.
+
+Очень много ярких цветов (красный, жёлтый, зелёный, синий, белый, чёрный, оранжевый), ничего серого. Тёплый домашний свет, радостный женский настрой. Без текста, букв и цифр в изображении.`,
+   de:`<p><span class="sp die">Greta:</span> Carla! Was hast du da? So schön!</p>
+   <p><span class="sp die">Carla:</span> Mamma mia, Greta! Hier — meine Tasche! Sie ist rot und groß.</p>
+   <p><span class="sp die">Greta:</span> Wie viel kostet die Tasche?</p>
+   <p><span class="sp die">Carla:</span> Nur neunzehn Euro — ein Sonderangebot!</p>
+   <p><span class="sp die">Greta:</span> Günstig! Und die Lampe ist gelb und modern. Aus Glas?</p>
+   <p><span class="sp die">Carla:</span> Ja, die Lampe ist aus Glas. Sie ist neu. Schön, oder?</p>
+   <p><span class="sp die">Greta:</span> Sehr schön! Und die Uhr ist rot, die Brille ist schwarz, die Kette ist klein. Und die Kamera!</p>
+   <p><span class="sp die">Carla:</span> Meine Kamera ist neu, aber teuer. Und hier — die Flasche ist blau, die Bürste ist grün, die Seife ist weiß.</p>
+   <p><span class="sp die">Greta:</span> Mamma mia, so viele Dinge! Und das ist dein Spiegel?</p>
+   <p><span class="sp die">Carla:</span> Ja, der Spiegel ist groß, aber sehr teuer — neunundneunzig Euro!</p>
+   <p><span class="sp die">Greta:</span> Teuer! Und der Sessel? Aus Holz?</p>
+   <p><span class="sp die">Carla:</span> Ja, der Sessel ist aus Holz, braun und alt. Aber praktisch.</p>
+   <p><span class="sp die">Greta:</span> Und die Farben! Rot, gelb, grün, blau, weiß, schwarz, orange! Bei dir ist nichts grau!</p>
+   <p><span class="sp die">Carla:</span> <span class="rem">(lacht)</span> Nein, kein Grau! Ich finde Farben schön.</p>
+   <p><span class="sp die">Greta:</span> Ich auch! Deine Möbel sind modern und deine Dinge sind günstig. Bravo, Carla!</p>
+   <p><span class="sp die">Carla:</span> Danke, Greta! Mamma mia, alles ist schön bei uns!</p>`,
+   ru:`<p><span class="sp die">Грета:</span> Carla! Что это у тебя? Как красиво!</p>
+   <p><span class="sp die">Carla:</span> Mamma mia, Грета! Вот — моя сумка! Она красная и большая.</p>
+   <p><span class="sp die">Грета:</span> Сколько стоит сумка?</p>
+   <p><span class="sp die">Carla:</span> Всего девятнадцать евро — по скидке!</p>
+   <p><span class="sp die">Грета:</span> Выгодно! А лампа жёлтая и современная. Из стекла?</p>
+   <p><span class="sp die">Carla:</span> Да, лампа из стекла. Она новая. Красиво, правда?</p>
+   <p><span class="sp die">Грета:</span> Очень красиво! А часы красные, очки чёрные, цепочка маленькая. И камера!</p>
+   <p><span class="sp die">Carla:</span> Моя камера новая, но дорогая. А вот — бутылка синяя, щётка зелёная, мыло белое.</p>
+   <p><span class="sp die">Грета:</span> Mamma mia, сколько всего! А это твоё зеркало?</p>
+   <p><span class="sp die">Carla:</span> Да, зеркало большое, но очень дорогое — девяносто девять евро!</p>
+   <p><span class="sp die">Грета:</span> Дорого! А кресло? Из дерева?</p>
+   <p><span class="sp die">Carla:</span> Да, кресло из дерева, коричневое и старое. Но удобное.</p>
+   <p><span class="sp die">Грета:</span> А цвета! Красный, жёлтый, зелёный, синий, белый, чёрный, оранжевый! У тебя ничего серого!</p>
+   <p><span class="sp die">Carla:</span> <span class="rem">(смеётся)</span> Нет, никакого серого! Я люблю цвета.</p>
+   <p><span class="sp die">Грета:</span> Я тоже! Мебель у тебя современная, а вещи недорогие. Браво, Carla!</p>
+   <p><span class="sp die">Carla:</span> Спасибо, Грета! Mamma mia, у нас всё красиво!</p>`,
+   qa:[
+     {q:'Welche Farbe hat Carlas Tasche?',ru:'Какого цвета сумка Carla?',a:'Die Tasche ist rot.',k:'rot'},
+     {q:'Wie viel kostet die Tasche?',ru:'Сколько стоит сумка?',a:'Die Tasche kostet neunzehn Euro.',k:'neunzehn'},
+     {q:'Aus welchem Material ist die Lampe?',ru:'Из какого материала лампа?',a:'Die Lampe ist aus Glas.',k:'glas'},
+     {q:'Wie viel kostet der Spiegel?',ru:'Сколько стоит зеркало?',a:'Der Spiegel kostet neunundneunzig Euro.',k:'neunundneunzig'},
+     {q:'Wie ist der Sessel?',ru:'Какое кресло?',a:'Der Sessel ist aus Holz, braun und alt.',k:'holz'}],
+   match:[['die Tasche','сумка'],['die Lampe','лампа'],['die Kamera','камера'],['der Spiegel','зеркало'],['der Sessel','кресло'],['die Farbe','цвет']],
+   sort:[['Tasche','die'],['Lampe','die'],['Kamera','die'],['Flasche','die'],['Spiegel','der'],['Sessel','der'],['Glas','das'],['Sonderangebot','das']],
+   write:[['сумка','die Tasche'],['лампа','die Lampe'],['зеркало','der Spiegel'],['кресло','der Sessel'],['цвет','die Farbe'],['камера','die Kamera']],
+   verbs:[['kosten','стоить'],['finden','находить / считать'],['sein','быть'],['haben','иметь'],['sehen','видеть']]
+ },
+ 3:{ title:'Текст 3 — Тео шопится онлайн', img:'img/dialog2-3.png',
+   sub:'Тео заказывает вещи на сайте: дорого / по скидке / из чего / нравится — не нравится. L4–L5.',
+   prompt:`Тёплая детская книжная иллюстрация (не фотореализм). Тео сидит и «шопится» онлайн — рассматривает товары на экране планшета; рядом подружка Лина.
+
+ТЕО — любопытный мальчик ~7 лет, рыжеватый вихор, увлечённо смотрит в детский планшет, тычет пальцем в экран, лицо то радостное, то расстроенное.
+ЛИНА — тихая девочка ~6 лет, заглядывает и смотрит вместе с ним; рядом её рисунок с кроликом.
+
+Вокруг — «карточки товаров» онлайн-магазина, нарисованные как картинки предметов: красная модная лампа, большой зелёный диван, белая кровать, полка, книжка, телефон. У одних — пустые ценники-кружки, у других значок-бирка «скидка» (без текста).
+
+Тео радуется дешёвой лампе и расстроен, что нет пластикового дивана (рядом можно нарисовать смешной перечёркнутый пластиковый диван).
+
+Тёплый свет, забавный живой настрой шопинга. Без текста, букв и цифр в изображении (ценники и бирки — пустые).`,
+   de:`<p><span class="sp das">Theo:</span> Oh, so viele Dinge hier! Eine Lampe, ein Sofa, ein Bett, ein Regal, ein Buch!</p>
+   <p><span class="sp das">Theo:</span> Die Lampe ist rot und modern. Wie viel kostet die Lampe? … Neun Euro! Günstig! Die kaufe ich!</p>
+   <p><span class="sp das">Theo:</span> Und das Sofa? Das Sofa ist grün und groß, aber teuer — zweihundert Euro! Oh nein, zu teuer!</p>
+   <p><span class="sp das">Theo:</span> Ein Sofa aus Plastik? … Nein, kein Sofa ist aus Plastik. Schade!</p>
+   <p><span class="sp das">Lina:</span> <span class="rem">(kommt)</span> Was machst du, Theo?</p>
+   <p><span class="sp das">Theo:</span> Ich kaufe online! Hier — eine Lampe, ein Buch, ein Bild!</p>
+   <p><span class="sp das">Lina:</span> Das Buch ist schön! Wie viel kostet das Buch?</p>
+   <p><span class="sp das">Theo:</span> Nur fünf Euro — ein Sonderangebot! Das bestelle ich.</p>
+   <p><span class="sp das">Theo:</span> Und das Bett? Das Bett ist weiß und neu, aber sehr teuer — hundert Euro. Zu teuer!</p>
+   <p><span class="sp das">Lina:</span> Und das Handy?</p>
+   <p><span class="sp das">Theo:</span> Mein Handy ist alt. Das Handy hier ist neu und modern — das kaufe ich!</p>
+   <p><span class="sp das">Theo:</span> So! Eine Lampe, ein Buch, ein Handy — alles günstig! Aber kein Sofa aus Plastik. Schade!</p>
+   <p><span class="sp das">Lina:</span> <span class="rem">(lacht)</span> Ein Sofa aus Plastik? Nein, Theo!</p>
+   <p><span class="sp das">Theo:</span> <span class="rem">(lacht)</span> Okay, kein Plastik-Sofa! Aber die Lampe ist schön — und billig!</p>`,
+   ru:`<p><span class="sp das">Тео:</span> О, сколько всего тут! Лампа, диван, кровать, полка, книжка!</p>
+   <p><span class="sp das">Тео:</span> Лампа красная и современная. Сколько стоит лампа? … Девять евро! Выгодно! Беру!</p>
+   <p><span class="sp das">Тео:</span> А диван? Диван зелёный и большой, но дорогой — двести евро! О нет, слишком дорого!</p>
+   <p><span class="sp das">Тео:</span> Диван из пластика? … Нет, ни один диван не из пластика. Жаль!</p>
+   <p><span class="sp das">Lina:</span> <span class="rem">(подходит)</span> Что ты делаешь, Тео?</p>
+   <p><span class="sp das">Тео:</span> Я покупаю онлайн! Вот — лампа, книжка, картинка!</p>
+   <p><span class="sp das">Lina:</span> Книжка красивая! Сколько стоит книжка?</p>
+   <p><span class="sp das">Тео:</span> Всего пять евро — по скидке! Заказываю.</p>
+   <p><span class="sp das">Тео:</span> А кровать? Кровать белая и новая, но очень дорогая — сто евро. Слишком дорого!</p>
+   <p><span class="sp das">Lina:</span> А телефон?</p>
+   <p><span class="sp das">Тео:</span> Мой телефон старый. А этот телефон новый и современный — беру!</p>
+   <p><span class="sp das">Тео:</span> Вот! Лампа, книжка, телефон — всё недорого! Но пластикового дивана нет. Жаль!</p>
+   <p><span class="sp das">Lina:</span> <span class="rem">(смеётся)</span> Диван из пластика? Нет, Тео!</p>
+   <p><span class="sp das">Тео:</span> <span class="rem">(смеётся)</span> Ладно, без пластикового дивана! Зато лампа красивая — и дешёвая!</p>`,
+   qa:[
+     {q:'Wie viel kostet die Lampe?',ru:'Сколько стоит лампа?',a:'Die Lampe kostet neun Euro.',k:'neun'},
+     {q:'Wie ist das Sofa?',ru:'Какой диван?',a:'Das Sofa ist grün, groß und teuer.',k:'teuer'},
+     {q:'Wie viel kostet das Buch?',ru:'Сколько стоит книжка?',a:'Das Buch kostet fünf Euro.',k:'fünf'},
+     {q:'Warum ist Theo traurig?',ru:'Почему Тео расстроен?',a:'Kein Sofa ist aus Plastik.',k:'plastik'}],
+   match:[['das Sofa','диван'],['die Lampe','лампа'],['das Buch','книга'],['das Bett','кровать'],['das Handy','телефон'],['der Preis','цена']],
+   sort:[['Sofa','das'],['Buch','das'],['Bett','das'],['Handy','das'],['Bild','das'],['Plastik','das'],['Lampe','die'],['Regal','das'],['Preis','der'],['Holz','das']],
+   write:[['диван','das Sofa'],['лампа','die Lampe'],['книга','das Buch'],['телефон','das Handy'],['цена','der Preis'],['полка','das Regal']],
+   verbs:[['kaufen','покупать'],['bestellen','заказывать'],['kosten','стоить'],['finden','находить / считать'],['sein','быть']]
+ }
+};
+
+const N=Math.min(3,Math.max(1,parseInt(new URLSearchParams(location.search).get('n'))||1));
+const D=DIALOGS[N];
+document.title=D.title;
+{const cr=document.getElementById('crumb');if(cr)cr.innerHTML=`/ <a href="thema-02.html">Тема 2: Быт</a> / Текст ${N}`;}
+const MARKS={
+ 1:[{x:18,y:40,w:'das Bett',g:'das',dir:'r'},{x:38,y:30,w:'das Regal',g:'das',dir:'r'},{x:30,y:60,w:'das Sofa',g:'das',dir:'r'},{x:50,y:25,w:'die Lampe',g:'die',dir:'l'},
+    {x:70,y:35,w:'der Tisch',g:'der',dir:'l'},{x:84,y:28,w:'der Spiegel',g:'der',dir:'l'},{x:88,y:55,w:'die Uhr',g:'die',dir:'l'},{x:64,y:62,w:'die Tasche',g:'die',dir:'l'}],
+ 2:[{x:22,y:42,w:'die Tasche',g:'die',dir:'r'},{x:42,y:30,w:'die Lampe',g:'die',dir:'r'},{x:60,y:34,w:'die Kamera',g:'die',dir:'l'},
+    {x:78,y:30,w:'der Spiegel',g:'der',dir:'l'},{x:84,y:58,w:'der Sessel',g:'der',dir:'l'},{x:54,y:60,w:'die Flasche',g:'die',dir:'l'},{x:36,y:62,w:'die Kette',g:'die',dir:'r'}],
+ 3:[{x:24,y:32,w:'die Lampe',g:'die',dir:'r'},{x:46,y:34,w:'das Sofa',g:'das',dir:'l'},{x:66,y:30,w:'das Bett',g:'das',dir:'l'},
+    {x:30,y:60,w:'das Buch',g:'das',dir:'r'},{x:52,y:62,w:'das Regal',g:'das',dir:'l'},{x:74,y:60,w:'das Handy',g:'das',dir:'l'}]
+};
+const BANNER={3:'📝 Задание: Что Тео покупает, а что — нет? Назови по-немецки.'};
+
+document.getElementById('app').innerHTML=`
+  <h1>${D.title}</h1>
+  <p class="lead">${D.sub} <span style="color:var(--muted)">Диалог ${N} из 3 · Тема 2</span></p>
+  <div class="scenenav" id="navTop"></div>
+  <div class="stage" id="stage">${BANNER[N]?`<div class="qtask">${BANNER[N]}</div>`:''}<img src="${D.img}" alt="${D.title}" onerror="this.parentNode.innerHTML='&lt;div class=\\'imgwait\\'&gt;🎨 Картинка появится после генерации по промпту ниже.&lt;br&gt;(файл ${D.img})&lt;/div&gt;'"></div>
+  <p class="stagehint">Тапни точку на предмете — откроется слово с артиклем: <b style="color:var(--der)">der</b>, <b style="color:var(--die)">die</b>, <b style="color:var(--das)">das</b> (цвет = род).</p>
+  <details class="promptbox"><summary>🎨 Промпт для картинки (скопируй в генератор изображений)</summary><div class="prompt">${D.prompt}</div></details>
+
+  <div class="part read"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2>Читаем диалог</h2></div></div>
+  <div class="panel">
+    <div class="leg">Реплики по роду героя: <span><b class="der">■ Otto</b> der</span> <span><b class="die">■ Грета / Carla / мама</b> die</span> <span><b class="das">■ Тео / Lina</b> das</span></div>
+    <div class="bh">🇩🇪 Deutsch <button class="ic" onclick="speakDialog(this)">🔊 Послушать (по голосам)</button></div>
+    <div class="dlg de" id="deDlg">${D.de}</div>
+    <div class="bh" style="margin-top:14px">🇷🇺 Русский <button class="ic" id="ruBtn" onclick="toggleRuDlg()">Показать перевод</button></div>
+    <div class="dlg ru" id="ruDlg" hidden>${D.ru}</div>
+  </div>
+
+  <div class="part text"><span class="pico">💬</span><div><div class="pk">Часть 2</div><h2>Вопросы по тексту</h2></div></div>
+  <div class="panel"><h3>❓ Ответь на вопросы</h3>
+    <p class="sub">Отвечай <b>полным предложением</b>; число — <b>словами</b>, не цифрой (например: «Die Lampe kostet neun Euro.»). Перевод вопроса — по кнопке.</p>
+    <div id="qa"></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="qaCheckAll()">Проверить</button><button class="btn sm" id="qaShowBtn" onclick="qaShowAll()" disabled>Показать ответы</button><span class="muted" id="qaHint" style="font-size:12px">откроются после проверки</span></div>
+    <div class="score" id="qaScore"></div>
+  </div>
+
+  <div class="panel" id="hoerPanel"><h3>🎧 Аудирование</h3>
+    <p class="sub">Послушай (можно несколько раз) и впиши ответ.</p>
+    <div id="hoerWrap"></div>
+  </div>
+
+  <div class="part train"><span class="pico">🎯</span><div><div class="pk">Часть 3</div><h2>Учим слова (все рода вперемешку)</h2></div></div>
+  <div class="panel"><h3><span class="exnum">1</span>🔗 Соотнеси: немецкое ↔ русское</h3>
+    <p class="sub">Нажми немецкое слово, потом перевод — пара окрасится. Выбор можно менять.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="bar" style="margin-top:12px"><button class="btn primary sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+  <div class="panel"><h3><span class="exnum">2</span>🧮 Распредели по родам</h3>
+    <p class="sub">У каждого слова выбери род — der, die или das. «ещё» — новый набор.</p>
+    <div id="sortList" class="sortgrid"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="sortCheck()">Проверить</button><button class="btn sm" onclick="sortNext()">ещё слова →</button><span class="sortdots" id="sortDots"></span></div>
+    <div class="score" id="sScore"></div>
+  </div>
+  <div class="panel"><h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
+    <p class="sub">Дано слово по-русски — впиши его по-немецки <b>с правильным артиклем</b>.</p>
+    <div id="writeList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+  <div class="panel"><h3><span class="exnum">4</span>🔤 Глаголы: напиши перевод</h3>
+    <p class="sub">Дан немецкий глагол — впиши, что он значит по-русски.</p>
+    <div id="verbList"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn primary sm" onclick="verbCheck()">Проверить</button><button class="btn sm" onclick="verbShow()">Показать ответы</button></div>
+    <div class="score" id="vScore"></div>
+  </div>`;
+
+function speakDialog(btn){
+  const items=[...document.querySelectorAll('#deDlg p')].filter(p=>p.querySelector('.sp')).map(p=>{
+    const sp=p.querySelector('.sp');
+    const role= sp.classList.contains('der')?'male':sp.classList.contains('die')?'female':'child';
+    const c=p.cloneNode(true); c.querySelectorAll('.sp,.rem').forEach(e=>e.remove());
+    return {t:c.textContent.replace(/\s+/g,' ').trim(), role};
+  }).filter(x=>x.t);
+  const urls=items.map((_,i)=>`audio/dlg2-${N}-${i}.mp3`);
+  playSeq(urls, btn, items);
+}
+function toggleRuDlg(){const d=document.getElementById('ruDlg'),b=document.getElementById('ruBtn');d.hidden=!d.hidden;b.textContent=d.hidden?'Показать перевод':'Скрыть перевод';}
+
+// ---- метки на картинке ----
+const stage=document.getElementById('stage');
+function mk(m){const b=document.createElement('button');b.className='mk '+m.g+' dir-'+(m.dir||'l');b.style.left=m.x+'%';b.style.top=m.y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkw">${m.w}</span>`;stage.appendChild(b);}
+if(stage.querySelector('img')) (MARKS[N]||[]).forEach(mk);
+
+// ---- nav (верх и низ) ----
+const navHtml=
+  (N>1?`<a href="dialog2.html?n=${N-1}">← Текст ${N-1}</a>`:'<span></span>')+
+  `<a href="thema-02.html" style="background:#f3e8ff;color:var(--accent)">⬆ К теме «Быт (дом)»</a>`+
+  (N<3?`<a href="dialog2.html?n=${N+1}">Текст ${N+1} →</a>`:'<span></span>');
+document.getElementById('nav').innerHTML=navHtml;
+document.getElementById('navTop').innerHTML=navHtml;
+
+// ---- мини-аудирования ----
+const HOER={
+ 1:[{f:'d2a-lampe',role:'child',q:'Сколько стоит лампа?',t:'Die Lampe kostet neun Euro.',a:'9',ph:'цена (цифры)',num:1},
+    {f:'d2a-regal',role:'child',q:'Из какого материала полка?',t:'Das Regal ist aus Holz.',a:'Holz',ph:'материал'}],
+ 2:[{f:'d2b-spiegel',role:'female',q:'Сколько стоит зеркало?',t:'Der Spiegel kostet neunundneunzig Euro.',a:'99',ph:'цена (цифры)',num:1},
+    {f:'d2b-tasche',role:'female',q:'Какого цвета сумка Carla?',t:'Die Tasche ist rot.',a:'rot',ph:'цвет'}],
+ 3:[{f:'d2c-buch',role:'child',q:'Сколько стоит книжка?',t:'Das Buch kostet fünf Euro.',a:'5',ph:'цена (цифры)',num:1},
+    {f:'d2c-sofa',role:'child',q:'Из чего НЕТ дивана?',t:'Kein Sofa ist aus Plastik.',a:'Plastik',ph:'материал'}]
+};
+document.getElementById('hoerWrap').innerHTML=(HOER[N]||[]).map(h=>`<div class="hq" data-ans="${h.a}"><button class="ic" onclick="playSeq(['audio/hoer-${h.f}.mp3'],this,[{t:'${h.t.replace(/'/g,"\\'")}',role:'${h.role}'}])">▶ ${h.q}</button><input class="qin" ${h.num?'inputmode="numeric"':''} placeholder="${h.ph}" autocomplete="off"><button class="btn sm" onclick="hCheck(this)">Проверить</button><button class="btn sm hshow" onclick="hShow(this)" disabled>Ответ</button><span class="hres"></span></div>`).join('');
+
+// ---- вопросы ----
+document.getElementById('qa').innerHTML=D.qa.map((o,i)=>`<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${i+1}. ${o.q} <button class="lk2" onclick="tRu(this)">перевод</button></div><div class="qru" hidden>${o.ru}</div><input class="qin" placeholder="Ответь по-немецки…" autocomplete="off"><div class="qres"></div></div>`).join('');
+function tRu(b){const r=b.closest('.q').querySelector('.qru');r.hidden=!r.hidden;}
+function qaCheckAll(){let ok=0;document.querySelectorAll('#qa .q').forEach(q=>{const inp=q.querySelector('.qin'),res=q.querySelector('.qres');const good=norm(inp.value).length>2&&norm(inp.value).includes(norm(q.dataset.key));inp.style.borderColor=good?'var(--das)':'var(--die)';res.style.color=good?'var(--das)':'var(--die)';res.textContent=good?('✓ '+praise()):'✗ попробуй ещё (полным предложением)';if(good)ok++;});document.getElementById('qaScore').innerHTML=`<span style="color:${ok===D.qa.length?'var(--das)':'var(--die)'}">${ok} / ${D.qa.length} верно${ok===D.qa.length?(' — '+praise()):''}</span>`;document.getElementById('qaShowBtn').disabled=false;document.getElementById('qaHint').textContent='';}
+function qaShowAll(){document.querySelectorAll('#qa .q').forEach(q=>{q.querySelector('.qres').innerHTML='<span class="noselect" style="color:var(--accent)">✔ '+q.dataset.ans+'</span>';const inp=q.querySelector('.qin');inp.readOnly=true;inp.classList.add('noselect');inp.style.background='#f3f4f6';});}
+
+// ---- соотнеси ----
+const PCOL=['#eab308','#f97316','#ef4444','#22c55e','#3b82f6','#a855f7'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let selDe=null,links={},colorOf={},nextC=0;
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){selDe=null;links={};colorOf={};nextC=0;const M=D.match;const order=shuffle(M.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=M.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${M[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';}
+function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){const M=D.match;let ok=0;M.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===M.length?'var(--das)':'var(--die)'}">${ok} / ${M.length} верно${ok===M.length?(' — '+praise()):' — поправь пары'}</span>`;}
+
+// ---- распредели по родам ----
+const _der=[['Stuhl','der'],['Sessel','der'],['Tisch','der'],['Schrank','der'],['Teppich','der'],['Spiegel','der'],['Schlüssel','der'],['Geldbeutel','der'],['Regenschirm','der'],['Kugelschreiber','der'],['Bleistift','der'],['Preis','der']];
+const _die=[['Tasche','die'],['Brille','die'],['Uhr','die'],['Lampe','die'],['Kette','die'],['Flasche','die'],['Kamera','die'],['Bürste','die'],['Seife','die'],['Farbe','die'],['Sonne','die'],['Möbel','die']];
+const _das=[['Bett','das'],['Sofa','das'],['Regal','das'],['Bild','das'],['Zimmer','das'],['Buch','das'],['Handy','das'],['Auto','das'],['Telefon','das'],['Material','das'],['Geschäft','das'],['Sonderangebot','das'],['Holz','das'],['Glas','das'],['Metall','das'],['Plastik','das'],['Papier','das']];
+function interleave(arrs){const out=[];let i=0,any=true;while(any){any=false;for(const a of arrs){if(i<a.length){out.push(a[i]);any=true;}}i++;}return out;}
+const SORTPOOL=interleave([_der,_die,_das]);
+const SPP=14, SPAGES=Math.ceil(SORTPOOL.length/SPP);
+let sPage=(N-1)%SPAGES; const sChecked=new Set();
+function renderDots(){document.getElementById('sortDots').innerHTML=Array.from({length:SPAGES},(_,i)=>`<span class="pdot${i===sPage?' cur':(sChecked.has(i)?' seen':'')}"></span>`).join('');}
+function renderSort(){const items=SORTPOOL.slice(sPage*SPP,sPage*SPP+SPP);
+  document.getElementById('sortList').innerHTML=items.map((p,i)=>`<div class="srow" data-i="${i}" data-g="${p[1]}"><span class="sw">${p[0]}</span><span class="sbtns"><button class="der" onclick="pickG(this,'der')">der</button><button class="die" onclick="pickG(this,'die')">die</button><button class="das" onclick="pickG(this,'das')">das</button></span><span class="mark"></span></div>`).join('');
+  renderDots();document.getElementById('sScore').textContent='';}
+function sortNext(){sPage=(sPage+1)%SPAGES;renderSort();}
+function pickG(btn,g){const row=btn.closest('.srow');row.dataset.pick=g;row.classList.remove('ok','bad');row.querySelector('.mark').textContent='';row.querySelectorAll('.sbtns button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+function sortCheck(){const rows=[...document.querySelectorAll('#sortList .srow')];let ok=0;rows.forEach(r=>{if(!r.dataset.pick)return;const good=r.dataset.pick===r.dataset.g;r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.mark').textContent=good?'✓':('✗ '+r.dataset.g);if(good)ok++;});document.getElementById('sScore').innerHTML=`<span style="color:${ok===rows.length?'var(--das)':'var(--die)'}">${ok} / ${rows.length} верно${ok===rows.length?(' — '+praise()):' — поправь и проверь'}</span>`;sChecked.add(sPage);renderDots();}
+
+// ---- напиши с артиклем ----
+function renderWrite(){document.getElementById('writeList').innerHTML=D.write.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru">${p[0]}</span><input placeholder="артикль + слово…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('wScore').textContent='';}
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(D.write[i][1]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.write[i][1];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===D.write.length?'var(--das)':'var(--die)'}">${ok} / ${D.write.length} верно${ok===D.write.length?(' — '+praise()):''}</span>`;}
+function writeReset(){renderWrite();}
+function writeShow(){if(!document.getElementById('wScore').textContent.trim()){alert('Сначала впиши ответы и нажми «Проверить».');return;}document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.write[i][1];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
+
+// ---- глаголы ----
+function renderVerb(){document.getElementById('verbList').innerHTML=D.verbs.map((p,i)=>`<div class="wq" data-i="${i}"><span class="ru" style="color:var(--accent);font-weight:700">${p[0]}</span><input placeholder="перевод по-русски…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('vScore').textContent='';}
+function verbCheck(){let ok=0;document.querySelectorAll('#verbList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v.length>=3 && norm(D.verbs[i][1]).includes(v);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.verbs[i][1];if(good)ok++;});document.getElementById('vScore').innerHTML=`<span style="color:${ok===D.verbs.length?'var(--das)':'var(--die)'}">${ok} / ${D.verbs.length} верно${ok===D.verbs.length?(' — '+praise()):''}</span>`;}
+function verbShow(){if(!document.getElementById('vScore').textContent.trim()){alert('Сначала впиши ответы и нажми «Проверить».');return;}document.querySelectorAll('#verbList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.verbs[i][1];r.classList.add('ok');r.querySelector('.corr').textContent='';});document.getElementById('vScore').innerHTML='<span style="color:var(--accent)">Показаны ответы</span>';}
+
+renderMatch();renderSort();renderWrite();renderVerb();
+</script>
+<script src="js/chrome.js?v=3"></script>
+</body>
+</html>

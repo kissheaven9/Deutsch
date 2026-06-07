@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>Текст-диалог · Тема 1</title>
 <link rel="stylesheet" href="css/style.css?v=3">
 <style>
@@ -82,7 +83,7 @@
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a></div></header>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb" id="crumb"></span></div></header>
 <main class="wrap">
   <div id="app"></div>
   <div class="scenenav" id="nav"></div>
@@ -252,6 +253,7 @@ const DIALOGS={
 const N=Math.min(3,Math.max(1,parseInt(new URLSearchParams(location.search).get('n'))||1));
 const D=DIALOGS[N];
 document.title=D.title;
+{const cr=document.getElementById('crumb');if(cr)cr.innerHTML=`/ <a href="thema-01.html">Тема 1: Знакомство и семья</a> / Текст ${N}`;}
 const MARKS={
  1:[{x:14,y:21,w:'der Mann',g:'der',dir:'r'},{x:43,y:27,w:'die Frau',g:'die',dir:'r'},{x:67,y:46,w:'das Kind',g:'das',dir:'l'},{x:86,y:50,w:'das Mädchen',g:'das',dir:'l'}],
  2:[{x:13,y:16,w:'der Mann',g:'der',dir:'r'},{x:37,y:27,w:'die Frau',g:'die',dir:'r'},
