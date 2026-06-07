@@ -23,6 +23,7 @@
   .mk{position:absolute;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px #0007;cursor:pointer;padding:0;z-index:2}
   .mk{background:#475569}   /* серые точки — РОД НЕ выдаём, ученик угадывает сам */
   .mk.gray{background:#9ca3af} .mk.gray .mkw{border-color:#9ca3af;color:#374151}
+  .mk.gray .mkw.der{border-color:var(--der);color:var(--der)} .mk.gray .mkw.die{border-color:var(--die);color:var(--die)} .mk.gray .mkw.das{border-color:var(--das);color:var(--das)}
   .mk .mkw{display:none;position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;background:#fff;border:2px solid;border-radius:8px;padding:3px 8px;box-shadow:0 2px 8px #0006;font-weight:700;font-size:12px;line-height:1.2}
   .mk .mkw{border-color:#94a3b8;color:#334155}   /* подпись нейтральная; артикль виден только в самом слове */
   .mk.open{z-index:5} .mk.open .mkw{display:block}
@@ -208,16 +209,18 @@ const MARKS={
  1:[{x:21,y:13,w:'der Spiegel',dir:'r'},{x:43,y:17,w:'das Bild',dir:'r'},{x:62,y:30,w:'der Schrank',dir:'l'},
     {x:21,y:36,w:'die Lampe',dir:'r'},{x:31,y:41,w:'die Tasche',dir:'r'},{x:12,y:46,w:'die Uhr',dir:'r'},
     {x:25,y:54,w:'die Brille',dir:'r'},{x:34,y:53,w:'die Kette',dir:'l'},{x:24,y:60,w:'der Tisch',dir:'r'},
-    {x:9,y:58,w:'der Sessel',dir:'r'},{x:85,y:72,w:'das Bett',dir:'l'},{x:46,y:86,w:'der Teppich',dir:'l'}],
- 2:[{x:9,y:42,w:'der Sessel',dir:'r'},{x:30,y:56,w:'der Stuhl',dir:'r'},{x:33,y:66,w:'die Lampe',dir:'r'},
-    {x:42,y:86,w:'der Tisch',dir:'r'},{x:47,y:80,w:'die Uhr',dir:'l'},{x:54,y:66,w:'die Tasche',dir:'l'},
-    {x:55,y:88,w:'das Buch',dir:'l'},{x:80,y:52,w:'das Sofa',dir:'l'},{x:68,y:20,w:'das Regal',dir:'l'},
-    {x:92,y:30,w:'das Bild',dir:'l'},{x:28,y:93,w:'der Teppich',dir:'r'}],
- 3:[{x:60,y:13,w:'das Sofa',dir:'l'},{x:77,y:12,w:'der Tisch',dir:'l'},{x:92,y:15,w:'der Spiegel',dir:'l'},
-    {x:60,y:38,w:'der Schrank',dir:'l'},{x:77,y:37,w:'die Uhr',dir:'l'},{x:92,y:38,w:'das Taschentuch',dir:'l'},
-    {x:60,y:59,w:'die Kamera',dir:'l'},{x:77,y:58,w:'das Regal',dir:'l'},{x:92,y:59,w:'das Feuerzeug',dir:'l'},
-    {x:67,y:84,w:'der Kugelschreiber',dir:'l'},{x:83,y:84,w:'der Geldbeutel',dir:'l'},{x:17,y:12,w:'die Lampe',dir:'r'},
-    {x:42,y:15,w:'das Bild',dir:'r'},{x:11,y:55,w:'der Stuhl',dir:'r'},{x:33,y:80,w:'der Schlüssel',dir:'r'}]
+    {x:9,y:62,w:'der Sessel',dir:'r'},{x:85,y:72,w:'das Bett',dir:'l'},{x:50,y:90,w:'der Teppich',dir:'l'},
+    {x:14,y:50,w:'das Buch',dir:'r'},{x:92,y:36,w:'das Regal',dir:'l'},{x:29,y:87,w:'das Tier',dir:'r'}],
+ 2:[{x:9,y:40,w:'der Sessel',dir:'r'},{x:30,y:68,w:'der Stuhl',dir:'r'},{x:41,y:66,w:'die Lampe',dir:'r'},
+    {x:46,y:90,w:'der Tisch',dir:'r'},{x:55,y:80,w:'die Uhr',dir:'l'},{x:58,y:70,w:'die Tasche',dir:'l'},
+    {x:63,y:88,w:'das Buch',dir:'l'},{x:80,y:56,w:'das Sofa',dir:'l'},{x:64,y:20,w:'das Regal',dir:'l'},
+    {x:92,y:30,w:'das Bild',dir:'l'},{x:68,y:92,w:'der Teppich',dir:'l'},{x:42,y:22,w:'der Spiegel',dir:'l'}],
+ 3:[{x:56,y:21,w:'das Sofa',dir:'l'},{x:72,y:21,w:'der Tisch',dir:'l'},{x:88,y:21,w:'der Spiegel',dir:'l'},
+    {x:56,y:46,w:'der Schrank',dir:'l'},{x:72,y:46,w:'die Uhr',dir:'l'},{x:88,y:46,w:'das Taschentuch',dir:'l'},
+    {x:56,y:67,w:'die Kamera',dir:'l'},{x:72,y:67,w:'das Regal',dir:'l'},{x:88,y:67,w:'das Feuerzeug',dir:'l'},
+    {x:64,y:91,w:'der Kugelschreiber',dir:'l'},{x:80,y:91,w:'der Geldbeutel',dir:'l'},
+    {x:17,y:12,w:'die Lampe',dir:'r'},{x:40,y:14,w:'das Bild',dir:'r'},{x:9,y:52,w:'der Stuhl',dir:'r'},
+    {x:32,y:77,w:'der Schlüssel',dir:'r'},{x:17,y:70,w:'der Kaffee',dir:'r'},{x:24,y:84,w:'der Tisch',dir:'r'}]
 };
 const BANNER={3:'📝 Задание: Что Тео покупает, а что — нет? Назови по-немецки.'};
 const LEGS={
@@ -299,7 +302,7 @@ function toggleRuDlg(){const d=document.getElementById('ruDlg'),b=document.getEl
 
 // ---- метки на картинке ----
 const stage=document.getElementById('stage');
-function mk(m){const b=document.createElement('button');b.className='mk gray dir-'+(m.dir||'l');b.style.left=m.x+'%';b.style.top=m.y+'%';b.onclick=()=>b.classList.toggle('open');const noun=m.w.replace(/^(der|die|das)\s+/,'');b.innerHTML=`<span class="mkw">${noun}</span>`;stage.appendChild(b);}
+function mk(m){const art=(m.w.match(/^(der|die|das)/)||[''])[0];const b=document.createElement('button');b.className='mk gray dir-'+(m.dir||'l');b.style.left=m.x+'%';b.style.top=m.y+'%';b.onclick=()=>b.classList.toggle('open');b.innerHTML=`<span class="mkw ${art}">${m.w}</span>`;stage.appendChild(b);}
 if(stage.querySelector('img')) (MARKS[N]||[]).forEach(mk);
 
 // ---- nav (верх и низ) ----
