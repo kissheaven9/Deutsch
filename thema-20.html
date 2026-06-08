@@ -241,19 +241,33 @@ function ppReset(){document.querySelectorAll('#ppList .wq').forEach(r=>{r.classL
 function ppShow(){if(!document.getElementById('ppScore').textContent.trim()){alert('Сначала впиши и проверь.');return;}document.querySelectorAll('#ppList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.verbs[i][2];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});document.getElementById('ppScore').innerHTML='<span style="color:var(--t)">Показаны ответы</span>';}
 
 // приставки меняют смысл
-const PREFIX=[
- {b:'stehen',bru:'стоять',bex:'Das Buch steht im Regal.',p:'aufstehen',pru:'вставать',pex:'Ich stehe um 7 Uhr auf.',note:'auf- = вверх / начало действия'},
- {b:'kaufen',bru:'покупать',bex:'Ich kaufe ein Buch.',p:'einkaufen',pru:'закупаться',pex:'Ich kaufe im Supermarkt ein.',note:'ein- = внутрь / про запас'},
- {b:'sehen',bru:'видеть',bex:'Ich sehe einen Film.',p:'aussehen',pru:'выглядеть',pex:'Du siehst gut aus.',note:'aus- = вид снаружи'},
- {b:'probieren',bru:'пробовать',bex:'Ich probiere den Kuchen.',p:'ausprobieren',pru:'испробовать',pex:'Ich probiere die App aus.',note:'aus- = основательно, до конца'},
- {b:'holen',bru:'брать, приносить',bex:'Ich hole Wasser.',p:'abholen',pru:'забирать',pex:'Ich hole das Paket ab.',note:'ab- = забрать откуда-то'},
- {b:'rufen',bru:'звать',bex:'Die Mutter ruft das Kind.',p:'anrufen',pru:'звонить',pex:'Ich rufe dich an.',note:'an- = контакт, к кому-то'},
- {b:'rufen',bru:'звать',bex:'Ich rufe laut.',p:'zurückrufen',pru:'перезванивать',pex:'Otto ruft schnell zurück.',note:'zurück- = назад, обратно'},
- {b:'laden',bru:'грузить',bex:'Ich lade das Auto.',p:'einladen',pru:'приглашать',pex:'Ich lade dich ein.',note:'ein- = пригласить к себе'},
- {b:'arbeiten',bru:'работать',bex:'Ich arbeite im Garten.',p:'mitarbeiten',pru:'работать в команде',pex:'Greta arbeitet im Projekt mit.',note:'mit- = вместе, со-'},
- {b:'passen',bru:'подходить',bex:'Die Jacke passt mir.',p:'verpassen',pru:'пропускать',pex:'Ich verpasse den Bus.',note:'ver- = мимо, не успеть'},
- {b:'suchen',bru:'искать',bex:'Ich suche den Schlüssel.',p:'besuchen',pru:'посещать, навещать',pex:'Ich besuche Otto.',note:'be- = действие на объект'},
-];
+const PREFIXES={
+ 1:[
+  {b:'stehen',bru:'стоять',bex:'Das Buch steht im Regal.',p:'aufstehen',pru:'вставать',pex:'Ich stehe um 7 Uhr auf.',note:'auf- = начало действия, вверх'},
+  {b:'probieren',bru:'пробовать',bex:'Ich probiere den Kuchen.',p:'ausprobieren',pru:'испробовать',pex:'Otto probiert die App aus.',note:'aus- = основательно, до конца'},
+  {b:'finden',bru:'находить',bex:'Ich finde den Schlüssel.',p:'erfinden',pru:'изобретать',pex:'Otto erfindet eine App.',note:'er- = создать, придумать новое'},
+  {b:'kommen',bru:'приходить',bex:'Ich komme um acht.',p:'bekommen',pru:'получать',pex:'Otto bekommt zehn Kunden.',note:'be- = получить, «к себе»'},
+  {b:'raten',bru:'советовать',bex:'Ich rate dir: geh früh!',p:'beraten',pru:'консультировать',pex:'Otto berät die Kunden.',note:'be- = направить действие на кого-то'},
+  {b:'besser',bru:'лучше',bex:'Das ist besser.',p:'verbessern',pru:'улучшать',pex:'Otto verbessert die App.',note:'ver- = сделать (лучше), изменить'}
+ ],
+ 2:[
+  {b:'rufen',bru:'звать',bex:'Die Mutter ruft das Kind.',p:'anrufen',pru:'звонить',pex:'Greta ruft den Kunden an.',note:'an- = контакт, к кому-то'},
+  {b:'rufen',bru:'звать',bex:'Ich rufe laut.',p:'zurückrufen',pru:'перезванивать',pex:'Greta ruft schnell zurück.',note:'zurück- = назад, обратно'},
+  {b:'laden',bru:'грузить',bex:'Ich lade das Auto.',p:'einladen',pru:'приглашать',pex:'Greta lädt Freunde ein.',note:'ein- = пригласить «к себе»'},
+  {b:'arbeiten',bru:'работать',bex:'Ich arbeite im Garten.',p:'mitarbeiten',pru:'работать в команде',pex:'Carla arbeitet im Projekt mit.',note:'mit- = вместе, со-'},
+  {b:'suchen',bru:'искать',bex:'Ich suche den Schlüssel.',p:'besuchen',pru:'навещать, посещать',pex:'Greta besucht Otto.',note:'be- = действие на объект'},
+  {b:'fallen',bru:'падать',bex:'Der Apfel fällt.',p:'gefallen',pru:'нравиться',pex:'Die App gefällt mir.',note:'ge- меняет смысл: gefallen = нравиться'},
+  {b:'zählen',bru:'считать',bex:'Ich zähle bis zehn.',p:'erzählen',pru:'рассказывать',pex:'Greta erzählt von der App.',note:'er- = рассказать (до конца)'}
+ ],
+ 3:[
+  {b:'kaufen',bru:'покупать',bex:'Ich kaufe ein Buch.',p:'einkaufen',pru:'закупаться',pex:'Wir kaufen im Supermarkt ein.',note:'ein- = про запас, продукты'},
+  {b:'holen',bru:'брать, приносить',bex:'Ich hole Wasser.',p:'abholen',pru:'забирать',pex:'Wir holen den Tisch ab.',note:'ab- = забрать откуда-то'},
+  {b:'sehen',bru:'видеть',bex:'Ich sehe einen Film.',p:'aussehen',pru:'выглядеть',pex:'Der Stand sieht super aus.',note:'aus- = вид снаружи'},
+  {b:'kennen',bru:'знать',bex:'Ich kenne Otto.',p:'kennenlernen',pru:'знакомиться',pex:'Wir lernen neue Freunde kennen.',note:'kennen + lernen = знакомиться'},
+  {b:'passen',bru:'подходить',bex:'Die Jacke passt mir.',p:'verpassen',pru:'пропускать',pex:'Theo verpasst den Bus.',note:'ver- = мимо, не успеть'}
+ ]
+};
+const PREFIX=PREFIXES[n]||PREFIXES[1];
 document.getElementById('prefixList').innerHTML=PREFIX.map(o=>`<div class="pcard"><div class="prow2"><span class="base">${o.b} <button class="say" onclick="playWord('${o.b}','male')">🔊</button> — ${o.bru}</span><span class="arr">→</span><span class="pref">${o.p}</span> <button class="say" onclick="playWord('${o.p}','male')">🔊</button> <span style="color:var(--muted)">— ${o.pru}</span></div><div class="pex">📝 «${o.bex}» → «${o.pex}»</div><div class="pnote">💡 ${o.note}</div></div>`).join('');
 
 // вставь глаголы (отзывы)
