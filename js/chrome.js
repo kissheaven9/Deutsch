@@ -3,6 +3,7 @@
   const THEMES=[
     {n:'1. Знакомство и семья', href:'thema-01.html',     on:true},
     {n:'2. Быт (дом)',          href:'thema-02.html', on:true},
+    {n:'20. Своё дело (глаголы)', href:'thema-20.html', on:true},
     {n:'3. Свободное время',    on:false},
     {n:'4. Еда',                on:false},
     {n:'5. Дорога',             on:false},
