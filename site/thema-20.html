@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Тема 20 — Своё дело (глаголы)</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+  :root{--t:#0e7490;--tb:#a5f3fc;--tbg:#ecfeff}
+  .subnav{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+  .subnav a{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:7px 13px;background:#fff;color:#374151;text-decoration:none;cursor:pointer;font-weight:700}
+  .subnav a.active{background:var(--t);color:#fff;border-color:var(--t)}
+  .part{display:flex;align-items:center;gap:14px;margin:24px 0 12px;padding:13px 18px;border-radius:16px;border:1px solid var(--tb);background:var(--tbg)}
+  .part .pico{font-size:28px}.part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--t);font-weight:700}.part h2{margin:2px 0 0;font-size:22px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:17px;display:flex;gap:10px;align-items:center;background:var(--tbg);border-bottom:1px solid var(--tb);border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--t);color:#fff;font-size:13px;font-weight:700}
+  .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .toolbar{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer}
+  .btn.t{background:var(--t);color:#fff;border-color:var(--t)} .btn.sm{padding:7px 11px;font-size:13px}
+  .say{border:none;background:none;cursor:pointer;font-size:15px;opacity:.6;padding:2px}.say:hover{opacity:1}
+  .de-block{color:var(--ink);font-weight:500;line-height:2;margin:0;font-size:16px}
+  .ru-block{color:#374151;line-height:1.7;margin:8px 0 0}
+  .vlink{color:var(--t);font-weight:700;border-bottom:2px dotted var(--t);cursor:pointer;border-radius:3px;padding:0 1px}
+  .vlink.open{background:#cffafe;border-bottom-style:solid}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--t);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .imgwrap img{width:100%;height:auto;display:block;border-radius:14px;border:1px solid var(--line);margin-bottom:12px}
+  .vlist{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  @media(max-width:640px){.vlist{grid-template-columns:1fr}}
+  .vrow{display:flex;align-items:center;gap:9px;background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:7px 10px}
+  .vrow .de{font-weight:700;color:var(--t);font-size:15px}
+  .vrow .pp{font-size:11px;color:#0891b2;background:#cffafe;border-radius:5px;padding:1px 5px;margin-left:4px}
+  .vrow .ru{color:#374151;font-size:13px;flex:1;text-align:right}
+  .vrow.noru .ru{visibility:hidden;position:relative}
+  .vrow.noru .ru::after{content:"·····";position:absolute;right:0;color:#9ca3af;visibility:visible}
+  .cardwrap{max-width:380px;margin:0 auto}
+  .card{background:#fff;border:2px solid var(--t);border-radius:16px;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer;transition:.12s}
+  .card:active{transform:scale(.99)} .card.back{background:var(--tbg)}
+  .c-text{font-size:24px;font-weight:700;color:var(--ink)} .card.back .c-text{color:var(--t)} .c-hint{font-size:12px;color:var(--muted)}
+  .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
+  .cnav #cCount{color:var(--muted);font-weight:600}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
+  .mchip.de{font-weight:700;color:var(--t)} .mchip.sel{border-color:var(--t);background:var(--tbg)}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .ru{min-width:150px;color:#374151}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:150px}
+  .wq input:focus{outline:none;border-color:var(--t)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .score{font-weight:700;margin-top:8px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Тема 20 · Своё дело</span></div></header>
+<main class="wrap">
+  <h1 id="h1">Тема 20 — Своё дело</h1>
+  <p class="lead">Цель — <b>глаголы</b> (с приставками и в прошедшем времени, Perfekt). Прочитай текст, кликай по подчёркнутым глаголам — увидишь перевод. Ниже — словарик, карточки, «соотнеси» и «напиши».</p>
+  <div class="subnav" id="subnav"></div>
+
+  <div class="part"><span class="pico">📖</span><div><div class="pk">Часть 1</div><h2 id="secTitle">Читаем текст</h2></div></div>
+  <div class="panel"><h3>📜 Текст <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">кликни глагол → перевод</span></h3>
+    <div class="imgwrap" id="imgSlot"></div>
+    <div class="bh">🇩🇪 Deutsch <button class="btn sm" id="playBtn">🔊 Послушать</button></div>
+    <p class="de-block" id="deText"></p>
+    <div class="bh" style="margin-top:12px">🇷🇺 Русский <button class="btn sm" id="ruBtn" onclick="toggleRu()">Показать перевод</button></div>
+    <p class="ru-block" id="ruText" hidden></p>
+  </div>
+
+  <div class="part"><span class="pico">🎯</span><div><div class="pk">Часть 2</div><h2>Учим глаголы</h2></div></div>
+
+  <div class="panel"><h3>🔤 Словарик текста</h3>
+    <p class="sub">Глагол · перевод · Perfekt (прошедшее). Скрой перевод и поучи; 🔊 — послушать.</p>
+    <div class="toolbar"><button class="btn t" id="eye" onclick="toggleVocAll(this)">🙈 Скрыть переводы</button></div>
+    <div class="vlist" id="vlist"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">1</span>🃏 Карточки</h3>
+    <p class="sub">Немецкий глагол — вспомни перевод, нажми, чтобы перевернуть. Листай ← →.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">2</span>🔗 Соотнеси: глагол ↔ перевод</h3>
+    <p class="sub">Нажми немецкий глагол, потом перевод — пара окрасится.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="toolbar"><button class="btn t sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">3</span>✍️ Напиши глагол</h3>
+    <p class="sub">Дан перевод — впиши глагол по-немецки (как пишется, инфинитив).</p>
+    <div id="writeList"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать ответы</button><button class="btn sm" onclick="writeReset()">Ещё раз</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">4</span>⏪ Поставь в прошедшее (Perfekt)</h3>
+    <p class="sub">Дан глагол — впиши его в Perfekt (как в словарике: hat/ist …).</p>
+    <div id="ppList"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="ppCheck()">Проверить</button><button class="btn sm" onclick="ppShow()">Показать ответы</button><button class="btn sm" onclick="ppReset()">Ещё раз</button></div>
+    <div class="score" id="ppScore"></div>
+  </div>
+
+  <div class="scenenav"><a href="index.html" style="background:#f3e8ff;color:var(--accent)">🏠 Главная</a><a id="nextText" href="#">Следующий текст →</a></div>
+</main>
+<footer>Deutsch A1 · Тема 20 · Своё дело · глаголы</footer>
+
+<script src="js/app.js?v=3"></script>
+<script>
+function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß]/g,'');}
+// V(de, ru) — кликабельный глагол в тексте
+function V(de,ru){return `<span class="vlink" data-de="${de}" data-ru="${ru}">${de}</span>`;}
+const TEXTS={
+ 1:{ tab:'Текст 1 · Otto', title:'Текст 1 — Otto открыл свою фирму', role:'male', img:'img/thema20-1.png',
+   de:`Früher hat Otto als Gärtner ${V('gearbeitet','работал · arbeiten')}. Dann ${V('hatte','появилась · eine Idee haben')} er eine Idee und ${V('hat … aufgemacht','открыл · aufmachen')} seine eigene Firma. Zuerst ${V('hat … geplant','спланировал · planen')} er alles und ${V('hat … gesucht','искал · suchen')} Arbeiter. Er ${V('hat … eingestellt','нанял · einstellen')} zwei Leute, ${V('hat … gekauft','купил · kaufen')} eine Schere und ${V('hat … vorbereitet','подготовил · vorbereiten')} das Büro. Am Montag ${V('hat … aufgemacht','открыл · aufmachen')} er die Firma. Der erste Kunde ${V('ist gekommen','пришёл · kommen')}. Otto ${V('hat … geschnitten','постриг · schneiden')} den Garten und ${V('hat … aufgeräumt','убрал · aufräumen')} die Blätter. Dem Kunden ${V('hat … gefallen','понравилось · gefallen')} es, und er ${V('hat bezahlt','заплатил · bezahlen')}. Otto ${V('hat … verdient','заработал · verdienen')} das erste Geld: „Ich ${V('habe … angefangen','начал · anfangen')} mein Geschäft!“`,
+   ru:`Раньше Отто работал садовником. Потом у него появилась идея, и он открыл свою фирму. Сначала он всё спланировал и искал работников. Он нанял двух человек, купил ножницы и подготовил офис. В понедельник он открыл фирму. Пришёл первый клиент. Отто постриг сад и убрал листья. Клиенту понравилось, и он заплатил. Отто заработал первые деньги: «Я начал своё дело!»`,
+   vocab:[['aufmachen','открывать','hat aufgemacht'],['planen','планировать','hat geplant'],['suchen','искать','hat gesucht'],['einstellen','нанимать','hat eingestellt'],['vorbereiten','подготавливать','hat vorbereitet'],['schneiden','резать, стричь','hat geschnitten'],['aufräumen','убирать','hat aufgeräumt'],['anfangen','начинать','hat angefangen'],['bezahlen','платить','hat bezahlt'],['die Firma','фирма',''],['der Plan','план',''],['die Schere','ножницы',''],['der Kunde','клиент',''],['das Büro','офис',''],['der Garten','сад','']],
+   verbs:[['aufmachen','открывать','hat aufgemacht'],['planen','планировать','hat geplant'],['suchen','искать','hat gesucht'],['einstellen','нанимать','hat eingestellt'],['vorbereiten','подготавливать','hat vorbereitet'],['schneiden','резать, стричь','hat geschnitten'],['aufräumen','убирать','hat aufgeräumt'],['anfangen','начинать','hat angefangen'],['bezahlen','платить','hat bezahlt']]
+ },
+ 2:{ tab:'Текст 2 · Грета', title:'Текст 2 — Грета помогла сестре', role:'female', img:'img/thema20-2.png',
+   de:`Gretas Schwester Carla ${V('wollte','хотела · wollen')} schon lange ein Café aufmachen. Greta ${V('hat … geholfen','помогла · helfen')} ihr. Carla ist lustig, kreativ und sehr sympathisch, und Greta ist intelligent, fleißig und freundlich. Die Schwestern ${V('haben … zusammengearbeitet','сотрудничали · zusammenarbeiten')} gut. Greta ${V('hat … geleitet','управляла · leiten')} das Geld, Carla ${V('hat … gekocht','готовила · kochen')}. Sie ${V('haben … vorbereitet','подготовили · vorbereiten')} das Café und ${V('haben … eingeladen','пригласили · einladen')} Freunde und Nachbarn. Am Freitag ${V('haben … aufgemacht','открыли · aufmachen')} sie das Café. Es ${V('hat … gefallen','понравилось · gefallen')} allen. Die Schwestern waren glücklich: „Zusammen sind wir ein Team!“`,
+   ru:`Сестра Греты, Carla, давно хотела открыть кафе. Грета ей помогла. Carla весёлая, креативная и очень симпатичная, а Грета умная, трудолюбивая и дружелюбная. Сёстры хорошо сотрудничали. Грета управляла деньгами, Carla готовила. Они подготовили кафе и пригласили друзей и соседей. В пятницу они открыли кафе. Всем понравилось. Сёстры были счастливы: «Вместе мы — команда!»`,
+   vocab:[['zusammenarbeiten','сотрудничать','hat zusammengearbeitet'],['leiten','управлять, руководить','hat geleitet'],['helfen','помогать','hat geholfen'],['einladen','приглашать','hat eingeladen'],['kochen','готовить','hat gekocht'],['gefallen','нравиться','hat gefallen'],['lustig','весёлый',''],['kreativ','креативный',''],['sympathisch','симпатичный',''],['intelligent','умный',''],['fleißig','трудолюбивый',''],['freundlich','дружелюбный',''],['das Café','кафе',''],['das Team','команда',''],['die Idee','идея','']],
+   verbs:[['zusammenarbeiten','сотрудничать','hat zusammengearbeitet'],['leiten','управлять','hat geleitet'],['helfen','помогать','hat geholfen'],['einladen','приглашать','hat eingeladen'],['kochen','готовить','hat gekocht'],['gefallen','нравиться','hat gefallen']]
+ },
+ 3:{ tab:'Текст 3 · Тео и Lina', title:'Текст 3 — Тео и Lina и киоск', role:'child', img:'img/thema20-3.png',
+   de:`Theo und Lina ${V('wollten','захотели · wollen')} auch ein Geschäft. Am Wochenende ${V('haben … aufgemacht','открыли · aufmachen')} sie einen kleinen Kiosk im Park und ${V('haben … verkauft','продавали · verkaufen')} Limonade und Kekse. Theo ${V('hat … erzählt','рассказывал · erzählen')} den Kunden von der frischen Limonade, und Lina ${V('hat … bekommen','получала · bekommen')} das Geld und ${V('hat … gezählt','считала · zählen')}. Sie ${V('haben … zusammengearbeitet','сотрудничали · zusammenarbeiten')} super. Viele Leute ${V('haben … gekauft','покупали · kaufen')}, und die Kinder ${V('haben … verdient','заработали · verdienen')} etwas Geld. „Das war ein echter Erfolg!“, ${V('haben … gesagt','сказали · sagen')} Theo und Lina.`,
+   ru:`Тео и Lina тоже захотели своё дело. На выходных они открыли маленький киоск в парке и продавали лимонад и печенье. Тео рассказывал клиентам про свежий лимонад, а Lina получала деньги и считала. Они отлично сотрудничали. Много людей покупало, и дети заработали немного денег. «Это был настоящий успех!» — сказали Тео и Lina.`,
+   vocab:[['verkaufen','продавать','hat verkauft'],['erzählen','рассказывать','hat erzählt'],['bekommen','получать','hat bekommen'],['zählen','считать','hat gezählt'],['verdienen','зарабатывать','hat verdient'],['der Kiosk','киоск',''],['die Limonade','лимонад',''],['der Erfolg','успех',''],['das Geld','деньги',''],['der Park','парк','']],
+   verbs:[['verkaufen','продавать','hat verkauft'],['erzählen','рассказывать','hat erzählt'],['bekommen','получать','hat bekommen'],['zählen','считать','hat gezählt'],['verdienen','зарабатывать','hat verdient']]
+ }
+};
+const n=Math.min(3,Math.max(1,parseInt(new URLSearchParams(location.search).get('n'))||1));
+const D=TEXTS[n], ROLE=D.role;
+document.title=D.title+' — Тема 20';
+document.getElementById('h1').textContent=D.title;
+document.getElementById('subnav').innerHTML=[1,2,3].map(i=>`<a class="${i===n?'active':''}" href="thema-20.html?n=${i}">${TEXTS[i].tab}</a>`).join('');
+document.getElementById('nextText').href='thema-20.html?n='+(n%3+1);
+// картинка
+document.getElementById('imgSlot').innerHTML=`<img src="${D.img}" alt="${D.title}" onerror="this.style.display='none'">`;
+// текст
+document.getElementById('deText').innerHTML=D.de;
+document.getElementById('ruText').innerHTML=D.ru;
+document.querySelectorAll('#deText .vlink').forEach(s=>s.addEventListener('click',()=>{
+  const open=s.classList.toggle('open');s.textContent=open?s.dataset.ru:s.dataset.de;
+}));
+function toggleRu(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
+document.getElementById('playBtn').onclick=function(){
+  const txt=[...document.querySelectorAll('#deText')][0].cloneNode(true);
+  txt.querySelectorAll('.vlink').forEach(v=>v.textContent=v.dataset.de.replace(' … ',' '));
+  playSeq(['audio/thema20-'+n+'.mp3'],this,[{t:txt.innerText,role:ROLE}]);
+};
+
+// словарик
+document.getElementById('vlist').innerHTML=D.vocab.map(([de,ru,pp])=>`<div class="vrow"><button class="say" onclick="playWord('${de.replace(/^(der|die|das) /,'').replace(/'/g,'')}','${ROLE}')">🔊</button><span class="de">${de}${pp?`<span class="pp">${pp}</span>`:''}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`).join('');
+function toggleVocAll(b){const rows=[...document.querySelectorAll('.vrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));b.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
+
+// карточки (глаголы)
+let ci=0,flipped=false;const CARDS=D.verbs;
+function renderCard(){const [de,ru]=CARDS[ci];document.getElementById('cText').innerHTML=flipped?`${de} <button class="say" onclick="event.stopPropagation();playWord('${de}','${ROLE}')">🔊</button>`:ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми — увидеть глагол';document.getElementById('cCount').textContent=`${ci+1} / ${CARDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%CARDS.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+CARDS.length)%CARDS.length;flipped=false;renderCard();}
+renderCard();
+
+// соотнеси
+const PCOL=['#0e7490','#f97316','#ef4444','#22c55e','#a855f7','#eab308'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let selDe=null,links={},colorOf={},nextC=0;const MA=D.verbs;
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MA.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MA.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MA[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';}
+function pickDe(i){selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){let ok=0;MA.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MA.length?'var(--das)':'var(--die)'}">${ok} / ${MA.length} верно${ok===MA.length?(' — '+praise()):' — поправь пары'}</span>`;}
+renderMatch();
+
+// напиши глагол
+document.getElementById('writeList').innerHTML=D.verbs.map(([de,ru],i)=>`<div class="wq" data-i="${i}"><span class="ru">${ru}</span><input placeholder="глагол по-немецки…" autocomplete="off"><span class="corr"></span></div>`).join('');
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const v=norm(r.querySelector('input').value);const good=v===norm(D.verbs[i][0]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.verbs[i][0];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===D.verbs.length?'var(--das)':'var(--die)'}">${ok} / ${D.verbs.length} верно${ok===D.verbs.length?(' — '+praise()):''}</span>`;}
+function writeReset(){document.querySelectorAll('#writeList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('wScore').textContent='';}
+function writeShow(){if(!document.getElementById('wScore').textContent.trim()){alert('Сначала впиши ответы и нажми «Проверить».');return;}document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.verbs[i][0];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});document.getElementById('wScore').innerHTML='<span style="color:var(--t)">Показаны ответы</span>';}
+
+// напиши в Perfekt
+function ppNorm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß ]/g,'').replace(/\s+/g,' ').trim();}
+document.getElementById('ppList').innerHTML=D.verbs.map(([de,ru,pp],i)=>`<div class="wq" data-i="${i}"><span class="ru">${de} — ${ru}</span><input placeholder="hat/ist …" autocomplete="off"><span class="corr"></span></div>`).join('');
+function ppCheck(){let ok=0;document.querySelectorAll('#ppList .wq').forEach(r=>{const i=+r.dataset.i;const v=ppNorm(r.querySelector('input').value);const good=v===ppNorm(D.verbs[i][2]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.verbs[i][2];if(good)ok++;});document.getElementById('ppScore').innerHTML=`<span style="color:${ok===D.verbs.length?'var(--das)':'var(--die)'}">${ok} / ${D.verbs.length} верно${ok===D.verbs.length?(' — '+praise()):''}</span>`;}
+function ppReset(){document.querySelectorAll('#ppList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('ppScore').textContent='';}
+function ppShow(){if(!document.getElementById('ppScore').textContent.trim()){alert('Сначала впиши и проверь.');return;}document.querySelectorAll('#ppList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.verbs[i][2];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});document.getElementById('ppScore').innerHTML='<span style="color:var(--t)">Показаны ответы</span>';}
+</script>
+<script src="js/chrome.js?v=3"></script>
+</body>
+</html>

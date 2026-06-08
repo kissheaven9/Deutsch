@@ -149,7 +149,8 @@ async def main():
     VERBS=['wohnen','leben','lernen','machen','arbeiten','studieren','planen','glauben',
            'sein','haben','sprechen','heißen','kommen','gehen',
            'kaufen','kosten','bestellen','sehen','finden',
-           'spielen','hören','tanzen','kochen','malen','fotografieren','lesen','schwimmen','fahren','singen','treffen','können']
+           'spielen','hören','tanzen','kochen','malen','fotografieren','lesen','schwimmen','fahren','singen','treffen','können',
+           'aufmachen','vorbereiten','einstellen','schneiden','anfangen','zusammenarbeiten','leiten','helfen','einladen','gefallen','verkaufen','erzählen','bekommen','bezahlen','verdienen','planen','suchen','aufräumen','zählen']
     for inf in VERBS:
         await tts(inf, 'male', os.path.join(AUDIO,'word', slug(inf)+'.mp3'))
     # слова сцен, которых нет в словаре (иначе fallback на робота)
@@ -181,6 +182,17 @@ async def main():
         ('andere-eigenschaften','male','Was kaufe ich? Das Sofa ist schön und modern, aber teuer — zweihundert Euro! Der Stuhl ist klein und praktisch, nur günstig. Die alte Lampe ist nicht neu, aber billig. Das große Regal ist hässlich — nein, danke! Ich finde: praktisch und günstig ist gut, zu teuer ist schlecht.'),
     ]
     for sid,role,text in ANDERE:
+        await tts(text, role, os.path.join(AUDIO, sid+'.mp3'))
+    # Тема 20 — слова и тексты «Своё дело»
+    T20W=['Firma','Schere','Kunde','Kiosk','Limonade','Erfolg','lustig','kreativ','sympathisch','intelligent','fleißig','Plan','Büro','Garten','Team','Idee','Geld','freundlich']
+    for w in T20W:
+        await tts(w, 'female', os.path.join(AUDIO,'word', slug(w)+'.mp3'))
+    T20=[
+      ('thema20-1','male','Früher hat Otto als Gärtner gearbeitet. Dann hatte er eine Idee und hat seine eigene Firma aufgemacht. Zuerst hat er alles geplant und hat Arbeiter gesucht. Er hat zwei Leute eingestellt, hat eine Schere gekauft und hat das Büro vorbereitet. Am Montag hat er die Firma aufgemacht. Der erste Kunde ist gekommen. Otto hat den Garten geschnitten und hat die Blätter aufgeräumt. Dem Kunden hat es gefallen, und er hat bezahlt. Otto hat das erste Geld verdient: „Ich habe mein Geschäft angefangen!“'),
+      ('thema20-2','female','Gretas Schwester Carla wollte schon lange ein Café aufmachen. Greta hat ihr geholfen. Carla ist lustig, kreativ und sehr sympathisch, und Greta ist intelligent, fleißig und freundlich. Die Schwestern haben gut zusammengearbeitet. Greta hat das Geld geleitet, Carla hat gekocht. Sie haben das Café vorbereitet und Freunde und Nachbarn eingeladen. Am Freitag haben sie das Café aufgemacht. Es hat allen gefallen. Die Schwestern waren glücklich: „Zusammen sind wir ein Team!“'),
+      ('thema20-3','child','Theo und Lina wollten auch ein Geschäft. Am Wochenende haben sie einen kleinen Kiosk im Park aufgemacht und haben Limonade und Kekse verkauft. Theo hat den Kunden von der frischen Limonade erzählt, und Lina hat das Geld bekommen und gezählt. Sie haben super zusammengearbeitet. Viele Leute haben gekauft, und die Kinder haben etwas Geld verdient. „Das war ein echter Erfolg!“, haben Theo und Lina gesagt.'),
+    ]
+    for sid,role,text in T20:
         await tts(text, role, os.path.join(AUDIO, sid+'.mp3'))
     # мини-аудирования по героям/сценам/текстам
     HOER=[
