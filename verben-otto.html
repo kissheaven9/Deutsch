@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Тренажёр глаголов — Отто (Тема 20)</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+  :root{--t:#0e7490;--tb:#a5f3fc;--tbg:#ecfeff}
+  .vsel{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+  .vsel button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:7px 12px;font-weight:700;color:#374151;cursor:pointer;font-size:14px}
+  .vsel button.on{background:var(--t);color:#fff;border-color:var(--t)}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #00000012}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:16px;display:flex;gap:10px;align-items:center;background:var(--tbg);border-bottom:1px solid var(--tb);border-radius:16px 16px 0 0}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--t);color:#fff;font-size:12px;font-weight:700;flex:none}
+  .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 11px;font-size:14px;cursor:pointer}
+  .btn.t{background:var(--t);color:#fff;border-color:var(--t)} .btn.sm{padding:6px 10px;font-size:13px}
+  .say{border:none;background:none;cursor:pointer;font-size:15px;opacity:.65;padding:2px}.say:hover{opacity:1}
+  .studyrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-top:1px solid var(--line);padding:8px 0}
+  .studyrow .pr{min-width:34px;color:var(--muted);font-weight:700}
+  .studyrow .de{font-weight:600;color:var(--ink)}
+  .perfbox{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:8px 12px;margin-top:10px;font-weight:700;color:#c2410c}
+  .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:8px 0}
+  .row .lab{font-size:12px;color:var(--t);font-weight:700;min-width:150px}
+  .row .de{font-weight:600}
+  .row input,.gap input,.dik input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:160px}
+  .row input:focus,.gap input:focus,.dik input:focus{outline:none;border-color:var(--t)}
+  .ok input{border-color:var(--das);background:#e8f6ee} .bad input{border-color:var(--die);background:#fdecec}
+  .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .gap,.dik{border-top:1px solid var(--line);padding:9px 0}
+  .gap .q{font-weight:600;margin-bottom:5px}
+  .gap .h{font-size:12px;color:var(--muted)}
+  .score{font-weight:700;margin-top:8px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Тема 20 / Тренажёр Отто</span></div></header>
+<main class="wrap">
+  <h1>Тренажёр глаголов — Отто</h1>
+  <p class="lead">8 глаголов Отто. Выбери глагол: посмотри его в настоящем и прошедшем, потренируй формы, послушай 8 примеров (разные лица, где-то приставка улетает в конец, где-то целиком), впиши форму и запиши на слух.</p>
+  <div class="vsel" id="vsel"></div>
+
+  <div class="panel"><h3>📚 Настоящее → Прошедшее (изучаем)</h3>
+    <p class="sub">Слева — глагол в настоящем времени, справа — его форма в прошедшем (Perfekt). 🔊 — послушать.</p>
+    <div id="study"></div>
+    <div class="perfbox" id="perfbox"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">1</span>✍️ Напиши в прошедшем (Perfekt)</h3>
+    <p class="sub">Дано в настоящем — впиши то же в прошедшем времени.</p>
+    <div id="bList"></div>
+    <div class="toolbar" style="display:flex;gap:8px;margin-top:8px"><button class="btn t sm" onclick="bCheck()">Проверить</button><button class="btn sm" onclick="bShow()">Показать</button></div>
+    <div class="score" id="bScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">2</span>🔎 8 предложений — как ведёт себя глагол</h3>
+    <p class="sub">Разные местоимения, настоящее и прошедшее. Послушай каждое: где приставка отделяется, где глагол целиком.</p>
+    <div id="demo"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">3</span>🧩 Вставь правильную форму</h3>
+    <p class="sub">Впиши глагол в нужной форме (по подсказке: лицо и время).</p>
+    <div id="gap"></div>
+    <div class="toolbar" style="display:flex;gap:8px;margin-top:8px"><button class="btn t sm" onclick="gCheck()">Проверить</button><button class="btn sm" onclick="gShow()">Показать</button></div>
+    <div class="score" id="gScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">4</span>🎧 Запиши на слух (диктант)</h3>
+    <p class="sub">Послушай простое предложение и запиши его целиком по-немецки. Главное — услышать глагол.</p>
+    <div id="dik"></div>
+    <div class="toolbar" style="display:flex;gap:8px;margin-top:8px"><button class="btn t sm" onclick="dCheck()">Проверить</button><button class="btn sm" onclick="dShow()">Показать</button></div>
+    <div class="score" id="dScore"></div>
+  </div>
+
+  <div class="scenenav"><a href="thema-20.html?n=1" style="background:#f3e8ff;color:var(--accent)">← Текст Отто</a><a href="thema-20.html">Тема 20</a></div>
+</main>
+<footer>Deutsch A1 · Тема 20 · тренажёр глаголов Отто</footer>
+
+<script src="js/app.js?v=3"></script>
+<script src="js/verben-otto-data.js?v=1"></script>
+<script>
+function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-яäöüß0-9 ]/g,'').replace(/\s+/g,' ').trim();}
+let vi=0;
+const D=()=>VOTTO[vi];
+document.getElementById('vsel').innerHTML=VOTTO.map((v,i)=>`<button class="${i===0?'on':''}" data-i="${i}" onclick="pick(${i})">${v.inf}</button>`).join('');
+function pick(i){vi=i;document.querySelectorAll('#vsel button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));render();}
+function play(file,btn,text){playSeq(['audio/votto/'+file+'.mp3'],btn,[{t:text,role:'male'}]);}
+
+function render(){const d=D();
+  // study
+  document.getElementById('study').innerHTML=d.aform.map((a,k)=>`<div class="studyrow"><span class="pr">${a.p}</span><span class="de">${a.t}</span> <button class="say" onclick="play('${d.demo[k].f}',this,'${a.t.replace(/'/g,"")}')">🔊</button></div>`).join('');
+  document.getElementById('perfbox').innerHTML=`⏪ Прошедшее (Perfekt): <b>${d.perf}</b> &nbsp; — напр.: «Er ${d.perf} …»`;
+  // B напиши в прошедшем
+  document.getElementById('bList').innerHTML=d.b.map((p,i)=>`<div class="row" data-i="${i}"><span class="lab">${p.pres} →</span><input placeholder="в прошедшем (Perfekt)…" autocomplete="off"><span class="corr"></span></div>`).join('');
+  document.getElementById('bScore').textContent='';
+  // demo 8
+  document.getElementById('demo').innerHTML=d.demo.map(s=>`<div class="row"><span class="lab">${s.lab}</span><span class="de">${s.t}</span> <button class="say" onclick="play('${s.f}',this,'${s.t.replace(/'/g,"")}')">🔊</button></div>`).join('');
+  // gap
+  document.getElementById('gap').innerHTML=d.gap.map((g,i)=>`<div class="gap" data-i="${i}"><div class="q">${g.q}</div><div class="h">${g.h}</div><input placeholder="форма глагола…" autocomplete="off"><span class="corr"></span></div>`).join('');
+  document.getElementById('gScore').textContent='';
+  // dictation
+  document.getElementById('dik').innerHTML=d.hear.map((h,i)=>`<div class="dik" data-i="${i}"><button class="btn sm" onclick="play('${h.f}',this,'${h.t.replace(/'/g,"")}')">🔊 Послушать</button> <input placeholder="запиши предложение…" autocomplete="off"><span class="corr"></span></div>`).join('');
+  document.getElementById('dScore').textContent='';
+}
+function chk(sel,arr,key,scoreId){let ok=0;document.querySelectorAll(sel).forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(arr[i][key]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+arr[i][key];if(good)ok++;});const all=ok===arr.length;document.getElementById(scoreId).innerHTML=`<span style="color:${all?'var(--das)':'var(--die)'}">${ok} / ${arr.length} верно${all?(' — '+praise()):''}</span>`;}
+function show(sel,arr,key){document.querySelectorAll(sel).forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=arr[i][key];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
+function bCheck(){chk('#bList .row',D().b,'a','bScore');}
+function bShow(){show('#bList .row',D().b,'a');}
+function gCheck(){chk('#gap .gap',D().gap,'a','gScore');}
+function gShow(){show('#gap .gap',D().gap,'a');}
+function dCheck(){chk('#dik .dik',D().hear,'t','dScore');}
+function dShow(){show('#dik .dik',D().hear,'t');}
+render();
+</script>
+<script src="js/chrome.js?v=3"></script>
+</body>
+</html>
