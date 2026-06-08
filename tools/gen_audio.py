@@ -150,7 +150,7 @@ async def main():
            'sein','haben','sprechen','heißen','kommen','gehen',
            'kaufen','kosten','bestellen','sehen','finden',
            'spielen','hören','tanzen','kochen','malen','fotografieren','lesen','schwimmen','fahren','singen','treffen','können',
-           'aufmachen','vorbereiten','einstellen','schneiden','anfangen','zusammenarbeiten','leiten','helfen','einladen','gefallen','verkaufen','erzählen','bekommen','bezahlen','verdienen','planen','suchen','aufräumen','zählen','aufstehen','verpassen','vergessen','anschauen','verlieren','verbessern','verwalten','beraten','transportieren','organisieren']
+           'aufmachen','vorbereiten','einstellen','schneiden','anfangen','zusammenarbeiten','leiten','helfen','einladen','gefallen','verkaufen','erzählen','bekommen','bezahlen','verdienen','planen','suchen','aufräumen','zählen','aufstehen','verpassen','vergessen','anschauen','verlieren','verbessern','verwalten','beraten','transportieren','organisieren','gründen','erfinden','ausprobieren','funktionieren','anrufen','kennen','aussehen','helfen']
     for inf in VERBS:
         await tts(inf, 'male', os.path.join(AUDIO,'word', slug(inf)+'.mp3'))
     # слова сцен, которых нет в словаре (иначе fallback на робота)
@@ -184,13 +184,13 @@ async def main():
     for sid,role,text in ANDERE:
         await tts(text, role, os.path.join(AUDIO, sid+'.mp3'))
     # Тема 20 — слова и тексты «Своё дело»
-    T20W=['Firma','Schere','Kunde','Kiosk','Limonade','Erfolg','lustig','kreativ','sympathisch','intelligent','fleißig','Team','Geld','Park','Gaertnerei']
+    T20W=['Firma','Kunde','Team','Idee','Stelle','App','Chefin','Bart','Termin','sympathisch','nett','freundlich','kreativ','intelligent','ruhig','lustig']
     for w in T20W:
         await tts(w, 'female', os.path.join(AUDIO,'word', slug(w)+'.mp3'))
     T20=[
-      ('thema20-1','male','Heute ist Otto früh aufgestanden. Er leitet jetzt seine eigene Firma — eine Gärtnerei. Am Morgen hat er den Tag organisiert und seine Kunden beraten. Dann haben Otto und sein Team die Gärten geschnitten und die Pflanzen zum Markt transportiert. „Wir verbessern unsere Arbeit jeden Tag und arbeiten gut zusammen!“, sagt Otto. Am Abend war er müde, aber glücklich: „Mein eigenes Geschäft — das ist mein Traum!“'),
-      ('thema20-2','female','Greta hilft ihrer Schwester Carla. Zusammen verwalten sie ein kleines Café. Greta und Carla arbeiten sehr gut zusammen. Aber heute war ein chaotischer Tag! Greta ist spät aufgestanden und hat den Bus verpasst. Dann hat sie ihre Tasche zu Hause vergessen! Carla ist lustig und kreativ, Greta ist intelligent und fleißig. Sie organisieren alles zusammen. Am Abend war das Café voll. „Zusammen sind wir ein Team!“, lacht Greta.'),
-      ('thema20-3','child','Theo und Lina haben einen Kiosk im Park. Sie verkaufen Limonade und Kekse. Am Morgen hat Theo die Preise angeschaut und Lina hat die Kekse geschnitten. Aber dann hat Lina ihr Geld verloren! „Kein Problem!“, sagt Theo. Sie haben viel verkauft und den Kunden von der frischen Limonade erzählt. Am Ende war alles gut. „Das war ein toller Tag!“, erzählt Lina ihrer Mama.'),
+      ('thema20-1','male','Otto, Greta und Theo haben eine Idee: Sie wollen ein Start-up gründen! Ihr Start-up heißt „SUPS“ und hilft anderen Start-ups. „Wir beraten euch gern!“, sagt Otto. Greta organisiert das Team und das Geld. Theo hat eine App erfunden, und alle haben sie ausprobiert. Es funktioniert! „Ein Start-up zu gründen ist nicht einfach, aber zusammen schaffen wir das!“'),
+      ('thema20-2','female','Wie sieht das SUPS-Team aus? Die Chefin ist klein und hat dunkle, glatte Haare. Sie ist intelligent und sympathisch. Der IT-Berater ist groß, hat einen Bart und ist ruhig, aber nett. Die Projektmanagerin ist kreativ und freundlich. Theo ruft die Kunden an und verbessert den Plan. Alle kennen die Start-up-Szene gut. Das Team funktioniert super und sieht sehr sympathisch aus!'),
+      ('thema20-3','male','Heute ist Stefan früh aufgestanden. Er hat eine neue Stelle bei SUPS bekommen! Er hat seiner Freundin Melissa alles über SUPS erzählt, aber den Termin hat er fast vergessen! Die Firma hat ihm sehr gefallen. Am Nachmittag haben sie Pakete zum Kunden transportiert. „Was für ein Tag!“, sagt Stefan glücklich.'),
     ]
     for sid,role,text in T20:
         await tts(text, role, os.path.join(AUDIO, sid+'.mp3'))
