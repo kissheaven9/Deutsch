@@ -57,6 +57,16 @@
   .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
   .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
   .score{font-weight:700;margin-top:8px}
+  .prow{display:flex;gap:8px;align-items:center;border-top:1px solid var(--line);padding:8px 0;flex-wrap:wrap}
+  .prow .base{color:#374151;font-weight:600}
+  .prow .arr{color:var(--muted);font-weight:700}
+  .prow .pref{color:#a16207;font-weight:700;background:#fef9c3;border:1px solid #fde68a;border-radius:6px;padding:1px 7px}
+  .vbox{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:10px}
+  .vbox b{margin-right:4px}
+  .vbox span{background:#fff;border:1px solid var(--tb);border-radius:7px;padding:3px 9px;font-weight:700;color:var(--t);font-size:14px}
+  .gaptext{line-height:2.6;font-size:16px}
+  .gaptext input{border:none;border-bottom:2px solid var(--t);width:140px;font-size:15px;font-family:inherit;text-align:center;color:var(--t);font-weight:700}
+  .gaptext input:focus{outline:none;background:var(--tbg)}
 </style>
 </head>
 <body>
@@ -110,6 +120,20 @@
     <div class="score" id="ppScore"></div>
   </div>
 
+  <div class="part"><span class="pico">🧩</span><div><div class="pk">Приставки</div><h2>Приставка меняет смысл</h2></div></div>
+  <div class="panel"><h3>🔀 Без приставки — одно, с приставкой — другое</h3>
+    <p class="sub">Сравни и запомни. 🔊 — послушать.</p>
+    <div id="prefixList"></div>
+  </div>
+
+  <div class="panel"><h3>🧩 Вставь глаголы — отзывы о приложении</h3>
+    <p class="sub">Люди пишут про приложение Отто. Впиши глагол в правильной форме (Perfekt) — без подсказок. Слова — в рамке. После проверки можно послушать.</p>
+    <div class="vbox" id="gapBox"></div>
+    <div class="gaptext" id="gapText"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="gapCheck()">Проверить</button><button class="btn sm" id="gapPlayBtn" onclick="gapPlay(this)" disabled>🔊 Послушать</button><button class="btn sm" onclick="gapReset()">Ещё раз</button></div>
+    <div class="score" id="gapScore"></div>
+  </div>
+
   <div class="scenenav"><a href="index.html" style="background:#f3e8ff;color:var(--accent)">🏠 Главная</a><a id="nextText" href="#">Следующий текст →</a></div>
 </main>
 <footer>Deutsch A1 · Тема 20 · Своё дело · глаголы</footer>
@@ -122,13 +146,13 @@ function V(de,ru){return `<span class="vlink" data-de="${de}" data-ru="${ru}">${
 function N(de,ru,g){return `<span class="nlink ${g}" data-de="${de}" data-ru="${ru}">${de}</span>`;}
 const TEXTS={
  1:{ tab:'Текст 1 · Приложение Отто', title:'Текст 1 — Отто и садовое приложение', role:'male', img:'img/thema20-1.png',
-   de:`Otto hat eine tolle ${N('Idee','идея · die','die')}: Er ${V('erfindet','изобретает · erfinden')} eine ${N('Garten-App','садовое приложение · die','die')}! Die App ist für Menschen mit ${N('Garten','сад · der','der')}. Viele Leute ${V('vergessen','забывают · vergessen')}, ihre ${N('Blumen','цветы · die','die')} zu gießen. Die App erinnert sie jeden Tag. So ${V('vergisst','забывает · vergessen')} niemand mehr seine ${N('Pflanzen','растения · die','die')}!<br><br>
-Otto ${V('steht','встаёт · aufstehen')} jeden Morgen früh auf. Er ${V('kauft','покупает · einkaufen')} im Supermarkt ein, ${V('holt','забирает · abholen')} seinen ${N('Computer','компьютер · der','der')} ab und arbeitet. Am Anfang hat die App nicht gut ${V('ausgesehen','выглядело · aussehen')}, aber Otto hat sie immer wieder ${V('verbessert','улучшал · verbessern')}.<br><br>
-Greta hat die App zuerst ${V('ausprobiert','попробовала · ausprobieren')}. Sie hat Otto ${V('besucht','навестила · besuchen')}, und die App hat ihr sehr ${V('gefallen','понравилось · gefallen')}! Greta hat allen davon ${V('erzählt','рассказала · erzählen')} — ihren Freunden und ${N('Kollegen','коллегам · der','der')}. So hat Otto die ersten zehn ${N('Nutzer','пользователи · der','der')} ${V('bekommen','получил · bekommen')}!<br><br>
-Otto ${V('organisiert','организует · organisieren')} jetzt alles selbst. Er ${V('berät','консультирует · beraten')} die Nutzer, und Greta ${V('arbeitet','работает (в команде) · mitarbeiten')} bei ihm mit. Wenn ein Nutzer ${V('anruft','звонит · anrufen')}, ${V('ruft','перезванивает · zurückrufen')} Otto schnell zurück. Manchmal ${V('transportiert','перевозит · transportieren')} er auch ${N('Pflanzen','растения · die','die')} zu den Leuten.<br><br>
-Ein Tag war chaotisch: Otto ist zu spät ${V('aufgestanden','встал · aufstehen')}, hat den ${N('Bus','автобус · der','der')} ${V('verpasst','пропустил · verpassen')} und hat sein ${N('Handy','телефон · das','das')} ${V('verloren','потерял · verlieren')}! Aber dann hat er neue Nutzer ${V('kennengelernt','познакомился · kennenlernen')} und sie in den Garten ${V('eingeladen','пригласил · einladen')}. „Was für ein Tag!“, hat Otto ${V('erzählt','рассказал · erzählen')} — müde, aber glücklich.`,
-   ru:`У Отто отличная идея: он изобретает садовое приложение! Приложение для людей с садом. Многие забывают поливать свои цветы. Приложение каждый день напоминает им. Так никто больше не забывает свои растения!<br><br>Отто каждое утро встаёт рано. Он закупается в супермаркете, забирает свой компьютер и работает. Сначала приложение выглядело не очень, но Отто снова и снова его улучшал.<br><br>Грета первой попробовала приложение. Она навестила Отто, и приложение ей очень понравилось! Грета всем о нём рассказала — друзьям и коллегам. Так у Отто появились первые десять пользователей!<br><br>Теперь Отто всё организует сам. Он консультирует пользователей, а Грета работает с ним в команде. Когда пользователь звонит, Отто быстро перезванивает. Иногда он ещё и перевозит растения людям.<br><br>Один день был хаотичным: Отто встал слишком поздно, пропустил автобус и потерял телефон! Но потом он познакомился с новыми пользователями и пригласил их в сад. «Ну и денёк!» — рассказал Отто — усталый, но счастливый.`,
-   vocab:[['erfinden','изобретать','hat erfunden'],['vergessen','забывать','hat vergessen'],['aufstehen','вставать','ist aufgestanden'],['einkaufen','закупаться','hat eingekauft'],['abholen','забирать','hat abgeholt'],['aussehen','выглядеть','hat ausgesehen'],['verbessern','улучшать','hat verbessert'],['ausprobieren','пробовать','hat ausprobiert'],['besuchen','навещать','hat besucht'],['gefallen','нравиться','hat gefallen'],['erzählen','рассказывать','hat erzählt'],['bekommen','получать','hat bekommen'],['organisieren','организовывать','hat organisiert'],['beraten','консультировать','hat beraten'],['mitarbeiten','работать (в команде)','hat mitgearbeitet'],['anrufen','звонить','hat angerufen'],['zurückrufen','перезванивать','hat zurückgerufen'],['transportieren','транспортировать','hat transportiert'],['verpassen','пропускать','hat verpasst'],['verlieren','терять','hat verloren'],['kennenlernen','знакомиться','hat kennengelernt'],['einladen','приглашать','hat eingeladen'],['die Idee','идея',''],['die App','приложение',''],['der Garten','сад',''],['der Nutzer','пользователь','']],
+   de:`Otto hat eine tolle ${N('Idee','идея · die','die')}: Er ${V('erfindet','изобретает · erfinden')} eine ${N('Garten-App','садовое приложение · die','die')}! Die App ist für Menschen mit ${N('Garten','сад · der','der')}. Viele Leute ${V('vergessen','забывают · vergessen')}, ihre ${N('Blumen','цветы · die','die')} zu gießen. Die App hilft ihnen jeden Tag. So ${V('vergisst','забывает · vergessen')} niemand mehr seine ${N('Pflanzen','растения · die','die')}!<br><br>
+Otto ${V('steht','встаёт · aufstehen')} jeden Morgen früh ${V('auf','встаёт · aufstehen')}. Er ${V('kauft','покупает · einkaufen')} im Supermarkt ${V('ein','покупает · einkaufen')}, ${V('holt','забирает · abholen')} seinen ${N('Computer','компьютер · der','der')} ${V('ab','забирает · abholen')} und arbeitet. Am Anfang hat die App nicht gut ${V('ausgesehen','выглядело · aussehen')}, aber Otto hat sie immer wieder ${V('verbessert','улучшал · verbessern')}.<br><br>
+Greta hat die App zuerst ${V('ausprobiert','попробовала · ausprobieren')}. Sie hat Otto ${V('besucht','навестила · besuchen')}, und die App hat ihr sehr ${V('gefallen','понравилось · gefallen')}! Greta hat allen davon ${V('erzählt','рассказала · erzählen')} — ihren Freunden und ${N('Kollegen','коллегам · der','der')}. So hat Otto die ersten zehn ${N('Kunden','клиенты · der','der')} ${V('bekommen','получил · bekommen')}!<br><br>
+Otto ${V('organisiert','организует · organisieren')} jetzt alles selbst. Er ${V('berät','консультирует · beraten')} die Kunden, und Greta ${V('arbeitet','работает (в команде) · mitarbeiten')} bei ihm ${V('mit','работает (в команде) · mitarbeiten')}. Wenn ein Kunde ${V('anruft','звонит · anrufen')}, ${V('ruft','перезванивает · zurückrufen')} Otto schnell ${V('zurück','перезванивает · zurückrufen')}. Manchmal ${V('transportiert','перевозит · transportieren')} er auch ${N('Pflanzen','растения · die','die')} zu den Leuten.<br><br>
+Ein Tag war schwer: Otto ist zu spät ${V('aufgestanden','встал · aufstehen')}, hat den ${N('Bus','автобус · der','der')} ${V('verpasst','пропустил · verpassen')} und hat sein ${N('Handy','телефон · das','das')} ${V('verloren','потерял · verlieren')}! Aber dann hat er neue Kunden ${V('kennengelernt','познакомился · kennenlernen')} und sie in den Garten ${V('eingeladen','пригласил · einladen')}. „Was für ein Tag!“, hat Otto ${V('erzählt','рассказал · erzählen')} — müde, aber glücklich.`,
+   ru:`У Отто отличная идея: он изобретает садовое приложение! Приложение для людей с садом. Многие забывают поливать свои цветы. Приложение каждый день им помогает. Так никто больше не забывает свои растения!<br><br>Отто каждое утро встаёт рано. Он закупается в супермаркете, забирает свой компьютер и работает. Сначала приложение выглядело не очень, но Отто снова и снова его улучшал.<br><br>Грета первой попробовала приложение. Она навестила Отто, и приложение ей очень понравилось! Грета всем о нём рассказала — друзьям и коллегам. Так у Отто появились первые десять клиентов!<br><br>Теперь Отто всё организует сам. Он консультирует клиентов, а Грета работает с ним в команде. Когда клиент звонит, Отто быстро перезванивает. Иногда он ещё и перевозит растения людям.<br><br>Один день был тяжёлым: Отто встал слишком поздно, пропустил автобус и потерял телефон! Но потом он познакомился с новыми клиентами и пригласил их в сад. «Ну и денёк!» — рассказал Отто — усталый, но счастливый.`,
+   vocab:[['erfinden','изобретать','hat erfunden'],['vergessen','забывать','hat vergessen'],['aufstehen','вставать','ist aufgestanden'],['einkaufen','закупаться','hat eingekauft'],['abholen','забирать','hat abgeholt'],['aussehen','выглядеть','hat ausgesehen'],['verbessern','улучшать','hat verbessert'],['ausprobieren','пробовать','hat ausprobiert'],['besuchen','навещать','hat besucht'],['gefallen','нравиться','hat gefallen'],['erzählen','рассказывать','hat erzählt'],['bekommen','получать','hat bekommen'],['organisieren','организовывать','hat organisiert'],['beraten','консультировать','hat beraten'],['mitarbeiten','работать (в команде)','hat mitgearbeitet'],['anrufen','звонить','hat angerufen'],['zurückrufen','перезванивать','hat zurückgerufen'],['transportieren','транспортировать','hat transportiert'],['verpassen','пропускать','hat verpasst'],['verlieren','терять','hat verloren'],['kennenlernen','знакомиться','hat kennengelernt'],['einladen','приглашать','hat eingeladen'],['die Idee','идея',''],['die App','приложение',''],['der Garten','сад',''],['der Kunde','клиент','']],
    verbs:[['erfinden','изобретать','hat erfunden'],['vergessen','забывать','hat vergessen'],['aufstehen','вставать','ist aufgestanden'],['einkaufen','закупаться','hat eingekauft'],['abholen','забирать','hat abgeholt'],['aussehen','выглядеть','hat ausgesehen'],['verbessern','улучшать','hat verbessert'],['ausprobieren','пробовать','hat ausprobiert'],['besuchen','навещать','hat besucht'],['gefallen','нравиться','hat gefallen'],['erzählen','рассказывать','hat erzählt'],['bekommen','получать','hat bekommen'],['organisieren','организовывать','hat organisiert'],['beraten','консультировать','hat beraten'],['mitarbeiten','работать (в команде)','hat mitgearbeitet'],['anrufen','звонить','hat angerufen'],['zurückrufen','перезванивать','hat zurückgerufen'],['transportieren','транспортировать','hat transportiert'],['verpassen','пропускать','hat verpasst'],['verlieren','терять','hat verloren'],['kennenlernen','знакомиться','hat kennengelernt'],['einladen','приглашать','hat eingeladen']]
  },
  2:{ tab:'Текст 2 · Команда', title:'Текст 2 — Команда SUPS (кто и какой)', role:'female', img:'img/thema20-2.png',
@@ -212,6 +236,26 @@ document.getElementById('ppList').innerHTML=D.verbs.map(([de,ru,pp],i)=>`<div cl
 function ppCheck(){let ok=0;document.querySelectorAll('#ppList .wq').forEach(r=>{const i=+r.dataset.i;const v=ppNorm(r.querySelector('input').value);const good=v===ppNorm(D.verbs[i][2]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+D.verbs[i][2];if(good)ok++;});document.getElementById('ppScore').innerHTML=`<span style="color:${ok===D.verbs.length?'var(--das)':'var(--die)'}">${ok} / ${D.verbs.length} верно${ok===D.verbs.length?(' — '+praise()):''}</span>`;}
 function ppReset(){document.querySelectorAll('#ppList .wq').forEach(r=>{r.classList.remove('ok','bad');r.querySelector('input').value='';r.querySelector('.corr').textContent='';});document.getElementById('ppScore').textContent='';}
 function ppShow(){if(!document.getElementById('ppScore').textContent.trim()){alert('Сначала впиши и проверь.');return;}document.querySelectorAll('#ppList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=D.verbs[i][2];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});document.getElementById('ppScore').innerHTML='<span style="color:var(--t)">Показаны ответы</span>';}
+
+// приставки меняют смысл
+const PREFIX=[['kaufen','покупать','einkaufen','закупаться'],['stehen','стоять','aufstehen','вставать'],['rufen','звать','anrufen','звонить'],['rufen','звать','zurückrufen','перезванивать'],['sehen','видеть','aussehen','выглядеть'],['holen','брать, приносить','abholen','забирать'],['laden','грузить','einladen','приглашать'],['arbeiten','работать','mitarbeiten','работать в команде'],['kennen','знать','kennenlernen','познакомиться'],['passen','подходить','verpassen','пропускать'],['suchen','искать','besuchen','навещать, посещать']];
+document.getElementById('prefixList').innerHTML=PREFIX.map(([b,br,p,pr])=>`<div class="prow"><span class="base">${b} — ${br}</span> <button class="say" onclick="playWord('${b}','male')">🔊</button> <span class="arr">→</span> <span class="pref">${p}</span> <button class="say" onclick="playWord('${p}','male')">🔊</button> <span style="color:var(--muted)">— ${pr}</span></div>`).join('');
+
+// вставь глаголы (отзывы)
+const GAPBOX=['ausprobieren','vergessen','gefallen','erzählen','anrufen','zurückrufen','verbessern','besuchen','kennenlernen','einladen','aufstehen','verpassen'];
+const GAP=[
+ {t:'<b>Anna:</b> Ich habe die App '},{a:'ausprobiert'},{t:'. Früher habe ich oft '},{a:'vergessen'},{t:', meine Blumen zu gießen. Die App hat mir sehr '},{a:'gefallen'},{t:'!<br>'},
+ {t:'<b>Ben:</b> Mein Kollege hat mir die App '},{a:'erzählt'},{t:'. Ich habe Otto '},{a:'angerufen'},{t:', und er hat schnell '},{a:'zurückgerufen'},{t:'. Super Service!<br>'},
+ {t:'<b>Lina:</b> Otto hat die App immer wieder '},{a:'verbessert'},{t:'. Ich habe ihn '},{a:'besucht'},{t:' und neue Leute '},{a:'kennengelernt'},{t:'. Er hat mich in den Garten '},{a:'eingeladen'},{t:'.<br>'},
+ {t:'<b>Max:</b> Heute bin ich zu spät '},{a:'aufgestanden'},{t:' und habe den Bus '},{a:'verpasst'},{t:' — aber die App hilft mir!'}
+];
+let _gk=0;
+document.getElementById('gapBox').innerHTML='<b>📦 Глаголы:</b> '+GAPBOX.map(w=>`<span>${w}</span>`).join('');
+document.getElementById('gapText').innerHTML=GAP.map(p=> p.t!==undefined ? p.t : `<input data-i="${_gk++}" autocomplete="off">`).join('');
+const GANS=GAP.filter(p=>p.a).map(p=>p.a);
+function gapCheck(){let ok=0;document.querySelectorAll('#gapText input').forEach((inp,i)=>{const good=norm(inp.value)===norm(GANS[i]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});const all=ok===GANS.length;document.getElementById('gapScore').innerHTML=`<span style="color:${all?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${all?(' — '+praise()):''}</span>`;document.getElementById('gapPlayBtn').disabled=false;}
+function gapReset(){document.querySelectorAll('#gapText input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--t)';i.style.color='var(--t)';});document.getElementById('gapScore').textContent='';}
+function gapPlay(btn){const full=GAP.map(p=>p.t!==undefined?p.t.replace(/<[^>]+>/g,'').replace(/<br>/g,' '):p.a).join('');playSeq(['audio/thema20-reviews.mp3'],btn,[{t:full,role:'female'}]);}
 </script>
 <script src="js/chrome.js?v=3"></script>
 </body>
