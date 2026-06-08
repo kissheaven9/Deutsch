@@ -150,7 +150,7 @@ async def main():
            'sein','haben','sprechen','heißen','kommen','gehen',
            'kaufen','kosten','bestellen','sehen','finden',
            'spielen','hören','tanzen','kochen','malen','fotografieren','lesen','schwimmen','fahren','singen','treffen','können',
-           'aufmachen','vorbereiten','einstellen','schneiden','anfangen','zusammenarbeiten','leiten','helfen','einladen','gefallen','verkaufen','erzählen','bekommen','bezahlen','verdienen','planen','suchen','aufräumen','zählen']
+           'aufmachen','vorbereiten','einstellen','schneiden','anfangen','zusammenarbeiten','leiten','helfen','einladen','gefallen','verkaufen','erzählen','bekommen','bezahlen','verdienen','planen','suchen','aufräumen','zählen','aufstehen','verpassen','vergessen','anschauen','verlieren','verbessern','verwalten','beraten','transportieren','organisieren']
     for inf in VERBS:
         await tts(inf, 'male', os.path.join(AUDIO,'word', slug(inf)+'.mp3'))
     # слова сцен, которых нет в словаре (иначе fallback на робота)
@@ -184,13 +184,13 @@ async def main():
     for sid,role,text in ANDERE:
         await tts(text, role, os.path.join(AUDIO, sid+'.mp3'))
     # Тема 20 — слова и тексты «Своё дело»
-    T20W=['Firma','Schere','Kunde','Kiosk','Limonade','Erfolg','lustig','kreativ','sympathisch','intelligent','fleißig','Plan','Büro','Garten','Team','Idee','Geld','freundlich']
+    T20W=['Firma','Schere','Kunde','Kiosk','Limonade','Erfolg','lustig','kreativ','sympathisch','intelligent','fleißig','Team','Geld','Park','Gaertnerei']
     for w in T20W:
         await tts(w, 'female', os.path.join(AUDIO,'word', slug(w)+'.mp3'))
     T20=[
-      ('thema20-1','male','Früher hat Otto als Gärtner gearbeitet. Dann hatte er eine Idee und hat seine eigene Firma aufgemacht. Zuerst hat er alles geplant und hat Arbeiter gesucht. Er hat zwei Leute eingestellt, hat eine Schere gekauft und hat das Büro vorbereitet. Am Montag hat er die Firma aufgemacht. Der erste Kunde ist gekommen. Otto hat den Garten geschnitten und hat die Blätter aufgeräumt. Dem Kunden hat es gefallen, und er hat bezahlt. Otto hat das erste Geld verdient: „Ich habe mein Geschäft angefangen!“'),
-      ('thema20-2','female','Gretas Schwester Carla wollte schon lange ein Café aufmachen. Greta hat ihr geholfen. Carla ist lustig, kreativ und sehr sympathisch, und Greta ist intelligent, fleißig und freundlich. Die Schwestern haben gut zusammengearbeitet. Greta hat das Geld geleitet, Carla hat gekocht. Sie haben das Café vorbereitet und Freunde und Nachbarn eingeladen. Am Freitag haben sie das Café aufgemacht. Es hat allen gefallen. Die Schwestern waren glücklich: „Zusammen sind wir ein Team!“'),
-      ('thema20-3','child','Theo und Lina wollten auch ein Geschäft. Am Wochenende haben sie einen kleinen Kiosk im Park aufgemacht und haben Limonade und Kekse verkauft. Theo hat den Kunden von der frischen Limonade erzählt, und Lina hat das Geld bekommen und gezählt. Sie haben super zusammengearbeitet. Viele Leute haben gekauft, und die Kinder haben etwas Geld verdient. „Das war ein echter Erfolg!“, haben Theo und Lina gesagt.'),
+      ('thema20-1','male','Heute ist Otto früh aufgestanden. Er leitet jetzt seine eigene Firma — eine Gärtnerei. Am Morgen hat er den Tag organisiert und seine Kunden beraten. Dann haben Otto und sein Team die Gärten geschnitten und die Pflanzen zum Markt transportiert. „Wir verbessern unsere Arbeit jeden Tag und arbeiten gut zusammen!“, sagt Otto. Am Abend war er müde, aber glücklich: „Mein eigenes Geschäft — das ist mein Traum!“'),
+      ('thema20-2','female','Greta hilft ihrer Schwester Carla. Zusammen verwalten sie ein kleines Café. Greta und Carla arbeiten sehr gut zusammen. Aber heute war ein chaotischer Tag! Greta ist spät aufgestanden und hat den Bus verpasst. Dann hat sie ihre Tasche zu Hause vergessen! Carla ist lustig und kreativ, Greta ist intelligent und fleißig. Sie organisieren alles zusammen. Am Abend war das Café voll. „Zusammen sind wir ein Team!“, lacht Greta.'),
+      ('thema20-3','child','Theo und Lina haben einen Kiosk im Park. Sie verkaufen Limonade und Kekse. Am Morgen hat Theo die Preise angeschaut und Lina hat die Kekse geschnitten. Aber dann hat Lina ihr Geld verloren! „Kein Problem!“, sagt Theo. Sie haben viel verkauft und den Kunden von der frischen Limonade erzählt. Am Ende war alles gut. „Das war ein toller Tag!“, erzählt Lina ihrer Mama.'),
     ]
     for sid,role,text in T20:
         await tts(text, role, os.path.join(AUDIO, sid+'.mp3'))
