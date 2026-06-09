@@ -73,6 +73,26 @@
   .prow2 .pref{color:#a16207;font-weight:700;background:#fef9c3;border:1px solid #fde68a;border-radius:6px;padding:1px 7px}
   .pex{font-size:13px;color:#374151;margin-top:4px}
   .pnote{font-size:13px;color:var(--t);margin-top:2px;font-weight:600}
+  .drillwrap .part{background:#eef2ff;border-color:#c7d2fe}
+  .drillwrap .part .pk{color:#4f46e5}
+  .drillwrap .panel>h3{background:#eef2ff;border-bottom-color:#c7d2fe}
+  .drillwrap .exnum{background:#4f46e5}
+  .drillwrap .btn.t{background:#4f46e5;border-color:#4f46e5}
+  .drillwrap .vsel{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+  .drillwrap .vsel button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:7px 12px;font-weight:700;color:#374151;cursor:pointer;font-size:14px}
+  .drillwrap .vsel button.on{background:#4f46e5;color:#fff;border-color:#4f46e5}
+  .drillwrap .studyrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-top:1px solid var(--line);padding:8px 0}
+  .drillwrap .studyrow .pr{min-width:34px;color:var(--muted);font-weight:700}
+  .drillwrap .perfbox{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:8px 12px;margin-top:10px;font-weight:700;color:#c2410c}
+  .drillwrap .vrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:8px 0}
+  .drillwrap .vrow .lab{font-size:12px;color:#4f46e5;font-weight:700;min-width:150px}
+  .drillwrap .vrow .de{font-weight:600}
+  .drillwrap .vrow input,.drillwrap .gapd input,.drillwrap .dikd input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:160px}
+  .drillwrap .vrow input:focus,.drillwrap .gapd input:focus,.drillwrap .dikd input:focus{outline:none;border-color:#4f46e5}
+  .drillwrap .ok input{border-color:var(--das);background:#e8f6ee} .drillwrap .bad input{border-color:var(--die);background:#fdecec}
+  .drillwrap .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .drillwrap .gapd,.drillwrap .dikd{border-top:1px solid var(--line);padding:9px 0}
+  .drillwrap .gapd .q{font-weight:600;margin-bottom:5px}.drillwrap .gapd .h{font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -81,7 +101,6 @@
   <h1 id="h1">Тема 20 — Своё дело</h1>
   <p class="lead">Цель — <b>глаголы</b> (с приставками и в прошедшем времени, Perfekt). Прочитай текст, кликай по подчёркнутым глаголам — увидишь перевод. Ниже — словарик, карточки, «соотнеси» и «напиши».</p>
   <div class="subnav" id="subnav"></div>
-  <p style="margin:4px 0"><a href="verben-otto.html" style="display:inline-block;background:#0e7490;color:#fff;border-radius:10px;padding:7px 13px;font-weight:700;text-decoration:none">🏋️ Тренажёр глаголов Отто (прошедшее + формы) →</a></p>
 
   <div class="part"><span class="pico">🧩</span><div><div class="pk">Основа</div><h2>Приставка меняет смысл</h2></div></div>
   <div class="panel"><h3>🔀 Без приставки — одно, с приставкой — другое</h3>
@@ -141,11 +160,14 @@
     <div class="score" id="gapScore"></div>
   </div>
 
+  <div id="ottoDrill" class="drillwrap"></div>
+
   <div class="scenenav"><a href="index.html" style="background:#f3e8ff;color:var(--accent)">🏠 Главная</a><a id="nextText" href="#">Следующий текст →</a></div>
 </main>
 <footer>Deutsch A1 · Тема 20 · Своё дело · глаголы</footer>
 
 <script src="js/app.js?v=3"></script>
+<script src="js/verben-otto-data.js?v=1"></script>
 <script>
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß]/g,'');}
 // V(de, ru) — кликабельный глагол в тексте
@@ -288,6 +310,39 @@ const GANS=GAP.filter(p=>p.a).map(p=>p.a);
 function gapCheck(){let ok=0;document.querySelectorAll('#gapText input').forEach((inp,i)=>{const good=norm(inp.value)===norm(GANS[i]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});const all=ok===GANS.length;document.getElementById('gapScore').innerHTML=`<span style="color:${all?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${all?(' — '+praise()):''}</span>`;document.getElementById('gapPlayBtn').disabled=false;}
 function gapReset(){document.querySelectorAll('#gapText input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--t)';i.style.color='var(--t)';});document.getElementById('gapScore').textContent='';}
 function gapPlay(btn){const full=GAP.map(p=>p.t!==undefined?p.t.replace(/<[^>]+>/g,'').replace(/<br>/g,' '):p.a).join('');playSeq(['audio/thema20-reviews.mp3'],btn,[{t:full,role:'female'}]);}
+
+// ===== Встроенный тренажёр глаголов Отто (только текст 1) =====
+if(n===1 && typeof VOTTO!=='undefined'){
+  function vnorm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-яäöüß0-9 ]/g,'').replace(/\s+/g,' ').trim();}
+  let vvi=0; const VD=()=>VOTTO[vvi];
+  function voPlay(file,btn,text){playSeq(['audio/votto/'+file+'.mp3'],btn,[{t:text,role:'male'}]);}
+  window.voPlay=voPlay;
+  const host=document.getElementById('ottoDrill');
+  host.innerHTML=`
+    <div class="part"><span class="pico">🏋️</span><div><div class="pk">Новый раздел</div><h2>Тренажёр глаголов Отто — прошедшее время и формы</h2></div></div>
+    <div class="vsel" id="voSel"></div>
+    <div class="panel"><h3>📚 Настоящее → Прошедшее (изучаем)</h3><p class="sub">Глагол в настоящем и его форма в прошедшем (Perfekt). 🔊 — послушать.</p><div id="voStudy"></div><div class="perfbox" id="voPerf"></div></div>
+    <div class="panel"><h3><span class="exnum">1</span>✍️ Напиши в прошедшем (Perfekt)</h3><p class="sub">Дано в настоящем — впиши то же в прошедшем.</p><div id="voB"></div><div style="display:flex;gap:8px;margin-top:8px"><button class="btn t sm" onclick="voBCheck()">Проверить</button><button class="btn sm" onclick="voBShow()">Показать</button></div><div class="score" id="voBs"></div></div>
+    <div class="panel"><h3><span class="exnum">2</span>🔎 8 предложений — как ведёт себя глагол</h3><p class="sub">Разные местоимения, настоящее и прошедшее: где приставка отделяется, где глагол целиком. Послушай.</p><div id="voDemo"></div></div>
+    <div class="panel"><h3><span class="exnum">3</span>🧩 Вставь правильную форму</h3><p class="sub">Впиши глагол в нужной форме (по подсказке).</p><div id="voGap"></div><div style="display:flex;gap:8px;margin-top:8px"><button class="btn t sm" onclick="voGCheck()">Проверить</button><button class="btn sm" onclick="voGShow()">Показать</button></div><div class="score" id="voGs"></div></div>
+    <div class="panel"><h3><span class="exnum">4</span>🎧 Запиши на слух (диктант)</h3><p class="sub">Послушай простое предложение и запиши его целиком.</p><div id="voDik"></div><div style="display:flex;gap:8px;margin-top:8px"><button class="btn t sm" onclick="voDCheck()">Проверить</button><button class="btn sm" onclick="voDShow()">Показать</button></div><div class="score" id="voDs"></div></div>`;
+  document.getElementById('voSel').innerHTML=VOTTO.map((v,i)=>`<button class="${i===0?'on':''}" data-i="${i}" onclick="voPick(${i})">${v.inf}</button>`).join('');
+  window.voPick=function(i){vvi=i;document.querySelectorAll('#voSel button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));voRender();};
+  function voRender(){const d=VD();
+    document.getElementById('voStudy').innerHTML=d.aform.map((a,k)=>`<div class="studyrow"><span class="pr">${a.p}</span><span class="de">${a.t}</span> <button class="say" onclick="voPlay('${d.demo[k].f}',this,'${a.t.replace(/'/g,'')}')">🔊</button></div>`).join('');
+    document.getElementById('voPerf').innerHTML=`⏪ Прошедшее (Perfekt): <b>${d.perf}</b> — напр. «Er ${d.perf} …»`;
+    document.getElementById('voB').innerHTML=d.b.map((p,i)=>`<div class="vrow" data-i="${i}"><span class="lab">${p.pres} →</span><input placeholder="в прошедшем (Perfekt)…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('voBs').textContent='';
+    document.getElementById('voDemo').innerHTML=d.demo.map(x=>`<div class="vrow"><span class="lab">${x.lab}</span><span class="de">${x.t}</span> <button class="say" onclick="voPlay('${x.f}',this,'${x.t.replace(/'/g,'')}')">🔊</button></div>`).join('');
+    document.getElementById('voGap').innerHTML=d.gap.map((g,i)=>`<div class="gapd" data-i="${i}"><div class="q">${g.q}</div><div class="h">${g.h}</div><input placeholder="форма глагола…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('voGs').textContent='';
+    document.getElementById('voDik').innerHTML=d.hear.map((h,i)=>`<div class="dikd" data-i="${i}"><button class="btn sm" onclick="voPlay('${h.f}',this,'${h.t.replace(/'/g,'')}')">🔊 Послушать</button> <input placeholder="запиши предложение…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('voDs').textContent='';
+  }
+  function voChk(sel,arr,key,sid){let ok=0;document.querySelectorAll(sel).forEach(r=>{const i=+r.dataset.i;const good=vnorm(r.querySelector('input').value)===vnorm(arr[i][key]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+arr[i][key];if(good)ok++;});const all=ok===arr.length;document.getElementById(sid).innerHTML=`<span style="color:${all?'var(--das)':'var(--die)'}">${ok} / ${arr.length} верно${all?(' — '+praise()):''}</span>`;}
+  function voShow(sel,arr,key){document.querySelectorAll(sel).forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=arr[i][key];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
+  window.voBCheck=()=>voChk('#voB .vrow',VD().b,'a','voBs');window.voBShow=()=>voShow('#voB .vrow',VD().b,'a');
+  window.voGCheck=()=>voChk('#voGap .gapd',VD().gap,'a','voGs');window.voGShow=()=>voShow('#voGap .gapd',VD().gap,'a');
+  window.voDCheck=()=>voChk('#voDik .dikd',VD().hear,'t','voDs');window.voDShow=()=>voShow('#voDik .dikd',VD().hear,'t');
+  voRender();
+}
 </script>
 <script src="js/chrome.js?v=3"></script>
 </body>
