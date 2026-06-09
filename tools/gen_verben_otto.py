@@ -50,6 +50,9 @@ async def main():
         aform=[]
         for i in range(6):
             fn=f"{sl}-p{i}"; jobs.append((pres(i,f,pref,ctx),fn)); aform.append({'p':RU[i],'t':pres(i,f,pref,ctx),'f':fn})
+        pform=[]
+        for i in range(6):
+            fn=f"{sl}-pf{i}"; jobs.append((perf(i,aux,part,ctx),fn)); pform.append({'p':RU[i],'t':perf(i,aux,part,ctx),'f':fn})
         pp_form=f"{(SEIN if aux=='ist' else HAB)[2]} {part}"  # er-форма Perfekt
         # B: präs->perf пары (ich, er, wir)
         bpairs=[]
@@ -77,7 +80,7 @@ async def main():
         hear=[]
         for k,sent in enumerate(dikt):
             fn=f"{sl}-d{k}"; jobs.append((sent,fn)); hear.append({'t':sent,'f':fn})
-        DATA.append({'inf':inf,'ru':ru,'sep':pref or '','perf':f"{aux} {part}",'aform':aform,'ppform':pp_form,'b':bpairs,'demo':demo,'gap':gap,'hear':hear})
+        DATA.append({'inf':inf,'ru':ru,'sep':pref or '','perf':f"{aux} {part}",'aform':aform,'pform':pform,'ppform':pp_form,'b':bpairs,'demo':demo,'gap':gap,'hear':hear})
     open(os.path.join(ROOT,'js','verben-otto-data.js'),'w',encoding='utf-8').write("const VOTTO="+json.dumps(DATA,ensure_ascii=False)+";")
     print("данные записаны, глаголов:",len(DATA),"; аудио-задач:",len(jobs))
     for t,fn in jobs: await tts(t, os.path.join(AUD,fn+'.mp3'))
