@@ -93,6 +93,7 @@
   .drillwrap .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
   .drillwrap .gapd,.drillwrap .dikd{border-top:1px solid var(--line);padding:9px 0}
   .drillwrap .gapd .q{font-weight:600;margin-bottom:5px}.drillwrap .gapd .h{font-size:12px;color:var(--muted)}
+  .gaptext .ghint{font-size:12px;color:var(--muted);margin:0 6px 0 3px}
 </style>
 </head>
 <body>
@@ -153,7 +154,7 @@
   </div>
 
   <div class="panel"><h3>🧩 Вставь глаголы — отзывы о приложении</h3>
-    <p class="sub">Люди пишут про приложение Отто. Впиши глагол в правильной форме (Perfekt) — без подсказок. Слова — в рамке. После проверки можно послушать.</p>
+    <p class="sub">Люди пишут отзывы про приложение Отто. У каждого пропуска в скобках дан глагол (инфинитив) — впиши его в правильной форме прошедшего времени (Perfekt). После проверки можно послушать.</p>
     <div class="vbox" id="gapBox"></div>
     <div class="gaptext" id="gapText"></div>
     <div class="toolbar"><button class="btn t sm" onclick="gapCheck()">Проверить</button><button class="btn sm" id="gapPlayBtn" onclick="gapPlay(this)" disabled>🔊 Послушать</button><button class="btn sm" onclick="gapReset()">Ещё раз</button></div>
@@ -298,14 +299,14 @@ document.getElementById('prefixList').innerHTML=PREFIX.map(o=>{const base=o.b?`<
 // вставь глаголы (отзывы)
 const GAPBOX=['ausprobieren','vergessen','verbessern','erfinden','organisieren','bekommen','beraten','aufstehen'];
 const GAP=[
- {t:'<b>Anna:</b> Ich habe die App '},{a:'ausprobiert'},{t:'. Früher habe ich oft '},{a:'vergessen'},{t:', meine Blumen zu gießen. Jetzt nicht mehr!<br>'},
- {t:'<b>Ben:</b> Otto hat die App selbst '},{a:'erfunden'},{t:' und immer wieder '},{a:'verbessert'},{t:'. Super!<br>'},
- {t:'<b>Lina:</b> Otto hat alles gut '},{a:'organisiert'},{t:'. Ich habe schnell Hilfe '},{a:'bekommen'},{t:'.<br>'},
- {t:'<b>Max:</b> Otto hat mich gut '},{a:'beraten'},{t:'. Heute bin ich früh '},{a:'aufgestanden'},{t:' — die App hilft mir!'}
+ {t:'<b>Anna:</b> Ich habe die App '},{a:'ausprobiert',inf:'ausprobieren'},{t:'. Früher habe ich oft '},{a:'vergessen',inf:'vergessen'},{t:', meine Blumen zu gießen. Jetzt nicht mehr!<br>'},
+ {t:'<b>Ben:</b> Otto hat die App selbst '},{a:'erfunden',inf:'erfinden'},{t:' und immer wieder '},{a:'verbessert',inf:'verbessern'},{t:'. Super!<br>'},
+ {t:'<b>Lina:</b> Otto hat alles gut '},{a:'organisiert',inf:'organisieren'},{t:'. Ich habe schnell Hilfe '},{a:'bekommen',inf:'bekommen'},{t:'.<br>'},
+ {t:'<b>Max:</b> Otto hat mich gut '},{a:'beraten',inf:'beraten'},{t:'. Heute bin ich früh '},{a:'aufgestanden',inf:'aufstehen'},{t:' — die App hilft mir!'}
 ];
 let _gk=0;
 document.getElementById('gapBox').innerHTML='<b>📦 Глаголы:</b> '+GAPBOX.map(w=>`<span>${w}</span>`).join('');
-document.getElementById('gapText').innerHTML=GAP.map(p=> p.t!==undefined ? p.t : `<input data-i="${_gk++}" autocomplete="off">`).join('');
+document.getElementById('gapText').innerHTML=GAP.map(p=> p.t!==undefined ? p.t : `<input data-i="${_gk++}" autocomplete="off"><span class="ghint">(${p.inf})</span>`).join('');
 const GANS=GAP.filter(p=>p.a).map(p=>p.a);
 function gapCheck(){let ok=0;document.querySelectorAll('#gapText input').forEach((inp,i)=>{const good=norm(inp.value)===norm(GANS[i]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});const all=ok===GANS.length;document.getElementById('gapScore').innerHTML=`<span style="color:${all?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${all?(' — '+praise()):''}</span>`;document.getElementById('gapPlayBtn').disabled=false;}
 function gapReset(){document.querySelectorAll('#gapText input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--t)';i.style.color='var(--t)';});document.getElementById('gapScore').textContent='';}
