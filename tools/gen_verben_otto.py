@@ -31,6 +31,13 @@ V=[
 
 def pres(i,f,pref,ctx):
     return f"{PRON[i]} {f[i]} {ctx} {pref}." if pref else f"{PRON[i]} {f[i]} {ctx}."
+def presH(i,f,pref,ctx):
+    v=f'<span class="vh">{f[i]}</span>'
+    if pref: return f"{PRON[i]} {v} {ctx} <span class=\"vh\">{pref}</span>."
+    return f"{PRON[i]} {v} {ctx}."
+def perfH(i,aux,part,ctx):
+    a=SEIN if aux=='ist' else HAB
+    return f"{PRON[i]} <span class=\"vh\">{a[i]}</span> {ctx} <span class=\"vh\">{part}</span>."
 def perf(i,aux,part,ctx):
     a=SEIN if aux=='ist' else HAB
     return f"{PRON[i]} {a[i]} {ctx} {part}."
@@ -49,10 +56,10 @@ async def main():
         # A: настоящее — ВСЕ 6 форм (своё аудио p0..p5) + прошедшее (Perfekt)
         aform=[]
         for i in range(6):
-            fn=f"{sl}-p{i}"; jobs.append((pres(i,f,pref,ctx),fn)); aform.append({'p':RU[i],'t':pres(i,f,pref,ctx),'f':fn})
+            fn=f"{sl}-p{i}"; jobs.append((pres(i,f,pref,ctx),fn)); aform.append({'p':RU[i],'t':pres(i,f,pref,ctx),'html':presH(i,f,pref,ctx),'f':fn})
         pform=[]
         for i in range(6):
-            fn=f"{sl}-pf{i}"; jobs.append((perf(i,aux,part,ctx),fn)); pform.append({'p':RU[i],'t':perf(i,aux,part,ctx),'f':fn})
+            fn=f"{sl}-pf{i}"; jobs.append((perf(i,aux,part,ctx),fn)); pform.append({'p':RU[i],'t':perf(i,aux,part,ctx),'html':perfH(i,aux,part,ctx),'f':fn})
         pp_form=f"{(SEIN if aux=='ist' else HAB)[2]} {part}"  # er-форма Perfekt
         # B: präs->perf пары (ich, er, wir)
         bpairs=[]

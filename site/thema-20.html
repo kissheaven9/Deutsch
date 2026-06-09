@@ -98,6 +98,7 @@
   .drillwrap .conjtbl th{text-align:left;font-size:11px;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line)}
   .drillwrap .conjtbl td{padding:7px 8px;border-bottom:1px solid #f1f1f4;vertical-align:middle}
   .drillwrap .conjtbl td.pr{color:#4f46e5;font-weight:700;white-space:nowrap}
+  .drillwrap .conjtbl .vh{background:#fef9c3;color:#a16207;border-radius:4px;padding:0 4px;font-weight:700}
 </style>
 </head>
 <body>
@@ -172,7 +173,7 @@
 <footer>Deutsch A1 · Тема 20 · Своё дело · глаголы</footer>
 
 <script src="js/app.js?v=3"></script>
-<script src="js/verben-otto-data.js?v=4"></script>
+<script src="js/verben-otto-data.js?v=5"></script>
 <script>
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß]/g,'');}
 // V(de, ru) — кликабельный глагол в тексте
@@ -334,7 +335,7 @@ if(n===1 && typeof VOTTO!=='undefined'){
   document.getElementById('voSel').innerHTML=VOTTO.map((v,i)=>`<button class="${i===0?'on':''}" data-i="${i}" onclick="voPick(${i})">${v.inf}</button>`).join('');
   window.voPick=function(i){vvi=i;document.querySelectorAll('#voSel button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));voRender();};
   function voRender(){const d=VD();
-    document.getElementById('voStudy').innerHTML='<table class="conjtbl"><tr><th>лицо</th><th>Настоящее (Präsens)</th><th>Прошедшее (Perfekt)</th></tr>'+d.aform.map((a,i)=>`<tr><td class="pr">${a.p}</td><td>${a.t} <button class="say" onclick="voPlay('${a.f}',this,'${a.t.replace(/'/g,'')}')">🔊</button></td><td>${d.pform[i].t} <button class="say" onclick="voPlay('${d.pform[i].f}',this,'${d.pform[i].t.replace(/'/g,'')}')">🔊</button></td></tr>`).join('')+'</table>';
+    document.getElementById('voStudy').innerHTML='<table class="conjtbl"><tr><th>лицо</th><th>Настоящее (Präsens)</th><th>Прошедшее (Perfekt)</th></tr>'+d.aform.map((a,i)=>`<tr><td class="pr">${a.p}</td><td>${a.html} <button class="say" onclick="voPlay('${a.f}',this,'${a.t.replace(/'/g,'')}')">🔊</button></td><td>${d.pform[i].html} <button class="say" onclick="voPlay('${d.pform[i].f}',this,'${d.pform[i].t.replace(/'/g,'')}')">🔊</button></td></tr>`).join('')+'</table>';
     document.getElementById('voPerf').innerHTML=`💡 Прошедшее (Perfekt) = <b>${d.perf.split(' ')[0]}</b> (вспомогательный) + причастие <b>${d.perf.split(' ').slice(1).join(' ')}</b>`;
     document.getElementById('voB').innerHTML=d.b.map((p,i)=>`<div class="vrow" data-i="${i}"><span class="lab">${p.pres} →</span><input placeholder="в прошедшем (Perfekt)…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('voBs').textContent='';
     document.getElementById('voDemo').innerHTML=d.demo.map(x=>`<div class="vrow"><span class="lab">${x.lab}</span><span class="de">${x.t}</span> <button class="say" onclick="voPlay('${x.f}',this,'${x.t.replace(/'/g,'')}')">🔊</button></div>`).join('');
