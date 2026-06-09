@@ -168,7 +168,7 @@
 <footer>Deutsch A1 · Тема 20 · Своё дело · глаголы</footer>
 
 <script src="js/app.js?v=3"></script>
-<script src="js/verben-otto-data.js?v=2"></script>
+<script src="js/verben-otto-data.js?v=3"></script>
 <script>
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß]/g,'');}
 // V(de, ru) — кликабельный глагол в тексте
@@ -330,7 +330,7 @@ if(n===1 && typeof VOTTO!=='undefined'){
   document.getElementById('voSel').innerHTML=VOTTO.map((v,i)=>`<button class="${i===0?'on':''}" data-i="${i}" onclick="voPick(${i})">${v.inf}</button>`).join('');
   window.voPick=function(i){vvi=i;document.querySelectorAll('#voSel button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));voRender();};
   function voRender(){const d=VD();
-    document.getElementById('voStudy').innerHTML=d.aform.map((a,k)=>`<div class="studyrow"><span class="pr">${a.p}</span><span class="de">${a.t}</span> <button class="say" onclick="voPlay('${d.demo[k].f}',this,'${a.t.replace(/'/g,'')}')">🔊</button></div>`).join('');
+    document.getElementById('voStudy').innerHTML=d.aform.map((a)=>`<div class="studyrow"><span class="pr">${a.p}</span><span class="de">${a.t}</span> <button class="say" onclick="voPlay('${a.f}',this,'${a.t.replace(/'/g,'')}')">🔊</button></div>`).join('');
     document.getElementById('voPerf').innerHTML=`⏪ Прошедшее (Perfekt): <b>${d.perf}</b> — напр. «Er ${d.perf} …»`;
     document.getElementById('voB').innerHTML=d.b.map((p,i)=>`<div class="vrow" data-i="${i}"><span class="lab">${p.pres} →</span><input placeholder="в прошедшем (Perfekt)…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('voBs').textContent='';
     document.getElementById('voDemo').innerHTML=d.demo.map(x=>`<div class="vrow"><span class="lab">${x.lab}</span><span class="de">${x.t}</span> <button class="say" onclick="voPlay('${x.f}',this,'${x.t.replace(/'/g,'')}')">🔊</button></div>`).join('');

@@ -46,8 +46,10 @@ async def main():
     DATA=[]; jobs=[]
     for inf,ru,pref,f,ctx,aux,part,dikt in V:
         sl=inf
-        # A: настоящее (3 лица) + прошедшее (Perfekt) для изучения
-        aform=[{'p':'ich','t':pres(0,f,pref,ctx)},{'p':'er','t':pres(2,f,pref,ctx)},{'p':'wir','t':pres(3,f,pref,ctx)}]
+        # A: настоящее — ВСЕ 6 форм (своё аудио p0..p5) + прошедшее (Perfekt)
+        aform=[]
+        for i in range(6):
+            fn=f"{sl}-p{i}"; jobs.append((pres(i,f,pref,ctx),fn)); aform.append({'p':RU[i],'t':pres(i,f,pref,ctx),'f':fn})
         pp_form=f"{(SEIN if aux=='ist' else HAB)[2]} {part}"  # er-форма Perfekt
         # B: präs->perf пары (ich, er, wir)
         bpairs=[]
