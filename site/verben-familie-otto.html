@@ -74,6 +74,8 @@
   .conjtbl{width:100%;border-collapse:collapse;font-size:15px}
   .conjtbl th{text-align:left;font-size:11px;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line)}
   .conjtbl td{padding:8px;border-bottom:1px solid #f1f1f4;vertical-align:middle}
+  .conjtbl td.exc{font-size:13px;color:#374151}
+  .conjtbl td.exc .v{background:#fef9c3;color:#a16207;border-radius:3px;padding:0 2px}
   .conjtbl td.pr{color:var(--t);font-weight:700;white-space:nowrap}
   .hintline{font-size:13px;color:#374151;background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:8px 12px;margin-top:10px}
   /* строки ввода */
@@ -316,6 +318,12 @@ const VERBS=[
   s5:'Otto <span class="v">hat</span> die App <span class="v">ausprobiert</span>.', s5plain:'Otto hat die App ausprobiert.', s5ru:'Отто испробовал приложение.',
   w3:{pi:2}, w6:{pi:1}, hint:'🌉 Мостик к Тео: отделяется (<i>probiert … aus</i>), НО на <b>‑ieren</b> → в Perfekt <b>БЕЗ ge</b>: <b>ausprobiert</b>!'}
 ];
+// дополнение для генерации примеров (вставляется между корнем и приставкой)
+const COMPL={aufstehen:'früh',anrufen:'den Kunden',einkaufen:'Brot',einladen:'Gäste',aussehen:'gut',abholen:'ein Paket',zurückrufen:'schnell',kennenlernen:'neue Leute',mitarbeiten:'im Projekt',ausprobieren:'die App'};
+VERBS.forEach(v=>v.compl=COMPL[v.inf]||'');
+const SUBJ=['Ich','Du','Er','Wir','Ihr','Sie'];
+function exHtml(v,i){const a=v.pres[i];return `${SUBJ[i]} <span class="stem">${a[1]}</span>${a[2]} ${v.compl} <span class="pf">${v.pref}</span>.`;}
+function exPlain(v,i){const a=v.pres[i];return `${SUBJ[i]} ${a[1]}${a[2]} ${v.compl} ${v.pref}.`;}
 const PRON=['Я (ich)','Ты (du)','Он (er)','Мы (wir)','Вы (ihr)','Они (sie)'];
 const PRO=['ich','du','er','wir','ihr','sie'];
 let batch=1;
@@ -355,7 +363,7 @@ let vi=0;
 function renderVsel(){document.getElementById('vsel').innerHTML=cur().map((v,i)=>`<button class="${i===vi?'on':''}" onclick="pickV(${i})">${v.inf}</button>`).join('');}
 function pickV(i){vi=i;renderVsel();renderConj();}
 function renderConj(){const L=cur();if(vi>=L.length)vi=0;const v=L[vi];
-  document.getElementById('conj').innerHTML='<tr><th>лицо</th><th>форма (настоящее)</th></tr>'+v.pres.map((r,i)=>`<tr><td class="pr">${r[0]}</td><td>${presHtml(v,i)} <button class="say" onclick="say('${PRO[i]} ${presPlain(v,i)}')">🔊</button></td></tr>`).join('');
+  document.getElementById('conj').innerHTML='<tr><th>лицо</th><th>форма</th><th>пример</th></tr>'+v.pres.map((r,i)=>`<tr><td class="pr">${r[0]}</td><td>${presHtml(v,i)} <button class="say" onclick="say('${PRO[i]} ${presPlain(v,i)}')">🔊</button></td><td class="exc">${exHtml(v,i)} <button class="say" onclick="say('${exPlain(v,i).replace(/'/g,'')}')">🔊</button></td></tr>`).join('');
   document.getElementById('conjEx').innerHTML='📝 '+v.s1+' <button class="say" onclick="say(\''+v.s1.replace(/<[^>]+>/g,'').replace(/'/g,'')+'\')">🔊</button>';
   document.getElementById('conjHint').innerHTML='💡 '+v.hint;}
 
@@ -366,12 +374,7 @@ function w3Check(){let ok=0,n=0;document.querySelectorAll('#w3 .wq').forEach(r=>
 function w3Show(){document.querySelectorAll('#w3 .wq').forEach(r=>{const v=VERBS[+r.dataset.i];r.querySelector('input').value=w3Ans(v);r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
 
 // ===== Шаг 4: пары =====
-function renderPairs(){document.getElementById('pairList').innerHTML=cur().map(v=>`
- <div class="pair">
-   <span class="pres">er ${presHtml(v,2)}</span><span class="arr">→</span>
-   <span class="perf">${v.aux} ${ppHtml(v)}</span>
-   <button class="say" onclick="say('er ${presPlain(v,2)}. er ${perfPlain(v,2)}')">🔊</button>
- </div>`).join('');}
+function renderPairs(){document.getElementById('pairList').innerHTML='<table class="conjtbl"><tr><th>настоящее</th><th>прошедшее (Perfekt)</th><th>пример (Perfekt)</th></tr>'+cur().map(v=>`<tr><td>er ${presHtml(v,2)} <button class="say" onclick="say('er ${presPlain(v,2)}')">🔊</button></td><td><span class="perf">${v.aux} ${ppHtml(v)}</span> <button class="say" onclick="say('er ${perfPlain(v,2)}')">🔊</button></td><td class="exc">${v.s5} <button class="say" onclick="say('${v.s5plain.replace(/'/g,'')}')">🔊</button></td></tr>`).join('')+'</table>';}
 
 // ===== Шаг 5: узнавание прошедшего =====
 function renderRP(){const opts=cur().map(v=>v.inf);
