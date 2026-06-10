@@ -394,10 +394,11 @@ function w6Check(){let ok=0,n=0;document.querySelectorAll('#w6 .wq').forEach(r=>
 function w6Show(){document.querySelectorAll('#w6 .wq').forEach(r=>{const v=VERBS[+r.dataset.i];r.querySelector('input').value=w6Ans(v);r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
 
 // ===== Шаг 7: диктант (микс батчей) =====
-const DIK=[{t:'Otto hat den Kunden angerufen.'},{t:'Heute ist Otto früh aufgestanden.'},{t:'Ich habe ihn in Dresden kennengelernt.'}];
-function renderDik(){document.getElementById('dik').innerHTML=DIK.map((d,i)=>`<div class="dikd" data-i="${i}"><button class="btn sm" onclick="say('${d.t}')">🔊 Послушать</button><input placeholder="запиши предложение…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('dikS').textContent='';}
-function dikCheck(){let ok=0;document.querySelectorAll('#dik .dikd').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(DIK[i].t);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+DIK[i].t;if(good)ok++;});score('dikS',ok,DIK.length);}
-function dikShow(){document.querySelectorAll('#dik .dikd').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=DIK[i].t;r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
+// диктант: по фразе на КАЖДЫЙ из 5 глаголов батча (Perfekt), обновляется со сменой батча
+let DIKCUR=[];
+function renderDik(){DIKCUR=cur().map(v=>v.s5plain);document.getElementById('dik').innerHTML=DIKCUR.map((t,i)=>`<div class="dikd" data-i="${i}"><button class="btn sm" onclick="say('${t.replace(/'/g,'')}')">🔊 Послушать</button><input placeholder="запиши предложение…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('dikS').textContent='';}
+function dikCheck(){let ok=0;document.querySelectorAll('#dik .dikd').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(DIKCUR[i]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+DIKCUR[i];if(good)ok++;});score('dikS',ok,DIKCUR.length);}
+function dikShow(){document.querySelectorAll('#dik .dikd').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=DIKCUR[i];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
 
 function score(id,ok,total){const all=ok===total;document.getElementById(id).innerHTML=`<span style="color:${all?'var(--das)':'var(--die)'}">${ok} / ${total}${all&&typeof praise==='function'?' — '+praise():''}</span>`;}
 
