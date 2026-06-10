@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Глаголы — семья Отто (отделяемые) · образец методики</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+  /* Семья Отто = der = синий акцент (озвучка мужским голосом) */
+  :root{--t:#3b5bdb;--tb:#bac8ff;--tbg:#edf2ff;--ge:#7048e8}
+  .lead{color:#374151;line-height:1.7}
+  .hero{display:flex;gap:14px;align-items:center;background:var(--tbg);border:1px solid var(--tb);border-radius:18px;padding:16px 18px;margin:14px 0}
+  .hero .av{font-size:46px;line-height:1}
+  .hero h2{margin:0 0 4px;font-size:20px;color:var(--t)}
+  .hero p{margin:0;font-size:14px;color:#374151;line-height:1.6}
+  .rulecard{background:#fff;border:1px dashed var(--tb);border-radius:14px;padding:12px 14px;margin:10px 0;font-size:14px;color:#374151;line-height:1.7}
+  .rulecard b{color:var(--t)}
+  .fam{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+  .fam .chip{background:#fff;border:1px solid var(--tb);border-radius:999px;padding:5px 11px;font-weight:700;color:var(--t);font-size:14px;display:inline-flex;align-items:center;gap:6px}
+  .ladder{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+  .ladder .st{font-size:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 9px;color:#374151}
+  .ladder .st b{color:var(--t)}
+  .part{display:flex;align-items:center;gap:14px;margin:26px 0 12px;padding:13px 18px;border-radius:16px;border:1px solid var(--tb);background:var(--tbg)}
+  .part .pico{font-size:26px}.part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--t);font-weight:700}.part h2{margin:2px 0 0;font-size:20px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #00000010}
+  .panel.alt{background:var(--tbg)}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:16px;display:flex;gap:10px;align-items:center;background:var(--tbg);border-bottom:1px solid var(--tb);border-radius:16px 16px 0 0}
+  .panel.alt>h3{background:#fff;border-bottom-color:var(--line)}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:50%;background:var(--t);color:#fff;font-size:13px;font-weight:700}
+  .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px;line-height:1.6}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer;font-family:inherit}
+  .btn.t{background:var(--t);color:#fff;border-color:var(--t)} .btn.sm{padding:7px 11px;font-size:13px}
+  .toolbar{display:flex;gap:8px;margin:10px 0 0;flex-wrap:wrap}
+  .say{border:none;background:none;cursor:pointer;font-size:15px;opacity:.6;padding:2px}.say:hover{opacity:1}
+  .score{font-weight:700;margin-top:8px}
+  /* подсветка частей глагола */
+  .stem{background:#fef9c3;color:#a16207;border-radius:4px;padding:0 3px;font-weight:700}
+  .pf{background:#e7eeff;color:var(--t);border-radius:4px;padding:0 4px;font-weight:700}
+  .ge{background:#f3e8ff;color:var(--ge);border-radius:4px;padding:0 3px;font-weight:700}
+  /* карточки */
+  .cardwrap{max-width:380px;margin:0 auto}
+  .card{background:#fff;border:2px solid var(--t);border-radius:16px;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer}
+  .card.back{background:var(--tbg)} .c-text{font-size:24px;font-weight:700;color:var(--ink)} .card.back .c-text{color:var(--t)} .c-hint{font-size:12px;color:var(--muted)}
+  .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
+  .cnav #cCount{color:var(--muted);font-weight:600}
+  /* узнавание */
+  .reco{border-top:1px solid var(--line);padding:11px 0}
+  .reco .de{font-size:16px;line-height:1.8}
+  .reco .de .v{background:#fef9c3;color:#a16207;border-radius:4px;padding:0 3px}
+  .reco .ru{color:#16a34a;font-size:14px;margin-top:4px;font-weight:600}
+  /* выбор инфинитива */
+  .pick{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+  .pick button{border:2px solid var(--line);background:#fff;border-radius:9px;padding:6px 11px;font-weight:700;color:#374151;cursor:pointer;font-size:14px;font-family:inherit}
+  .pick button.ok{border-color:var(--das);background:#e8f6ee;color:#15803d}
+  .pick button.bad{border-color:var(--die);background:#fdecec;color:#b91c1c}
+  /* таблица форм */
+  .vsel{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px}
+  .vsel button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:7px 12px;font-weight:700;color:#374151;cursor:pointer;font-size:14px;font-family:inherit}
+  .vsel button.on{background:var(--t);color:#fff;border-color:var(--t)}
+  .conjtbl{width:100%;border-collapse:collapse;font-size:15px}
+  .conjtbl th{text-align:left;font-size:11px;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line)}
+  .conjtbl td{padding:8px;border-bottom:1px solid #f1f1f4;vertical-align:middle}
+  .conjtbl td.pr{color:var(--t);font-weight:700;white-space:nowrap}
+  .hintline{font-size:13px;color:#374151;background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:8px 12px;margin-top:10px}
+  /* строки ввода */
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .q{min-width:170px;color:#374151}
+  .wq .q b{color:var(--t)} .wq .q .ru{color:var(--muted);font-weight:400;font-size:13px}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:150px}
+  .wq input:focus{outline:none;border-color:var(--t)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee} .wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  /* пары настоящее→прошедшее */
+  .pair{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding:10px 0}
+  .pair .pres{font-weight:600;color:#374151} .pair .arr{color:var(--muted);font-weight:700}
+  .pair .perf{font-weight:700}
+  .dikd{border-top:1px solid var(--line);padding:9px 0;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  .dikd input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:200px}
+  .dikd.ok input{border-color:var(--das);background:#e8f6ee}.dikd.bad input{border-color:var(--die);background:#fdecec}
+  .dikd .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .freebox textarea{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:12px;padding:11px;font-size:15px;font-family:inherit;min-height:80px}
+  .freebox textarea:focus{outline:none;border-color:var(--t)}
+  .example{font-size:14px;color:#374151;background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:10px 12px;margin-top:8px;line-height:1.7}
+  .scenenav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 8px}
+  .scenenav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:var(--t)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch A1</a><span class="crumb">/ Глаголы · семья Отто</span></div></header>
+<main class="wrap">
+  <h1>Глаголы — семья Отто <span style="font-size:16px;color:var(--muted)">(образец методики)</span></h1>
+  <p class="lead">Это <b>образец</b>: одна семья глаголов проходит всю лестницу. Так мы учим не кучу слов, а одно поведение на примерах. Озвучка — голосом Отто. 🔊 — послушать.</p>
+
+  <div class="hero">
+    <div class="av">🧔</div>
+    <div>
+      <h2>🔵 Отто — отделяемые глаголы</h2>
+      <p>У Отто приставка <b>отлетает</b>, как он сам — вечно в движении: <i>er <b>steht</b> früh <b>auf</b></i> («встаёт»). А в прошедшем (Perfekt) <b>ge</b> прыгает <b>внутрь</b>: <i>auf‑<b>ge</b>‑standen</i>.</p>
+    </div>
+  </div>
+
+  <div class="rulecard">
+    📌 <b>Правило семьи:</b> приставка (auf‑, an‑, ein‑, aus‑…) в настоящем <b>уходит в конец</b> (<i>ruft … an</i>), а в Perfekt <b>ge</b> встаёт между приставкой и корнем: <b>an‑ge‑rufen</b>. Корень (жёлтый) — не меняется по смыслу, его и ловим в речи.
+  </div>
+
+  <div class="fam" id="fam"></div>
+
+  <div class="ladder">
+    <span class="st"><b>0</b> карточки</span><span class="st"><b>1</b> узнаю</span><span class="st"><b>2</b> формы наст.</span><span class="st"><b>3</b> пишу наст.</span><span class="st"><b>4</b> знакомлюсь с прош.</span><span class="st"><b>5</b> узнаю прош.</span><span class="st"><b>6</b> пишу прош.</span><span class="st"><b>7</b> свободно</span>
+  </div>
+
+  <!-- ШАГ 0 -->
+  <div class="part"><span class="pico">🃏</span><div><div class="pk">Шаг 0</div><h2>Знакомство — карточки</h2></div></div>
+  <div class="panel"><h3><span class="exnum">0</span>Звук ↔ смысл</h3>
+    <p class="sub">Немецкий глагол — вспомни перевод, нажми, чтобы перевернуть. Листай ← →.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <!-- ШАГ 1 -->
+  <div class="part"><span class="pico">👂</span><div><div class="pk">Шаг 1</div><h2>Узнавание — слышу/вижу → понимаю</h2></div></div>
+  <div class="panel alt"><h3><span class="exnum">1</span>Найди глагол в предложении</h3>
+    <p class="sub">Пока ничего не пишем. Послушай 🔊, замечай <b>жёлтые</b> части — это глагол (приставка отлетела!). Нажми «перевод», чтобы проверить себя.</p>
+    <div id="recoList"></div>
+  </div>
+
+  <!-- ШАГ 2 -->
+  <div class="part"><span class="pico">📊</span><div><div class="pk">Шаг 2</div><h2>Формы настоящего</h2></div></div>
+  <div class="panel"><h3><span class="exnum">2</span>Спряжение — корень держится, приставка в конце</h3>
+    <p class="sub">Выбери глагол. Корень — <span class="stem">жёлтый</span>, приставка — <span class="pf">синяя</span>. У каждой формы свой 🔊.</p>
+    <div class="vsel" id="vsel"></div>
+    <table class="conjtbl" id="conj"></table>
+    <div class="hintline" id="conjHint"></div>
+  </div>
+
+  <!-- ШАГ 3 -->
+  <div class="part"><span class="pico">✍️</span><div><div class="pk">Шаг 3</div><h2>Произвожу настоящее</h2></div></div>
+  <div class="panel alt"><h3><span class="exnum">3</span>Впиши форму настоящего</h3>
+    <p class="sub">Дано лицо и глагол — напиши форму с отделённой приставкой (например: <i>stehst auf</i>).</p>
+    <div id="w3"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="w3Check()">Проверить</button><button class="btn sm" onclick="w3Show()">Показать</button><button class="btn sm" onclick="w3Reset()">Ещё раз</button></div>
+    <div class="score" id="w3s"></div>
+  </div>
+
+  <!-- ШАГ 4 -->
+  <div class="part"><span class="pico">⏪</span><div><div class="pk">Шаг 4</div><h2>Знакомство с прошедшим (Perfekt)</h2></div></div>
+  <div class="panel"><h3><span class="exnum">4</span>Настоящее → Прошедшее: куда прыгает «ge»</h3>
+    <p class="sub">Тот же корень, новый костюм + <b>haben/sein</b>. Смотри: <span class="pf">приставка</span> + <span class="ge">ge</span> + корень. 🔊 — послушать.</p>
+    <div id="pairList"></div>
+  </div>
+
+  <!-- ШАГ 5 -->
+  <div class="part"><span class="pico">⭐</span><div><div class="pk">Шаг 5 · ключевой</div><h2>Узнавание прошедшего</h2></div></div>
+  <div class="panel alt"><h3><span class="exnum">5</span>Глагол под маской — какой это глагол?</h3>
+    <p class="sub">Послушай 🔊 фразу в прошедшем. Глагол изменился (причастие!) — узнай его и выбери <b>инфинитив</b> (словарную форму).</p>
+    <div id="recoPast"></div>
+    <div class="score" id="rpScore"></div>
+  </div>
+
+  <!-- ШАГ 6 -->
+  <div class="part"><span class="pico">📝</span><div><div class="pk">Шаг 6</div><h2>Произвожу прошедшее</h2></div></div>
+  <div class="panel"><h3><span class="exnum">6</span>Впиши форму Perfekt</h3>
+    <p class="sub">Дано лицо и глагол — напиши Perfekt (например: <i>bin aufgestanden</i> / <i>hat angerufen</i>).</p>
+    <div id="w6"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="w6Check()">Проверить</button><button class="btn sm" onclick="w6Show()">Показать</button><button class="btn sm" onclick="w6Reset()">Ещё раз</button></div>
+    <div class="score" id="w6s"></div>
+  </div>
+
+  <!-- ШАГ 7 -->
+  <div class="part"><span class="pico">🎓</span><div><div class="pk">Шаг 7</div><h2>Свободное</h2></div></div>
+  <div class="panel alt"><h3><span class="exnum">7</span>Диктант + свои фразы</h3>
+    <p class="sub">Сначала запиши на слух, потом составь свои предложения, смешав времена.</p>
+    <div style="font-weight:700;margin-bottom:4px">🎧 Диктант</div>
+    <div id="dik"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="dikCheck()">Проверить</button><button class="btn sm" onclick="dikShow()">Показать</button></div>
+    <div class="score" id="dikS"></div>
+    <div class="freebox" style="margin-top:18px">
+      <div style="font-weight:700;margin-bottom:4px">✏️ Составь сам</div>
+      <p class="sub" style="margin-top:0">Напиши 2 предложения про свой день с глаголами Отто: одно в настоящем, одно в прошедшем (Perfekt).</p>
+      <textarea id="freeTa" placeholder="Ich stehe um 7 Uhr auf. Gestern habe ich einen Freund angerufen…"></textarea>
+      <div class="toolbar"><button class="btn sm" onclick="document.getElementById('freeEx').hidden=!document.getElementById('freeEx').hidden">Показать пример</button></div>
+      <div class="example" id="freeEx" hidden>Ich <b>stehe</b> jeden Tag früh <b>auf</b> und <b>kaufe</b> Kaffee <b>ein</b>. Gestern <b>habe</b> ich einen Kunden <b>angerufen</b> und das Team zum Fest <b>eingeladen</b>.</div>
+    </div>
+  </div>
+
+  <div class="scenenav"><a href="index.html">🏠 Главная</a><a href="thema-20.html?n=1">← Тема 20</a></div>
+</main>
+<footer>Deutsch A1 · образец методики глаголов · семья Отто (отделяемые)</footer>
+
+<script src="js/app.js?v=3"></script>
+<script>
+const M='male';
+function say(t){ if(typeof speak==='function') speak(t,M); }
+function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zäöüß ]/g,'').replace(/\s+/g,' ').trim();}
+
+// ===== Данные семьи Отто (5 отделяемых глаголов — образец) =====
+// pres: [лицо, корень(может меняться), окончание]; приставка = pref. Форма = корень+оконч + " " + pref
+const VERBS=[
+ {inf:'aufstehen', ru:'вставать', pref:'auf', aux:'ist', pp:'aufgestanden',
+  pres:[['ich','steh','e'],['du','steh','st'],['er','steh','t'],['wir','steh','en'],['ihr','steh','t'],['sie','steh','en']],
+  perfAux:['bin','bist','ist','sind','seid','sind'],
+  s1:'Otto <span class="v">steht</span> jeden Morgen früh <span class="v">auf</span>.', s1ru:'Отто каждое утро встаёт рано.',
+  s5:'Heute <span class="v">ist</span> Otto sehr früh <span class="v">aufgestanden</span>.', s5plain:'Heute ist Otto sehr früh aufgestanden.', s5ru:'Сегодня Отто встал очень рано.',
+  w3:{pi:1}, w6:{pi:0}, hint:'⚠️ <b>sein</b>-глагол: <i>ich bin aufgestanden</i> (движение). Корень в прошедшем — особый: <i>…ge‑standen</i>.'},
+ {inf:'anrufen', ru:'звонить', pref:'an', aux:'hat', pp:'angerufen',
+  pres:[['ich','ruf','e'],['du','ruf','st'],['er','ruf','t'],['wir','ruf','en'],['ihr','ruf','t'],['sie','ruf','en']],
+  perfAux:['habe','hast','hat','haben','habt','haben'],
+  s1:'Otto <span class="v">ruft</span> einen neuen Kunden <span class="v">an</span>.', s1ru:'Отто звонит новому клиенту.',
+  s5:'Otto <span class="v">hat</span> den Kunden <span class="v">angerufen</span>.', s5plain:'Otto hat den Kunden angerufen.', s5ru:'Отто позвонил клиенту.',
+  w3:{pi:2}, w6:{pi:2}, hint:'Корень <i>ruf</i> держится во всех лицах. Perfekt: <b>an‑ge‑rufen</b>.'},
+ {inf:'einkaufen', ru:'закупаться', pref:'ein', aux:'hat', pp:'eingekauft',
+  pres:[['ich','kauf','e'],['du','kauf','st'],['er','kauf','t'],['wir','kauf','en'],['ihr','kauf','t'],['sie','kauf','en']],
+  perfAux:['habe','hast','hat','haben','habt','haben'],
+  s1:'Otto <span class="v">kauft</span> Kaffee fürs Büro <span class="v">ein</span>.', s1ru:'Отто закупает кофе для офиса.',
+  s5:'Greta <span class="v">hat</span> Kaffee <span class="v">eingekauft</span>.', s5plain:'Greta hat Kaffee eingekauft.', s5ru:'Грета закупила кофе.',
+  w3:{pi:3}, w6:{pi:3}, hint:'Правильный глагол: причастие на <b>‑t</b>. Perfekt: <b>ein‑ge‑kauft</b>.'},
+ {inf:'einladen', ru:'приглашать', pref:'ein', aux:'hat', pp:'eingeladen',
+  pres:[['ich','lad','e'],['du','läd','st'],['er','läd','t'],['wir','lad','en'],['ihr','lad','et'],['sie','lad','en']],
+  perfAux:['habe','hast','hat','haben','habt','haben'],
+  s1:'Otto <span class="v">lädt</span> das Team zum Fest <span class="v">ein</span>.', s1ru:'Отто приглашает команду на праздник.',
+  s5:'Otto <span class="v">hat</span> das ganze Team <span class="v">eingeladen</span>.', s5plain:'Otto hat das ganze Team eingeladen.', s5ru:'Отто пригласил всю команду.',
+  w3:{pi:2}, w6:{pi:5}, hint:'⚠️ Ловушка: <b>du lädst, er lädt</b> — в корне a→ä. Perfekt: <b>ein‑ge‑laden</b>.'},
+ {inf:'aussehen', ru:'выглядеть', pref:'aus', aux:'hat', pp:'ausgesehen',
+  pres:[['ich','seh','e'],['du','sieh','st'],['er','sieh','t'],['wir','seh','en'],['ihr','seh','t'],['sie','seh','en']],
+  perfAux:['habe','hast','hat','haben','habt','haben'],
+  s1:'Die neue App <span class="v">sieht</span> super <span class="v">aus</span>.', s1ru:'Новое приложение выглядит супер.',
+  s5:'Die App <span class="v">hat</span> toll <span class="v">ausgesehen</span>.', s5plain:'Die App hat toll ausgesehen.', s5ru:'Приложение выглядело отлично.',
+  w3:{pi:1}, w6:{pi:2}, hint:'⚠️ Ловушка: <b>du siehst, er sieht</b> — в корне e→ie. Perfekt: <b>aus‑ge‑sehen</b>.'}
+];
+const PRON=['Я (ich)','Ты (du)','Он (er)','Мы (wir)','Вы (ihr)','Они (sie)'];
+const PRO=['ich','du','er','wir','ihr','sie'];
+// форма настоящего (без подсветки) лица i
+function presPlain(v,i){const[ ,st,en]=v.pres[i];return st+en+' '+v.pref;}
+function presHtml(v,i){const[ ,st,en]=v.pres[i];return `<span class="stem">${st}</span>${en} <span class="pf">${v.pref}</span>`;}
+function perfPlain(v,i){return v.perfAux[i]+' '+v.pp;}
+// причастие с подсветкой приставки и ge
+function ppHtml(v){const rest=v.pp.slice(v.pref.length+2);return `<span class="pf">${v.pref}</span><span class="ge">ge</span>${rest}`;}
+
+// семья-чипы
+document.getElementById('fam').innerHTML=VERBS.map(v=>`<span class="chip">🔵 ${v.inf} <button class="say" onclick="say('${v.inf}')">🔊</button></span>`).join('')+'<span class="chip" style="opacity:.6;border-style:dashed">…и ещё: abholen, zurückrufen, mitarbeiten, kennenlernen, ausprobieren</span>';
+
+// ===== Шаг 0: карточки =====
+let ci=0,flipped=false;
+function renderCard(){const v=VERBS[ci];document.getElementById('cText').innerHTML=flipped?`${v.inf} <button class="say" onclick="event.stopPropagation();say('${v.inf}')">🔊</button>`:v.ru;document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми — увидеть глагол';document.getElementById('cCount').textContent=`${ci+1} / ${VERBS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%VERBS.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+VERBS.length)%VERBS.length;flipped=false;renderCard();}
+renderCard();
+
+// ===== Шаг 1: узнавание =====
+document.getElementById('recoList').innerHTML=VERBS.map((v,i)=>`
+ <div class="reco">
+   <div class="de">${v.s1} <button class="say" onclick="say('${v.s1.replace(/<[^>]+>/g,'')}')">🔊</button></div>
+   <button class="btn sm" style="margin-top:6px" onclick="this.nextElementSibling.hidden=!this.nextElementSibling.hidden">перевод</button>
+   <div class="ru" hidden>${v.s1ru} <span style="color:var(--muted)">· ${v.inf} — ${v.ru}</span></div>
+ </div>`).join('');
+
+// ===== Шаг 2: формы настоящего =====
+let vi=0;
+document.getElementById('vsel').innerHTML=VERBS.map((v,i)=>`<button class="${i===0?'on':''}" data-i="${i}" onclick="pickV(${i})">${v.inf}</button>`).join('');
+function pickV(i){vi=i;document.querySelectorAll('#vsel button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));renderConj();}
+function renderConj(){const v=VERBS[vi];
+  document.getElementById('conj').innerHTML='<tr><th>лицо</th><th>форма (настоящее)</th></tr>'+v.pres.map((r,i)=>`<tr><td class="pr">${r[0]}</td><td>${presHtml(v,i)} <button class="say" onclick="say('${PRO[i]} ${presPlain(v,i)}')">🔊</button></td></tr>`).join('');
+  document.getElementById('conjHint').innerHTML='💡 '+v.hint;}
+renderConj();
+
+// ===== Шаг 3: пишу настоящее =====
+function buildW3(){document.getElementById('w3').innerHTML=VERBS.map((v,i)=>{const pi=v.w3.pi;return `<div class="wq" data-i="${i}"><span class="q"><b>${PRON[pi]}</b> · ${v.inf} <span class="ru">(${v.ru})</span> →</span><input placeholder="форма настоящего…" autocomplete="off"><span class="corr"></span></div>`;}).join('');document.getElementById('w3s').textContent='';}
+function w3Ans(v){return presPlain(v,v.w3.pi);}
+function w3Check(){let ok=0;document.querySelectorAll('#w3 .wq').forEach(r=>{const v=VERBS[+r.dataset.i];const good=norm(r.querySelector('input').value)===norm(w3Ans(v));r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+w3Ans(v);if(good)ok++;});score('w3s',ok,VERBS.length);}
+function w3Show(){document.querySelectorAll('#w3 .wq').forEach(r=>{const v=VERBS[+r.dataset.i];r.querySelector('input').value=w3Ans(v);r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
+function w3Reset(){buildW3();}
+buildW3();
+
+// ===== Шаг 4: пары настоящее→прошедшее =====
+document.getElementById('pairList').innerHTML=VERBS.map((v,i)=>`
+ <div class="pair">
+   <span class="pres">er ${presHtml(v,2)}</span><span class="arr">→</span>
+   <span class="perf">${v.aux} ${ppHtml(v)}</span>
+   <button class="say" onclick="say('er ${presPlain(v,2)}. er ${perfPlain(v,2)}')">🔊</button>
+ </div>`).join('');
+
+// ===== Шаг 5: узнавание прошедшего =====
+function buildRP(){const opts=VERBS.map(v=>v.inf);
+ document.getElementById('recoPast').innerHTML=VERBS.map((v,i)=>`
+  <div class="reco" data-i="${i}" data-done="0">
+    <div class="de">${v.s5} <button class="say" onclick="say('${v.s5plain}')">🔊</button></div>
+    <div class="pick">${opts.map(o=>`<button data-o="${o}" onclick="rpPick(this,${i})">${o}</button>`).join('')}</div>
+    <div class="ru" hidden>${v.s5ru}</div>
+  </div>`).join('');document.getElementById('rpScore').textContent='';}
+function rpPick(btn,i){const row=btn.closest('.reco');if(row.dataset.done==='1')return;const correct=VERBS[i].inf;const good=btn.dataset.o===correct;btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';row.querySelector('.ru').hidden=false;row.querySelectorAll('.pick button').forEach(b=>{if(b.dataset.o===correct&&b!==btn)b.classList.add('ok');});rpScore();}}
+function rpScore(){const done=[...document.querySelectorAll('#recoPast .reco')].filter(r=>r.dataset.done==='1').length;score('rpScore',done,VERBS.length);}
+buildRP();
+
+// ===== Шаг 6: пишу прошедшее =====
+function buildW6(){document.getElementById('w6').innerHTML=VERBS.map((v,i)=>{const pi=v.w6.pi;return `<div class="wq" data-i="${i}"><span class="q"><b>${PRON[pi]}</b> · ${v.inf} <span class="ru">(${v.ru})</span> →</span><input placeholder="Perfekt (hat/ist …)…" autocomplete="off"><span class="corr"></span></div>`;}).join('');document.getElementById('w6s').textContent='';}
+function w6Ans(v){return perfPlain(v,v.w6.pi);}
+function w6Check(){let ok=0;document.querySelectorAll('#w6 .wq').forEach(r=>{const v=VERBS[+r.dataset.i];const good=norm(r.querySelector('input').value)===norm(w6Ans(v));r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+w6Ans(v);if(good)ok++;});score('w6s',ok,VERBS.length);}
+function w6Show(){document.querySelectorAll('#w6 .wq').forEach(r=>{const v=VERBS[+r.dataset.i];r.querySelector('input').value=w6Ans(v);r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
+function w6Reset(){buildW6();}
+buildW6();
+
+// ===== Шаг 7: диктант =====
+const DIK=[{t:'Otto hat den Kunden angerufen.'},{t:'Heute ist Otto früh aufgestanden.'},{t:'Otto hat das Team eingeladen.'}];
+document.getElementById('dik').innerHTML=DIK.map((d,i)=>`<div class="dikd" data-i="${i}"><button class="btn sm" onclick="say('${d.t}')">🔊 Послушать</button><input placeholder="запиши предложение…" autocomplete="off"><span class="corr"></span></div>`).join('');
+function dikCheck(){let ok=0;document.querySelectorAll('#dik .dikd').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(DIK[i].t);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+DIK[i].t;if(good)ok++;});score('dikS',ok,DIK.length);}
+function dikShow(){document.querySelectorAll('#dik .dikd').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=DIK[i].t;r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
+
+function score(id,ok,total){const all=ok===total;document.getElementById(id).innerHTML=`<span style="color:${all?'var(--das)':'var(--die)'}">${ok} / ${total}${all&&typeof praise==='function'?' — '+praise():''}</span>`;}
+</script>
+</body>
+</html>
