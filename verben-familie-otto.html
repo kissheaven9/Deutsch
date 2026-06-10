@@ -167,7 +167,6 @@
     <p class="sub">Выбери глагол. Корень — <span class="stem">жёлтый</span>, приставка — <span class="pf">синяя</span>. У каждой формы свой 🔊.</p>
     <div class="vsel" id="vsel"></div>
     <table class="conjtbl" id="conj"></table>
-    <div class="exline" id="conjEx"></div>
     <div class="hintline" id="conjHint"></div>
   </div>
 
@@ -318,9 +317,11 @@ const VERBS=[
   s5:'Otto <span class="v">hat</span> die App <span class="v">ausprobiert</span>.', s5plain:'Otto hat die App ausprobiert.', s5ru:'Отто испробовал приложение.',
   w3:{pi:2}, w6:{pi:1}, hint:'🌉 Мостик к Тео: отделяется (<i>probiert … aus</i>), НО на <b>‑ieren</b> → в Perfekt <b>БЕЗ ge</b>: <b>ausprobiert</b>!'}
 ];
-// дополнение для генерации примеров (вставляется между корнем и приставкой)
-const COMPL={aufstehen:'früh',anrufen:'den Kunden',einkaufen:'Brot',einladen:'Gäste',aussehen:'gut',abholen:'ein Paket',zurückrufen:'schnell',kennenlernen:'neue Leute',mitarbeiten:'im Projekt',ausprobieren:'die App'};
-VERBS.forEach(v=>v.compl=COMPL[v.inf]||'');
+// дополнение для генерации примеров упр.2 (между корнем и приставкой) — НЕ повторяет лексику текстов
+const COMPL={aufstehen:'um sieben Uhr',anrufen:'die Chefin',einkaufen:'Milch und Eier',einladen:'Freunde',aussehen:'müde',abholen:'ein Paket',zurückrufen:'schnell',kennenlernen:'die Kollegen',mitarbeiten:'im Team',ausprobieren:'das Programm'};
+// отдельные фразы для диктанта (Perfekt) — другие, чем в примерах упр.4 и в текстах
+const DIK_S={aufstehen:'Am Montag bin ich sehr spät aufgestanden.',anrufen:'Otto hat gestern den Arzt angerufen.',einkaufen:'Wir haben am Samstag Gemüse eingekauft.',einladen:'Greta hat die Nachbarn zum Kaffee eingeladen.',aussehen:'Die Torte hat sehr lecker ausgesehen.',abholen:'Wir haben die Gäste am Flughafen abgeholt.',zurückrufen:'Der Chef hat am Abend zurückgerufen.',kennenlernen:'Wir haben viele nette Leute kennengelernt.',mitarbeiten:'Greta hat im Projekt fleißig mitgearbeitet.',ausprobieren:'Die Kinder haben das neue Spiel ausprobiert.'};
+VERBS.forEach(v=>{v.compl=COMPL[v.inf]||'';v.dik=DIK_S[v.inf]||v.s5plain;});
 const SUBJ=['Ich','Du','Er','Wir','Ihr','Sie'];
 function exHtml(v,i){const a=v.pres[i];return `${SUBJ[i]} <span class="stem">${a[1]}</span>${a[2]} ${v.compl} <span class="pf">${v.pref}</span>.`;}
 function exPlain(v,i){const a=v.pres[i];return `${SUBJ[i]} ${a[1]}${a[2]} ${v.compl} ${v.pref}.`;}
@@ -364,7 +365,6 @@ function renderVsel(){document.getElementById('vsel').innerHTML=cur().map((v,i)=
 function pickV(i){vi=i;renderVsel();renderConj();}
 function renderConj(){const L=cur();if(vi>=L.length)vi=0;const v=L[vi];
   document.getElementById('conj').innerHTML='<tr><th>лицо</th><th>форма</th><th>пример</th></tr>'+v.pres.map((r,i)=>`<tr><td class="pr">${r[0]}</td><td>${presHtml(v,i)} <button class="say" onclick="say('${PRO[i]} ${presPlain(v,i)}')">🔊</button></td><td class="exc">${exHtml(v,i)} <button class="say" onclick="say('${exPlain(v,i).replace(/'/g,'')}')">🔊</button></td></tr>`).join('');
-  document.getElementById('conjEx').innerHTML='📝 '+v.s1+' <button class="say" onclick="say(\''+v.s1.replace(/<[^>]+>/g,'').replace(/'/g,'')+'\')">🔊</button>';
   document.getElementById('conjHint').innerHTML='💡 '+v.hint;}
 
 // ===== Шаг 3: пишу настоящее =====
@@ -396,7 +396,7 @@ function w6Show(){document.querySelectorAll('#w6 .wq').forEach(r=>{const v=VERBS
 // ===== Шаг 7: диктант (микс батчей) =====
 // диктант: по фразе на КАЖДЫЙ из 5 глаголов батча (Perfekt), обновляется со сменой батча
 let DIKCUR=[];
-function renderDik(){DIKCUR=cur().map(v=>v.s5plain);document.getElementById('dik').innerHTML=DIKCUR.map((t,i)=>`<div class="dikd" data-i="${i}"><button class="btn sm" onclick="say('${t.replace(/'/g,'')}')">🔊 Послушать</button><input placeholder="запиши предложение…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('dikS').textContent='';}
+function renderDik(){DIKCUR=cur().map(v=>v.dik);document.getElementById('dik').innerHTML=DIKCUR.map((t,i)=>`<div class="dikd" data-i="${i}"><button class="btn sm" onclick="say('${t.replace(/'/g,'')}')">🔊 Послушать</button><input placeholder="запиши предложение…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('dikS').textContent='';}
 function dikCheck(){let ok=0;document.querySelectorAll('#dik .dikd').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(DIKCUR[i]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+DIKCUR[i];if(good)ok++;});score('dikS',ok,DIKCUR.length);}
 function dikShow(){document.querySelectorAll('#dik .dikd').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=DIKCUR[i];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
 
