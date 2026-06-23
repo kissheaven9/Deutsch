@@ -127,7 +127,7 @@
     Und jetzt das Wichtigste — meine Adresse und meine Nummer! Meine Straße heißt Gartenstraße, meine Hausnummer ist sieben, meine Postleitzahl ist 80331. Also: Gartenstraße sieben, 80331 München — das ist meine Adresse! Meine Telefonnummer ist 0176 33 12 40. Meine E-Mail-Adresse ist greta-koechin@mail.de. Hier ist meine Visitenkarte: „Greta — Köchin, Gartenstraße sieben“.<br><br>
     Ich spreche vier Sprachen: Italienisch, Deutsch, Englisch und ein bisschen Französisch. Ich liebe Sprachen, und ich liebe Musik!<br><br>
     Das ist meine Familie. Mamma mia, wir sind viele Frauen — was für eine Zahl! Ich habe alle Informationen und eine Liste: lang, sehr lang!<br>
-    Meine Schwester Carla wohnt auch hier in München — gleich nebenan! Carlas Straße heißt auch Gartenstraße, aber Carlas Hausnummer ist neun. Carlas Postleitzahl ist auch 80331. Carlas Telefonnummer ist 0176 55 88 22. Ihr findet mich nicht? Kein Problem: Carla ist da, eine Tür weiter! Ihr habt Carlas Adresse und Carlas Nummer. Carla ist Friseurin.<br>
+    Meine Schwester Paola wohnt auch hier in München — gleich nebenan! Paolas Straße heißt auch Gartenstraße, aber Paolas Hausnummer ist neun. Paolas Postleitzahl ist auch 80331. Paolas Telefonnummer ist 0176 55 88 22. Ihr findet mich nicht? Kein Problem: Paola ist da, eine Tür weiter! Ihr habt Paolas Adresse und Paolas Nummer. Paola ist Friseurin.<br>
     Meine Tochter Mia wohnt auch in München. Mias Straße heißt Lindenstraße, Mias Hausnummer ist zwölf. Mia ist Studentin und macht eine Ausbildung als Krankenschwester. Mias Telefonnummer habe ich natürlich.<br>
     Meine Mutter Anna wohnt in Napoli, in Italien. Sie ist Sängerin und liebt Musik. Meine Oma wohnt auch in Italien — sie ist Rentnerin.<br>
     Meine Schwester Lucia wohnt in Zürich, in der Schweiz. Sie ist Ärztin und spricht drei Sprachen.<br>
@@ -139,7 +139,7 @@
     А теперь самое важное — мой адрес и мой номер! Моя улица — Gartenstraße, номер дома — семь, индекс — 80331. Итак: Gartenstraße семь, 80331 Мюнхен — это мой адрес! Мой телефон — 0176 33 12 40. Почта — greta-koechin@mail.de. Вот моя визитка: «Greta — повар, Gartenstraße семь».<br><br>
     Говорю на четырёх языках: по-итальянски, по-немецки, по-английски и немного по-французски. Обожаю языки и обожаю музыку!<br><br>
     Это моя семья. Mamma mia, нас, женщин, много — вот это число! У меня есть все сведения и список: длинный, очень длинный!<br>
-    Сестра Carla тоже живёт здесь, в Мюнхене, — прямо по соседству! Её улица — тоже Gartenstraße, но номер дома — девять. Индекс тоже 80331. Телефон Carla — 0176 55 88 22. Не найдёте меня? Не беда: Carla рядом, через дверь! У вас есть её адрес и её номер. Carla — парикмахер.<br>
+    Сестра Paola тоже живёт здесь, в Мюнхене, — прямо по соседству! Её улица — тоже Gartenstraße, но номер дома — девять. Индекс тоже 80331. Телефон Paola — 0176 55 88 22. Не найдёте меня? Не беда: Paola рядом, через дверь! У вас есть её адрес и её номер. Paola — парикмахер.<br>
     Дочь Mia тоже живёт в Мюнхене. Её улица — Lindenstraße, номер дома — двенадцать. Mia — студентка, учится на медсестру. Её телефон у меня, конечно, есть.<br>
     Мама Anna живёт в Неаполе, в Италии. Она певица и любит музыку. Бабушка тоже в Италии — на пенсии.<br>
     Сестра Lucia живёт в Цюрихе, в Швейцарии. Она врач, говорит на трёх языках.<br>
@@ -244,7 +244,7 @@ mk(6.5,50.5,'die E-Mail','r');
 mk(6.5,55,'die Nationalität','r');
 
 // РОДНЯ — ОДНА точка по центру каждой фотографии: родство + профессия (по-немецки)
-mk(65,27,'die Schwester · die Friseurin','l');        // Carla
+mk(65,27,'die Schwester · die Friseurin','l');        // Paola
 mk(77,27,'die Tochter · die Krankenschwester','l');   // Mia
 mk(89,27,'die Schwester · die Ärztin','l');           // Lucia
 mk(65,60,'die Mutter · die Sängerin','l');            // Anna — опущено ниже носа
@@ -269,7 +269,7 @@ const QA=[
   {q:'Was ist Greta von Beruf?',ru:'Кто Грета по профессии?',a:'Sie ist Köchin.',k:'köchin'},
   {q:'Wie ist ihre Telefonnummer?',ru:'Какой у неё телефон?',a:'0176 33 12 40.',k:'0176'},
   {q:'Wie viele Sprachen spricht Greta?',ru:'На скольких языках говорит Грета?',a:'Sie spricht vier Sprachen.',k:'vier'},
-  {q:'Was ist Carla von Beruf?',ru:'Кто Carla по профессии?',a:'Carla ist Friseurin.',k:'friseurin'},
+  {q:'Was ist Paola von Beruf?',ru:'Кто Paola по профессии?',a:'Paola ist Friseurin.',k:'friseurin'},
   {q:'Wo wohnt Lucia?',ru:'Где живёт Lucia?',a:'Sie wohnt in Zürich, in der Schweiz.',k:'zürich'},
 ];
 document.getElementById('exercise').innerHTML=QA.map((o,i)=>{const ex=(i===0);return `<div class="q" data-key="${o.k}" data-ans="${o.a}"><div class="qq">${o.q} <button class="lk2" onclick="toggleRu(this)">${ex?'Скрыть перевод':'Показать перевод'}</button>${ex?' <span class="exb">пример</span>':''}</div><div class="qru" ${ex?'':'hidden'}>${o.ru}</div><div class="qact"><input class="qin" placeholder="Ответь по-немецки…" value="${ex?o.a:''}"><button class="btn sm" onclick="checkAns(this)">Проверить</button><button class="btn sm" onclick="showAns(this)">Показать ответ</button></div><div class="qres" style="${ex?'color:var(--das)':''}">${ex?'✓ Пример — так отвечаем. Дальше сам(а).':''}</div></div>`;}).join('');
