@@ -24,9 +24,9 @@
 
 **Сигнатура (повторяется из сцены в сцену):** помешан на **порядке** → гремит связкой **ключей** (der Schlüssel); не высыпается, спасается **кофе** (der Kaffee); живёт ради **сада** (der Garten); замкнут, один, но с тихой теплотой.
 
-**Профессия — УТВЕРЖДЕНО: der Gärtner** (садовник). Двойная мнемоника der Gärtner ↔ der Garten. За столом дома планирует сад → офисная техника L6 служит саду.
+**Профессия — УТВЕРЖДЕНО: der Gärtner** (садовник) — _черта персонажа, в Lernwortschatz L2 нет; как слово не подписываем, обыгрываем с der Garten (L15)._ Двойная мнемоника der Gärtner ↔ der Garten. За столом дома планирует сад → офисная техника L6 служит саду.
 
-**Хобби — УТВЕРЖДЕНО: футбол** (der Fußball, der Sport); вечером — der Fernseher.
+**Хобби — УТВЕРЖДЕНО: спорт** (der Sport — L11; в Momente A1 плашки der Fußball нет); вечером смотрит спорт по телевизору (der Fernseher — L16).
 
 **Красные линии (НЕ давать Otto):** die Zeitung, die Jacke, die Brille, das Fahrrad/das Auto, das Hemd.
 
@@ -40,7 +40,7 @@
 |---|---|---|---|---|
 | **1. Otto: знакомство, профессия, семья** | L1,L2,L3 | 👤 Люди | der Gärtner; der Vater/Opa/Bruder/Onkel/Sohn | сверить |
 | **2. Комната Otto** | L4,L5,L6 | 🏠 Дом | der Tisch/Stuhl/Sessel/Schrank/Teppich/Spiegel ✓; предметы/материалы L5; der Computer/Laptop/Bildschirm/Drucker/Stift/Kalender ✓ | L4,L6 ✓ · L5 сверить |
-| **3. Неделя и футбол Otto** | L7,L8 | ⏰⚽ | дни недели der + der Tag/Morgen/Abend; der Fußball/Sport/Verein | сверить |
+| **3. Неделя и спорт Otto** | L7,L8 | ⏰⚽ | дни недели der + der Tag/Morgen/Abend; der Sport/Verein/Klub | сверить |
 | **4. Завтрак Otto** | L9 | 🍳 Еда | der Kaffee/Tee/Apfel/Käse/Saft/Kuchen/Zucker | сверить |
 | **5. Поездка Otto** | L10 | 🏙 Путь | der Zug/Bus/Wagen/Koffer | сверить |
 | _L11 прош. время_ | L11 | → Глаголы | (отдельный раздел) | — |
@@ -49,7 +49,7 @@
 | **8. Дом и кухня Otto** | L15,L16 | 🏠 Дом | der Flur/Garten/Balkon/Keller ✓; der Herd/Kühlschrank/Toaster/Fernseher | L15 ✓ · L16 сверить |
 | **9. Otto у врача (тело и мечты)** | L17,L18 | 🩺 Тело | der Kopf/Arm/Bauch/Rücken/Hals/Fuß/Finger/Bart; der Wunsch/Traum | сверить |
 | _L19 дела по дому_ | L19 | → Глаголы | (отдельный раздел) | — |
-| **10. Образ Otto: характер и одежда** | L20,L21,L22 | 🧥 Образ | der Schnurrbart/Bart/Charakter; der Rock/Mantel/Hut/Schal/Schuh/Anzug/Gürtel | сверить |
+| **10. Образ Otto: характер и одежда** | L20,L21,L22 | 🧥 Образ | der Bart/Charakter; der Rock/Mantel/Hut/Schal/Schuh/Anzug/Gürtel | сверить |
 | **11. Погода и финал** | L23,L24 | 🌧 Финал | der Regen/Schnee/Wind/Sturm/Nebel/Himmel; der Geburtstag | сверить |
 
 11 сцен + 2 урока-глагола (отдельный раздел). Все 24 урока покрыты. ✓ = сверено по Momente.
