@@ -1,4 +1,11 @@
 // Озвучка через браузер (de-DE). Позже заменим на предгенерированные нейро-TTS (живой голос).
+// --- скорость прослушивания (глобально, применяется и к mp3, и к браузерному голосу) ---
+let _rate = (function(){ try{ const r=parseFloat(localStorage.getItem('deRate')); return (r>0?r:1); }catch(e){ return 1; } })();
+function getRate(){ return _rate; }
+function setRate(r){ _rate = r; try{ localStorage.setItem('deRate', String(r)); }catch(e){}
+  try{ if(_au){ _au.playbackRate=r; } }catch(e){}
+  try{ window.speechSynthesis.cancel(); }catch(e){}   // у уже звучащего TTS rate не меняется на лету — сбрасываем
+  if(typeof _paintRate==='function') _paintRate(); }
 let _voices = [];
 function _loadVoices(){ try{ _voices = speechSynthesis.getVoices()||[]; }catch(e){} }
 if('speechSynthesis' in window){ _loadVoices(); speechSynthesis.onvoiceschanged = _loadVoices; }
@@ -9,7 +16,7 @@ function bestDeVoice(){
   for(const p of pref){ const m = de.find(v=>v.name.toLowerCase().includes(p)); if(m) return m; }
   return de[0] || null;
 }
-function _utter(text){ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; u.rate=0.92; const v=bestDeVoice(); if(v)u.voice=v; return u; }
+function _utter(text){ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; u.rate=0.92*_rate; const v=bestDeVoice(); if(v)u.voice=v; return u; }
 // --- голоса по роли героя (бесплатно: системные голоса + тембр/скорость) ---
 function _deVoices(){ return (_voices||[]).filter(v=>v.lang && v.lang.toLowerCase().startsWith('de')); }
 function _voiceByNames(names){ const de=_deVoices(); for(const n of names){ const m=de.find(v=>v.name.toLowerCase().includes(n)); if(m) return m; } return null; }
@@ -23,7 +30,7 @@ function roleVoice(role){
   if(role==='childgirl')            return { voice:_voiceByNames(['amala','ingrid'])||_voiceByNames(_FEM)||bestDeVoice(), pitch:1.7, rate:1.05 }; // девочка (Lina) — детский, другой тембр
   return { voice:bestDeVoice(), pitch:1.0, rate:0.94 };
 }
-function _utterRole(text, role){ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; const r=roleVoice(role); if(r.voice)u.voice=r.voice; u.pitch=r.pitch; u.rate=r.rate; return u; }
+function _utterRole(text, role){ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; const r=roleVoice(role); if(r.voice)u.voice=r.voice; u.pitch=r.pitch; u.rate=r.rate*_rate; return u; }
 // очередь предложений (длинный текст Chrome рвёт → режем; запуск СИНХРОННО, иначе Safari блокирует)
 // _gen — «поколение»: при любой новой озвучке растёт, старые onend становятся неактуальны
 // и НЕ продолжают прежний текст (баг: озвучка слова продолжала текст).
@@ -75,6 +82,7 @@ function playSeq(urls, btn, fallback){
 function _auPlay(){
   if(_aui>=_auList.length){ if(_auBtn){ _auBtn.textContent='🔊 Послушать'; _auBtn=null; } _au=null; return; }
   const my=_auGen; _au=new Audio(_auList[_aui]);
+  try{ _au.preservesPitch=true; _au.mozPreservesPitch=true; _au.webkitPreservesPitch=true; _au.playbackRate=_rate; }catch(e){}
   let handled=false;                                   // защита от двойного срабатывания (onerror + play().catch)
   const next=()=>{ if(my!==_auGen) return; _aui++; _auPlay(); };
   _au.onended=()=>{ if(handled||my!==_auGen) return; handled=true; next(); };
@@ -96,6 +104,7 @@ function _slug(s){ return String(s).toLowerCase()
 function playWord(text, role){
   _stopAll();
   const my=++_auGen, a=new Audio('audio/word/'+_slug(text)+'.mp3'); _au=a;
+  try{ a.preservesPitch=true; a.mozPreservesPitch=true; a.webkitPreservesPitch=true; a.playbackRate=_rate; }catch(e){}
   a.onerror=()=>{ if(my!==_auGen) return; _au=null; speak(text, role); };
   a.play().catch(()=>{ if(my!==_auGen) return; _au=null; speak(text, role); });
 }
@@ -120,6 +129,25 @@ function restartSpeak(text, btn){ _stopAll(); toggleSpeak(text, btn); }
 // похвала за правильный ответ
 const PRAISE=['Молодец! 👏','Отлично! 🌟','Супер! ✅','Верно! 🎯','Класс! 💪','Здорово! 🎉','Так держать! 🙌'];
 function praise(){ return PRAISE[Math.floor(Math.random()*PRAISE.length)]; }
+
+// --- плавающий регулятор скорости прослушивания (на всех страницах) ---
+function _paintRate(){
+  document.querySelectorAll('#spd .spdb').forEach(b=>{
+    const on = Math.abs(parseFloat(b.dataset.r)-_rate)<0.001;
+    b.style.background = on?'#7048e8':'#fff'; b.style.color = on?'#fff':'#374151'; b.style.borderColor = on?'#7048e8':'#d0d0d8';
+  });
+}
+function _mountSpeed(){
+  if(document.getElementById('spd')||!document.body) return;
+  const w=document.createElement('div'); w.id='spd';
+  w.style.cssText='position:fixed;right:12px;bottom:12px;z-index:9999;display:flex;align-items:center;gap:5px;background:#fff;border:1px solid #e3e3ea;border-radius:999px;padding:5px 9px;box-shadow:0 3px 12px #0000001f;font-family:inherit;font-size:13px';
+  w.innerHTML='<span title="Скорость прослушивания" style="color:#6b7280;font-weight:700">🐢</span>'+
+    [['1','1×'],['0.75','0.75×'],['0.5','0.5×']].map(([r,l])=>
+      `<button class="spdb" data-r="${r}" onclick="setRate(${r})" style="border:1px solid #d0d0d8;border-radius:999px;padding:4px 9px;font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;background:#fff;color:#374151">${l}</button>`
+    ).join('');
+  document.body.appendChild(w); _paintRate();
+}
+if(document.readyState!=='loading') _mountSpeed(); else document.addEventListener('DOMContentLoaded', _mountSpeed);
 
 // показать/скрыть русский перевод текста (блок .ru-block сразу после .bh с кнопкой)
 function toggleRuBlock(btn){
