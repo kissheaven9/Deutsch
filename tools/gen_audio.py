@@ -187,12 +187,25 @@ async def main():
     T20W=['Start-up','Service','Fehler','Website','Projekt','Technik','Idee','Werbung','Kommunikation','Medien','Spezialist','Berater','Experte','Psychologin','U-Bahn','Päckchen','Garten','Nutzer','Blume','Pflanze','Szene','Bart','Locke','Kollege','Vorstellungsgespräch','Stelle','Pause','Team','Kunde','erfolgreich','zufrieden','sparsam','geizig','sympathisch','nett','freundlich','kreativ','fröhlich','ruhig','schlank','kräftig','langweilig','unfreundlich']
     for w in T20W:
         await tts(w, 'female', os.path.join(AUDIO,'word', slug(w)+'.mp3'))
-    T20=[
-      ('thema20-1','male','Otto hat eine tolle Idee: Er erfindet eine Garten-App! Viele Menschen vergessen, ihre Blumen zu gießen. Die App hilft ihnen jeden Tag. So vergisst niemand mehr seine Pflanzen! Otto steht jeden Morgen früh auf und arbeitet. Am Anfang hat die App nicht gut funktioniert, aber Otto hat sie immer wieder verbessert und ausprobiert. Er organisiert alles selbst. Otto berät auch andere Start-ups: Ich helfe euch gern! So hat Otto die ersten zehn Kunden bekommen! Manchmal ist Otto zu spät aufgestanden und hat etwas vergessen — aber die App organisiert seinen Tag. Otto verbessert die App jeden Tag und probiert neue Ideen aus. Mein Start-up funktioniert, sagt Otto glücklich.'),
-      ('thema20-2','female','Greta hilft ihrer Freundin Carla mit der App. Greta macht die Werbung! Sie erzählt allen von der App — ihren Freunden und Nachbarn. Die App gefällt vielen Menschen sehr! Greta ruft neue Kunden an. Wenn ein Kunde eine Frage hat, ruft Greta schnell zurück. Guter Service ist wichtig, sagt sie. Am Wochenende lädt Greta Leute zu einem Fest ein. Dort zeigt sie die App. Carla arbeitet auch mit und hilft Greta. Greta besucht oft Otto im Büro. Sie erzählt ihm, was den Kunden gefällt und was nicht. So wird die App immer besser. Zusammen arbeiten wir super mit, lacht Greta.'),
-      ('thema20-3','child','Theo und Lina verkaufen Limonade im Park! Am Morgen kaufen sie Zitronen und Zucker ein. Dann holen sie den kleinen Tisch von Oma ab. Papa transportiert alles in den Park. Der Stand sieht super aus — bunt und schön! Frische Limonade, rufen die Kinder. Viele Leute kommen, und Theo und Lina lernen neue Freunde kennen. Aber der Tag war auch schwer: Lina hat ihr Geld verloren! Und Theo hat fast den Bus nach Hause verpasst. Am Ende sehen die Kinder müde, aber glücklich aus. Morgen kaufen wir wieder ein, sagen sie. Den Tisch transportiert Papa nach Hause.'),
-    ]
-    T20.append(('thema20-reviews','female','Anna: Ich habe die App ausprobiert. Früher habe ich oft vergessen, meine Blumen zu gießen. Jetzt nicht mehr! Ben: Otto hat die App selbst erfunden und immer wieder verbessert. Super! Lina: Otto hat alles gut organisiert. Ich habe schnell Hilfe bekommen. Max: Otto hat mich gut beraten. Heute bin ich früh aufgestanden — die App hilft mir!'))
+    # ⚠️ ТЕКСТЫ НЕ ХАРДКОДИМ — извлекаем из thema-20.html (единый источник правды; иначе аудио рассинхронится с текстом, см. дневник 2026-06-24)
+    t20html = open(os.path.join(ROOT,'thema-20.html'), encoding='utf-8').read()
+    def _t20_clean(de):
+        s = re.sub(r"V\('([^']+)','[^']*'\)", r'\1', de)
+        s = re.sub(r'<[^>]+>', ' ', s)
+        for a,b in [('„',''),('“',''),('”',''),('«',''),('»',''),('&nbsp;',' '),('&amp;','und'),('${',''),('}','')]:
+            s = s.replace(a,b)
+        return re.sub(r'\s+',' ', s).strip()
+    T20=[]
+    for n,role in ((1,'male'),(2,'female'),(3,'child')):
+        a=t20html.find('%d:{'%n); b=t20html.find('%d:{'%(n+1))
+        seg=t20html[a:(b if b>0 else len(t20html))]
+        m=re.search(r'de:`(.*?)`,', seg, re.S)
+        if m: T20.append(('thema20-%d'%n, role, _t20_clean(m.group(1))))
+    gm=re.search(r'const GAP=\[(.*?)\];', t20html, re.S)
+    if gm:
+        parts=re.findall(r"\{t:'([^']*)'\}|\{a:'([^']+)'", gm.group(1))
+        rev=''.join((re.sub(r'<[^>]+>','',t).replace('<br>',' ') if t else a) for t,a in parts)
+        T20.append(('thema20-reviews','female', re.sub(r'\s+',' ', rev).strip()))
     for sid,role,text in T20:
         await tts(text, role, os.path.join(AUDIO, sid+'.mp3'))
     # мини-аудирования по героям/сценам/текстам

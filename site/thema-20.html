@@ -172,7 +172,7 @@
 </main>
 <footer>Deutsch A1 · Тема 20 · Своё дело · глаголы</footer>
 
-<script src="js/app.js?v=3"></script>
+<script src="js/app.js?v=4"></script>
 <script src="js/verben-otto-data.js?v=5"></script>
 <script>
 function norm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß]/g,'');}
@@ -226,7 +226,7 @@ function toggleRu(){const r=document.getElementById('ruText'),b=document.getElem
 document.getElementById('playBtn').onclick=function(){
   const txt=[...document.querySelectorAll('#deText')][0].cloneNode(true);
   txt.querySelectorAll('.vlink').forEach(v=>v.textContent=v.dataset.de.replace(' … ',' '));
-  playSeq(['audio/thema20-'+n+'.mp3'],this,[{t:txt.innerText,role:ROLE}]);
+  playSeq(['audio/thema20-'+n+'.mp3?v=2'],this,[{t:txt.innerText,role:ROLE}]);
 };
 
 // словарик
@@ -315,7 +315,7 @@ document.getElementById('gapText').innerHTML=GAP.map(p=> p.t!==undefined ? p.t :
 const GANS=GAP.filter(p=>p.a).map(p=>p.a);
 function gapCheck(){let ok=0;document.querySelectorAll('#gapText input').forEach((inp,i)=>{const good=norm(inp.value)===norm(GANS[i]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});const all=ok===GANS.length;document.getElementById('gapScore').innerHTML=`<span style="color:${all?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${all?(' — '+praise()):''}</span>`;document.getElementById('gapPlayBtn').disabled=false;}
 function gapReset(){document.querySelectorAll('#gapText input').forEach(i=>{i.value='';i.style.borderBottomColor='var(--t)';i.style.color='var(--t)';});document.getElementById('gapScore').textContent='';}
-function gapPlay(btn){const full=GAP.map(p=>p.t!==undefined?p.t.replace(/<[^>]+>/g,'').replace(/<br>/g,' '):p.a).join('');playSeq(['audio/thema20-reviews.mp3'],btn,[{t:full,role:'female'}]);}
+function gapPlay(btn){const full=GAP.map(p=>p.t!==undefined?p.t.replace(/<[^>]+>/g,'').replace(/<br>/g,' '):p.a).join('');playSeq(['audio/thema20-reviews.mp3?v=2'],btn,[{t:full,role:'female'}]);}
 
 // ===== Встроенный тренажёр глаголов Отто (только текст 1) =====
 if(n===1 && typeof VOTTO!=='undefined'){
