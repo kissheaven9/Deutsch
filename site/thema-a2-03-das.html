@@ -61,6 +61,9 @@
   .vbox span{background:#fff;border:1px solid var(--tb);border-radius:7px;padding:3px 9px;font-weight:700;color:var(--t);font-size:14px}
   .scenenav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 8px}
   .scenenav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:var(--t)}
+  details.imgp{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:6px 0}
+  details.imgp>summary{cursor:pointer;font-size:14px;color:var(--t);font-weight:700}
+  .prompt{white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.6;color:#374151;margin-top:10px}
 </style>
 </head>
 <body>
@@ -90,6 +93,17 @@
     <p class="detxt" id="deText"></p>
     <div class="bh" style="margin-top:12px">🇷🇺 Русский <button class="btn sm" id="ruBtn" onclick="toggleRu()">Показать перевод</button></div>
     <p class="rutxt" id="ruText" hidden></p>
+  </div>
+
+  <div class="panel"><h3>🖼 Картинка к тексту</h3>
+    <p class="sub">Фото пока нет. Скопируй промпт ниже, вставь в ChatGPT (генерация изображений) — получишь картинку к этой истории.</p>
+    <details class="imgp"><summary>📋 Промпт для ChatGPT</summary><div class="prompt">Тёплая детская книжная иллюстрация (не фотореализм, яркие добрые краски), настроение — радость и любопытство ребёнка, открывающего новый край.
+
+ГЛАВНЫЙ ГЕРОЙ — ТЕО: мальчик лет семи, рыжеватый вихор, большие любопытные глаза, рот приоткрыт в вопросе («почемучка»). Рядом — тихая девочка ЛИНА ~6 лет, она рисует цветными карандашами. Оба радостно бегут по полю.
+
+ВОКРУГ — животные нового края (всё среднего рода — это важно): ЛОШАДЬ (das Pferd) и ОВЦА (das Schaf) на ПОЛЕ (das Feld), вдали ДЕРЕВНЯ (das Dorf), ДОЛИНА (das Tal), МОРЕ (das Meer) и БЕРЕГ (das Ufer). На руках у Тео — его любимый КРОЛИК (das Kaninchen) по имени Mümmel.
+
+Композиция: дети на переднем плане, вокруг звери и пейзаж нового края, светло и весело. Без какого-либо текста, букв и цифр в изображении.</div></details>
   </div>
 
   <!-- УПРАЖНЕНИЯ -->
@@ -140,11 +154,11 @@ const WORDS=[
 
 function N(de,ru){return `<span class="n" data-de="${de}" data-ru="${ru}">${de}</span>`;}
 function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
-const TEXT_DE=`Theo ist ein Kind von ungefähr sieben Jahren und wohnt in Deutschland. Er ist ein echtes Frage-Kind und ${VB('fragt','спрашивает')} den ganzen Tag: „Was ist das? Warum?“ Neben seinem Haus gibt es jetzt eine neue Gegend mit Feldern, Wiesen und ${N('Tieren','животным (das Tier)')}. Theo war so glücklich: „Was ist das? Ein ${N('Pferd','лошадь')}? Cool!“<br><br>
-Jeden Tag laufen Theo und Lina — sie malt immer — auf das ${N('Feld','поле')} und sehen die ${N('Tiere','звери')} an. „Schau, ein ${N('Pferd','лошадь')}! Und da — ein ${N('Schaf','овца')}! Warum ist das ${N('Schaf','овца')} so weich?“, ${VB('fragt','спрашивает')} Theo. Auf dem ${N('Feld','поле')} stehen viele Pferde und Schafe. Zu Hause hat Theo ein ${N('Kaninchen','кролик')}, Mümmel — sein liebstes ${N('Tier','животное')}.<br><br>
-Theo kennt ${N('Tiere','звери')} aus der ganzen Welt, denn seine Freunde kommen aus vielen ${N('Ländern','стран (das Land)')}. Ben aus Österreich liebt die Natur und die ${N('Tiere','звери')}; er schickt Fotos: „Schau, in den Bergen gibt es auch ${N('Schafe','овцы')}!“ Noah aus Polen ${VB('erfindet','придумывает')} Spiele über ${N('Tiere','звери')}, und Lea aus Italien hat ein Rätsel: „Welches ${N('Tier','животное')} wohnt am ${N('Meer','море')} oder am ${N('Ufer','берег')}?“<br><br>
-Einmal hatte Theo ein Problem: Er hat Mümmel im ${N('Tal','долина')} ${VB('verloren','потерял')}! „Wo ist er? Ich sehe ihn nicht!“, sagt Theo traurig. Aber Lina hat gemalt, wo man suchen muss — und das ${N('Kaninchen','кролик')} war beim ${N('Dorf','деревня')}, im Gras. „Das ist mein Glück!“, ${VB('sagt','говорит')} Theo. Am Abend trinken alle Kinder bei der Nachbarin Greta Kakao und ${VB('erzählen','рассказывают')} von den neuen ${N('Tieren','звери')}.`;
-const TEXT_RU=`Тео — ребёнок лет семи, живёт в Германии. Он настоящий почемучка и весь день спрашивает: «Что это? Почему?» Рядом с его домом теперь новый край — поля, луга и животные. Тео был так счастлив: «Что это? Лошадь? Круто!»<br><br>Каждый день Тео и Лина (она всё время рисует) бегут на поле смотреть на зверей. «Смотри, лошадь! А там — овца! Почему овца такая мягкая?» — спрашивает Тео. На поле пасутся много лошадей и овец. Дома у Тео живёт кролик Mümmel — его любимое животное.<br><br>Тео знает зверей со всего света, ведь его друзья из разных стран. Бен из Австрии любит природу и животных; он присылает фото: «Смотри, в горах тоже есть овцы!» Ноах из Польши придумывает игры про зверей, а Лея из Италии загадывает загадку: «Какое животное живёт у моря или у берега?»<br><br>Однажды у Тео случилась проблема: он потерял Mümmel в долине! «Где он? Я его не вижу!» — грустно говорит Тео. Но Лина нарисовала, где искать, — и кролик нашёлся у деревни, в траве. «Das ist mein Glück!» (Вот моё счастье!) — говорит Тео. Вечером все дети пьют у соседки Греты какао и рассказывают про новых зверей.`;
+const TEXT_DE=`Theo ist ein Kind von ungefähr sieben Jahren und wohnt in Deutschland. Er ist ein echtes Frage-Kind und ${VB('fragt','спрашивает')} ständig: „Was ist das? Warum?“ Neben seinem Haus gibt es jetzt viele ${N('Felder','поля (das Feld)')} und ${N('Tiere','животные (das Tier)')}. Theo war so glücklich: „Was ist das? Ein ${N('Pferd','лошадь')}? Cool!“<br><br>
+Oft laufen Theo und Lina — sie malt immer — auf das ${N('Feld','поле')} und sehen die ${N('Tiere','звери')} an. „Schau, ein ${N('Pferd','лошадь')}! Und da — ein ${N('Schaf','овца')}! Warum ist das ${N('Schaf','овца')} so weich?“, ${VB('fragt','спрашивает')} Theo. Auf dem ${N('Feld','поле')} stehen viele Pferde und Schafe. Zu Hause hat Theo ein ${N('Kaninchen','кролик')}, Mümmel — sein liebstes ${N('Tier','животное')}.<br><br>
+Theo kennt ${N('Tiere','звери')} aus vielen ${N('Ländern','стран (das Land)')}. Die anderen Kinder erzählen ihm davon: Ben aus Österreich liebt ${N('Tiere','звери')} und schickt Fotos: „Schau, bei uns gibt es auch ${N('Schafe','овцы')}!“ Noah aus Polen ${VB('erfindet','придумывает')} Spiele über ${N('Tiere','звери')}, und Lea aus Italien hat ein Rätsel: „Welches ${N('Tier','животное')} wohnt am ${N('Meer','море')} oder am ${N('Ufer','берег')}?“<br><br>
+Einmal hatte Theo ein Problem: Er hat Mümmel im ${N('Tal','долина')} ${VB('verloren','потерял')}! „Wo ist er? Ich sehe ihn nicht!“, sagt Theo traurig. Aber Lina hat gemalt, wo man suchen muss — und das ${N('Kaninchen','кролик')} war beim ${N('Dorf','деревня')}, im Gras. „Das ist mein Glück!“, ${VB('sagt','говорит')} Theo. Abends sind alle Kinder bei Greta und ${VB('erzählen','рассказывают')} von den neuen ${N('Tieren','звери')}.`;
+const TEXT_RU=`Тео — ребёнок лет семи, живёт в Германии. Он настоящий почемучка и без конца спрашивает: «Что это? Почему?» Рядом с его домом теперь много полей и животных. Тео был так счастлив: «Что это? Лошадь? Круто!»<br><br>Часто Тео и Лина (она всё время рисует) бегут на поле смотреть на зверей. «Смотри, лошадь! А там — овца! Почему овца такая мягкая?» — спрашивает Тео. На поле пасутся много лошадей и овец. Дома у Тео живёт кролик Mümmel — его любимое животное.<br><br>Тео знает зверей из многих стран. Другие дети рассказывают ему о них: Бен из Австрии любит животных и присылает фото: «Смотри, у нас тоже есть овцы!» Ноах из Польши придумывает игры про зверей, а Лея из Италии загадывает загадку: «Какое животное живёт у моря или у берега?»<br><br>Однажды у Тео случилась проблема: он потерял Mümmel в долине! «Где он? Я его не вижу!» — грустно говорит Тео. Но Лина нарисовала, где искать, — и кролик нашёлся у деревни, в траве. «Das ist mein Glück!» (Вот моё счастье!) — говорит Тео. Вечером все дети у Греты и рассказывают про новых зверей.`;
 
 function renderWords(){document.getElementById('vlist').innerHTML=WORDS.map(([de,ru])=>`<div class="vrow"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">das ${de}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`).join('');}
 function toggleEye(b){const rows=[...document.querySelectorAll('#vlist .vrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));b.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
@@ -153,7 +167,7 @@ document.getElementById('deText').innerHTML=TEXT_DE;
 document.getElementById('ruText').innerHTML=TEXT_RU;
 document.querySelectorAll('#deText .n, #deText .vb').forEach(s=>s.addEventListener('click',()=>{const open=s.classList.toggle('open');s.textContent=open?s.dataset.ru:s.dataset.de;}));
 function toggleRu(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
-function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-03-das.mp3'],btn,[{t:plain,role:M}]);}
+function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-03-das.mp3?v=2'],btn,[{t:plain,role:M}]);}
 
 let ci=0,flipped=false;
 function renderCard(){const [de,ru]=WORDS[ci];document.getElementById('cText').innerHTML=flipped?`das ${de} <button class="say" onclick="event.stopPropagation();playWord('${de}','${M}')">🔊</button>`:ru;document.getElementById('cHint').textContent=flipped?'нажми — назад':'нажми — увидеть слово';document.getElementById('cCount').textContent=`${ci+1} / ${WORDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
