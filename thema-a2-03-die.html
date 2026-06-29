@@ -61,6 +61,9 @@
   .vbox span{background:#fff;border:1px solid var(--tb);border-radius:7px;padding:3px 9px;font-weight:700;color:var(--t);font-size:14px}
   .scenenav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 8px}
   .scenenav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:var(--t)}
+  details.imgp{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:6px 0}
+  details.imgp>summary{cursor:pointer;font-size:14px;color:var(--t);font-weight:700}
+  .prompt{white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.6;color:#374151;margin-top:10px}
 </style>
 </head>
 <body>
@@ -71,7 +74,7 @@
 
   <div class="hero"><div class="av">👩</div><div>
     <h2>🔴 Greta (die) — природа, ландшафт и краски</h2>
-    <p>Грета — итальянка из Неаполя, повар и соседка Отто. Она переехала в Германию к мужу и тоскует по итальянской природе и лугам своего детства.</p>
+    <p>Грета — итальянка из Неаполя, повар и соседка Отто. Она переехала в Германию из любви и очень тоскует по солнцу, природе и лугам Италии.</p>
   </div></div>
 
   <!-- СЛОВА -->
@@ -90,6 +93,17 @@
     <p class="detxt" id="deText"></p>
     <div class="bh" style="margin-top:12px">🇷🇺 Русский <button class="btn sm" id="ruBtn" onclick="toggleRu()">Показать перевод</button></div>
     <p class="rutxt" id="ruText" hidden></p>
+  </div>
+
+  <div class="panel"><h3>🖼 Картинка к тексту</h3>
+    <p class="sub">Фото пока нет. Скопируй промпт ниже, вставь в ChatGPT (генерация изображений) — получишь картинку к этой истории.</p>
+    <details class="imgp"><summary>📋 Промпт для ChatGPT</summary><div class="prompt">Тёплая книжная иллюстрация (не фотореализм, мягкие акварельные краски), настроение — нежная ностальгия по Италии и тёплый дом.
+
+ГЛАВНАЯ ГЕРОИНЯ — ГРЕТА: тёплая, округлая, улыбчивая итальянка ~48 лет, тёмные волнистые волосы, круглые очки, яркая блузка, фартук (она повар). Она сидит у себя на кухне и смотрит в окно, чуть мечтательно. На подоконнике рядом — её КОШКА (die Katze) греется на солнце.
+
+ВОКРУГ / за окном, как воспоминание о доме, — солнечная Италия (всё женского рода — это важно): много золотого СОЛНЦА (die Sonne), зелёные альпийские ЛУГА (die Wiese) с цветами, КОРОВЫ (die Kuh) и ПЧЁЛЫ (die Biene), красивые каменные МОСТЫ (die Brücke), мягкая ПРИРОДА и местность (die Natur, die Landschaft, die Gegend). Тёплые краски: жёлтый, красный, зелёный.
+
+Композиция: уютная кухня в Германии, а за окном — солнечный итальянский пейзаж как мечта. Без какого-либо текста, букв и цифр в изображении.</div></details>
   </div>
 
   <!-- УПРАЖНЕНИЯ -->
@@ -134,17 +148,18 @@ function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-z
 
 // ===== слова Греты (die) =====
 const WORDS=[
- ['Natur','природа'],['Landschaft','ландшафт'],['Wiese','луг'],['Brücke','мост'],['Sonne','солнце'],
- ['Kuh','корова'],['Katze','кошка'],['Biene','пчела'],['Heimat','родина'],['Farbe','цвет']
+ ['Natur','природа'],['Landschaft','ландшафт'],['Gegend','край / местность'],['Wiese','луг'],['Brücke','мост'],
+ ['Sonne','солнце'],['Kuh','корова'],['Katze','кошка'],['Biene','пчела'],['Heimat','родина'],['Farbe','цвет']
 ];
 
 function N(de,ru){return `<span class="n" data-de="${de}" data-ru="${ru}">${de}</span>`;}
 function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
-const TEXT_DE=`Greta ${VB('kommt','родом')} aus Neapel, aus Italien. Sie ist nach Deutschland ${VB('gezogen','переехала')}, weil sie ${VB('geheiratet','вышла замуж')} hat — hier wohnt ihr Mann. Aber ihr Herz ist noch im Süden: „Italien ${VB('fehlt','не хватает')} mir“, sagt sie.<br><br>
-Am meisten ${VB('vermisst','скучает по')} Greta die italienische ${N('Natur','природа')}. Als Kind hat sie am Meer gewohnt, zwischen grünen ${N('Wiesen','лугам (die Wiese)')}. Als kleines Mädchen ist sie den ganzen Tag über diese ${N('Wiesen','луга')} ${VB('gelaufen','бегала')}, hat Blumen ${VB('gepflückt','собирала')} und die ${N('Bienen','пчёлам (die Biene)')} ${VB('gehört','слушала')}. „So viele ${N('Farben','краски (die Farbe)')}, Mamma mia! Gelb, rot, grün — ein Fest!“, ${VB('erzählt','рассказывает')} sie und zeigt alte Fotos mit ihrer Kamera.<br><br>
-Ihre beste Freundin aus der Kindheit, Bianca, ist in Italien geblieben. Bianca ist Landschaftsarchitektin: Sie macht schöne Gärten und ${N('Landschaften','ландшафты (die Landschaft)')}, mit vielen Blumen und Bäumen, auf den Hügeln in der Toskana. „Bianca macht die ${N('Natur','природа')} noch schöner, und ich mache das Essen!“, lacht Greta. Am Abend ${VB('ruft','звонит')} sie Bianca und ihre Mutter Anna in Neapel ${VB('an','звонит (an)')} und ${VB('erzählt','рассказывает')} von den deutschen ${N('Wiesen','луга')} und der ${N('Brücke','мост')} über dem Fluss. Manchmal ${VB('ruft','перезванивает')} sie am Morgen noch einmal ${VB('zurück','перезванивает (zurück)')}.<br><br>
-Die ${N('Natur','природа')} hier ${VB('gefällt','нравится')} Greta auch — grüne ${N('Wiesen','луга')}, blauer Himmel, eine ${N('Kuh','корова')} auf dem Feld, eine ${N('Katze','кошка')} in der ${N('Sonne','солнце')}. Aber es ist nicht ihre ${N('Heimat','родина')}. Am Wochenende ${VB('lädt','приглашает')} Greta wie immer alle ${VB('ein','приглашает (ein)')} — Otto und die Kinder, Theo und Lina — und zeigt ihnen Fotos von den italienischen ${N('Wiesen','луга')}. „Zuhause ist da, wo ${N('Farben','краски')} und Familie sind“, sagt sie leise.`;
-const TEXT_RU=`Грета родом из Неаполя, из Италии. Она переехала в Германию, потому что вышла замуж — здесь живёт её муж. Но сердце всё ещё на юге: «Italien fehlt mir» (Скучаю по Италии), — говорит она.<br><br>Больше всего Грета скучает по итальянской природе. В детстве она жила у моря, среди зелёных лугов. Маленькой девочкой она целыми днями бегала по этим лугам, собирала цветы и слушала пчёл. «Сколько красок, Mamma mia! Жёлтый, красный, зелёный — праздник!» — рассказывает она и показывает старые фото со своей камерой.<br><br>Её лучшая подруга детства, Бьянка, осталась в Италии. Бьянка — ландшафтный архитектор: она создаёт красивые сады и ландшафты, с цветами и деревьями, на холмах Тосканы. «Бьянка делает природу ещё красивее, а я — еду!» — смеётся Грета. По вечерам она звонит Бьянке и маме Анне в Неаполь и рассказывает про немецкие луга и мост через реку. Иногда утром перезванивает ещё раз.<br><br>Здешняя природа Грете тоже нравится — зелёные луга, синее небо, корова на поле, кошка на солнце. Но это не её родина. На выходных Грета, как всегда, всех приглашает — Отто и детей, Тео и Лину — и показывает им фото итальянских лугов. «Дом там, где краски и семья», — тихо говорит она.`;
+const TEXT_DE=`Greta ${VB('kommt','родом')} aus Neapel, aus Italien. Sie ist aus Liebe nach Deutschland ${VB('gezogen','переехала')}, zu ihrer neuen Familie. Aber Italien ${VB('fehlt','не хватает')} ihr sehr: „Italien fehlt mir“, sagt sie leise.<br><br>
+Am meisten ${VB('vermisst','скучает по')} Greta die ${N('Sonne','солнце')}. In Italien gibt es so viel ${N('Sonne','солнце')} — warm und golden, von morgens bis abends! In Deutschland ${VB('fehlt','не хватает')} ihr die ${N('Sonne','солнце')}, und oft ist Greta ein bisschen traurig. Aus ihrer Küche hat sie eine schöne Aussicht; morgens ${VB('schaut','смотрит')} sie hinaus und ${VB('wartet','ждёт')} auf die ${N('Sonne','солнце')}. Ihre ${N('Katze','кошка')} liegt neben ihr in der ${N('Sonne','солнце')}.<br><br>
+Greta ${VB('liebt','любит')} die ${N('Natur','природа')} sehr. Früher hat sie an der Küste ${VB('gewohnt','жила')}, zwischen grünen ${N('Wiesen','луга (die Wiese)')}. Als Kleine ist sie stundenlang über die ${N('Wiesen','луга')} ${VB('gelaufen','бегала')}, hat Blumen ${VB('gepflückt','собирала')} und den ${N('Bienen','пчёлам (die Biene)')} ${VB('zugehört','слушала')}. „So viele ${N('Farben','краски (die Farbe)')}, Mamma mia! Gelb, rot, grün!“, ${VB('erzählt','рассказывает')} sie. Ihre beste Freundin aus der Kindheit, Bianca, ${VB('ist','есть (вспом.)')} in Italien ${VB('geblieben','осталась')}: Sie ist Landschaftsarchitektin und macht wunderschöne ${N('Landschaften','ландшафты (die Landschaft)')}. Abends ${VB('ruft','звонит')} Greta sie und ihre Mutter Anna ${VB('an','звонит (an)')}.<br><br>
+Aber auch die ${N('Gegend','край / местность')} hier in Deutschland ${VB('gefällt','нравится')} Greta — sie ${VB('erinnert','напоминает')} sie an ihre ${N('Heimat','родина')}. Hier gibt es viele schöne alte ${N('Brücken','мосты (die Brücke)')}. Und es gibt so viele ${N('Kühe','коровы (die Kuh)')}! Greta ${VB('liebt','любит')} die ${N('Wiesen','луга')} in den Alpen: Dort stehen ${N('Kühe','коровы')}, ${VB('fliegen','летают')} ${N('Bienen','пчёлы')}, und es blühen Blumen — genau wie zu Hause in Italien. „Diese ${N('Wiesen','луга')} mit Blumen sind wie meine ${N('Heimat','родина')}!“, ${VB('lächelt','улыбается')} sie.<br><br>
+Samstags ${VB('lädt','приглашает')} Greta wie immer alle ${VB('ein','приглашает (ein)')} — Otto, Theo und Lina — und ${VB('erzählt','рассказывает')} von den ${N('Wiesen','луга')} in Italien. „${N('Heimat','родина')} ist da, wo ${N('Sonne','солнце')}, ${N('Farben','краски')} und Familie sind“, sagt sie. Und ein bisschen ${N('Sonne','солнце')} hat sie auch hier ${VB('gefunden','нашла')}.`;
+const TEXT_RU=`Грета родом из Неаполя, из Италии. Она переехала в Германию из любви — к своей новой семье. Но Италия ей очень не хватает: «Italien fehlt mir» (Скучаю по Италии), — тихо говорит она.<br><br>Больше всего Грета скучает по солнцу. В Италии солнца так много — тёплое, золотое, с утра до вечера! А в Германии солнца ей не хватает, и часто она немного грустит. Из кухни у неё любимый вид в окно: по утрам она смотрит наружу и ждёт солнце. Рядом на солнышке лежит её кошка.<br><br>Грета очень любит природу. Раньше она жила у побережья, среди зелёных лугов. Маленькой девочкой она часами бегала по лугам, собирала цветы и слушала пчёл. «Сколько красок, Mamma mia! Жёлтый, красный, зелёный!» — рассказывает она. Её лучшая подруга детства Бьянка осталась в Италии: она ландшафтный архитектор и создаёт красивые ландшафты. По вечерам Грета звонит ей и маме Анне.<br><br>Но и здешний край в Германии Грете нравится — он напоминает ей родину. Здесь много красивых старых мостов. И так много коров! Грета любит альпийские луга: там пасутся коровы, летают пчёлы и цветут цветы — прямо как дома, в Италии. «Эти луга с цветами — как моя родина!» — улыбается она.<br><br>По субботам Грета, как всегда, всех зовёт — Отто, Тео и Лину — и рассказывает про итальянские луга. «Родина там, где солнце, краски и семья», — говорит она. И немножко солнца она нашла и здесь.`;
 
 function renderWords(){document.getElementById('vlist').innerHTML=WORDS.map(([de,ru])=>`<div class="vrow"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">die ${de}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`).join('');}
 function toggleEye(b){const rows=[...document.querySelectorAll('#vlist .vrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));b.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
@@ -153,7 +168,7 @@ document.getElementById('deText').innerHTML=TEXT_DE;
 document.getElementById('ruText').innerHTML=TEXT_RU;
 document.querySelectorAll('#deText .n, #deText .vb').forEach(s=>s.addEventListener('click',()=>{const open=s.classList.toggle('open');s.textContent=open?s.dataset.ru:s.dataset.de;}));
 function toggleRu(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
-function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-03-die.mp3'],btn,[{t:plain,role:M}]);}
+function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-03-die.mp3?v=2'],btn,[{t:plain,role:M}]);}
 
 let ci=0,flipped=false;
 function renderCard(){const [de,ru]=WORDS[ci];document.getElementById('cText').innerHTML=flipped?`die ${de} <button class="say" onclick="event.stopPropagation();playWord('${de}','${M}')">🔊</button>`:ru;document.getElementById('cHint').textContent=flipped?'нажми — назад':'нажми — увидеть слово';document.getElementById('cCount').textContent=`${ci+1} / ${WORDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
@@ -179,11 +194,15 @@ function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEa
 function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value='die '+WORDS[i][0];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
 
 const GAP=[
- {t:'Als Kind ist Greta über die '},{a:'Wiesen',ru:'луга'},{t:' gelaufen. '},
- {t:'Sie vermisst die italienische '},{a:'Natur',ru:'природа'},{t:'. '},
- {t:'Ihre Freundin Bianca macht schöne Gärten und '},{a:'Landschaften',ru:'ландшафты'},{t:'. '},
- {t:'Über dem Fluss ist eine alte '},{a:'Brücke',ru:'мост'},{t:'. '},
- {t:'Eine '},{a:'Kuh',ru:'корова'},{t:' steht auf dem Feld, eine '},{a:'Katze',ru:'кошка'},{t:' liegt in der '},{a:'Sonne',ru:'солнце'},{t:'. '},
+ {t:'Am meisten vermisst Greta die '},{a:'Sonne',ru:'солнце'},{t:'. '},
+ {t:'Sie liebt die '},{a:'Natur',ru:'природа'},{t:' sehr. '},
+ {t:'Als Kleine ist sie über die grüne '},{a:'Wiese',ru:'луг'},{t:' gelaufen. '},
+ {t:'Eine '},{a:'Biene',ru:'пчела'},{t:' fliegt von Blume zu Blume. '},
+ {t:'Bianca macht eine schöne '},{a:'Landschaft',ru:'ландшафт'},{t:'. '},
+ {t:'In Deutschland sieht Greta eine alte '},{a:'Brücke',ru:'мост'},{t:'. '},
+ {t:'Eine '},{a:'Kuh',ru:'корова'},{t:' steht auf der Wiese, eine '},{a:'Katze',ru:'кошка'},{t:' liegt in der Sonne. '},
+ {t:'Auch die '},{a:'Gegend',ru:'край'},{t:' hier ist schön. '},
+ {t:'Welche '},{a:'Farbe',ru:'краска / цвет'},{t:' hat die Blume? '},
  {t:'Italien ist Gretas '},{a:'Heimat',ru:'родина'},{t:'.'}
 ];
 let _gk=0;

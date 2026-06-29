@@ -67,6 +67,9 @@
   .vbox span{background:#fff;border:1px solid var(--tb);border-radius:7px;padding:3px 9px;font-weight:700;color:var(--t);font-size:14px}
   .scenenav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 8px}
   .scenenav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:var(--t)}
+  details.imgp{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:6px 0}
+  details.imgp>summary{cursor:pointer;font-size:14px;color:var(--t);font-weight:700}
+  .prompt{white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.6;color:#374151;margin-top:10px}
 </style>
 </head>
 <body>
@@ -96,6 +99,17 @@
     <p class="detxt" id="deText"></p>
     <div class="bh" style="margin-top:12px">🇷🇺 Русский <button class="btn sm" id="ruBtn" onclick="toggleRu()">Показать перевод</button></div>
     <p class="rutxt" id="ruText" hidden></p>
+  </div>
+
+  <div class="panel"><h3>🖼 Картинка к тексту</h3>
+    <p class="sub">Фото пока нет. Скопируй промпт ниже, вставь в ChatGPT (генерация изображений) — получишь картинку к этой истории.</p>
+    <details class="imgp"><summary>📋 Промпт для ChatGPT</summary><div class="prompt">Тёплая книжная иллюстрация (не фотореализм, мягкий свет), настроение — тоска по дому и тихое счастье в новом краю.
+
+ГЛАВНЫЙ ГЕРОЙ — ОТТО: коренастый шотландец ~50 лет, густая рыжая борода и усы, рыжевато-каштановые волосы, доброе, но чуть хмурое лицо. Одет по-шотландски: клетчатый килт, тёплое пальто, шляпа, шарф; в руке кружка кофе. Он садовник — стоит в своём саду среди деревьев.
+
+ВОКРУГ — его новый край по сторонам света (всё мужского рода — это важно): на севере тёмный ЛЕС (der Wald), на юге спокойное ОЗЕРО (der See) и РЕКА (der Fluss), на востоке ГОРА (der Berg) и зелёный ХОЛМ (der Hügel), на западе ПЛЯЖ (der Strand). Рядом его СОБАКА (der Hund) — за ней весело бежит рыжий мальчик Тео.
+
+Вдалеке, как тёплое воспоминание, — шотландские холмы. Композиция: Отто в центре в саду, вокруг мягкими планами стороны света. Тёплый, чуть ностальгический тон. Без какого-либо текста, букв и цифр в изображении.</div></details>
   </div>
 
   <!-- УПРАЖНЕНИЯ -->
@@ -147,11 +161,11 @@ const WORDS=[
 // ===== текст (n = сущ. der, vb = глагол), data-ru = перевод =====
 function N(de,ru){return `<span class="n" data-de="${de}" data-ru="${ru}">${de}</span>`;}
 function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
-const TEXT_DE=`Otto ${VB('kommt','родом / приходит')} aus Schottland — aus einem kleinen Dorf bei grünen ${N('Hügeln','холмам (Hügel)')}. Er ist geschieden. Dann ${VB('ist','есть (вспом.)')} er nach Deutschland ${VB('gezogen','переехал')}, weil er neu anfangen wollte. Hier ${VB('arbeitet','работает')} er als ${N('Gärtner','садовник')}. Sein ${N('Garten','сад')} ist sein Lieblingsplatz — nur dort wird Otto ruhig und glücklich. Jeden Tag ${VB('steht','встаёт')} er früh ${VB('auf','встаёт (auf)')} und geht zu seinen Pflanzen.<br><br>
-Deutschland ist jetzt sein Zuhause, aber sein Herz ist noch im ${N('Norden','север')}. „Schottland ${VB('fehlt','не хватает')} mir“, sagt er leise. Am Abend ${VB('ruft','звонит')} er seinen ${N('Sohn','сын')} und seinen ${N('Enkel','внук')} ${VB('an','звонит (an)')}. Er ${VB('vermisst','скучает по')} sie sehr.<br><br>
-Seine neue Heimat kennt Otto genau — er liebt Ordnung. Im ${N('Norden','север')} ist ein dunkler ${N('Wald','лес')}, fast wie zu Hause; dort geht er gern spazieren. Im ${N('Süden','юг')} sind ein ruhiger ${N('See','озеро')} und ein ${N('Fluss','река')}; am Morgen sitzt er am Ufer mit seinem ${N('Kaffee','кофе')} und denkt an die Seen in Schottland: „Dort war das Wasser noch kälter!“ Im ${N('Osten','восток')} sind ein ${N('Berg','гора')} und ein grüner ${N('Hügel','холм')} mit Schafen — das ist wie seine Heimat. Und im ${N('Westen','запад')} ist ein ${N('Strand','пляж')}. Dort hat Otto seine Nachbarin Greta ${VB('kennengelernt','познакомился')}. Am Wochenende ${VB('lädt','приглашает')} er Greta und die Kinder, Theo und Lina, in seinen ${N('Garten','сад')} ${VB('ein','приглашает (ein)')}.<br><br>
-„Hier gibt es auch ${N('Hügel','холмы')}, Seen und Wälder — sehr schön. Aber Schottland ${VB('vergesse','забуду')} ich nie“, sagt Otto und lacht leise, denn Theo läuft durch den Garten hinter seinem ${N('Hund','собака')}.`;
-const TEXT_RU=`Отто родом из Шотландии — из маленькой деревни у зелёных холмов. Он разведён. Потом он переехал в Германию, потому что хотел начать заново. Здесь он работает садовником. Его сад — его любимое место, только там этот ворчун становится спокойным и счастливым. Каждый день он рано встаёт и идёт к своим растениям.<br><br>Германия теперь его дом, но сердце всё ещё на севере. «Schottland fehlt mir» (Скучаю по Шотландии), — тихо говорит он. По вечерам он звонит сыну и внуку. Он очень по ним скучает.<br><br>Свой новый край Отто знает точно — он любит порядок. На севере — тёмный лес, почти как дома; туда он любит ходить гулять. На юге — спокойное озеро и река; по утрам он сидит на берегу с кофе и вспоминает озёра в Шотландии: «Там вода была ещё холоднее!» На востоке — гора и зелёный холм с овцами — это как его родина. А на западе — пляж. Там Отто познакомился со своей соседкой Гретой. На выходных он приглашает Грету и детей, Тео и Лину, к себе в сад.<br><br>«Здесь тоже есть холмы, озёра и леса — очень красиво. Но Шотландию я никогда не забуду», — говорит Отто и тихо смеётся, ведь Тео носится по саду за его собакой.`;
+const TEXT_DE=`Otto ${VB('kommt','родом / приходит')} aus Schottland — aus einem kleinen Ort bei grünen ${N('Hügeln','холмам (Hügel)')}. Er ist geschieden. Dann ${VB('ist','есть (вспом.)')} er nach Deutschland ${VB('gezogen','переехал')}, weil er neu anfangen wollte. Hier ${VB('arbeitet','работает')} er als ${N('Gärtner','садовник')}. Sein ${N('Garten','сад')} ist sein Lieblingsplatz — nur dort wird Otto ruhig und glücklich. Täglich ${VB('steht','встаёт')} er früh ${VB('auf','встаёт (auf)')} und geht zu seinen Bäumen.<br><br>
+Jetzt ${VB('wohnt','живёт')} er in Deutschland, aber er ${VB('denkt','думает')} noch oft an den ${N('Norden','север')}: „Schottland ${VB('fehlt','не хватает')} mir“, sagt er leise. Abends ${VB('ruft','звонит')} er seinen ${N('Sohn','сын')} und seinen ${N('Enkel','внук')} ${VB('an','звонит (an)')}. Er ${VB('vermisst','скучает по')} sie sehr.<br><br>
+Seinen neuen Wohnort kennt Otto genau, denn er ist sehr ordentlich. Im ${N('Norden','север')} ist ein dunkler ${N('Wald','лес')}, fast wie zu Hause; dort geht er gern spazieren. Im ${N('Süden','юг')} sind ein ruhiger ${N('See','озеро')} und ein ${N('Fluss','река')}; morgens sitzt er am ${N('See','озеро')} mit seinem ${N('Kaffee','кофе')} und denkt an die Seen in Schottland: „Dort war es noch kälter!“ Im ${N('Osten','восток')} sind ein ${N('Berg','гора')} und ein grüner ${N('Hügel','холм')} — das ist fast wie in Schottland. Und im ${N('Westen','запад')} ist ein ${N('Strand','пляж')}. Dort hat Otto Greta ${VB('kennengelernt','познакомился')}. Samstags ${VB('lädt','приглашает')} er Greta, Theo und Lina in seinen ${N('Garten','сад')} ${VB('ein','приглашает (ein)')}.<br><br>
+„Hier gibt es auch ${N('Hügel','холмы')}, Seen und Wälder — sehr schön. Aber Schottland ${VB('vergesse','забуду')} ich nie“, sagt Otto und lacht leise, denn Theo läuft durch den ${N('Garten','сад')} hinter seinem ${N('Hund','собака')}.`;
+const TEXT_RU=`Отто родом из Шотландии — из маленького села у зелёных холмов. Он разведён. Потом переехал в Германию, потому что хотел начать заново. Здесь он работает садовником. Его сад — любимое место: только там этот ворчун становится спокойным и счастливым. Каждый день он рано встаёт и идёт к своим деревьям.<br><br>Теперь он живёт в Германии, но всё ещё часто думает о севере: «Schottland fehlt mir» (Скучаю по Шотландии), — тихо говорит он. По вечерам он звонит сыну и внуку. Он очень по ним скучает.<br><br>Свой новый край Отто знает точно — он очень аккуратный. На севере — тёмный лес, почти как дома; туда он любит ходить гулять. На юге — спокойное озеро и река; по утрам он сидит у озера с кофе и вспоминает озёра Шотландии: «Там вода была ещё холоднее!» На востоке — гора и зелёный холм — почти как в Шотландии. А на западе — пляж. Там Отто познакомился с Гретой. По субботам он зовёт Грету, Тео и Лину к себе в сад.<br><br>«Здесь тоже есть холмы, озёра и леса — очень красиво. Но Шотландию я никогда не забуду», — говорит Отто и тихо смеётся: Тео носится по саду за его собакой.`;
 
 // слова
 function renderWords(){document.getElementById('vlist').innerHTML=WORDS.map(([de,ru])=>`<div class="vrow"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">der ${de}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`).join('');}
@@ -162,7 +176,7 @@ document.getElementById('deText').innerHTML=TEXT_DE;
 document.getElementById('ruText').innerHTML=TEXT_RU;
 document.querySelectorAll('#deText .n, #deText .vb').forEach(s=>s.addEventListener('click',()=>{const open=s.classList.toggle('open');s.textContent=open?s.dataset.ru:s.dataset.de;}));
 function toggleRu(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
-function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-03-der.mp3'],btn,[{t:plain,role:M}]);}
+function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-03-der.mp3?v=2'],btn,[{t:plain,role:M}]);}
 
 // карточки
 let ci=0,flipped=false;
@@ -192,7 +206,7 @@ function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{con
 
 // вставь в текст
 const GAP=[
- {t:'Otto kommt aus einem Dorf bei grünen '},{a:'Hügeln',ru:'холмам'},{t:'. '},
+ {t:'Otto kommt aus einem kleinen Ort bei grünen '},{a:'Hügeln',ru:'холмам'},{t:'. '},
  {t:'Im '},{a:'Norden',ru:'север'},{t:' ist ein dunkler '},{a:'Wald',ru:'лес'},{t:'. '},
  {t:'Im '},{a:'Süden',ru:'юг'},{t:' sind ein '},{a:'See',ru:'озеро'},{t:' und ein '},{a:'Fluss',ru:'река'},{t:'. '},
  {t:'Im '},{a:'Osten',ru:'восток'},{t:' sind ein '},{a:'Berg',ru:'гора'},{t:' und ein '},{a:'Hügel',ru:'холм'},{t:'. '},
