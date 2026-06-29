@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
-<title>A2 · Тема 3 «Переезд / Новый край» — Otto (der)</title>
+<title>A2 · Тема 3 «Переезд / Новый край» — Greta (die)</title>
 <link rel="stylesheet" href="css/style.css?v=3">
 <style>
-  :root{--t:#3b5bdb;--tb:#bac8ff;--tbg:#edf2ff}
+  :root{--t:#d6336c;--tb:#fbcfe2;--tbg:#fdf2f7}
   .lead{color:#374151;line-height:1.7}
   .hero{display:flex;gap:14px;align-items:center;background:var(--tbg);border:1px solid var(--tb);border-radius:18px;padding:16px 18px;margin:14px 0}
   .hero .av{font-size:46px}.hero h2{margin:0 0 4px;font-size:20px;color:var(--t)}.hero p{margin:0;font-size:14px;color:#374151;line-height:1.6}
@@ -24,7 +24,6 @@
   .toolbar{display:flex;gap:8px;margin:10px 0 0;flex-wrap:wrap}
   .say{border:none;background:none;cursor:pointer;font-size:15px;opacity:.6;padding:2px}.say:hover{opacity:1}
   .score{font-weight:700;margin-top:8px}
-  /* слова */
   .vlist{display:grid;grid-template-columns:1fr 1fr;gap:7px}
   @media(max-width:640px){.vlist{grid-template-columns:1fr}}
   .vrow{display:flex;align-items:center;gap:9px;background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:7px 10px}
@@ -32,33 +31,28 @@
   .vrow .ru{color:#374151;font-size:13px;flex:1;text-align:right}
   .vrow.noru .ru{visibility:hidden;position:relative}
   .vrow.noru .ru::after{content:"·····";position:absolute;right:0;color:#9ca3af;visibility:visible}
-  /* текст */
   .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--t);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .detxt{line-height:2;font-size:16px;color:var(--ink);margin:0}
-  .detxt .n{background:#e7eeff;color:var(--t);border-radius:4px;padding:0 3px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .detxt .n{background:#fde4ef;color:var(--t);border-radius:4px;padding:0 3px;font-weight:600;cursor:pointer;white-space:nowrap}
   .detxt .vb{background:#fef9c3;color:#a16207;border-radius:4px;padding:0 3px;font-weight:600;cursor:pointer;white-space:nowrap}
   .detxt .n.open,.detxt .vb.open{text-decoration:underline;filter:brightness(.95)}
   .rutxt{color:#374151;line-height:1.7;margin:8px 0 0}
-  /* карточки */
   .cardwrap{max-width:380px;margin:0 auto}
   .card{background:#fff;border:2px solid var(--t);border-radius:16px;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer}
   .card.back{background:var(--tbg)}.c-text{font-size:24px;font-weight:700;color:var(--ink)}.card.back .c-text{color:var(--t)}.c-hint{font-size:12px;color:var(--muted)}
   .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
   .cnav #cCount{color:var(--muted);font-weight:600}
-  /* соотнеси */
   .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .mcol{display:flex;flex-direction:column;gap:7px}
   .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
   .mchip.de{font-weight:700;color:var(--t)}.mchip.sel{border-color:var(--t);background:var(--tbg)}
   .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px}
-  /* впиши */
   .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
   .wq .q{min-width:150px;color:#374151}
   .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:150px}
   .wq input:focus{outline:none;border-color:var(--t)}
   .wq.ok input{border-color:var(--das);background:#e8f6ee}.wq.bad input{border-color:var(--die);background:#fdecec}
   .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
-  /* вставь в текст */
   .gaptext{line-height:2.6;font-size:16px}
   .gaptext input{border:none;border-bottom:2px solid var(--t);width:120px;font-size:15px;font-family:inherit;text-align:center;color:var(--t);font-weight:700}
   .gaptext input:focus{outline:none;background:var(--tbg)}
@@ -70,28 +64,28 @@
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch</a><span class="crumb">/ A2 · Тема 3 · Otto (der)</span></div></header>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch</a><span class="crumb">/ A2 · Тема 3 · Greta (die)</span></div></header>
 <main class="wrap">
-  <h1>A2 · Тема 3 «Переезд / Новый край» — Otto <span style="font-size:16px;color:var(--muted)">(der)</span></h1>
-  <p class="lead">Уровень A2 (Lektion 3). Учим <b>мужской род</b> вместе с Отто: природа и <b>стороны света</b> (все они мужского рода!). Сначала слова → текст-история → упражнения. 🔊 — послушать.</p>
+  <h1>A2 · Тема 3 «Переезд / Новый край» — Greta <span style="font-size:16px;color:var(--muted)">(die)</span></h1>
+  <p class="lead">Уровень A2 (Lektion 3). Учим <b>женский род</b> с Гретой: природа и ландшафт (die Natur/Landschaft/Wiese) + её любимые <b>краски</b>. Сначала слова → текст-история → упражнения. 🔊 — послушать.</p>
 
-  <div class="hero"><div class="av">🧔</div><div>
-    <h2>🔵 Otto (der) — стороны света и природа</h2>
-    <p>Отто — шотландец-садовник, живёт в Германии и тоскует по родине. Он, как всегда, всё раскладывает <b>по сторонам света</b> (der Norden/Süden/Osten/Westen — мужские!) и описывает свой край.</p>
+  <div class="hero"><div class="av">👩</div><div>
+    <h2>🔴 Greta (die) — природа, ландшафт и краски</h2>
+    <p>Грета — итальянка из Неаполя, повар и соседка Отто. Она переехала в Германию к мужу и тоскует по итальянской природе и лугам своего детства.</p>
   </div></div>
 
   <!-- СЛОВА -->
-  <div class="part"><span class="pico">📖</span><div><div class="pk">Шаг 1</div><h2>Слова темы (der)</h2></div></div>
-  <div class="panel"><h3>🔤 Слова Отто</h3>
-    <p class="sub">Все слова — мужского рода (der). 🔊 — послушать. Скрой переводы и проверь себя.</p>
+  <div class="part"><span class="pico">📖</span><div><div class="pk">Шаг 1</div><h2>Слова темы (die)</h2></div></div>
+  <div class="panel"><h3>🔤 Слова Греты</h3>
+    <p class="sub">Все слова — женского рода (die). 🔊 — послушать. Скрой переводы и проверь себя.</p>
     <div class="toolbar" style="margin-top:0;margin-bottom:10px"><button class="btn t sm" id="eye" onclick="toggleEye(this)">🙈 Скрыть переводы</button></div>
     <div class="vlist" id="vlist"></div>
   </div>
 
   <!-- ТЕКСТ -->
-  <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 2</div><h2>Текст-история про Отто</h2></div></div>
-  <div class="panel"><h3>📜 «Schottland fehlt mir» <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">кликни слово → перевод</span></h3>
-    <p class="sub"><span class="n" style="cursor:default">синим</span> — существительные (der), <span class="vb" style="cursor:default">жёлтым</span> — глаголы. 🔊 — послушать весь текст.</p>
+  <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 2</div><h2>Текст-история про Грету</h2></div></div>
+  <div class="panel"><h3>📜 «Italien fehlt mir» <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">кликни слово → перевод</span></h3>
+    <p class="sub"><span class="n" style="cursor:default">розовым</span> — существительные (die), <span class="vb" style="cursor:default">жёлтым</span> — глаголы. 🔊 — послушать весь текст.</p>
     <div class="bh">🇩🇪 Deutsch <button class="btn sm" id="playBtn" onclick="playText(this)">🔊 Послушать</button></div>
     <p class="detxt" id="deText"></p>
     <div class="bh" style="margin-top:12px">🇷🇺 Русский <button class="btn sm" id="ruBtn" onclick="toggleRu()">Показать перевод</button></div>
@@ -115,89 +109,82 @@
   </div>
 
   <div class="panel"><h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
-    <p class="sub">Дан перевод — впиши слово с артиклем (например: <i>der Wald</i>).</p>
+    <p class="sub">Дан перевод — впиши слово с артиклем (например: <i>die Natur</i>).</p>
     <div id="writeList"></div>
     <div class="toolbar"><button class="btn t sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать</button><button class="btn sm" onclick="buildWrite()">Ещё раз</button></div>
     <div class="score" id="wScore"></div>
   </div>
 
   <div class="panel alt"><h3><span class="exnum">4</span>🧩 Вставь слова в текст</h3>
-    <p class="sub">Впиши слова Отто в правильные места (в скобках — подсказка-перевод).</p>
+    <p class="sub">Впиши слова Греты в правильные места (в скобках — подсказка-перевод).</p>
     <div class="vbox" id="gapBox"></div>
     <div class="gaptext" id="gapText"></div>
     <div class="toolbar"><button class="btn t sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="buildGap()">Ещё раз</button></div>
     <div class="score" id="gapScore"></div>
   </div>
 
-  <div class="scenenav"><a href="index.html">🏠 Главная</a><a href="thema-a2-03.html">↑ Тема 3 (A2)</a><a href="thema-a2-03-die.html">👩 Greta (die) →</a></div>
+  <div class="scenenav"><a href="index.html">🏠 Главная</a><a href="thema-a2-03.html">↑ Тема 3 (A2)</a><a href="thema-a2-03-der.html">🧔 Otto (der) →</a></div>
 </main>
-<footer>Deutsch · A2 Тема 3 · Otto (der)</footer>
+<footer>Deutsch · A2 Тема 3 · Greta (die)</footer>
 
 <script src="js/app.js?v=4"></script>
 <script>
-const M='male';
+const M='female';
 function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zäöüß ]/g,'').replace(/\s+/g,' ').trim();}
 
-// ===== слова Отто (der) =====
+// ===== слова Греты (die) =====
 const WORDS=[
- ['Wald','лес'],['Strand','пляж'],['See','озеро'],['Fluss','река'],['Berg','гора'],['Hügel','холм'],
- ['Norden','север'],['Süden','юг'],['Osten','восток'],['Westen','запад'],['Hund','собака']
+ ['Natur','природа'],['Landschaft','ландшафт'],['Wiese','луг'],['Brücke','мост'],['Sonne','солнце'],
+ ['Kuh','корова'],['Katze','кошка'],['Biene','пчела'],['Heimat','родина'],['Farbe','цвет']
 ];
 
-// ===== текст (n = сущ. der, vb = глагол), data-ru = перевод =====
 function N(de,ru){return `<span class="n" data-de="${de}" data-ru="${ru}">${de}</span>`;}
 function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
-const TEXT_DE=`Otto ${VB('kommt','родом / приходит')} aus Schottland — aus einem kleinen Dorf bei grünen ${N('Hügeln','холмам (Hügel)')}. Er ist geschieden. Dann ${VB('ist','есть (вспом.)')} er nach Deutschland ${VB('gezogen','переехал')}, weil er neu anfangen wollte. Hier ${VB('arbeitet','работает')} er als ${N('Gärtner','садовник')}. Sein ${N('Garten','сад')} ist sein Lieblingsplatz — nur dort wird Otto ruhig und glücklich. Jeden Tag ${VB('steht','встаёт')} er früh ${VB('auf','встаёт (auf)')} und geht zu seinen Pflanzen.<br><br>
-Deutschland ist jetzt sein Zuhause, aber sein Herz ist noch im ${N('Norden','север')}. „Schottland ${VB('fehlt','не хватает')} mir“, sagt er leise. Am Abend ${VB('ruft','звонит')} er seinen ${N('Sohn','сын')} und seinen ${N('Enkel','внук')} ${VB('an','звонит (an)')}. Er ${VB('vermisst','скучает по')} sie sehr.<br><br>
-Seine neue Heimat kennt Otto genau — er liebt Ordnung. Im ${N('Norden','север')} ist ein dunkler ${N('Wald','лес')}, fast wie zu Hause; dort geht er gern spazieren. Im ${N('Süden','юг')} sind ein ruhiger ${N('See','озеро')} und ein ${N('Fluss','река')}; am Morgen sitzt er am Ufer mit seinem ${N('Kaffee','кофе')} und denkt an die Seen in Schottland: „Dort war das Wasser noch kälter!“ Im ${N('Osten','восток')} sind ein ${N('Berg','гора')} und ein grüner ${N('Hügel','холм')} mit Schafen — das ist wie seine Heimat. Und im ${N('Westen','запад')} ist ein ${N('Strand','пляж')}. Dort hat Otto seine Nachbarin Greta ${VB('kennengelernt','познакомился')}. Am Wochenende ${VB('lädt','приглашает')} er Greta und die Kinder, Theo und Lina, in seinen ${N('Garten','сад')} ${VB('ein','приглашает (ein)')}.<br><br>
-„Hier gibt es auch ${N('Hügel','холмы')}, Seen und Wälder — sehr schön. Aber Schottland ${VB('vergesse','забуду')} ich nie“, sagt Otto und lacht leise, denn Theo läuft durch den Garten hinter seinem ${N('Hund','собака')}.`;
-const TEXT_RU=`Отто родом из Шотландии — из маленькой деревни у зелёных холмов. Он разведён. Потом он переехал в Германию, потому что хотел начать заново. Здесь он работает садовником. Его сад — его любимое место, только там этот ворчун становится спокойным и счастливым. Каждый день он рано встаёт и идёт к своим растениям.<br><br>Германия теперь его дом, но сердце всё ещё на севере. «Schottland fehlt mir» (Скучаю по Шотландии), — тихо говорит он. По вечерам он звонит сыну и внуку. Он очень по ним скучает.<br><br>Свой новый край Отто знает точно — он любит порядок. На севере — тёмный лес, почти как дома; туда он любит ходить гулять. На юге — спокойное озеро и река; по утрам он сидит на берегу с кофе и вспоминает озёра в Шотландии: «Там вода была ещё холоднее!» На востоке — гора и зелёный холм с овцами — это как его родина. А на западе — пляж. Там Отто познакомился со своей соседкой Гретой. На выходных он приглашает Грету и детей, Тео и Лину, к себе в сад.<br><br>«Здесь тоже есть холмы, озёра и леса — очень красиво. Но Шотландию я никогда не забуду», — говорит Отто и тихо смеётся, ведь Тео носится по саду за его собакой.`;
+const TEXT_DE=`Greta ${VB('kommt','родом')} aus Neapel, aus Italien. Sie ist nach Deutschland ${VB('gezogen','переехала')}, weil sie ${VB('geheiratet','вышла замуж')} hat — hier wohnt ihr Mann. Aber ihr Herz ist noch im Süden: „Italien ${VB('fehlt','не хватает')} mir“, sagt sie.<br><br>
+Am meisten ${VB('vermisst','скучает по')} Greta die italienische ${N('Natur','природа')}. Als Kind hat sie am Meer gewohnt, zwischen grünen ${N('Wiesen','лугам (die Wiese)')}. Als kleines Mädchen ist sie den ganzen Tag über diese ${N('Wiesen','луга')} ${VB('gelaufen','бегала')}, hat Blumen ${VB('gepflückt','собирала')} und die ${N('Bienen','пчёлам (die Biene)')} ${VB('gehört','слушала')}. „So viele ${N('Farben','краски (die Farbe)')}, Mamma mia! Gelb, rot, grün — ein Fest!“, ${VB('erzählt','рассказывает')} sie und zeigt alte Fotos mit ihrer Kamera.<br><br>
+Ihre beste Freundin aus der Kindheit, Bianca, ist in Italien geblieben. Bianca ist Landschaftsarchitektin: Sie macht schöne Gärten und ${N('Landschaften','ландшафты (die Landschaft)')}, mit vielen Blumen und Bäumen, auf den Hügeln in der Toskana. „Bianca macht die ${N('Natur','природа')} noch schöner, und ich mache das Essen!“, lacht Greta. Am Abend ${VB('ruft','звонит')} sie Bianca und ihre Mutter Anna in Neapel ${VB('an','звонит (an)')} und ${VB('erzählt','рассказывает')} von den deutschen ${N('Wiesen','луга')} und der ${N('Brücke','мост')} über dem Fluss. Manchmal ${VB('ruft','перезванивает')} sie am Morgen noch einmal ${VB('zurück','перезванивает (zurück)')}.<br><br>
+Die ${N('Natur','природа')} hier ${VB('gefällt','нравится')} Greta auch — grüne ${N('Wiesen','луга')}, blauer Himmel, eine ${N('Kuh','корова')} auf dem Feld, eine ${N('Katze','кошка')} in der ${N('Sonne','солнце')}. Aber es ist nicht ihre ${N('Heimat','родина')}. Am Wochenende ${VB('lädt','приглашает')} Greta wie immer alle ${VB('ein','приглашает (ein)')} — Otto und die Kinder, Theo und Lina — und zeigt ihnen Fotos von den italienischen ${N('Wiesen','луга')}. „Zuhause ist da, wo ${N('Farben','краски')} und Familie sind“, sagt sie leise.`;
+const TEXT_RU=`Грета родом из Неаполя, из Италии. Она переехала в Германию, потому что вышла замуж — здесь живёт её муж. Но сердце всё ещё на юге: «Italien fehlt mir» (Скучаю по Италии), — говорит она.<br><br>Больше всего Грета скучает по итальянской природе. В детстве она жила у моря, среди зелёных лугов. Маленькой девочкой она целыми днями бегала по этим лугам, собирала цветы и слушала пчёл. «Сколько красок, Mamma mia! Жёлтый, красный, зелёный — праздник!» — рассказывает она и показывает старые фото со своей камерой.<br><br>Её лучшая подруга детства, Бьянка, осталась в Италии. Бьянка — ландшафтный архитектор: она создаёт красивые сады и ландшафты, с цветами и деревьями, на холмах Тосканы. «Бьянка делает природу ещё красивее, а я — еду!» — смеётся Грета. По вечерам она звонит Бьянке и маме Анне в Неаполь и рассказывает про немецкие луга и мост через реку. Иногда утром перезванивает ещё раз.<br><br>Здешняя природа Грете тоже нравится — зелёные луга, синее небо, корова на поле, кошка на солнце. Но это не её родина. На выходных Грета, как всегда, всех приглашает — Отто и детей, Тео и Лину — и показывает им фото итальянских лугов. «Дом там, где краски и семья», — тихо говорит она.`;
 
-// слова
-function renderWords(){document.getElementById('vlist').innerHTML=WORDS.map(([de,ru])=>`<div class="vrow"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">der ${de}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`).join('');}
+function renderWords(){document.getElementById('vlist').innerHTML=WORDS.map(([de,ru])=>`<div class="vrow"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">die ${de}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`).join('');}
 function toggleEye(b){const rows=[...document.querySelectorAll('#vlist .vrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));b.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
 
-// текст
 document.getElementById('deText').innerHTML=TEXT_DE;
 document.getElementById('ruText').innerHTML=TEXT_RU;
 document.querySelectorAll('#deText .n, #deText .vb').forEach(s=>s.addEventListener('click',()=>{const open=s.classList.toggle('open');s.textContent=open?s.dataset.ru:s.dataset.de;}));
 function toggleRu(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
-function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-03-der.mp3'],btn,[{t:plain,role:M}]);}
+function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-03-die.mp3'],btn,[{t:plain,role:M}]);}
 
-// карточки
 let ci=0,flipped=false;
-function renderCard(){const [de,ru]=WORDS[ci];document.getElementById('cText').innerHTML=flipped?`der ${de} <button class="say" onclick="event.stopPropagation();playWord('${de}','${M}')">🔊</button>`:ru;document.getElementById('cHint').textContent=flipped?'нажми — назад':'нажми — увидеть слово';document.getElementById('cCount').textContent=`${ci+1} / ${WORDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function renderCard(){const [de,ru]=WORDS[ci];document.getElementById('cText').innerHTML=flipped?`die ${de} <button class="say" onclick="event.stopPropagation();playWord('${de}','${M}')">🔊</button>`:ru;document.getElementById('cHint').textContent=flipped?'нажми — назад':'нажми — увидеть слово';document.getElementById('cCount').textContent=`${ci+1} / ${WORDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
 function flip(){flipped=!flipped;renderCard();}
 function cardNext(){ci=(ci+1)%WORDS.length;flipped=false;renderCard();}
 function cardPrev(){ci=(ci-1+WORDS.length)%WORDS.length;flipped=false;renderCard();}
 
-// соотнеси
-const PCOL=['#3b5bdb','#f97316','#ef4444','#22c55e','#a855f7','#eab308','#0e7490'];
+const PCOL=['#d6336c','#f97316','#ef4444','#22c55e','#a855f7','#eab308','#0e7490'];
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 let selDe=null,links={},colorOf={},nextC=0,MA=[];
 function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
 function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
 function renderMatch(){MA=shuffle(WORDS).slice(0,6);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MA.map((p,i)=>i));
-  document.getElementById('mDe').innerHTML=MA.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">der ${p[0]}</div>`).join('');
+  document.getElementById('mDe').innerHTML=MA.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">die ${p[0]}</div>`).join('');
   document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MA[i][1]}</div>`).join('');
   document.getElementById('mScore').textContent='';}
 function pickDe(i){playWord(MA[i][0],M);selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
 function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
 function matchCheck(){let ok=0;MA.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MA.length?'var(--das)':'var(--die)'}">${ok} / ${MA.length} верно${ok===MA.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 
-// напиши с артиклем
-function buildWrite(){document.getElementById('writeList').innerHTML=WORDS.map(([de,ru],i)=>`<div class="wq" data-i="${i}"><span class="q">${ru}</span><input placeholder="der …" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('wScore').textContent='';}
-function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm('der '+WORDS[i][0]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: der '+WORDS[i][0];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WORDS.length?'var(--das)':'var(--die)'}">${ok} / ${WORDS.length} верно${ok===WORDS.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
-function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value='der '+WORDS[i][0];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
+function buildWrite(){document.getElementById('writeList').innerHTML=WORDS.map(([de,ru],i)=>`<div class="wq" data-i="${i}"><span class="q">${ru}</span><input placeholder="die …" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('wScore').textContent='';}
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm('die '+WORDS[i][0]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: die '+WORDS[i][0];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WORDS.length?'var(--das)':'var(--die)'}">${ok} / ${WORDS.length} верно${ok===WORDS.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
+function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value='die '+WORDS[i][0];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
 
-// вставь в текст
 const GAP=[
- {t:'Otto kommt aus einem Dorf bei grünen '},{a:'Hügeln',ru:'холмам'},{t:'. '},
- {t:'Im '},{a:'Norden',ru:'север'},{t:' ist ein dunkler '},{a:'Wald',ru:'лес'},{t:'. '},
- {t:'Im '},{a:'Süden',ru:'юг'},{t:' sind ein '},{a:'See',ru:'озеро'},{t:' und ein '},{a:'Fluss',ru:'река'},{t:'. '},
- {t:'Im '},{a:'Osten',ru:'восток'},{t:' sind ein '},{a:'Berg',ru:'гора'},{t:' und ein '},{a:'Hügel',ru:'холм'},{t:'. '},
- {t:'Im '},{a:'Westen',ru:'запад'},{t:' ist ein '},{a:'Strand',ru:'пляж'},{t:'. '},
- {t:'Otto geht mit seinem '},{a:'Hund',ru:'собака'},{t:' spazieren.'}
+ {t:'Als Kind ist Greta über die '},{a:'Wiesen',ru:'луга'},{t:' gelaufen. '},
+ {t:'Sie vermisst die italienische '},{a:'Natur',ru:'природа'},{t:'. '},
+ {t:'Ihre Freundin Bianca macht schöne Gärten und '},{a:'Landschaften',ru:'ландшафты'},{t:'. '},
+ {t:'Über dem Fluss ist eine alte '},{a:'Brücke',ru:'мост'},{t:'. '},
+ {t:'Eine '},{a:'Kuh',ru:'корова'},{t:' steht auf dem Feld, eine '},{a:'Katze',ru:'кошка'},{t:' liegt in der '},{a:'Sonne',ru:'солнце'},{t:'. '},
+ {t:'Italien ist Gretas '},{a:'Heimat',ru:'родина'},{t:'.'}
 ];
 let _gk=0;
 function buildGap(){_gk=0;const words=shuffle(GAP.filter(p=>p.a).map(p=>p.a));
