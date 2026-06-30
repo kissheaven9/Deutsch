@@ -85,6 +85,11 @@
     <div class="vlist" id="vlist"></div>
   </div>
 
+  <div class="panel"><h3>🌡 Состояния (прилагательные)</h3>
+    <p class="sub">Прилагательные-состояния урока (рода нет — общие для всех). 🔊 — послушать. Они тоже в карточках и «соотнеси».</p>
+    <div class="vlist" id="adjlist"></div>
+  </div>
+
   <!-- ТЕКСТ -->
   <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 2</div><h2>Текст-история про Тео</h2></div></div>
   <div class="panel"><h3>📜 «Was machst du von Beruf?» <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">кликни слово → перевод</span></h3>
@@ -164,6 +169,9 @@ const WORDS=[
  ['Theater','театр'],['Ticket','билет'],['Spiel','игра'],['Glück','счастье / удача'],['Wochenende','выходные']
 ];
 
+const VERBS=[['reparieren','чинить'],['funktionieren','работать (функц.)'],['organisieren','организовывать'],['telefonieren','звонить по телефону'],['ausprobieren','пробовать']];
+const ADJ=[['neugierig','любопытный'],['verzweifelt','в отчаянии'],['aufgeregt','взволнованный'],['gestresst','на нервах'],['kaputt','сломанный'],['cool','классный']];
+const DECK=WORDS.map(([de,ru])=>['das '+de,de,ru]).concat(VERBS.map(([de,ru])=>[de,de,ru])).concat(ADJ.map(([de,ru])=>[de,de,ru]));
 function N(de,ru){return `<span class="n" data-de="${de}" data-ru="${ru}">${de}</span>`;}
 function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
 const TEXT_DE=`Hallo, ich bin Theo! Ich bin sieben und ein echtes Frage-Kind. Ich arbeite noch nicht, denn ich bin ja ein ${N('Kind','ребёнок')}! Aber ich bin sehr neugierig und frage alle: „Was machst du? Warum? Macht das Spaß?“<br><br>
@@ -223,7 +231,8 @@ function gapCheck(){let ok=0;document.querySelectorAll('#gapText input').forEach
 function buildWriteV(){document.getElementById('writeListV').innerHTML=VERBS.map(([de,ru],i)=>`<div class="wq" data-i="${i}"><span class="q">${ru}</span><input placeholder="глагол…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('vScore').textContent='';}
 function vCheck(){let ok=0;document.querySelectorAll('#writeListV .wq').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(VERBS[i][0]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+VERBS[i][0];if(good)ok++;});document.getElementById('vScore').innerHTML=`<span style="color:${ok===VERBS.length?'var(--das)':'var(--die)'}">${ok} / ${VERBS.length} верно${ok===VERBS.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 function vShow(){document.querySelectorAll('#writeListV .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=VERBS[i][0];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
-renderWords();renderCard();renderMatch();buildWrite();buildWriteV();buildGap();
+function renderAdj(){document.getElementById('adjlist').innerHTML=ADJ.map(([de,ru])=>`<div class="vrow"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">${de}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`).join('');}
+renderWords();renderAdj();renderCard();renderMatch();buildWrite();buildWriteV();buildGap();
 </script>
 </body>
 </html>

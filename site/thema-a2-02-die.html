@@ -85,6 +85,11 @@
     <div class="vlist" id="vlist"></div>
   </div>
 
+  <div class="panel"><h3>🌡 Состояния (прилагательные)</h3>
+    <p class="sub">Прилагательные-состояния урока (рода нет — общие для всех). 🔊 — послушать. Они тоже в карточках и «соотнеси».</p>
+    <div class="vlist" id="adjlist"></div>
+  </div>
+
   <!-- ТЕКСТ -->
   <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 2</div><h2>Текст-история про Грету</h2></div></div>
   <div class="panel"><h3>📜 «Warum ich meine Arbeit liebe» <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">кликни слово → перевод</span></h3>
@@ -161,13 +166,17 @@ function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-z
 // ===== слова Греты (die) =====
 const WORDS=[
  ['Arbeit','работа'],['Köchin','повар (она)'],['Firma','фирма'],['Stelle','место работы'],['Schicht','смена'],
- ['Eile','спешка'],['Pause','перерыв'],['Ruhe','тишина / покой'],['Kollegin','коллега (она)'],['Farbe','цвет']
+ ['Eile','спешка'],['Pause','перерыв'],['Ruhe','тишина / покой'],['Kollegin','коллега (она)'],['Farbe','цвет'],
+ ['Batterie','батарейка'],['Werkstatt','мастерская']
 ];
 
+const VERBS=[['bekommen','получать'],['erzählen','рассказывать'],['verdienen','зарабатывать'],['vergessen','забывать'],['gefallen','нравиться']];
+const ADJ=[['anstrengend','утомительный'],['stressig','стрессовый'],['müde','усталый'],['kreativ','творческий'],['zufrieden','довольная'],['stolz','гордая'],['wichtig','важный']];
+const DECK=WORDS.map(([de,ru])=>['die '+de,de,ru]).concat(VERBS.map(([de,ru])=>[de,de,ru])).concat(ADJ.map(([de,ru])=>[de,de,ru]));
 function N(de,ru){return `<span class="n" data-de="${de}" data-ru="${ru}">${de}</span>`;}
 function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
 const TEXT_DE=`Ciao, ich bin Greta, und ich bin ${VB('Köchin','повар')} — und das mit Liebe! Meine ${N('Arbeit','работа')} liebe ich sehr, denn die ${N('Küche','кухня')} ist meine größte ${N('Freude','радость')}. Ich habe eine kleine ${N('Firma','фирма')} und koche zusammen mit meiner ${N('Kollegin','коллега')} Giulia. Wir zwei arbeiten gut zusammen: schnell, kreativ und immer in ${N('Bewegung','движение')}.<br><br>
-Aber meine ${N('Stelle','место работы')} ist nicht leicht. Ich arbeite oft in ${N('Schicht','смена')}, abends und sonntags, und dann ist viel ${N('Eile','спешка')}: „schnell, schnell!“ Es ist anstrengend und manchmal richtig stressig. Für eine ${N('Pause','перерыв')} habe ich kaum ${N('Zeit','время')}, und danach bin ich oft müde. Mal ${VB('verdiene','зарабатываю')} ich gut, mal schlecht — das ist nicht immer schön. Aber ich klage nie, denn ich weiß: meine ${N('Arbeit','работа')} ist wichtig.<br><br>
+Aber meine ${N('Stelle','место работы')} ist nicht leicht. Ich arbeite oft in ${N('Schicht','смена')}, abends und sonntags, und dann ist viel ${N('Eile','спешка')}: „schnell, schnell!“ Es ist anstrengend und manchmal richtig stressig. Für eine ${N('Pause','перерыв')} habe ich kaum ${N('Zeit','время')}, und danach bin ich oft müde. Mal ${VB('verdiene','зарабатываю')} ich gut, mal schlecht — das ist nicht immer schön. Einmal war sogar meine Küchenuhr kaputt: die ${N('Batterie','батарейка')} war leer, und ich musste in die ${N('Werkstatt','мастерская')}! Aber ich klage nie, denn ich weiß: meine ${N('Arbeit','работа')} ist wichtig.<br><br>
 Warum liebe ich meine ${N('Stelle','место работы')} trotzdem? Weil ich kreativ arbeiten kann! In meiner ${N('Küche','кухня')} ist alles bunt: rote Tomaten, gelbe Zitronen, alles so schön — so viele ${N('Farben','краски (die Farbe)')}, Mamma mia! Meine ${N('Suppe','суп')} ${VB('macht','делает')} alle glücklich. Eine ${N('Freundin','подруга')} ${VB('bekommt','получает')} eine warme ${N('Suppe','суп')} und weint fast vor ${N('Freude','радость')} — „so lecker!“ Dann ${VB('erzähle','рассказываю')} ich ihr lange, wie meine ${N('Mutter','мама')} in Neapel kochte. Solche schönen ${N('Stunden','часы')} ${VB('vergesse','забываю')} ich nie.<br><br>
 Auch die schweren ${N('Schichten','смены')} ${VB('vergesse','забываю')} ich nicht — sie machen mich stärker. Und wenn jemand sagt, dass meine ${N('Suppe','суп')} ihm ${VB('gefällt','нравится')}, bin ich richtig zufrieden und stolz.<br><br>
 Nach der ${N('Schicht','смена')} liebe ich die ${N('Ruhe','тишина')}: ich sitze mit meiner ${N('Tasse','чашка')} und denke an Italien. Herzlichen Dank für meine bunte ${N('Arbeit','работа')} — und viel Spaß! Das ist Greta!`;
@@ -180,7 +189,7 @@ document.getElementById('deText').innerHTML=TEXT_DE;
 document.getElementById('ruText').innerHTML=TEXT_RU;
 document.querySelectorAll('#deText .n, #deText .vb').forEach(s=>s.addEventListener('click',()=>{const open=s.classList.toggle('open');s.textContent=open?s.dataset.ru:s.dataset.de;}));
 function toggleRu(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
-function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-02-die.mp3?v=3'],btn,[{t:plain,role:M}]);}
+function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-02-die.mp3?v=4'],btn,[{t:plain,role:M}]);}
 
 let ci=0,flipped=false;
 function renderCard(){const [disp,de,ru]=DECK[ci];document.getElementById('cText').innerHTML=flipped?`${disp} <button class="say" onclick="event.stopPropagation();playWord('${de}','${M}')">🔊</button>`:ru;document.getElementById('cHint').textContent=flipped?'нажми — назад':'нажми — увидеть слово';document.getElementById('cCount').textContent=`${ci+1} / ${DECK.length}`;document.getElementById('card').classList.toggle('back',flipped);}
@@ -225,7 +234,8 @@ function gapCheck(){let ok=0;document.querySelectorAll('#gapText input').forEach
 function buildWriteV(){document.getElementById('writeListV').innerHTML=VERBS.map(([de,ru],i)=>`<div class="wq" data-i="${i}"><span class="q">${ru}</span><input placeholder="глагол…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('vScore').textContent='';}
 function vCheck(){let ok=0;document.querySelectorAll('#writeListV .wq').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(VERBS[i][0]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+VERBS[i][0];if(good)ok++;});document.getElementById('vScore').innerHTML=`<span style="color:${ok===VERBS.length?'var(--das)':'var(--die)'}">${ok} / ${VERBS.length} верно${ok===VERBS.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 function vShow(){document.querySelectorAll('#writeListV .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=VERBS[i][0];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
-renderWords();renderCard();renderMatch();buildWrite();buildWriteV();buildGap();
+function renderAdj(){document.getElementById('adjlist').innerHTML=ADJ.map(([de,ru])=>`<div class="vrow"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">${de}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`).join('');}
+renderWords();renderAdj();renderCard();renderMatch();buildWrite();buildWriteV();buildGap();
 </script>
 </body>
 </html>
