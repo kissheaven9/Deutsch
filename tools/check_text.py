@@ -19,6 +19,8 @@ GENDER = {
  'Ort':'der','Wohnort':'der','Espresso':'der','Traum':'der',
  'Beruf':'der','Job':'der','Vorteil':'der','Nachteil':'der','Wunsch':'der','Kollege':'der',
  'Kunde':'der','Cent':'der','Erfolg':'der','Chef':'der','Sommer':'der','Mensch':'der','Lohn':'der',
+ 'Finger':'der','Brummbär':'der','Gast':'der','Moment':'der','Leib':'der','Stress':'der','Tisch':'der',
+ 'Salat':'der','Pfeffer':'der','Feiertag':'der','Reifen':'der',
  # --- die ---
  'Natur':'die','Landschaft':'die','Wiese':'die','Brücke':'die','Sonne':'die','Kuh':'die',
  'Katze':'die','Biene':'die','Heimat':'die','Farbe':'die','Gegend':'die','Welt':'die',
@@ -28,6 +30,7 @@ GENDER = {
  'Küste':'die','Aussicht':'die','Liebe':'die','Milch':'die','Ecke':'die','Kindern':'die',
  'Arbeit':'die','Köchin':'die','Firma':'die','Schicht':'die','Eile':'die','Pause':'die',
  'Ruhe':'die','Stelle':'die','Kollegin':'die','Tomate':'die','Zitrone':'die','Suppe':'die','Freude':'die','Zeit':'die','Tasse':'die',
+ 'Bewegung':'die','Stunde':'die','Seele':'die','Werkstatt':'die','Batterie':'die','Hand':'die',
  # --- das ---
  'Tier':'das','Pferd':'das','Schaf':'das','Feld':'das','Dorf':'das','Tal':'das','Meer':'das',
  'Ufer':'das','Kaninchen':'das','Land':'das','Kind':'das','Mädchen':'das','Haus':'das',
@@ -36,6 +39,7 @@ GENDER = {
  'Frage-Kind':'das','Lieblingsfenster':'das','Fenster':'das',
  'Material':'das','Casting':'das','Musical':'das','Theater':'das','Ticket':'das','Spiel':'das',
  'Metall':'das','Plastik':'das','Glas':'das','Auto':'das','Geld':'das','Leben':'das',
+ 'Werkzeug':'das','Paar':'das','Team':'das','Geheimnis':'das','Kraut':'das','Rezept':'das','Gespräch':'das',
 }
 # формы мн.ч./склонения -> лемма
 LEMMA = {
