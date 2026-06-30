@@ -80,7 +80,7 @@
   <!-- СЛОВА -->
   <div class="part"><span class="pico">📖</span><div><div class="pk">Шаг 1</div><h2>Слова темы (das)</h2></div></div>
   <div class="panel"><h3>🔤 Слова Тео</h3>
-    <p class="sub">Все слова — среднего рода (das). 🔊 — послушать. Скрой переводы и проверь себя.</p>
+    <p class="sub">Существительные (das) и глаголы Тео — <b>на -ieren</b>. 🔊 — послушать. Скрой переводы и проверь себя.</p>
     <div class="toolbar" style="margin-top:0;margin-bottom:10px"><button class="btn t sm" id="eye" onclick="toggleEye(this)">🙈 Скрыть переводы</button></div>
     <div class="vlist" id="vlist"></div>
   </div>
@@ -134,6 +134,13 @@
     <div class="score" id="wScore"></div>
   </div>
 
+  <div class="panel"><h3><span class="exnum">3b</span>✍️ Напиши глагол</h3>
+    <p class="sub">Дан перевод — впиши глагол по-немецки (инфинитив).</p>
+    <div id="writeListV"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="vCheck()">Проверить</button><button class="btn sm" onclick="vShow()">Показать</button><button class="btn sm" onclick="buildWriteV()">Ещё раз</button></div>
+    <div class="score" id="vScore"></div>
+  </div>
+
   <div class="panel alt"><h3><span class="exnum">4</span>🧩 Вставь слова в текст</h3>
     <p class="sub">Впиши слова Тео в правильные места (в скобках — подсказка-перевод).</p>
     <div class="vbox" id="gapBox"></div>
@@ -166,7 +173,7 @@ Was für ein ${N('Glück','счастье')}! Später schickt er zwei ${N('Ticke
 Am ${N('Wochenende','выходные')} ${VB('spielen','играем')} Lina und ich: Sie malt, ich „repariere“. „Cool!“ Herzlichen Dank, Branko, und viel Spaß! Das ist Theo!`;
 const TEXT_RU=`Привет, я Тео! Мне семь, и я настоящий почемучка. Я ещё не работаю — я же ребёнок! Но я всех расспрашиваю: «Кем ты работаешь? Почему?»<br><br>Однажды у Греты сломалась машина — стоит и не едет. «Что это? Почему не работает?» Приезжает Бранко и всё чинит. Я смотрю во все глаза: из чего сделана машина — металл, пластик, стекло? Бранко смеётся и всё мне рассказывает.<br><br>Он работает на улице, иногда ночью, очень быстро — нелегко! Но говорит: «Mне нравится, weil я люблю помогать». Однажды у кого-то была беда: важный кастинг на мюзикл, а машина не заводится! Бранко быстро чинит — и человек успевает вовремя.<br><br>Какое счастье! Потом он присылает два билета в театр — «das war mein Glück!» Я слушаю и мечтаю: кем я стану? Может, тоже буду чинить машины или придумывать игры?<br><br>В выходные мы с Линой играем: она рисует, я «чиню». «Cool!» Herzlichen Dank, Бранко, und viel Spaß! Das ist Theo!`;
 
-function renderWords(){document.getElementById('vlist').innerHTML=WORDS.map(([de,ru])=>`<div class="vrow"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">das ${de}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`).join('');}
+function renderWords(){const r=(de,ru,disp)=>`<div class="vrow"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">${disp}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`;document.getElementById('vlist').innerHTML=WORDS.map(([de,ru])=>r(de,ru,'das '+de)).join('')+VERBS.map(([de,ru])=>r(de,ru,de)).join('');}
 function toggleEye(b){const rows=[...document.querySelectorAll('#vlist .vrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));b.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
 
 document.getElementById('deText').innerHTML=TEXT_DE;
@@ -176,21 +183,21 @@ function toggleRu(){const r=document.getElementById('ruText'),b=document.getElem
 function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-02-das.mp3?v=2'],btn,[{t:plain,role:M}]);}
 
 let ci=0,flipped=false;
-function renderCard(){const [de,ru]=WORDS[ci];document.getElementById('cText').innerHTML=flipped?`das ${de} <button class="say" onclick="event.stopPropagation();playWord('${de}','${M}')">🔊</button>`:ru;document.getElementById('cHint').textContent=flipped?'нажми — назад':'нажми — увидеть слово';document.getElementById('cCount').textContent=`${ci+1} / ${WORDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function renderCard(){const [disp,de,ru]=DECK[ci];document.getElementById('cText').innerHTML=flipped?`${disp} <button class="say" onclick="event.stopPropagation();playWord('${de}','${M}')">🔊</button>`:ru;document.getElementById('cHint').textContent=flipped?'нажми — назад':'нажми — увидеть слово';document.getElementById('cCount').textContent=`${ci+1} / ${DECK.length}`;document.getElementById('card').classList.toggle('back',flipped);}
 function flip(){flipped=!flipped;renderCard();}
-function cardNext(){ci=(ci+1)%WORDS.length;flipped=false;renderCard();}
-function cardPrev(){ci=(ci-1+WORDS.length)%WORDS.length;flipped=false;renderCard();}
+function cardNext(){ci=(ci+1)%DECK.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+DECK.length)%DECK.length;flipped=false;renderCard();}
 
 const PCOL=['#15803d','#f97316','#ef4444','#3b5bdb','#a855f7','#eab308','#0e7490'];
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 let selDe=null,links={},colorOf={},nextC=0,MA=[];
 function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
 function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
-function renderMatch(){MA=shuffle(WORDS).slice(0,6);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MA.map((p,i)=>i));
-  document.getElementById('mDe').innerHTML=MA.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">das ${p[0]}</div>`).join('');
-  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MA[i][1]}</div>`).join('');
+function renderMatch(){MA=shuffle(DECK).slice(0,6);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MA.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MA.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MA[i][2]}</div>`).join('');
   document.getElementById('mScore').textContent='';}
-function pickDe(i){playWord(MA[i][0],M);selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickDe(i){playWord(MA[i][1],M);selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
 function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
 function matchCheck(){let ok=0;MA.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MA.length?'var(--das)':'var(--die)'}">${ok} / ${MA.length} верно${ok===MA.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 
@@ -213,7 +220,10 @@ function buildGap(){_gk=0;const words=shuffle(GAP.filter(p=>p.a).map(p=>p.a));
 const GANS=GAP.filter(p=>p.a).map(p=>p.a);
 function gapCheck(){let ok=0;document.querySelectorAll('#gapText input').forEach((inp,i)=>{const good=norm(inp.value)===norm(GANS[i]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});const all=ok===GANS.length;document.getElementById('gapScore').innerHTML=`<span style="color:${all?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${all&&typeof praise==='function'?' — '+praise():''}</span>`;}
 
-renderWords();renderCard();renderMatch();buildWrite();buildGap();
+function buildWriteV(){document.getElementById('writeListV').innerHTML=VERBS.map(([de,ru],i)=>`<div class="wq" data-i="${i}"><span class="q">${ru}</span><input placeholder="глагол…" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('vScore').textContent='';}
+function vCheck(){let ok=0;document.querySelectorAll('#writeListV .wq').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm(VERBS[i][0]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: '+VERBS[i][0];if(good)ok++;});document.getElementById('vScore').innerHTML=`<span style="color:${ok===VERBS.length?'var(--das)':'var(--die)'}">${ok} / ${VERBS.length} верно${ok===VERBS.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
+function vShow(){document.querySelectorAll('#writeListV .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value=VERBS[i][0];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
+renderWords();renderCard();renderMatch();buildWrite();buildWriteV();buildGap();
 </script>
 </body>
 </html>
