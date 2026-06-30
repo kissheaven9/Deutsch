@@ -17,6 +17,8 @@ GENDER = {
  'Kaffee':'der','Sohn':'der','Enkel':'der','Morgen':'der','Tag':'der','Abend':'der','Mann':'der',
  'Himmel':'der','Baum':'der','Kakao':'der','Lieblingsplatz':'der','Park':'der','Wind':'der',
  'Ort':'der','Wohnort':'der','Espresso':'der','Traum':'der',
+ 'Beruf':'der','Job':'der','Vorteil':'der','Nachteil':'der','Wunsch':'der','Kollege':'der',
+ 'Kunde':'der','Cent':'der','Erfolg':'der','Chef':'der','Sommer':'der','Mensch':'der','Lohn':'der',
  # --- die ---
  'Natur':'die','Landschaft':'die','Wiese':'die','Brücke':'die','Sonne':'die','Kuh':'die',
  'Katze':'die','Biene':'die','Heimat':'die','Farbe':'die','Gegend':'die','Welt':'die',
@@ -24,12 +26,16 @@ GENDER = {
  'Nachbarin':'die','Blume':'die','Pflanze':'die','Stelle':'die','Insel':'die','Luft':'die',
  'Landschaftsarchitektin':'die','Wärme':'die','Küche':'die','Stadt':'die',
  'Küste':'die','Aussicht':'die','Liebe':'die','Milch':'die','Ecke':'die','Kindern':'die',
+ 'Arbeit':'die','Köchin':'die','Firma':'die','Schicht':'die','Eile':'die','Pause':'die',
+ 'Ruhe':'die','Stelle':'die','Kollegin':'die','Tomate':'die','Zitrone':'die','Suppe':'die','Freude':'die','Zeit':'die','Tasse':'die',
  # --- das ---
  'Tier':'das','Pferd':'das','Schaf':'das','Feld':'das','Dorf':'das','Tal':'das','Meer':'das',
  'Ufer':'das','Kaninchen':'das','Land':'das','Kind':'das','Mädchen':'das','Haus':'das',
  'Glück':'das','Problem':'das','Rätsel':'das','Spiel':'das','Foto':'das','Herz':'das',
  'Wasser':'das','Gras':'das','Zuhause':'das','Jahr':'das','Fest':'das','Essen':'das','Dorf ':'das',
  'Frage-Kind':'das','Lieblingsfenster':'das','Fenster':'das',
+ 'Material':'das','Casting':'das','Musical':'das','Theater':'das','Ticket':'das','Spiel':'das',
+ 'Metall':'das','Plastik':'das','Glas':'das','Auto':'das','Geld':'das','Leben':'das',
 }
 # формы мн.ч./склонения -> лемма
 LEMMA = {
