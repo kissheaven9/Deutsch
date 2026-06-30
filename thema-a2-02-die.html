@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>A2 · Тема 2 «Работа / профессия» — Greta (die)</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+  :root{--t:#d6336c;--tb:#fbcfe2;--tbg:#fdf2f7}
+  .lead{color:#374151;line-height:1.7}
+  .hero{display:flex;gap:14px;align-items:center;background:var(--tbg);border:1px solid var(--tb);border-radius:18px;padding:16px 18px;margin:14px 0}
+  .hero .av{font-size:46px}.hero h2{margin:0 0 4px;font-size:20px;color:var(--t)}.hero p{margin:0;font-size:14px;color:#374151;line-height:1.6}
+  .part{display:flex;align-items:center;gap:14px;margin:26px 0 12px;padding:13px 18px;border-radius:16px;border:1px solid var(--tb);background:var(--tbg)}
+  .part .pico{font-size:26px}.part .pk{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--t);font-weight:700}.part h2{margin:2px 0 0;font-size:20px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #00000010}
+  .panel.alt{background:var(--tbg)}
+  .panel>h3{margin:-16px -16px 14px;padding:12px 16px;font-size:16px;display:flex;gap:10px;align-items:center;background:var(--tbg);border-bottom:1px solid var(--tb);border-radius:16px 16px 0 0}
+  .panel.alt>h3{background:#fff;border-bottom-color:var(--line)}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:50%;background:var(--t);color:#fff;font-size:13px;font-weight:700}
+  .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px;line-height:1.6}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer;font-family:inherit}
+  .btn.t{background:var(--t);color:#fff;border-color:var(--t)} .btn.sm{padding:7px 11px;font-size:13px}
+  .toolbar{display:flex;gap:8px;margin:10px 0 0;flex-wrap:wrap}
+  .say{border:none;background:none;cursor:pointer;font-size:15px;opacity:.6;padding:2px}.say:hover{opacity:1}
+  .score{font-weight:700;margin-top:8px}
+  .vlist{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  @media(max-width:640px){.vlist{grid-template-columns:1fr}}
+  .vrow{display:flex;align-items:center;gap:9px;background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:7px 10px}
+  .vrow .de{font-weight:700;color:var(--t);font-size:15px}
+  .vrow .ru{color:#374151;font-size:13px;flex:1;text-align:right}
+  .vrow.noru .ru{visibility:hidden;position:relative}
+  .vrow.noru .ru::after{content:"·····";position:absolute;right:0;color:#9ca3af;visibility:visible}
+  .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--t);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .detxt{line-height:2;font-size:16px;color:var(--ink);margin:0}
+  .detxt .n{background:#fde4ef;color:var(--t);border-radius:4px;padding:0 3px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .detxt .vb{background:#fef9c3;color:#a16207;border-radius:4px;padding:0 3px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .detxt .n.open,.detxt .vb.open{text-decoration:underline;filter:brightness(.95)}
+  .rutxt{color:#374151;line-height:1.7;margin:8px 0 0}
+  .cardwrap{max-width:380px;margin:0 auto}
+  .card{background:#fff;border:2px solid var(--t);border-radius:16px;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer}
+  .card.back{background:var(--tbg)}.c-text{font-size:24px;font-weight:700;color:var(--ink)}.card.back .c-text{color:var(--t)}.c-hint{font-size:12px;color:var(--muted)}
+  .cnav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;max-width:380px;margin-left:auto;margin-right:auto}
+  .cnav #cCount{color:var(--muted);font-weight:600}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mcol{display:flex;flex-direction:column;gap:7px}
+  .mchip{border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;font-size:15px;background:#fff;text-align:center}
+  .mchip.de{font-weight:700;color:var(--t)}.mchip.sel{border-color:var(--t);background:var(--tbg)}
+  .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px}
+  .wq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0}
+  .wq .q{min-width:150px;color:#374151}
+  .wq input{border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;flex:1;min-width:150px}
+  .wq input:focus{outline:none;border-color:var(--t)}
+  .wq.ok input{border-color:var(--das);background:#e8f6ee}.wq.bad input{border-color:var(--die);background:#fdecec}
+  .wq .corr{font-size:13px;color:var(--die);font-weight:600;width:100%}
+  .gaptext{line-height:2.6;font-size:16px}
+  .gaptext input{border:none;border-bottom:2px solid var(--t);width:120px;font-size:15px;font-family:inherit;text-align:center;color:var(--t);font-weight:700}
+  .gaptext input:focus{outline:none;background:var(--tbg)}
+  .gaptext .gh{font-size:12px;color:var(--muted);margin:0 4px}
+  .vbox{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:10px}
+  .vbox span{background:#fff;border:1px solid var(--tb);border-radius:7px;padding:3px 9px;font-weight:700;color:var(--t);font-size:14px}
+  .scenenav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 8px}
+  .scenenav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:var(--t)}
+  details.imgp{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:6px 0}
+  details.imgp>summary{cursor:pointer;font-size:14px;color:var(--t);font-weight:700}
+  .prompt{white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.6;color:#374151;margin-top:10px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch</a><span class="crumb">/ A2 · Тема 2 · Greta (die)</span></div></header>
+<main class="wrap">
+  <h1>A2 · Тема 2 «Работа / профессия» — Greta <span style="font-size:16px;color:var(--muted)">(die)</span></h1>
+  <p class="lead">Уровень A2 (Lektion 2). Тема — <b>работа и профессия</b>: условия труда и союз <b>weil</b>. Учим <b>женский род</b> (die) — почти вся «рабочая» лексика женская (die Arbeit, die Schicht, die Pause) — и <b>глаголы Греты — неотделяемые</b> (приставка приросла). Сначала слова → текст → упражнения. 🔊 — послушать.</p>
+
+  <div class="hero"><div class="av">👩</div><div>
+    <h2>🔴 Greta (die) — «Почему я люблю свою работу»</h2>
+    <p>Грета — повар (die Köchin) со своей фирмой-кейтерингом: работает в команде и посменно, бывает спешка — но обожает дело, ведь готовит творчески и ярко. Её слова — женского рода, её глаголы — <b>неотделяемые</b> (bekommt, erzählt, vergisst).</p>
+  </div></div>
+
+  <!-- СЛОВА -->
+  <div class="part"><span class="pico">📖</span><div><div class="pk">Шаг 1</div><h2>Слова темы (die)</h2></div></div>
+  <div class="panel"><h3>🔤 Слова Греты</h3>
+    <p class="sub">Все слова — женского рода (die). 🔊 — послушать. Скрой переводы и проверь себя.</p>
+    <div class="toolbar" style="margin-top:0;margin-bottom:10px"><button class="btn t sm" id="eye" onclick="toggleEye(this)">🙈 Скрыть переводы</button></div>
+    <div class="vlist" id="vlist"></div>
+  </div>
+
+  <!-- ТЕКСТ -->
+  <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 2</div><h2>Текст-история про Грету</h2></div></div>
+  <div class="panel"><h3>📜 «Warum ich meine Arbeit liebe» <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">кликни слово → перевод</span></h3>
+    <p class="sub"><span class="n" style="cursor:default">розовым</span> — существительные (die), <span class="vb" style="cursor:default">жёлтым</span> — глаголы. 🔊 — послушать весь текст.</p>
+    <div class="bh">🇩🇪 Deutsch <button class="btn sm" id="playBtn" onclick="playText(this)">🔊 Послушать</button></div>
+    <p class="detxt" id="deText"></p>
+    <div class="bh" style="margin-top:12px">🇷🇺 Русский <button class="btn sm" id="ruBtn" onclick="toggleRu()">Показать перевод</button></div>
+    <p class="rutxt" id="ruText" hidden></p>
+  </div>
+
+  <div class="panel alt"><h3>🧩 Грамматика и глаголы Греты</h3>
+    <p class="sub" style="margin-bottom:0"><b>Союз weil</b>: глагол уходит в <b>конец</b>. <i>Ich liebe meine Arbeit, <b>weil</b> ich kreativ arbeiten <b>kann</b>.</i><br>
+    <b>Глаголы Греты — неотделяемые</b> (приставка приросла намертво): <i><b>be</b>kommen</i> · <i><b>er</b>zählen</i> · <i><b>ver</b>dienen</i> · <i><b>ver</b>gessen</i>. В прошедшем (Perfekt) — <b>без -ge-</b>: <i>bekommen, erzählt, vergessen</i>.</p>
+  </div>
+
+  <div class="panel"><h3>🖼 Картинка к тексту</h3>
+    <p class="sub">Фото пока нет. Скопируй промпт ниже, вставь в ChatGPT (генерация изображений) — получишь картинку к этой истории.</p>
+    <details class="imgp"><summary>📋 Промпт для ChatGPT</summary><div class="prompt">Тёплая книжная иллюстрация (не фотореализм, мягкие тёплые краски), настроение — радость творчества и гордость за своё дело.
+
+ГЛАВНАЯ ГЕРОИНЯ — ГРЕТА: тёплая, округлая, улыбчивая итальянка ~48 лет, тёмные волнистые волосы, круглые очки, яркий фартук — она повар (die Köchin). Готовит на своей кухне, в руках поварёшка, лицо счастливое.
+
+ДЕТАЛИ ПРОФЕССИИ (всё женского рода): рядом её КОЛЛЕГА (die Kollegin) Джулия — работают в команде; на столе очень ярко и цветно — красные помидоры, жёлтые лимоны, много КРАСОК (die Farbe), Mamma mia! Чуть в стороне часы — намёк на смену и спешку (die Schicht, die Eile). Тёплый, «вкусный» свет.
+
+Композиция: оживлённая кухня, две женщины готовят, всё пёстрое и яркое. Без какого-либо текста, букв и цифр в изображении.</div></details>
+  </div>
+
+  <!-- УПРАЖНЕНИЯ -->
+  <div class="part"><span class="pico">🎯</span><div><div class="pk">Шаг 3</div><h2>Упражнения</h2></div></div>
+
+  <div class="panel"><h3><span class="exnum">1</span>🃏 Карточки</h3>
+    <p class="sub">Немецкое слово — вспомни перевод, нажми, чтобы перевернуть. Листай ← →.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <div class="panel alt"><h3><span class="exnum">2</span>🔗 Соотнеси: слово ↔ перевод</h3>
+    <p class="sub">Нажми немецкое слово, потом перевод — пара окрасится.</p>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="toolbar"><button class="btn t sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">3</span>✍️ Напиши с артиклем</h3>
+    <p class="sub">Дан перевод — впиши слово с артиклем (например: <i>die Natur</i>).</p>
+    <div id="writeList"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="writeCheck()">Проверить</button><button class="btn sm" onclick="writeShow()">Показать</button><button class="btn sm" onclick="buildWrite()">Ещё раз</button></div>
+    <div class="score" id="wScore"></div>
+  </div>
+
+  <div class="panel alt"><h3><span class="exnum">4</span>🧩 Вставь слова в текст</h3>
+    <p class="sub">Впиши слова Греты в правильные места (в скобках — подсказка-перевод).</p>
+    <div class="vbox" id="gapBox"></div>
+    <div class="gaptext" id="gapText"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="buildGap()">Ещё раз</button></div>
+    <div class="score" id="gapScore"></div>
+  </div>
+
+  <div class="scenenav"><a href="index.html">🏠 Главная</a><a href="thema-a2-02.html">↑ Тема 2 (A2)</a><a href="thema-a2-02-der.html">🧔 Otto (der) →</a></div>
+</main>
+<footer>Deutsch · A2 Тема 2 · Greta (die)</footer>
+
+<script src="js/app.js?v=4"></script>
+<script>
+const M='female';
+function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zäöüß ]/g,'').replace(/\s+/g,' ').trim();}
+
+// ===== слова Греты (die) =====
+const WORDS=[
+ ['Arbeit','работа'],['Köchin','повар (она)'],['Firma','фирма'],['Stelle','место работы'],['Schicht','смена'],
+ ['Eile','спешка'],['Pause','перерыв'],['Ruhe','тишина / покой'],['Kollegin','коллега (она)'],['Farbe','цвет']
+];
+
+function N(de,ru){return `<span class="n" data-de="${de}" data-ru="${ru}">${de}</span>`;}
+function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
+const TEXT_DE=`Ciao, ich bin Greta! Ich bin ${VB('Köchin','повар')} und meine ${N('Arbeit','работа')} liebe ich sehr. Ich habe eine kleine ${N('Firma','фирма')} und koche mit meiner ${N('Kollegin','коллега')} Giulia — zusammen, so ist es schöner und bunter!<br><br>
+Ich arbeite oft in ${N('Schicht','смена')}, abends und sonntags. Dann ist viel ${N('Eile','спешка')}: „schnell, schnell!“ Für eine ${N('Pause','перерыв')} habe ich fast keine Zeit, und ich ${VB('bin','есть')} müde. Mal ${VB('verdiene','зарабатываю')} ich gut, mal schlecht — das ist nicht so schön. Aber ich klage nicht!<br><br>
+Warum liebe ich meine ${N('Stelle','место работы')}? Weil ich kreativ arbeiten kann! Ich koche bunt: rote Tomaten, gelbe Zitronen, alles so schön — so viele ${N('Farben','краски (die Farbe)')}, Mamma mia! Meine Küche ${VB('macht','делает')} alle glücklich, und das ist mir total wichtig.<br><br>
+Meine Freundin ${VB('bekommt','получает')} meine ${N('Suppe','суп')} und weint vor Freude; und ich ${VB('erzähle','рассказываю')} ihr, wie man sie kocht, wie meine Mutter in Neapel. Nach der ${N('Schicht','смена')} liebe ich die ${N('Ruhe','тишина')}: ich sitze mit meiner Tasse und denke an Italien.<br><br>
+Schwere ${N('Schichten','смены')} ${VB('vergesse','забываю')} ich nicht — sie machen mich stark. Meine ${N('Arbeit','работа')} macht mich glücklich! Herzlichen Dank für alles — und viel Spaß! Das ist Greta!`;
+const TEXT_RU=`Ciao, я Грета! Я повар, и свою работу очень люблю. У меня маленькая фирма-кейтеринг, готовлю с коллегой Джулией — в команде, так веселее и ярче!<br><br>Часто работаю посменно, по вечерам и в праздники. Тогда сплошная спешка: «schnell, schnell!» На перерыв времени почти нет, и я устаю. Зарабатываю то хорошо, то плохо — это не очень приятно. Но я не жалуюсь!<br><br>Почему люблю своё место работы? «Weil ich kreativ arbeiten kann» (потому что могу работать творчески)! Готовлю ярко: красные помидоры, жёлтые лимоны, всё такое красивое — сколько красок, Mamma mia! Моя кухня делает всех счастливыми, и это мне очень важно.<br><br>Подруга получает мой суп и плачет от радости; а я рассказываю ей, как его готовить, как мама в Неаполе. После смены люблю тишину: сижу с чашкой и вспоминаю Италию.<br><br>Тяжёлые смены я не забываю — они делают меня сильнее. Моя работа делает меня счастливой! Herzlichen Dank за всё — und viel Spaß! Das ist Greta!`;
+
+function renderWords(){document.getElementById('vlist').innerHTML=WORDS.map(([de,ru])=>`<div class="vrow"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">die ${de}</span><span class="ru">${ru}</span><button class="say" onclick="this.closest('.vrow').classList.toggle('noru')">👁</button></div>`).join('');}
+function toggleEye(b){const rows=[...document.querySelectorAll('#vlist .vrow')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));b.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
+
+document.getElementById('deText').innerHTML=TEXT_DE;
+document.getElementById('ruText').innerHTML=TEXT_RU;
+document.querySelectorAll('#deText .n, #deText .vb').forEach(s=>s.addEventListener('click',()=>{const open=s.classList.toggle('open');s.textContent=open?s.dataset.ru:s.dataset.de;}));
+function toggleRu(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
+function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.n,.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/a2-02-die.mp3?v=2'],btn,[{t:plain,role:M}]);}
+
+let ci=0,flipped=false;
+function renderCard(){const [de,ru]=WORDS[ci];document.getElementById('cText').innerHTML=flipped?`die ${de} <button class="say" onclick="event.stopPropagation();playWord('${de}','${M}')">🔊</button>`:ru;document.getElementById('cHint').textContent=flipped?'нажми — назад':'нажми — увидеть слово';document.getElementById('cCount').textContent=`${ci+1} / ${WORDS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%WORDS.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+WORDS.length)%WORDS.length;flipped=false;renderCard();}
+
+const PCOL=['#d6336c','#f97316','#ef4444','#22c55e','#a855f7','#eab308','#0e7490'];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let selDe=null,links={},colorOf={},nextC=0,MA=[];
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){MA=shuffle(WORDS).slice(0,6);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MA.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MA.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">die ${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MA[i][1]}</div>`).join('');
+  document.getElementById('mScore').textContent='';}
+function pickDe(i){playWord(MA[i][0],M);selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){let ok=0;MA.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--das)':'var(--die)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MA.length?'var(--das)':'var(--die)'}">${ok} / ${MA.length} верно${ok===MA.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
+
+function buildWrite(){document.getElementById('writeList').innerHTML=WORDS.map(([de,ru],i)=>`<div class="wq" data-i="${i}"><span class="q">${ru}</span><input placeholder="die …" autocomplete="off"><span class="corr"></span></div>`).join('');document.getElementById('wScore').textContent='';}
+function writeCheck(){let ok=0;document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;const good=norm(r.querySelector('input').value)===norm('die '+WORDS[i][0]);r.classList.toggle('ok',good);r.classList.toggle('bad',!good);r.querySelector('.corr').textContent=good?'':'верно: die '+WORDS[i][0];if(good)ok++;});document.getElementById('wScore').innerHTML=`<span style="color:${ok===WORDS.length?'var(--das)':'var(--die)'}">${ok} / ${WORDS.length} верно${ok===WORDS.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
+function writeShow(){document.querySelectorAll('#writeList .wq').forEach(r=>{const i=+r.dataset.i;r.querySelector('input').value='die '+WORDS[i][0];r.classList.add('ok');r.classList.remove('bad');r.querySelector('.corr').textContent='';});}
+
+const GAP=[
+ {t:'Greta ist '},{a:'Köchin',ru:'повар'},{t:' und hat eine kleine '},{a:'Firma',ru:'фирма'},{t:'. '},
+ {t:'Sie liebt ihre '},{a:'Arbeit',ru:'работа'},{t:' und ihre '},{a:'Stelle',ru:'место работы'},{t:'. '},
+ {t:'Sie arbeitet in '},{a:'Schicht',ru:'смена'},{t:', oft mit viel '},{a:'Eile',ru:'спешка'},{t:'. '},
+ {t:'Für eine '},{a:'Pause',ru:'перерыв'},{t:' hat sie kaum Zeit. '},
+ {t:'Sie kocht mit ihrer '},{a:'Kollegin',ru:'коллега'},{t:' Giulia. '},
+ {t:'Greta kocht bunt: so viele '},{a:'Farben',ru:'краски'},{t:'! '},
+ {t:'Nach der Arbeit liebt Greta die '},{a:'Ruhe',ru:'тишина'},{t:'.'}
+];
+let _gk=0;
+function buildGap(){_gk=0;const words=shuffle(GAP.filter(p=>p.a).map(p=>p.a));
+  document.getElementById('gapBox').innerHTML='<b style="color:#374151;margin-right:4px">📦 Слова:</b> '+words.map(w=>`<span>${w}</span>`).join('');
+  document.getElementById('gapText').innerHTML=GAP.map(p=>p.t!==undefined?p.t:`<input data-i="${_gk++}" autocomplete="off"><span class="gh">(${p.ru})</span>`).join('');
+  document.getElementById('gapScore').textContent='';}
+const GANS=GAP.filter(p=>p.a).map(p=>p.a);
+function gapCheck(){let ok=0;document.querySelectorAll('#gapText input').forEach((inp,i)=>{const good=norm(inp.value)===norm(GANS[i]);inp.style.borderBottomColor=good?'var(--das)':'var(--die)';inp.style.color=good?'var(--das)':'var(--die)';if(good)ok++;});const all=ok===GANS.length;document.getElementById('gapScore').innerHTML=`<span style="color:${all?'var(--das)':'var(--die)'}">${ok} / ${GANS.length} верно${all&&typeof praise==='function'?' — '+praise():''}</span>`;}
+
+renderWords();renderCard();renderMatch();buildWrite();buildGap();
+</script>
+</body>
+</html>
