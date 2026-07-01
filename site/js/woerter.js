@@ -149,6 +149,72 @@ const WOERTER = { themes: [
       "Дни недели":[["Montag","понедельник"],["Dienstag","вторник"],["Mittwoch","среда"],["Donnerstag","четверг"],["Freitag","пятница"],["Samstag","суббота"],["Sonntag","воскресенье"],["am Wochenende","на выходных"]],
       "Слова-помощники":[["am","в (день)"],["dann","потом"],["auch","тоже"],["heute","сегодня"],["und","и"],["aber","но"],["oder","или"],["sehr","очень"]]
     }
+  },
+  {
+    id:"a2-02", title:"A2 · Работа / профессия", lessons:"A2 · L2",
+    nouns:{
+      der:[
+        ["Beruf","профессия"],["Job","работа / дело"],["Kollege","коллега (м)"],["Kunde","клиент"],["Chef","начальник"],
+        ["Vorteil","плюс"],["Nachteil","минус"],["Wunsch","желание"],["Erfolg","успех"],["Computer","компьютер"],
+        ["Wagen","машина"],["Reifen","покрышка"]
+      ],
+      die:[
+        ["Arbeit","работа"],["Köchin","повар (ж)"],["Firma","фирма"],["Stelle","место работы"],["Schicht","смена"],
+        ["Eile","спешка"],["Pause","перерыв"],["Ruhe","тишина / покой"],["Kollegin","коллега (ж)"],["Farbe","цвет"],
+        ["Batterie","батарейка"],["Werkstatt","мастерская"]
+      ],
+      das:[
+        ["Auto","машина"],["Material","материал"],["Problem","беда / проблема"],["Casting","кастинг"],["Musical","мюзикл"],
+        ["Theater","театр"],["Ticket","билет"],["Spiel","игра"],["Glück","счастье / удача"],["Wochenende","выходные"]
+      ]
+    },
+    verbs:[
+      ["verdienen","зарабатывать","reg",["verdiene","verdienst","verdient","verdienen","verdient","verdienen"],"hat verdient"],
+      ["erzählen","рассказывать","reg",["erzähle","erzählst","erzählt","erzählen","erzählt","erzählen"],"hat erzählt"],
+      ["reparieren","чинить","reg",["repariere","reparierst","repariert","reparieren","repariert","reparieren"],"hat repariert"],
+      ["funktionieren","работать (функц.)","reg",["funktioniere","funktionierst","funktioniert","funktionieren","funktioniert","funktionieren"],"hat funktioniert"],
+      ["organisieren","организовывать","reg",["organisiere","organisierst","organisiert","organisieren","organisiert","organisieren"],"hat organisiert"],
+      ["telefonieren","звонить по телефону","reg",["telefoniere","telefonierst","telefoniert","telefonieren","telefoniert","telefonieren"],"hat telefoniert"],
+      ["kennenlernen","знакомиться","reg",["lerne … kennen","lernst … kennen","lernt … kennen","lernen … kennen","lernt … kennen","lernen … kennen"],"hat kennengelernt"],
+      ["ausschalten","выключать","reg",["schalte … aus","schaltest … aus","schaltet … aus","schalten … aus","schaltet … aus","schalten … aus"],"hat ausgeschaltet"],
+      ["ausmachen","выключать / иметь значение","reg",["mache … aus","machst … aus","macht … aus","machen … aus","macht … aus","machen … aus"],"hat ausgemacht"],
+      ["ausprobieren","пробовать","reg",["probiere … aus","probierst … aus","probiert … aus","probieren … aus","probiert … aus","probieren … aus"],"hat ausprobiert"],
+      ["bekommen","получать","irr",["bekomme","bekommst","bekommt","bekommen","bekommt","bekommen"],"hat bekommen"],
+      ["vergessen","забывать","irr",["vergesse","vergisst","vergisst","vergessen","vergesst","vergessen"],"hat vergessen"],
+      ["gefallen","нравиться","irr",["gefalle","gefällst","gefällt","gefallen","gefallt","gefallen"],"hat gefallen"],
+      ["anrufen","звонить","irr",["rufe … an","rufst … an","ruft … an","rufen … an","ruft … an","rufen … an"],"hat angerufen"],
+      ["aufstehen","вставать","irr",["stehe … auf","stehst … auf","steht … auf","stehen … auf","steht … auf","stehen … auf"],"ist aufgestanden"]
+    ],
+    other:{
+      "Прилагательные / состояния":[["anstrengend","утомительный"],["stressig","стрессовый"],["müde","усталый"],["langweilig","скучный"],["zufrieden","довольный"],["aufgeregt","взволнованный"],["verzweifelt","в отчаянии"],["furchtbar","ужасный"],["kreativ","творческий"],["neugierig","любопытный"],["stolz","гордый"],["flexibel","гибкий"]],
+      "Условия работы":[["im Freien / draußen arbeiten","работать на улице"],["drinnen arbeiten","в помещении"],["allein arbeiten","один"],["im Team arbeiten","в команде"],["Schicht arbeiten","посменно"],["Überstunden machen","перерабатывать"],["gut / schlecht verdienen","хорошо / плохо зарабатывать"],["feste / flexible Arbeitszeiten haben","фикс. / гибкий график"],["im Ausland arbeiten","работать за границей"],["pünktlich frei haben","вовремя быть свободным"]],
+      "Фразы (weil)":[["Herzlichen Dank","большое спасибо"],["viel Spaß","хорошо провести время"],["Das ist mir wichtig","мне это важно"],["Das macht mir nichts aus","мне это неважно"],["weil …","потому что …"]]
+    }
+  },
+  {
+    id:"a2-03", title:"A2 · Переезд / новый край", lessons:"A2 · L3",
+    nouns:{
+      der:[
+        ["Wald","лес"],["Strand","пляж"],["See","озеро"],["Fluss","река"],["Berg","гора"],["Hügel","холм"],
+        ["Norden","север"],["Süden","юг"],["Osten","восток"],["Westen","запад"],["Hund","собака"]
+      ],
+      die:[
+        ["Natur","природа"],["Landschaft","ландшафт"],["Gegend","край / местность"],["Wiese","луг"],["Brücke","мост"],
+        ["Sonne","солнце"],["Kuh","корова"],["Katze","кошка"],["Biene","пчела"],["Heimat","родина"],["Farbe","цвет"]
+      ],
+      das:[
+        ["Tier","животное"],["Pferd","лошадь"],["Schaf","овца"],["Feld","поле"],["Dorf","деревня"],
+        ["Tal","долина"],["Meer","море"],["Ufer","берег"],["Kaninchen","кролик"],["Land","страна"]
+      ]
+    },
+    verbs:[
+      ["fehlen","не хватать / скучать","reg",["fehle","fehlst","fehlt","fehlen","fehlt","fehlen"],"hat gefehlt"],
+      ["vermissen","скучать по","reg",["vermisse","vermisst","vermisst","vermissen","vermisst","vermissen"],"hat vermisst"],
+      ["umziehen","переезжать","irr",["ziehe … um","ziehst … um","zieht … um","ziehen … um","zieht … um","ziehen … um"],"ist umgezogen"]
+    ],
+    other:{
+      "Грамматика (притяжательные)":[["mein / dein","мой / твой"],["sein / ihr","его / её / их"],["unser / euer","наш / ваш"],["… fehlt mir","мне не хватает / скучаю по …"]]
+    }
   }
     /* следующие темы добавляются сюда — словарь станет накопительным автоматически */
 ]};
