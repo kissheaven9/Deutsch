@@ -148,7 +148,7 @@
   <div class="part"><span class="pico">🏁</span><div><div class="pk">Шаг 4</div><h2>Проверка на слух: понял ли текст?</h2></div></div>
   <div class="panel"><h3>🎧 Аудирование + вопросы</h3>
     <p class="sub"><b>Не открывай текст сразу!</b> Послушай запись (можно несколько раз), ответь на вопросы, нажми «Проверить». Потом при желании открой текст и перевод — и разбери свои ошибки.</p>
-    <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="playSeq(['audio/trenn-listen.mp3?v=2'],this,[{t:LISTEN.de,role:'male'}])">🔊 Прослушать запись</button></div>
+    <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="playSeq(['audio/trenn-listen.mp3?v=3'],this,[{t:LISTEN.de,role:'male'}])">🔊 Прослушать запись</button></div>
     <div id="qList" style="margin-top:8px"></div>
     <div class="toolbar"><button class="btn t sm" onclick="listenCheck()">Проверить</button><button class="btn sm" onclick="toggleLtext()" id="ltBtn">📄 Показать текст и перевод</button></div>
     <div class="score" id="lScore"></div>
@@ -251,16 +251,77 @@ const SENT=[
  ['spazieren gehen','Wir gehen im Park spazieren.','Мы гуляем в парке.']
 ];
 
+// ДРУГИЕ предложения для «Услышь и переведи» (не совпадают с «Выцепи»)
+const HEAR_SENT=[
+ ['abholen','Meine Mutter holt das Kind ab.','Моя мама забирает ребёнка.'],
+ ['abfahren','Wann fährt der Bus ab?','Когда отъезжает автобус?'],
+ ['abfliegen','Morgen fliegt sie nach Rom ab.','Завтра она вылетает в Рим.'],
+ ['absagen','Wir sagen das Konzert leider ab.','Мы, к сожалению, отменяем концерт.'],
+ ['abwaschen','Kannst du heute abwaschen?','Ты можешь сегодня помыть посуду?'],
+ ['abladen','Die Männer laden das Auto ab.','Мужчины разгружают машину.'],
+ ['anrufen','Ruf mich bitte heute Abend an!','Позвони мне, пожалуйста, сегодня вечером!'],
+ ['ankommen','Um wie viel Uhr kommt der Zug an?','Во сколько прибывает поезд?'],
+ ['anfangen','Wann fängt der Kurs an?','Когда начинается курс?'],
+ ['anbieten','Die Firma bietet gute Löhne an.','Фирма предлагает хорошую зарплату.'],
+ ['anziehen','Das Kind zieht die Schuhe an.','Ребёнок надевает ботинки.'],
+ ['anmachen','Mach bitte das Radio an!','Включи, пожалуйста, радио!'],
+ ['ankreuzen','Ich kreuze die Nummer drei an.','Я отмечаю номер три.'],
+ ['anzeigen','Das Display zeigt den Preis an.','Дисплей показывает цену.'],
+ ['angeben','Bitte geben Sie Ihre Adresse an.','Пожалуйста, укажите ваш адрес.'],
+ ['aufstehen','Am Sonntag steht er spät auf.','В воскресенье он встаёт поздно.'],
+ ['aufräumen','Räum bitte die Küche auf!','Убери, пожалуйста, кухню!'],
+ ['aufschreiben','Schreib die Adresse auf!','Запиши адрес!'],
+ ['auflegen','Er hat einfach aufgelegt.','Он просто положил трубку.'],
+ ['aufbauen','Sie bauen die Bühne auf.','Они собирают сцену.'],
+ ['aussehen','Das Essen sieht lecker aus.','Еда выглядит вкусно.'],
+ ['aussteigen','Steig hier bitte aus!','Выходи здесь, пожалуйста!'],
+ ['ausmachen','Mach bitte den Fernseher aus.','Выключи, пожалуйста, телевизор.'],
+ ['ausfüllen','Ich fülle den Antrag aus.','Я заполняю заявление.'],
+ ['ausdrücken','Sie kann sich gut ausdrücken.','Она умеет хорошо выражаться.'],
+ ['ausräumen','Wir räumen den Keller aus.','Мы разбираем подвал.'],
+ ['ausschalten','Schalt das Handy aus!','Выключи телефон!'],
+ ['einkaufen','Am Samstag kaufen wir ein.','В субботу мы закупаемся.'],
+ ['einladen','Ich lade dich zum Geburtstag ein.','Я приглашаю тебя на день рождения.'],
+ ['einsteigen','Bitte steigen Sie ein!','Пожалуйста, садитесь (в транспорт)!'],
+ ['fernsehen','Die Kinder sehen zu viel fern.','Дети слишком много смотрят телевизор.'],
+ ['freihaben','Am Freitag hat sie frei.','В пятницу у неё выходной.'],
+ ['hinweisen','Er weist auf das Problem hin.','Он указывает на проблему.'],
+ ['kennenlernen','Wir lernen viele Leute kennen.','Мы знакомимся со многими людьми.'],
+ ['mitbringen','Bring bitte Brot mit!','Принеси, пожалуйста, хлеб!'],
+ ['mitnehmen','Ich nehme den Hund mit.','Я беру собаку с собой.'],
+ ['mitmachen','Alle machen beim Fest mit.','Все участвуют в празднике.'],
+ ['mitarbeiten','Sie arbeitet im Team mit.','Она работает в команде.'],
+ ['nachdenken','Denk gut darüber nach!','Хорошенько подумай об этом!'],
+ ['stattfinden','Wo findet die Party statt?','Где состоится вечеринка?'],
+ ['umsteigen','Du musst in Berlin umsteigen.','Тебе надо пересесть в Берлине.'],
+ ['umziehen','Sie ist nach Hamburg umgezogen.','Она переехала в Гамбург.'],
+ ['vorstellen','Er stellt sich kurz vor.','Он коротко представляется.'],
+ ['vorschlagen','Ich schlage einen Ausflug vor.','Я предлагаю поездку.'],
+ ['vorbereiten','Wir bereiten die Prüfung vor.','Мы готовимся к экзамену.'],
+ ['weggehen','Wann gehst du weg?','Когда ты уходишь?'],
+ ['weitergeben','Sie gibt das Buch weiter.','Она передаёт книгу дальше.'],
+ ['weiterfahren','Der Zug fährt gleich weiter.','Поезд сейчас поедет дальше.'],
+ ['zumachen','Er macht das Fenster zu.','Он закрывает окно.'],
+ ['zusagen','Sie sagt für das Fest zu.','Она соглашается прийти на праздник.'],
+ ['zurückrufen','Bitte ruf mich zurück!','Пожалуйста, перезвони мне!'],
+ ['zurückkommen','Sie kommt am Montag zurück.','Она возвращается в понедельник.'],
+ ['durchsagen','Der Bahnhof sagt den Zug durch.','Вокзал объявляет поезд.'],
+ ['durchstreichen','Ich streiche den Fehler durch.','Я зачёркиваю ошибку.'],
+ ['spazieren gehen','Am Sonntag gehen sie spazieren.','В воскресенье они идут гулять.']
+];
+function playHear(i,btn){const s=HEAR_SENT[i];playSeq(['audio/trenn-hear-'+slug(s[0])+'.mp3?v=1'],btn,[{t:s[1],role:M}]);}
+
 const LISTEN={
- de:'Am Samstag hat Otto frei, deshalb steht er ein bisschen später auf. Zuerst räumt er die Küche auf und wäscht das Geschirr ab. Dann ruft er seinen Sohn in Schottland an, aber der Sohn ruft nicht zurück — er arbeitet gerade. Am Vormittag geht Otto einkaufen. Im Markt kauft er Obst und Gemüse ein und bringt einen großen Kuchen mit. Am Nachmittag kommt sein Enkel Finlay mit dem Zug an. Otto holt ihn vom Bahnhof ab. Finlay steigt aus dem Zug aus, lacht und läuft zu seinem Opa. Zu Hause zieht der Junge seine Jacke aus, und Otto lädt ihn in den Garten ein. Dort bauen sie zusammen ein kleines Vogelhaus auf. Am Abend sehen sie fern und essen den Kuchen. Später ruft der Sohn endlich zurück, und alle sind froh. Um zehn Uhr geht Finlay ins Bett, Otto macht das Licht aus und denkt: Was für ein schöner Tag!',
- ru:'В субботу у Отто выходной, поэтому он встаёт чуть позже. Сначала он убирает кухню и моет посуду. Потом звонит сыну в Шотландию, но сын не перезванивает — он как раз работает. До обеда Отто идёт за покупками. В магазине он закупает фрукты и овощи и берёт большой пирог. Днём приезжает на поезде внук Финлей. Отто забирает его с вокзала. Финлей выходит из поезда, смеётся и бежит к деду. Дома мальчик снимает куртку, и Отто приглашает его в сад. Там они вместе собирают маленький скворечник. Вечером они смотрят телевизор и едят пирог. Позже сын наконец перезванивает, и все рады. В десять Финлей идёт спать, Отто выключает свет и думает: какой прекрасный день!',
+ de:'Um sechs Uhr steht Otto auf. Um halb acht räumt er die Küche auf. Um acht Uhr ruft er seinen Sohn an. Am Vormittag kauft er im Markt ein und bringt einen Kuchen mit. Um zwölf Uhr kommt sein Enkel mit dem Zug an, und Otto holt ihn vom Bahnhof ab. Am Nachmittag bauen sie im Garten ein Vogelhaus auf. Am Abend sehen sie zusammen fern. Um zehn Uhr macht Otto das Licht aus und geht ins Bett.',
+ ru:'В шесть Отто встаёт. В полвосьмого он убирает кухню. В восемь звонит сыну. До обеда закупается на рынке и приносит пирог. В двенадцать на поезде приезжает внук, и Отто забирает его с вокзала. Днём они собирают в саду скворечник. Вечером вместе смотрят телевизор. В десять Отто выключает свет и идёт спать.',
  q:[
-  ['Warum steht Otto später auf? (Почему встаёт позже?)',['weil er frei hat (выходной)','weil er krank ist (болен)'],0],
-  ['Was macht der Sohn, als Otto anruft?',['Er ruft nicht zurück (не перезванивает)','Er kommt sofort (сразу приходит)'],0],
-  ['Was bringt Otto vom Markt mit?',['einen Kuchen (пирог)','Blumen (цветы)'],0],
-  ['Wie kommt Finlay? (Как приезжает Финлей?)',['mit dem Zug (на поезде)','mit dem Auto (на машине)'],0],
-  ['Was bauen sie im Garten auf?',['ein Vogelhaus (скворечник)','ein Regal (полку)'],0],
-  ['Was macht Otto um zehn Uhr?',['Er macht das Licht aus (выключает свет)','Er geht spazieren (идёт гулять)'],0]
+  ['Was macht Otto um 6 Uhr? (пиши глагол)',['stehtauf','aufstehen','aufgestanden'],'steht auf (aufstehen)'],
+  ['Was macht er um halb acht?',['raeumtauf','aufraeumen','raeumtdiekuecheauf'],'räumt (die Küche) auf (aufräumen)'],
+  ['Was macht Otto um 8 Uhr?',['ruftan','anrufen','ruftseinensohnan'],'ruft (seinen Sohn) an (anrufen)'],
+  ['Was macht Otto am Vormittag im Markt?',['kauftein','einkaufen','kauftimmarktein'],'kauft ein (einkaufen)'],
+  ['Was macht Otto um 12 Uhr am Bahnhof?',['holtab','abholen','holtihnab','holtdenenkelab'],'holt (den Enkel) ab (abholen)'],
+  ['Was machen sie am Nachmittag im Garten?',['bauenauf','aufbauen','baueneinvogelhausauf'],'bauen ein Vogelhaus auf (aufbauen)'],
+  ['Was macht Otto um 10 Uhr?',['machtaus','ausmachen','machtdaslichtaus'],'macht das Licht aus (ausmachen)']
  ]
 };
 
@@ -313,15 +374,15 @@ function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&
 function matchCheck(){let ok=0;MA.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--ok)':'var(--bad)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MA.length?'var(--ok)':'var(--bad)'}">${ok} / ${MA.length} верно${ok===MA.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 
 // ===== услышь и переведи (порциями по 5) =====
-let hPage=0;const hPer=5;const hPages=Math.ceil(SENT.length/hPer);
-function renderHear(){const items=SENT.slice(hPage*hPer,hPage*hPer+hPer);
+let hPage=0;const hPer=5;const hPages=Math.ceil(HEAR_SENT.length/hPer);
+function renderHear(){const items=HEAR_SENT.slice(hPage*hPer,hPage*hPer+hPer);
   document.getElementById('hearList').innerHTML=items.map((s,k)=>{const i=hPage*hPer+k;
-   return `<div class="arow"><button class="btn t sm" onclick="playSent(${i},this)">🔊 Прослушать</button>`+
+   return `<div class="arow"><button class="btn t sm" onclick="playHear(${i},this)">🔊 Прослушать</button>`+
    `<input class="hin" id="hi${i}" placeholder="какой глагол? (инфинитив)…" autocomplete="off" style="border:2px solid var(--line);border-radius:9px;padding:6px 9px;font-size:14px;font-family:inherit;min-width:150px">`+
    `<button class="btn sm" onclick="hearShow(${i})">Показать</button>`+
    `<div class="hr" id="hr${i}" hidden></div></div>`;}).join('');
   document.getElementById('hPg').textContent=`порция ${hPage+1} / ${hPages}`;}
-function hearShow(i){const s=SENT[i];const inp=document.getElementById('hi'+i);const typed=inp&&inp.value.trim();
+function hearShow(i){const s=HEAR_SENT[i];const inp=document.getElementById('hi'+i);const typed=inp&&inp.value.trim();
   const good=typed&&norm(inp.value)===norm(s[0]);
   const mark=typed?(good?' <span style="color:var(--ok)">✓ верно</span>':' <span style="color:var(--bad)">твой ответ: '+inp.value+'</span>'):'';
   const e=document.getElementById('hr'+i);e.innerHTML=`<div class="de2">${s[1]}</div><div class="ru2">${s[2]} · глагол: <b>${s[0]}</b>${mark}</div>`;e.hidden=false;}
@@ -342,14 +403,12 @@ function recPick(i,o,btn){const row=btn.closest('.arow');if(row.dataset.done)ret
 function recNext(){rPage=(rPage+1)%rPages;renderRec();}
 
 // ===== аудирование-тест =====
-let lSel={};
+function qn(s){return (s||'').toLowerCase().replace(/ß/g,'ss').replace(/[^a-zäöü]/g,'');}
 function renderQ(){document.getElementById('qList').innerHTML=LISTEN.q.map((q,i)=>
-  `<div class="q"><div class="qt">${i+1}. ${q[0]}</div><div class="qo">`+
-  q[1].map((o,j)=>`<button class="btn sm" onclick="qPick(${i},${j},this)">${o}</button>`).join('')+`</div></div>`).join('');
-  document.getElementById('lScore').textContent='';lSel={};}
-function qPick(i,j,btn){lSel[i]=j;btn.parentNode.querySelectorAll('.btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
-function listenCheck(){let ok=0;LISTEN.q.forEach((q,i)=>{const btns=document.querySelectorAll('#qList .q')[i].querySelectorAll('.btn');btns.forEach(b=>b.classList.remove('ok','bad'));const sel=lSel[i];if(sel===undefined)return;if(sel===q[2]){btns[sel].classList.add('ok');ok++;}else{btns[sel].classList.add('bad');btns[q[2]].classList.add('ok');}});
-  document.getElementById('lScore').innerHTML=`<span style="color:${ok===LISTEN.q.length?'var(--ok)':'var(--bad)'}">${ok} / ${LISTEN.q.length} верно</span> — если ошибся, открой текст и разбери.`;}
+  `<div class="q"><div class="qt">${i+1}. ${q[0]}</div><div class="qo"><input id="qi${i}" placeholder="глагол…" autocomplete="off" style="border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit;min-width:180px"> <span class="rres" id="qc${i}"></span></div></div>`).join('');
+  document.getElementById('lScore').textContent='';}
+function listenCheck(){let ok=0;LISTEN.q.forEach((q,i)=>{const inp=document.getElementById('qi'+i);const v=qn(inp.value);const good=v.length>2&&q[1].some(a=>v.includes(qn(a))||qn(a).includes(v));inp.style.borderColor=good?'var(--ok)':'var(--bad)';document.getElementById('qc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+q[2]+'</span>';if(good)ok++;});
+  document.getElementById('lScore').innerHTML=`<span style="color:${ok===LISTEN.q.length?'var(--ok)':'var(--bad)'}">${ok} / ${LISTEN.q.length} верно</span> — открой текст и разбери ошибки.`;}
 function toggleLtext(){const e=document.getElementById('lText'),b=document.getElementById('ltBtn');if(e.hidden){e.innerHTML=`<div class="de2">${LISTEN.de}</div><div class="ru2">${LISTEN.ru}</div>`;e.hidden=false;b.textContent='📄 Скрыть текст';}else{e.hidden=true;b.textContent='📄 Показать текст и перевод';}}
 
 // ===== вставь глагол в правильной форме =====
