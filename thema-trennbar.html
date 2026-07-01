@@ -7,7 +7,7 @@
 <title>Тема: Отделяемые глаголы (семья Otto)</title>
 <link rel="stylesheet" href="css/style.css?v=3">
 <style>
-  :root{--t:#3b5bdb;--tb:#bac8ff;--tbg:#edf2ff}
+  :root{--t:#3b5bdb;--tb:#bac8ff;--tbg:#edf2ff;--ok:#15803d;--bad:#d6336c}
   .lead{color:#374151;line-height:1.7}
   .hero{display:flex;gap:14px;align-items:center;background:var(--tbg);border:1px solid var(--tb);border-radius:18px;padding:16px 18px;margin:14px 0}
   .hero .av{font-size:46px}.hero h2{margin:0 0 4px;font-size:20px;color:var(--t)}.hero p{margin:0;font-size:14px;color:#374151;line-height:1.6}
@@ -21,22 +21,27 @@
   .sub{color:var(--muted);font-size:13px;margin:-4px 0 10px;line-height:1.6}
   .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer;font-family:inherit}
   .btn.t{background:var(--t);color:#fff;border-color:var(--t)} .btn.sm{padding:7px 11px;font-size:13px}
-  .toolbar{display:flex;gap:8px;margin:10px 0 0;flex-wrap:wrap}
+  .toolbar{display:flex;gap:8px;margin:10px 0 0;flex-wrap:wrap;align-items:center}
   .say{border:none;background:none;cursor:pointer;font-size:15px;opacity:.6;padding:2px}.say:hover{opacity:1}
   .score{font-weight:700;margin-top:8px}
+  .pgi{color:var(--muted);font-weight:600;font-size:13px}
   .bh{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--t);font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .detxt{line-height:2.1;font-size:16px;color:var(--ink);margin:0}
   .detxt .vb{background:#fef9c3;color:#a16207;border-radius:4px;padding:0 3px;font-weight:600;cursor:pointer;white-space:nowrap}
   .detxt .vb.open{text-decoration:underline;filter:brightness(.95)}
-  .detxt .pre{color:#3b5bdb;font-weight:800}
+  .detxt .pre{color:var(--t);font-weight:800}
   .rutxt{color:#374151;line-height:1.7;margin:8px 0 0}
-  /* список глаголов */
-  .vlistV{display:grid;grid-template-columns:1fr;gap:7px}
-  .vverb{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:8px 10px}
-  .vverb .de{font-weight:700;color:var(--t);font-size:16px;min-width:130px}
-  .vverb .ru{color:#374151;font-size:13px;flex:1}
-  .vverb .ppv{font-size:14px;color:#c2410c;font-weight:600;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:2px 8px}
-  .vverb .sein{color:#15803d;font-weight:700}
+  /* список в 2 столбика */
+  .cols{column-count:2;column-gap:16px}
+  @media(max-width:560px){.cols{column-count:1}}
+  .grp{break-inside:avoid;margin-bottom:12px}
+  .grp .gh{font-weight:800;color:var(--t);font-size:15px;margin-bottom:4px;border-bottom:2px solid var(--tb);padding-bottom:2px}
+  .vv{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;padding:3px 0}
+  .vv .de{font-weight:700;color:var(--ink);font-size:15px}
+  .vv .ru{color:var(--muted);font-size:12px}
+  .vv .ppb{border:none;background:none;cursor:pointer;font-size:12px;color:#c2410c;padding:0}
+  .vv .ppv{font-size:13px;color:#c2410c;font-weight:600;width:100%}
+  .vv .ppv .sein{color:var(--ok)}
   /* карточки */
   .cardwrap{max-width:380px;margin:0 auto}
   .card{background:#fff;border:2px solid var(--t);border-radius:16px;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;cursor:pointer}
@@ -50,20 +55,23 @@
   .mchip.de{font-weight:700;color:var(--t)}.mchip.sel{border-color:var(--t);background:var(--tbg)}
   .mchip .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:8px}
   /* аудирование */
-  .hearrow,.recrow{border-top:1px solid var(--line);padding:11px 0;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  .arow{border-top:1px solid var(--line);padding:11px 0;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
   .hr{width:100%;margin-top:6px;background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:8px 11px}
   .hr .de2{font-weight:700;color:var(--ink);font-size:16px;line-height:1.7}
   .hr .ru2{color:#374151;margin-top:3px}
-  .opt{min-width:96px}
-  .opt.ok{background:#e8f6ee;border-color:#15803d;color:#15803d;font-weight:700}
-  .opt.bad{background:#fdecec;border-color:#d6336c;color:#d6336c}
-  .rres{font-weight:700;font-size:14px}
+  .opt{min-width:92px}
+  .opt.ok{background:#e8f6ee;border-color:var(--ok);color:var(--ok);font-weight:700}
+  .opt.bad{background:#fdecec;border-color:var(--bad);color:var(--bad)}
+  .rres{font-weight:700;font-size:13px}
+  /* аудирование-тест */
+  .q{border-top:1px solid var(--line);padding:10px 0}
+  .q .qt{font-weight:600;color:#374151;margin-bottom:6px}
+  .q .qo{display:flex;gap:8px;flex-wrap:wrap}
+  .q .qo .btn.sel{border-color:var(--t);background:var(--tbg);font-weight:700}
+  .q .qo .btn.ok{background:#e8f6ee;border-color:var(--ok);color:var(--ok);font-weight:700}
+  .q .qo .btn.bad{background:#fdecec;border-color:var(--bad);color:var(--bad)}
   .scenenav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 8px}
   .scenenav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:var(--t)}
-  details.full{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:10px}
-  details.full summary{cursor:pointer;font-weight:700;color:var(--t);font-size:14px}
-  details.full .grp{margin-top:8px;font-size:14px;line-height:1.8}
-  details.full b{color:var(--t)}
 </style>
 </head>
 <body>
@@ -87,53 +95,50 @@
   </div>
 
   <!-- СПИСОК -->
-  <div class="part"><span class="pico">📖</span><div><div class="pk">Шаг 2</div><h2>Список глаголов + прошедшее</h2></div></div>
-  <div class="panel"><h3>🔤 Глаголы Отто</h3>
-    <p class="sub">🔊 — послушать инфинитив. Кнопка <b>⏪ прошедшее</b> показывает форму Perfekt (<span class="sein">зелёным</span> — те, что с <b>sein</b>). Полный список A1+A2 — в конце.</p>
-    <div class="vlistV" id="vlistV"></div>
-    <details class="full"><summary>📚 Полный список (≈50, по приставкам)</summary>
-      <div class="grp">
-      <b>ab-</b> abholen · abfahren · abfliegen · absagen · abwaschen · abladen<br>
-      <b>an-</b> anrufen · ankommen · anfangen · anbieten · anziehen · anmachen · ankreuzen · anzeigen · angeben<br>
-      <b>auf-</b> aufstehen · aufräumen · aufschreiben · auflegen · aufbauen<br>
-      <b>aus-</b> aussehen · aussteigen · ausmachen · ausfüllen · ausdrücken · ausräumen · ausschalten<br>
-      <b>ein-</b> einkaufen · einladen · einsteigen<br>
-      <b>fern-</b> fernsehen · <b>frei-</b> freihaben · <b>hin-</b> hinweisen · <b>kennen-</b> kennenlernen<br>
-      <b>mit-</b> mitbringen · mitnehmen · mitmachen · mitarbeiten<br>
-      <b>nach-</b> nachdenken · <b>statt-</b> stattfinden · <b>um-</b> umsteigen · umziehen<br>
-      <b>vor-</b> vorstellen · vorschlagen · vorbereiten<br>
-      <b>weg-</b> weggehen · <b>weiter-</b> weitergeben · weiterfahren<br>
-      <b>zu-</b> zumachen · zusagen · <b>zurück-</b> zurückrufen · zurückkommen<br>
-      <b>durch-</b> durchsagen · durchstreichen · <b>+</b> spazieren gehen
-      </div>
-    </details>
+  <div class="part"><span class="pico">📖</span><div><div class="pk">Шаг 2</div><h2>Все глаголы + прошедшее</h2></div></div>
+  <div class="panel"><h3>🔤 Полный список по приставкам</h3>
+    <p class="sub">Все глаголы видны сразу, в два столбика. 🔊 — послушать инфинитив, <b>⏪</b> — показать прошедшее (Perfekt); <span style="color:var(--ok);font-weight:700">зелёным</span> — те, что с <b>sein</b>.</p>
+    <div class="cols" id="vlistV"></div>
   </div>
 
   <!-- УПРАЖНЕНИЯ -->
-  <div class="part"><span class="pico">🎯</span><div><div class="pk">Шаг 3</div><h2>Упражнения</h2></div></div>
+  <div class="part"><span class="pico">🎯</span><div><div class="pk">Шаг 3</div><h2>Упражнения (все глаголы)</h2></div></div>
 
   <div class="panel"><h3><span class="exnum">1</span>🃏 Карточки</h3>
-    <p class="sub">Русский — вспомни глагол. Переверни — увидишь инфинитив и прошедшее (Perfekt).</p>
+    <p class="sub">Русский — вспомни глагол. Переверни — увидишь инфинитив и прошедшее (Perfekt). Листай по всем.</p>
     <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
     <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
   </div>
 
   <div class="panel alt"><h3><span class="exnum">2</span>🔗 Соотнеси: глагол ↔ перевод</h3>
-    <p class="sub">Нажми глагол, потом перевод — пара окрасится.</p>
+    <p class="sub">Соотнеси порцию, нажми «Проверить», потом «Следующие →». Так пройдёшь все глаголы.</p>
     <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
-    <div class="toolbar"><button class="btn t sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="toolbar"><button class="btn t sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="matchNext()">Следующие →</button><span class="pgi" id="mPg"></span></div>
     <div class="score" id="mScore"></div>
   </div>
 
   <div class="panel"><h3><span class="exnum">3</span>🎧 Услышь и переведи</h3>
-    <p class="sub">Нажми 🔊 и <b>только слушай</b> (текст скрыт!). Приставка ушла в конец или это прошедшее — пойми и переведи в уме. Потом «Показать» — увидишь предложение и перевод. Это тренирует ухо.</p>
+    <p class="sub">Жми 🔊 и <b>только слушай</b> (текст скрыт!). Приставка ушла в конец или это прошедшее — пойми и переведи в уме. Потом «Показать». «Следующие →» — дальше по всем.</p>
     <div id="hearList"></div>
+    <div class="toolbar"><button class="btn sm" onclick="hearNext()">Следующие →</button><span class="pgi" id="hPg"></span></div>
   </div>
 
   <div class="panel alt"><h3><span class="exnum">4</span>🎧 Выцепи глагол</h3>
-    <p class="sub">Нажми 🔊, послушай предложение и <b>выбери инфинитив</b> глагола (приставка спряталась в конце или в Perfekt). Так учишься «вытаскивать» глагол на слух.</p>
+    <p class="sub">Жми 🔊, слушай и <b>выбери инфинитив</b> глагола (приставка спряталась в конце или в Perfekt). «Следующие →» — дальше, пока не пройдёшь все.</p>
     <div id="recList"></div>
+    <div class="toolbar"><button class="btn sm" onclick="recNext()">Следующие →</button><span class="pgi" id="rPg"></span></div>
     <div class="score" id="recScore"></div>
+  </div>
+
+  <!-- АУДИРОВАНИЕ-ТЕСТ -->
+  <div class="part"><span class="pico">🏁</span><div><div class="pk">Шаг 4</div><h2>Проверка на слух: понял ли текст?</h2></div></div>
+  <div class="panel"><h3>🎧 Аудирование + вопросы</h3>
+    <p class="sub"><b>Не открывай текст сразу!</b> Послушай запись (можно несколько раз), ответь на вопросы, нажми «Проверить». Потом при желании открой текст и перевод — и разбери свои ошибки.</p>
+    <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="playSeq(['audio/trenn-listen.mp3?v=1'],this,[{t:LISTEN.de,role:'male'}])">🔊 Прослушать запись</button></div>
+    <div id="qList" style="margin-top:8px"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="listenCheck()">Проверить</button><button class="btn sm" onclick="toggleLtext()" id="ltBtn">📄 Показать текст и перевод</button></div>
+    <div class="score" id="lScore"></div>
+    <div class="hr" id="lText" hidden style="margin-top:10px"></div>
   </div>
 
   <div class="scenenav"><a href="index.html">🏠 Главная</a></div>
@@ -143,32 +148,106 @@
 <script src="js/app.js?v=4"></script>
 <script>
 const M='male';
-function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zäöüß ]/g,'').replace(/\s+/g,' ').trim();}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function slug(s){s=s.toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss');return s.replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');}
 
-// [инфинитив, перевод, Perfekt]
-const VERBS=[
- ['aufstehen','вставать','ist aufgestanden'],
- ['anrufen','звонить','hat angerufen'],
- ['einkaufen','закупаться','hat eingekauft'],
- ['abholen','забирать','hat abgeholt'],
- ['einladen','приглашать','hat eingeladen'],
- ['ankommen','прибывать','ist angekommen'],
- ['fernsehen','смотреть телевизор','hat ferngesehen'],
- ['aufräumen','убирать','hat aufgeräumt'],
- ['mitbringen','приносить с собой','hat mitgebracht'],
- ['mitnehmen','брать с собой','hat mitgenommen'],
- ['anziehen','надевать','hat angezogen'],
- ['aussehen','выглядеть','hat ausgesehen'],
- ['einsteigen','садиться (в транспорт)','ist eingestiegen'],
- ['umsteigen','пересаживаться','ist umgestiegen'],
- ['aussteigen','выходить (из транспорта)','ist ausgestiegen'],
- ['zurückrufen','перезванивать','hat zurückgerufen'],
- ['anfangen','начинать','hat angefangen'],
- ['abfahren','отъезжать','ist abgefahren'],
- ['weggehen','уходить','ist weggegangen'],
- ['vorstellen','представлять(ся)','hat vorgestellt']
+// приставка → [инфинитив, перевод, Perfekt]
+const GROUPS=[
+ ['ab-',[['abholen','забирать','hat abgeholt'],['abfahren','отъезжать','ist abgefahren'],['abfliegen','вылетать','ist abgeflogen'],['absagen','отменять','hat abgesagt'],['abwaschen','мыть посуду','hat abgewaschen'],['abladen','выгружать','hat abgeladen']]],
+ ['an-',[['anrufen','звонить','hat angerufen'],['ankommen','прибывать','ist angekommen'],['anfangen','начинать','hat angefangen'],['anbieten','предлагать','hat angeboten'],['anziehen','надевать','hat angezogen'],['anmachen','включать','hat angemacht'],['ankreuzen','отметить крестиком','hat angekreuzt'],['anzeigen','показывать','hat angezeigt'],['angeben','указывать','hat angegeben']]],
+ ['auf-',[['aufstehen','вставать','ist aufgestanden'],['aufräumen','убирать','hat aufgeräumt'],['aufschreiben','записывать','hat aufgeschrieben'],['auflegen','класть трубку','hat aufgelegt'],['aufbauen','собирать / монтировать','hat aufgebaut']]],
+ ['aus-',[['aussehen','выглядеть','hat ausgesehen'],['aussteigen','выходить (из транспорта)','ist ausgestiegen'],['ausmachen','договариваться / выключать','hat ausgemacht'],['ausfüllen','заполнять','hat ausgefüllt'],['ausdrücken','выражать','hat ausgedrückt'],['ausräumen','выгружать','hat ausgeräumt'],['ausschalten','выключать','hat ausgeschaltet']]],
+ ['ein-',[['einkaufen','закупаться','hat eingekauft'],['einladen','приглашать','hat eingeladen'],['einsteigen','садиться (в транспорт)','ist eingestiegen']]],
+ ['fern-',[['fernsehen','смотреть телевизор','hat ferngesehen']]],
+ ['frei-',[['freihaben','быть выходным','hat freigehabt']]],
+ ['hin-',[['hinweisen','указывать на','hat hingewiesen']]],
+ ['kennen-',[['kennenlernen','знакомиться','hat kennengelernt']]],
+ ['mit-',[['mitbringen','приносить с собой','hat mitgebracht'],['mitnehmen','брать с собой','hat mitgenommen'],['mitmachen','участвовать','hat mitgemacht'],['mitarbeiten','работать вместе','hat mitgearbeitet']]],
+ ['nach-',[['nachdenken','размышлять','hat nachgedacht']]],
+ ['statt-',[['stattfinden','состояться','hat stattgefunden']]],
+ ['um-',[['umsteigen','пересаживаться','ist umgestiegen'],['umziehen','переезжать','ist umgezogen']]],
+ ['vor-',[['vorstellen','представлять(ся)','hat vorgestellt'],['vorschlagen','предлагать','hat vorgeschlagen'],['vorbereiten','готовить','hat vorbereitet']]],
+ ['weg-',[['weggehen','уходить','ist weggegangen']]],
+ ['weiter-',[['weitergeben','передавать','hat weitergegeben'],['weiterfahren','ехать дальше','ist weitergefahren']]],
+ ['zu-',[['zumachen','закрывать','hat zugemacht'],['zusagen','соглашаться','hat zugesagt']]],
+ ['zurück-',[['zurückrufen','перезванивать','hat zurückgerufen'],['zurückkommen','возвращаться','ist zurückgekommen']]],
+ ['durch-',[['durchsagen','объявлять','hat durchgesagt'],['durchstreichen','зачёркивать','hat durchgestrichen']]],
+ ['+',[['spazieren gehen','гулять','ist spazieren gegangen']]]
+];
+const VERBS=GROUPS.flatMap(g=>g[1]);
+
+// [инфинитив, предложение (приставка в конце / Perfekt), перевод]
+const SENT=[
+ ['abholen','Ich hole dich am Bahnhof ab.','Я заберу тебя на вокзале.'],
+ ['abfahren','Der Zug fährt um acht Uhr ab.','Поезд отъезжает в восемь.'],
+ ['abfliegen','Das Flugzeug ist pünktlich abgeflogen.','Самолёт вылетел вовремя.'],
+ ['absagen','Er hat das Treffen abgesagt.','Он отменил встречу.'],
+ ['abwaschen','Nach dem Essen wasche ich ab.','После еды я мою посуду.'],
+ ['abladen','Wir laden die Kisten ab.','Мы выгружаем ящики.'],
+ ['anrufen','Ich rufe dich morgen an.','Я позвоню тебе завтра.'],
+ ['ankommen','Der Bus ist spät angekommen.','Автобус прибыл поздно.'],
+ ['anfangen','Der Film fängt gleich an.','Фильм сейчас начнётся.'],
+ ['anbieten','Sie bietet mir einen Kaffee an.','Она предлагает мне кофе.'],
+ ['anziehen','Ich ziehe meinen Mantel an.','Я надеваю пальто.'],
+ ['anmachen','Er macht das Licht an.','Он включает свет.'],
+ ['ankreuzen','Kreuzen Sie die richtige Antwort an.','Отметьте правильный ответ.'],
+ ['anzeigen','Die Uhr zeigt die Zeit an.','Часы показывают время.'],
+ ['angeben','Geben Sie Ihren Namen an.','Укажите ваше имя.'],
+ ['aufstehen','Ich stehe jeden Morgen früh auf.','Я встаю каждое утро рано.'],
+ ['aufräumen','Er hat sein Zimmer aufgeräumt.','Он убрал комнату.'],
+ ['aufschreiben','Ich schreibe die Wörter auf.','Я записываю слова.'],
+ ['auflegen','Sie legt den Hörer auf.','Она кладёт трубку.'],
+ ['aufbauen','Wir bauen das Regal auf.','Мы собираем полку.'],
+ ['aussehen','Du siehst heute müde aus.','Ты сегодня выглядишь усталым.'],
+ ['aussteigen','Wir steigen an der nächsten Station aus.','Мы выходим на следующей станции.'],
+ ['ausmachen','Das macht mir nichts aus.','Мне это неважно.'],
+ ['ausfüllen','Füllen Sie das Formular aus.','Заполните бланк.'],
+ ['ausdrücken','Er drückt seine Meinung aus.','Он выражает своё мнение.'],
+ ['ausräumen','Ich räume den Schrank aus.','Я выгружаю шкаф.'],
+ ['ausschalten','Bitte schalte den Computer aus.','Пожалуйста, выключи компьютер.'],
+ ['einkaufen','Ich kaufe im Supermarkt ein.','Я закупаюсь в супермаркете.'],
+ ['einladen','Sie hat uns eingeladen.','Она пригласила нас.'],
+ ['einsteigen','Wir steigen in den Zug ein.','Мы садимся в поезд.'],
+ ['fernsehen','Am Abend sehe ich fern.','Вечером я смотрю телевизор.'],
+ ['freihaben','Morgen habe ich frei.','Завтра у меня выходной.'],
+ ['hinweisen','Ich weise dich auf den Fehler hin.','Я указываю тебе на ошибку.'],
+ ['kennenlernen','Ich habe sie gestern kennengelernt.','Я познакомился с ней вчера.'],
+ ['mitbringen','Ich bringe einen Kuchen mit.','Я принесу пирог.'],
+ ['mitnehmen','Nimm den Schirm mit!','Возьми зонт с собой!'],
+ ['mitmachen','Machst du beim Spiel mit?','Ты участвуешь в игре?'],
+ ['mitarbeiten','Er arbeitet im Projekt mit.','Он участвует в проекте.'],
+ ['nachdenken','Ich denke über die Frage nach.','Я думаю над вопросом.'],
+ ['stattfinden','Das Konzert findet morgen statt.','Концерт состоится завтра.'],
+ ['umsteigen','In Köln steigen wir um.','В Кёльне мы пересаживаемся.'],
+ ['umziehen','Wir ziehen nächste Woche um.','Мы переезжаем на следующей неделе.'],
+ ['vorstellen','Ich stelle dir meinen Freund vor.','Я представляю тебе моего друга.'],
+ ['vorschlagen','Sie schlägt ein Restaurant vor.','Она предлагает ресторан.'],
+ ['vorbereiten','Ich bereite das Essen vor.','Я готовлю еду.'],
+ ['weggehen','Er ist schon weggegangen.','Он уже ушёл.'],
+ ['weitergeben','Gib die Information weiter.','Передай информацию.'],
+ ['weiterfahren','Wir fahren nach der Pause weiter.','Мы едем дальше после паузы.'],
+ ['zumachen','Mach bitte die Tür zu.','Закрой, пожалуйста, дверь.'],
+ ['zusagen','Er hat für Freitag zugesagt.','Он согласился на пятницу.'],
+ ['zurückrufen','Ich rufe dich später zurück.','Я перезвоню тебе позже.'],
+ ['zurückkommen','Wann kommst du zurück?','Когда ты вернёшься?'],
+ ['durchsagen','Man sagt die Verspätung durch.','Объявляют о задержке.'],
+ ['durchstreichen','Streichen Sie das falsche Wort durch.','Зачеркните неправильное слово.'],
+ ['spazieren gehen','Wir gehen im Park spazieren.','Мы гуляем в парке.']
 ];
 
+const LISTEN={
+ de:'Am Samstag steht Otto spät auf. Zuerst ruft er seinen Sohn an, aber der Sohn ruft nicht zurück. Dann kauft Otto im Markt ein und bringt einen Kuchen mit. Am Nachmittag kommt sein Enkel an, und Otto holt ihn vom Bahnhof ab. Am Abend räumen sie zusammen auf und sehen fern. Es war ein schöner Tag!',
+ ru:'В субботу Отто встаёт поздно. Сначала он звонит сыну, но сын не перезванивает. Потом Отто закупается в магазине и приносит пирог. Днём приезжает внук, и Отто забирает его с вокзала. Вечером они вместе прибираются и смотрят телевизор. Это был хороший день!',
+ q:[
+  ['Wann steht Otto auf? (Когда Отто встаёт?)',['spät (поздно)','früh (рано)'],0],
+  ['Ruft der Sohn zurück? (Сын перезванивает?)',['ja','nein'],1],
+  ['Was bringt Otto mit? (Что приносит Отто?)',['einen Kuchen (пирог)','Blumen (цветы)'],0],
+  ['Wer kommt am Nachmittag? (Кто приходит днём?)',['sein Enkel (внук)','seine Tochter (дочь)'],0],
+  ['Was machen sie am Abend? (Что вечером?)',['aufräumen und fernsehen','spazieren gehen'],0]
+ ]
+};
+
+// ===== текст =====
 function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
 function P(p){return `<b class="pre">${p}</b>`;}
 const TEXT_DE=`Hallo, ich bin Otto. Ich erzähle euch meinen Tag — und passt gut auf die Verben auf: die Vorsilbe fliegt ans Ende!<br><br>
@@ -177,52 +256,23 @@ Gestern war ein besonderer Tag. Mein Enkel ist mit dem Zug ${VB('angekommen','an
 Zu Hause habe ich ihn in meinen Garten ${VB('eingeladen','einladen — приглашать (Perfekt)')}. Wir haben zusammen ${VB('aufgeräumt','aufräumen — убирать (Perfekt)')}, und am Abend haben wir ${VB('ferngesehen','fernsehen — смотреть ТВ (Perfekt)')}. Mein Enkel hat froh ${VB('ausgesehen','aussehen — выглядеть (Perfekt)')}.<br><br>
 Heute ${VB('fängt','anfangen — начинать')} alles wieder ${P('an')}. Der Bus ${VB('fährt','abfahren — отъезжать')} gleich ${P('ab')}, ich ${VB('ziehe','anziehen — надевать')} schnell meinen Mantel ${P('an')} und ${VB('gehe','weggehen — уходить')} ${P('weg')}. Tschüss — bis bald!`;
 const TEXT_RU=`Привет, я Отто. Расскажу вам про свой день — и следите за глаголами: приставка улетает в конец!<br><br>Каждое утро я рано встаю. Сначала закупаюсь в магазине, потом звоню сыну. Часто он не перезванивает — тогда вечером я перезваниваю ещё раз.<br><br>Вчера был особенный день. Мой внук приехал на поезде. Он сел в Гамбурге, пересел в Бремене и вышел здесь. Я забрал его с вокзала и принёс пирог.<br><br>Дома я пригласил его в свой сад. Мы вместе прибрались, а вечером смотрели телевизор. Внук выглядел радостным.<br><br>Сегодня всё начинается снова. Автобус сейчас отъедет, я быстро надеваю пальто и ухожу. Пока — до скорого!`;
-
-// предложения для аудирования (приставка в конце / Perfekt)
-const HEAR=[
- ['Otto steht um sechs Uhr auf.','Отто встаёт в шесть часов.'],
- ['Ich rufe dich heute Abend an.','Я позвоню тебе сегодня вечером.'],
- ['Wann kommt der Zug an?','Когда прибывает поезд?'],
- ['Wir steigen in Bremen um.','Мы пересаживаемся в Бремене.'],
- ['Otto räumt den Garten auf.','Отто убирает сад.'],
- ['Der Bus fährt gleich ab.','Автобус сейчас отъедет.'],
- ['Gestern hat Otto seinen Enkel abgeholt.','Вчера Отто забрал внука.'],
- ['Mein Enkel ist mit dem Zug angekommen.','Мой внук приехал на поезде.'],
- ['Ich habe einen Kuchen mitgebracht.','Я принёс пирог.'],
- ['Am Abend haben wir ferngesehen.','Вечером мы смотрели телевизор.'],
- ['Er hat uns zum Essen eingeladen.','Он пригласил нас на ужин.'],
- ['Otto ist früh weggegangen.','Отто рано ушёл.']
-];
-
-// выцепи инфинитив на слух
-const REC=[
- ['Er steht jeden Tag früh auf.','aufstehen',['aufstehen','anstehen','ausstehen']],
- ['Ich rufe dich später an.','anrufen',['anrufen','aufrufen','abrufen']],
- ['Wir steigen hier aus.','aussteigen',['aussteigen','einsteigen','umsteigen']],
- ['Sie hat uns eingeladen.','einladen',['einladen','abladen','ausladen']],
- ['Der Zug ist angekommen.','ankommen',['ankommen','mitkommen','zurückkommen']],
- ['Ich räume das Zimmer auf.','aufräumen',['aufräumen','ausräumen','einräumen']],
- ['Er bringt einen Freund mit.','mitbringen',['mitbringen','mitnehmen','mitkommen']],
- ['Wann fängt der Film an?','anfangen',['anfangen','auffangen','abfangen']]
-];
-
-// ===== текст =====
 document.getElementById('deText').innerHTML=TEXT_DE;
 document.getElementById('ruText').innerHTML=TEXT_RU;
 document.querySelectorAll('#deText .vb').forEach(s=>s.addEventListener('click',()=>{const o=s.classList.toggle('open');s.textContent=o?s.dataset.ru:s.dataset.de;}));
 function toggleRu(){const r=document.getElementById('ruText'),b=document.getElementById('ruBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
 function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.vb').forEach(s=>s.textContent=s.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/trenn-text.mp3?v=1'],btn,[{t:plain,role:M}]);}
 
-// ===== список глаголов =====
-function renderVerbs(){document.getElementById('vlistV').innerHTML=VERBS.map(([de,ru,pp],i)=>{
-  const sein=pp.indexOf('ist')===0; const ppc=sein?'ppv sein':'ppv';
-  return `<div class="vverb"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">${de}</span><span class="ru">${ru}</span>`+
-  `<button class="btn sm" onclick="const e=document.getElementById('pp${i}');e.hidden=!e.hidden">⏪ прошедшее</button>`+
-  `<span class="${ppc}" id="pp${i}" hidden>${pp} <button class="say" onclick="speak('${pp}','${M}')">🔊</button></span></div>`;}).join('');}
+// ===== список 2 столбика =====
+function renderVerbs(){document.getElementById('vlistV').innerHTML=GROUPS.map((g,gi)=>{
+  const rows=g[1].map(([de,ru,pp])=>{const sein=pp.indexOf('ist')===0;const id='pp_'+slug(de);
+    return `<div class="vv"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">${de}</span><span class="ru">${ru}</span>`+
+    `<button class="ppb" onclick="const e=document.getElementById('${id}');e.hidden=!e.hidden">⏪</button>`+
+    `<span class="ppv" id="${id}" hidden><span class="${sein?'sein':''}">${pp}</span> <button class="say" onclick="speak('${pp}','${M}')">🔊</button></span></div>`;}).join('');
+  return `<div class="grp"><div class="gh">${g[0]}</div>${rows}</div>`;}).join('');}
 
-// ===== карточки =====
+// ===== карточки (все) =====
 let ci=0,flipped=false;
-function renderCard(){const [de,ru,pp]=VERBS[ci];const sein=pp.indexOf('ist')===0;
+function renderCard(){const [de,ru,pp]=VERBS[ci];
   document.getElementById('cText').innerHTML=flipped?`${de} <button class="say" onclick="event.stopPropagation();playWord('${de}','${M}')">🔊</button><div style="font-size:15px;margin-top:8px;color:#c2410c">⏪ ${pp}</div>`:ru;
   document.getElementById('cHint').textContent=flipped?'нажми — назад к русскому':'нажми — глагол + прошедшее';
   document.getElementById('cCount').textContent=`${ci+1} / ${VERBS.length}`;document.getElementById('card').classList.toggle('back',flipped);}
@@ -230,41 +280,57 @@ function flip(){flipped=!flipped;renderCard();}
 function cardNext(){ci=(ci+1)%VERBS.length;flipped=false;renderCard();}
 function cardPrev(){ci=(ci-1+VERBS.length)%VERBS.length;flipped=false;renderCard();}
 
-// ===== соотнеси =====
+// ===== соотнеси (порциями по 6) =====
 const PCOL=['#3b5bdb','#f97316','#ef4444','#22c55e','#a855f7','#eab308','#0e7490'];
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let mPage=0;const mPer=6;const mPages=Math.ceil(VERBS.length/mPer);
 let selDe=null,links={},colorOf={},nextC=0,MA=[];
 function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
 function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
-function renderMatch(){MA=shuffle(VERBS).slice(0,6);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MA.map((p,i)=>i));
+function renderMatch(){MA=VERBS.slice(mPage*mPer,mPage*mPer+mPer);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MA.map((p,i)=>i));
   document.getElementById('mDe').innerHTML=MA.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
   document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MA[i][1]}</div>`).join('');
-  document.getElementById('mScore').textContent='';}
+  document.getElementById('mScore').textContent='';document.getElementById('mPg').textContent=`порция ${mPage+1} / ${mPages}`;}
+function matchNext(){mPage=(mPage+1)%mPages;renderMatch();}
 function pickDe(i){playWord(MA[i][0],M);selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
 function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
-function matchCheck(){let ok=0;MA.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'#15803d':'#d6336c';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MA.length?'#15803d':'#d6336c'}">${ok} / ${MA.length} верно${ok===MA.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
+function matchCheck(){let ok=0;MA.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--ok)':'var(--bad)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MA.length?'var(--ok)':'var(--bad)'}">${ok} / ${MA.length} верно${ok===MA.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 
-// ===== аудирование: услышь и переведи =====
-function renderHear(){document.getElementById('hearList').innerHTML=HEAR.map(([de,ru],i)=>
-  `<div class="hearrow"><button class="btn t sm" onclick="playSeq(['audio/trenn-hear-${i+1}.mp3?v=1'],this,[{t:${JSON.stringify(de)},role:'${M}'}])">🔊 Прослушать</button>`+
-  `<button class="btn sm" onclick="document.getElementById('hr${i}').hidden=!document.getElementById('hr${i}').hidden">Показать</button>`+
-  `<div class="hr" id="hr${i}" hidden><div class="de2">${de}</div><div class="ru2">${ru}</div></div></div>`).join('');}
+// ===== услышь и переведи (порциями по 5) =====
+let hPage=0;const hPer=5;const hPages=Math.ceil(SENT.length/hPer);
+function renderHear(){const items=SENT.slice(hPage*hPer,hPage*hPer+hPer);
+  document.getElementById('hearList').innerHTML=items.map((s,k)=>{const i=hPage*hPer+k;
+   return `<div class="arow"><button class="btn t sm" onclick="playSeq(['audio/trenn-sent-${slug(s[0])}.mp3?v=1'],this,[{t:${JSON.stringify(s[1])},role:'${M}'}])">🔊 Прослушать</button>`+
+   `<button class="btn sm" onclick="document.getElementById('hr${i}').hidden=!document.getElementById('hr${i}').hidden">Показать</button>`+
+   `<div class="hr" id="hr${i}" hidden><div class="de2">${s[1]}</div><div class="ru2">${s[2]}</div></div></div>`;}).join('');
+  document.getElementById('hPg').textContent=`порция ${hPage+1} / ${hPages}`;}
+function hearNext(){hPage=(hPage+1)%hPages;renderHear();}
 
-// ===== аудирование: выцепи глагол =====
-let recDone=0,recOk=0;
-function renderRec(){recDone=0;recOk=0;document.getElementById('recScore').textContent='';
-  document.getElementById('recList').innerHTML=REC.map(([de,ans,opts],i)=>
-  `<div class="recrow" data-i="${i}"><button class="btn t sm" onclick="playSeq(['audio/trenn-rec-${i+1}.mp3?v=1'],this,[{t:${JSON.stringify(de)},role:'${M}'}])">🔊</button>`+
-  `<span style="color:#374151">какой глагол?</span> `+
-  shuffle(opts).map(o=>`<button class="btn sm opt" onclick="recPick(${i},'${o}',this)">${o}</button>`).join('')+
-  `<span class="rres" id="rr${i}"></span></div>`).join('');}
-function recPick(i,o,btn){const row=btn.closest('.recrow');if(row.dataset.done)return;const ans=REC[i][1];const good=o===ans;
-  btn.classList.add(good?'ok':'bad');
-  if(good){row.dataset.done='1';recDone++;recOk++;document.getElementById('rr'+i).innerHTML=`<span style="color:#15803d">✓ ${REC[i][0]}</span>`;}
-  else{document.getElementById('rr'+i).innerHTML=`<span style="color:#d6336c">ещё раз</span>`;}
-  if(recDone===REC.length)document.getElementById('recScore').innerHTML=`<span style="color:#15803d">${recOk} / ${REC.length} — ${typeof praise==='function'?praise():'супер'}</span>`;}
+// ===== выцепи глагол (порциями по 5) =====
+let rPage=0;const rPer=5;const rPages=Math.ceil(SENT.length/rPer);
+function recOptions(inf){const others=VERBS.map(v=>v[0]).filter(w=>w!==inf);const pre=inf.slice(0,3);let sim=shuffle(others.filter(w=>w.slice(0,3)===pre)).slice(0,2);while(sim.length<2){const r=shuffle(others)[0];if(r!==inf&&!sim.includes(r))sim.push(r);}return shuffle([inf,...sim]);}
+function renderRec(){const items=SENT.slice(rPage*rPer,rPage*rPer+rPer);document.getElementById('recScore').textContent='';
+  document.getElementById('recList').innerHTML=items.map((s,k)=>{const i=rPage*rPer+k;const opts=recOptions(s[0]);
+   return `<div class="arow" data-i="${i}"><button class="btn t sm" onclick="playSeq(['audio/trenn-sent-${slug(s[0])}.mp3?v=1'],this,[{t:${JSON.stringify(s[1])},role:'${M}'}])">🔊</button>`+
+   `<span style="color:#374151">глагол?</span> `+opts.map(o=>`<button class="btn sm opt" onclick="recPick(${i},'${o}',this)">${o}</button>`).join('')+
+   `<span class="rres" id="rr${i}"></span></div>`;}).join('');
+  document.getElementById('rPg').textContent=`порция ${rPage+1} / ${rPages}`;}
+function recPick(i,o,btn){const row=btn.closest('.arow');if(row.dataset.done)return;const ans=SENT[i][0];const good=o===ans;btn.classList.add(good?'ok':'bad');
+  if(good){row.dataset.done='1';document.getElementById('rr'+i).innerHTML=`<span style="color:var(--ok)">✓ ${SENT[i][1]}</span>`;}
+  else document.getElementById('rr'+i).innerHTML=`<span style="color:var(--bad)">ещё раз</span>`;}
+function recNext(){rPage=(rPage+1)%rPages;renderRec();}
 
-renderVerbs();renderCard();renderMatch();renderHear();renderRec();
+// ===== аудирование-тест =====
+let lSel={};
+function renderQ(){document.getElementById('qList').innerHTML=LISTEN.q.map((q,i)=>
+  `<div class="q"><div class="qt">${i+1}. ${q[0]}</div><div class="qo">`+
+  q[1].map((o,j)=>`<button class="btn sm" onclick="qPick(${i},${j},this)">${o}</button>`).join('')+`</div></div>`).join('');
+  document.getElementById('lScore').textContent='';lSel={};}
+function qPick(i,j,btn){lSel[i]=j;btn.parentNode.querySelectorAll('.btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+function listenCheck(){let ok=0;LISTEN.q.forEach((q,i)=>{const btns=document.querySelectorAll('#qList .q')[i].querySelectorAll('.btn');btns.forEach(b=>b.classList.remove('ok','bad'));const sel=lSel[i];if(sel===undefined)return;if(sel===q[2]){btns[sel].classList.add('ok');ok++;}else{btns[sel].classList.add('bad');btns[q[2]].classList.add('ok');}});
+  document.getElementById('lScore').innerHTML=`<span style="color:${ok===LISTEN.q.length?'var(--ok)':'var(--bad)'}">${ok} / ${LISTEN.q.length} верно</span> — если ошибся, открой текст и разбери.`;}
+function toggleLtext(){const e=document.getElementById('lText'),b=document.getElementById('ltBtn');if(e.hidden){e.innerHTML=`<div class="de2">${LISTEN.de}</div><div class="ru2">${LISTEN.ru}</div>`;e.hidden=false;b.textContent='📄 Скрыть текст';}else{e.hidden=true;b.textContent='📄 Показать текст и перевод';}}
+
+renderVerbs();renderCard();renderMatch();renderHear();renderRec();renderQ();
 </script>
 </body>
 </html>
