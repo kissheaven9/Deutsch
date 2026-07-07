@@ -144,6 +144,24 @@
     <div class="score" id="pastScore"></div>
   </div>
 
+  <div class="panel"><h3><span class="exnum">7</span>🇷🇺 → 🇩🇪 Выбери немецкий глагол</h3>
+    <p class="sub">Дан перевод — выбери правильный немецкий глагол из трёх. «Следующие →».</p>
+    <div id="chList"></div>
+    <div class="toolbar"><button class="btn sm" onclick="chNext()">Следующие →</button><span class="pgi" id="chPg"></span></div>
+  </div>
+
+  <div class="panel alt"><h3><span class="exnum">8</span>🔤 Спряжение: посмотри → впиши → услышь</h3>
+    <p class="sub">Выбери глагол, посмотри все формы (🔊), потом впиши форму для <b>er/sie/es</b> и послушай.</p>
+    <select id="cjSel" onchange="renderConj(this.value)" style="border:2px solid var(--line);border-radius:9px;padding:7px 10px;font-size:15px;font-family:inherit"></select>
+    <div id="cjBox" style="margin-top:10px"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">9</span>✍️ Переведи предложение на немецкий</h3>
+    <p class="sub">Дано русское предложение — напиши по-немецки (приставка уходит в конец!). «Показать» — сверься и послушай. «Следующие →».</p>
+    <div id="trList"></div>
+    <div class="toolbar"><button class="btn sm" onclick="trNext()">Следующие →</button><span class="pgi" id="trPg"></span></div>
+  </div>
+
   <!-- АУДИРОВАНИЕ-ТЕСТ -->
   <div class="part"><span class="pico">🏁</span><div><div class="pk">Шаг 4</div><h2>Проверка на слух: понял ли текст?</h2></div></div>
   <div class="panel"><h3>🎧 Аудирование + вопросы</h3>
@@ -199,7 +217,7 @@ const SENT=[
  ['abfliegen','Das Flugzeug ist pünktlich abgeflogen.','Самолёт вылетел вовремя.'],
  ['absagen','Er hat das Treffen abgesagt.','Он отменил встречу.'],
  ['abwaschen','Nach dem Essen wasche ich ab.','После еды я мою посуду.'],
- ['abladen','Wir laden die Kisten ab.','Мы выгружаем ящики.'],
+ ['abladen','Wir laden das Auto ab.','Мы разгружаем машину.'],
  ['anrufen','Ich rufe dich morgen an.','Я позвоню тебе завтра.'],
  ['ankommen','Der Bus ist spät angekommen.','Автобус прибыл поздно.'],
  ['anfangen','Der Film fängt gleich an.','Фильм сейчас начнётся.'],
@@ -246,7 +264,7 @@ const SENT=[
  ['zusagen','Er hat für Freitag zugesagt.','Он согласился на пятницу.'],
  ['zurückrufen','Ich rufe dich später zurück.','Я перезвоню тебе позже.'],
  ['zurückkommen','Wann kommst du zurück?','Когда ты вернёшься?'],
- ['durchsagen','Man sagt die Verspätung durch.','Объявляют о задержке.'],
+ ['durchsagen','Man sagt die Information durch.','Объявляют информацию.'],
  ['durchstreichen','Streichen Sie das falsche Wort durch.','Зачеркните неправильное слово.'],
  ['spazieren gehen','Wir gehen im Park spazieren.','Мы гуляем в парке.'],
  ['anschauen','Ich schaue mir das Bild an.','Я разглядываю картину.']
@@ -259,27 +277,27 @@ const HEAR_SENT=[
  ['abfliegen','Morgen fliegt sie nach Rom ab.','Завтра она вылетает в Рим.'],
  ['absagen','Wir sagen das Konzert leider ab.','Мы, к сожалению, отменяем концерт.'],
  ['abwaschen','Kannst du heute abwaschen?','Ты можешь сегодня помыть посуду?'],
- ['abladen','Die Männer laden das Auto ab.','Мужчины разгружают машину.'],
+ ['abladen','Die Männer laden alles ab.','Мужчины всё разгружают.'],
  ['anrufen','Ruf mich bitte heute Abend an!','Позвони мне, пожалуйста, сегодня вечером!'],
  ['ankommen','Um wie viel Uhr kommt der Zug an?','Во сколько прибывает поезд?'],
  ['anfangen','Wann fängt der Kurs an?','Когда начинается курс?'],
- ['anbieten','Die Firma bietet gute Löhne an.','Фирма предлагает хорошую зарплату.'],
+ ['anbieten','Die Firma bietet einen guten Job an.','Фирма предлагает хорошую работу.'],
  ['anziehen','Das Kind zieht die Schuhe an.','Ребёнок надевает ботинки.'],
  ['anmachen','Mach bitte das Radio an!','Включи, пожалуйста, радио!'],
  ['ankreuzen','Ich kreuze die Nummer drei an.','Я отмечаю номер три.'],
- ['anzeigen','Das Display zeigt den Preis an.','Дисплей показывает цену.'],
+ ['anzeigen','Die App zeigt den Preis an.','Приложение показывает цену.'],
  ['angeben','Bitte geben Sie Ihre Adresse an.','Пожалуйста, укажите ваш адрес.'],
  ['aufstehen','Am Sonntag steht er spät auf.','В воскресенье он встаёт поздно.'],
  ['aufräumen','Räum bitte die Küche auf!','Убери, пожалуйста, кухню!'],
  ['aufschreiben','Schreib die Adresse auf!','Запиши адрес!'],
  ['auflegen','Er hat einfach aufgelegt.','Он просто положил трубку.'],
- ['aufbauen','Sie bauen die Bühne auf.','Они собирают сцену.'],
+ ['aufbauen','Sie bauen ein Regal auf.','Они собирают полку.'],
  ['aussehen','Das Essen sieht lecker aus.','Еда выглядит вкусно.'],
  ['aussteigen','Steig hier bitte aus!','Выходи здесь, пожалуйста!'],
  ['ausmachen','Mach bitte den Fernseher aus.','Выключи, пожалуйста, телевизор.'],
- ['ausfüllen','Ich fülle den Antrag aus.','Я заполняю заявление.'],
+ ['ausfüllen','Ich fülle das Formular aus.','Я заполняю анкету.'],
  ['ausdrücken','Sie kann sich gut ausdrücken.','Она умеет хорошо выражаться.'],
- ['ausräumen','Wir räumen den Keller aus.','Мы разбираем подвал.'],
+ ['ausräumen','Wir räumen den Schrank aus.','Мы разбираем шкаф.'],
  ['ausschalten','Schalt das Handy aus!','Выключи телефон!'],
  ['einkaufen','Am Samstag kaufen wir ein.','В субботу мы закупаемся.'],
  ['einladen','Ich lade dich zum Geburtstag ein.','Я приглашаю тебя на день рождения.'],
@@ -420,14 +438,14 @@ function toggleLtext(){const e=document.getElementById('lText'),b=document.getEl
 
 // ===== вставь глагол в правильной форме =====
 const GAP2=[
- ['Morgens ','zieht',' Anna ihre Jacke an.','anziehen'],
- ['Sie ','nimmt',' einen Schirm mit.','mitnehmen'],
- ['Am Bahnhof ','steigt',' sie in den Zug ein.','einsteigen'],
+ ['Otto ','zieht',' seine Jacke an.','anziehen'],
+ ['Am Bahnhof ','steigt',' er in den Zug ein.','einsteigen'],
  ['Der Zug ','fährt',' pünktlich ab.','abfahren'],
- ['In Köln ','steigt',' sie um.','umsteigen'],
+ ['In Berlin ','steigt',' er um.','umsteigen'],
  ['Nach der Pause ','fährt',' der Zug weiter.','weiterfahren'],
- ['Der Ausflug ','fängt',' um zehn Uhr an.','anfangen'],
- ['Am Abend ','kommt',' Anna nach Hause zurück.','zurückkommen']
+ ['Am Abend ','steigt',' Otto aus.','aussteigen'],
+ ['Zu Hause ','sieht',' er fern.','fernsehen'],
+ ['Am Montag ','kommt',' er zurück.','zurückkommen']
 ];
 function renderGap(){document.getElementById('gapList').innerHTML=GAP2.map((g,i)=>
   `<div style="border-top:1px solid var(--line);padding:9px 0;font-size:16px;line-height:1.9">${g[0]}<input id="gi${i}" autocomplete="off" style="border:none;border-bottom:2px solid var(--t);width:110px;font-size:15px;font-family:inherit;text-align:center;color:var(--t);font-weight:700"> <span style="font-size:12px;color:var(--muted)">(${g[3]})</span>${g[2]} <span class="rres" id="gc${i}"></span></div>`).join('');document.getElementById('gapScore').textContent='';}
@@ -445,7 +463,50 @@ function pastCheck(){const items=VERBS.slice(pPage*pPer,pPage*pPer+pPer);let ok=
 function pastShow(){const items=VERBS.slice(pPage*pPer,pPage*pPer+pPer);items.forEach((v,k)=>{const i=pPage*pPer+k;const inp=document.getElementById('pi'+i);inp.value=v[2];inp.style.borderColor='var(--ok)';document.getElementById('pc'+i).textContent='';});}
 function pastNext(){pPage=(pPage+1)%pPages;renderPast();}
 
-renderVerbs();renderCard();renderMatch();renderHear();renderRec();renderGap();renderPast();renderQ();
+// ===== Ex7: RU → выбери немецкий глагол =====
+let chPage=0;const chPer=6;const chPages=Math.ceil(VERBS.length/chPer);
+function chOpts(inf){const others=VERBS.map(v=>v[0]).filter(w=>w!==inf);const pre=inf.slice(0,3);let sim=shuffle(others.filter(w=>w.slice(0,3)===pre)).slice(0,2);while(sim.length<2){const r=shuffle(others)[0];if(r!==inf&&!sim.includes(r))sim.push(r);}return shuffle([inf,...sim]);}
+function renderChoice(){const items=VERBS.slice(chPage*chPer,chPage*chPer+chPer);
+  document.getElementById('chList').innerHTML=items.map((v,k)=>{const i=chPage*chPer+k;const o=chOpts(v[0]);
+   return `<div class="arow" data-i="${i}"><span style="min-width:150px;color:#374151">${v[1]}</span>`+o.map(x=>`<button class="btn sm opt" onclick="chPick(${i},'${x}',this)">${x}</button>`).join('')+`<span class="rres" id="cc${i}"></span></div>`;}).join('');
+  document.getElementById('chPg').textContent=`порция ${chPage+1} / ${chPages}`;}
+function chPick(i,o,btn){const row=btn.closest('.arow');if(row.dataset.done)return;const good=o===VERBS[i][0];btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';document.getElementById('cc'+i).innerHTML='<span style="color:var(--ok)">✓</span>';}else document.getElementById('cc'+i).innerHTML='<span style="color:var(--bad)">ещё раз</span>';}
+function chNext(){chPage=(chPage+1)%chPages;renderChoice();}
+
+// ===== Ex8: спряжение =====
+const CONJ=[
+ ['aufstehen','вставать',['stehe auf','stehst auf','steht auf','stehen auf','steht auf','stehen auf']],
+ ['anrufen','звонить',['rufe an','rufst an','ruft an','rufen an','ruft an','rufen an']],
+ ['einkaufen','закупаться',['kaufe ein','kaufst ein','kauft ein','kaufen ein','kauft ein','kaufen ein']],
+ ['abholen','забирать',['hole ab','holst ab','holt ab','holen ab','holt ab','holen ab']],
+ ['einladen','приглашать',['lade ein','lädst ein','lädt ein','laden ein','ladet ein','laden ein']],
+ ['ankommen','прибывать',['komme an','kommst an','kommt an','kommen an','kommt an','kommen an']],
+ ['mitbringen','приносить с собой',['bringe mit','bringst mit','bringt mit','bringen mit','bringt mit','bringen mit']],
+ ['anziehen','надевать',['ziehe an','ziehst an','zieht an','ziehen an','zieht an','ziehen an']],
+ ['aussehen','выглядеть',['sehe aus','siehst aus','sieht aus','sehen aus','seht aus','sehen aus']],
+ ['einsteigen','садиться (в транспорт)',['steige ein','steigst ein','steigt ein','steigen ein','steigt ein','steigen ein']],
+ ['aufräumen','убирать',['räume auf','räumst auf','räumt auf','räumen auf','räumt auf','räumen auf']],
+ ['anfangen','начинать',['fange an','fängst an','fängt an','fangen an','fangt an','fangen an']]
+];
+const PRO=['ich','du','er/sie/es','wir','ihr','sie/Sie'];
+function cjNorm(s){return (s||'').toLowerCase().replace(/[^a-zäöüß]/g,'');}
+function renderConj(idx){idx=+idx;const [inf,ru,forms]=CONJ[idx];
+  const rows=forms.map((fr,i)=>`<div style="display:flex;gap:8px;align-items:center;padding:2px 0"><span style="min-width:82px;color:var(--muted)">${PRO[i]}</span><b style="color:var(--t)">${fr}</b> <button class="say" onclick="speak('${PRO[i].split('/')[0]} ${fr}','male')">🔊</button></div>`).join('');
+  document.getElementById('cjBox').innerHTML=`<div style="background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:10px">${rows}</div>`+
+   `<div class="arow"><span>er/sie/es (<b>${inf}</b>) →</span><input id="cjIn" placeholder="форма…" autocomplete="off" style="border:2px solid var(--line);border-radius:9px;padding:6px 9px;font-family:inherit;min-width:150px"><button class="btn t sm" onclick="cjCheck(${idx})">Проверить</button><span class="rres" id="cjRes"></span></div>`;}
+function cjCheck(idx){const inp=document.getElementById('cjIn');const ans=CONJ[idx][2][2];const good=cjNorm(inp.value)===cjNorm(ans);inp.style.borderColor=good?'var(--ok)':'var(--bad)';document.getElementById('cjRes').innerHTML=(good?'<span style="color:var(--ok)">✓</span>':`<span style="color:var(--bad)">→ ${ans}</span>`)+` <button class="say" onclick="speak('er ${ans}','male')">🔊</button>`;}
+
+// ===== Ex9: RU → DE предложение =====
+let trPage=0;const trPer=5;const trPages=Math.ceil(SENT.length/trPer);
+function renderTrans(){const items=SENT.slice(trPage*trPer,trPage*trPer+trPer);
+  document.getElementById('trList').innerHTML=items.map((s,k)=>{const i=trPage*trPer+k;
+   return `<div class="arow"><span style="width:100%;color:#374151;font-weight:600">${s[2]}</span><input id="ti${i}" placeholder="по-немецки…" autocomplete="off" style="border:2px solid var(--line);border-radius:9px;padding:6px 9px;font-family:inherit;flex:1;min-width:200px"><button class="btn sm" onclick="trShow(${i})">Показать</button><div class="hr" id="tr${i}" hidden></div></div>`;}).join('');
+  document.getElementById('trPg').textContent=`порция ${trPage+1} / ${trPages}`;}
+function trShow(i){const s=SENT[i];const e=document.getElementById('tr'+i);e.innerHTML=`<div class="de2">${s[1]} <button class="say" onclick="playSent(${i},this)">🔊</button></div>`;e.hidden=false;}
+function trNext(){trPage=(trPage+1)%trPages;renderTrans();}
+document.getElementById('cjSel').innerHTML=CONJ.map((c,i)=>`<option value="${i}">${c[0]} — ${c[1]}</option>`).join('');
+
+renderVerbs();renderCard();renderMatch();renderHear();renderRec();renderGap();renderPast();renderChoice();renderConj(0);renderTrans();renderQ();
 </script>
 </body>
 </html>
