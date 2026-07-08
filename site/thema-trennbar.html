@@ -76,6 +76,11 @@
 
   <div class="tabs" id="tabs"></div>
 
+  <div class="panel"><h3>🖼 Картинка к части</h3>
+    <p class="sub">Нажми <b>кружок</b> на картинке — там Отто что-то делает: увидишь и услышишь глагол.</p>
+    <div class="stage" id="stage"></div>
+  </div>
+
   <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 1</div><h2 id="tTitle"></h2></div></div>
   <div class="panel"><h3>📜 Текст части <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">кликни глагол → инфинитив + перевод · <b style="color:var(--t)">синим</b> — приставка</span></h3>
     <div class="bh">🇩🇪 Deutsch <button class="btn sm" onclick="playText(this)">🔊 Послушать</button></div>
@@ -88,11 +93,6 @@
     <p class="sub">Прочитай, потом «Скрыть переводы» — и переведи сам. 🔊 — инфинитив, <b>⏪</b> — прошедшее (<span style="color:var(--ok);font-weight:700">зелёным</span> — с sein).</p>
     <div class="toolbar" style="margin-top:0;margin-bottom:10px"><button class="btn t sm" id="eye" onclick="toggleEye(this)">🙈 Скрыть переводы</button></div>
     <div class="vlistV" id="vlistV"></div>
-  </div>
-
-  <div class="panel"><h3>🖼 Картинка к части</h3>
-    <p class="sub">Нажми <b>кружок</b> на картинке — там Отто что-то делает: увидишь и услышишь глагол.</p>
-    <div class="stage" id="stage"></div>
   </div>
 
   <div class="part"><span class="pico">🎯</span><div><div class="pk">Шаг 2</div><h2>Упражнения этой части</h2></div></div>
@@ -603,7 +603,7 @@ const SPOTS=[
 ];
 function renderImage(){const sp=SPOTS[AP]||[];
   document.getElementById('stage').innerHTML=`<img src="img/trenn-part-${AP+1}.png?v=1" alt="Часть ${AP+1}">`+
-   sp.map((s,i)=>`<button class="spot" style="left:${s.x}%;top:${s.y}%" onclick="this.classList.toggle('open');playWord('${s.de}','${M}')">${i+1}<span class="tip"><span class="dd">${s.de}</span><br><span class="rr">${s.ru}</span></span></button>`).join('');}
+   sp.map((s,i)=>`<button class="spot" style="left:${s.x}%;top:${s.y}%" onclick="this.classList.toggle('open');playWord('${s.de}','${M}')">${i+1}<span class="tip"><span class="dd">${s.de}</span></span></button>`).join('');}
 
 function recOpts(inf){const others=V().verbs.map(v=>v[0]).filter(w=>w!==inf);const pre=inf.slice(0,3);let sim=shuffle(others.filter(w=>w.slice(0,3)===pre)).slice(0,2);while(sim.length<2){const r=shuffle(others)[0];if(r!==inf&&!sim.includes(r))sim.push(r);}return shuffle([inf,...sim]);}
 function renderRec(){document.getElementById('recList').innerHTML=V().sent.map((s,i)=>{const o=recOpts(s[0]);
