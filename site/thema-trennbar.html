@@ -84,6 +84,11 @@
     <div class="vlistV" id="vlistV"></div>
   </div>
 
+  <div class="panel"><h3>🖼 Картинка к части</h3>
+    <p class="sub">Фото пока нет. Скопируй промпт, вставь в ChatGPT (генерация изображений) — получишь картинку к этой части истории.</p>
+    <div id="promptBox"></div>
+  </div>
+
   <div class="part"><span class="pico">🎯</span><div><div class="pk">Шаг 2</div><h2>Упражнения этой части</h2></div></div>
 
   <div class="panel"><h3><span class="exnum">1</span>🃏 Карточки</h3>
@@ -109,7 +114,7 @@
   </div>
 
   <div class="panel"><h3><span class="exnum">5</span>✍️ Вставь глагол в правильной форме</h3>
-    <p class="sub">В скобках — инфинитив; впиши глагол в нужной форме (приставка уже в конце).</p>
+    <p class="sub">В скобках — инфинитив. Впиши сам <b>форму глагола</b> (первое поле) И <b>приставку</b> в конце (второе поле). Все глаголы группы.</p>
     <div id="gapList"></div>
     <div class="toolbar"><button class="btn t sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapShow()">Показать</button></div>
     <div class="score" id="gapScore"></div>
@@ -157,6 +162,7 @@ const PARTS=[
  title:'Часть 1',
  textDE:`Hallo, ich bin Otto! Heute ${VB('habe','freihaben — быть выходным')} ich ${P('frei')}, denn heute ist ein Fest. Ich ${VB('stehe','aufstehen — вставать')} früh ${P('auf')} und ${VB('ziehe','anziehen — надевать')} meinen Rock und meinen Hut ${P('an')}. Beim Frühstück ${VB('mache','anmachen — включать')} ich meine Lieblingssendung ${P('an')}. Danach ${VB('wasche','abwaschen — мыть посуду')} ich ${P('ab')}. Dann ${VB('denke','nachdenken — размышлять')} ich über mein Fest ${P('nach')}: Am Samstag ${VB('findet','stattfinden — состояться')} bei mir ein Gartenfest ${P('statt')}. Darum ${VB('rufe','anrufen — звонить')} ich meinen Sohn ${P('an')} und ${VB('lade','einladen — приглашать')} ihn ${P('ein')}. Er ${VB('sagt','zusagen — соглашаться')} gleich ${P('zu')}. Ich ${VB('schlage','vorschlagen — предлагать')} etwas ${P('vor')}: Er soll meinen Enkel mitbringen!`,
  textRU:"Привет, я Отто! Сегодня я свободен, ведь сегодня праздник. Я встаю рано и надеваю юбку и шляпу. За завтраком включаю любимое шоу. Потом мою посуду. Затем думаю о празднике: в субботу у меня будет праздник в саду. Поэтому звоню сыну и приглашаю его. Он сразу соглашается. Я предлагаю: пусть возьмёт с собой моего внука!",
+ prompt:"Тёплая книжная иллюстрация (не фотореализм). УТРО. Отто — коренастый шотландец ~50 лет, густая рыжая борода, в клетчатой юбке-килте и шляпе — завтракает: рыбный пирог, сыр, чай с мёдом. Рядом включённый телевизор (утреннее шоу), в раковине посуда. На столе телефон — он собирается звонить сыну. За окном сад, где готовится праздник. Уютно. Без текста, букв и цифр.",
  verbs:[
   ['freihaben','быть выходным','hat freigehabt'],
   ['aufstehen','вставать','ist aufgestanden'],
@@ -169,9 +175,9 @@ const PARTS=[
   ['einladen','приглашать','hat eingeladen'],
   ['zusagen','соглашаться','hat zugesagt'],
   ['vorschlagen','предлагать','hat vorgeschlagen']
-  ],
+ ],
  conj:[
-  ['freihaben','быть выходным',["habe frei", "habst frei", "habt frei", "haben frei", "habt frei", "haben frei"]],
+  ['freihaben','быть выходным',["habe frei", "hast frei", "hat frei", "haben frei", "habt frei", "haben frei"]],
   ['aufstehen','вставать',["stehe auf", "stehst auf", "steht auf", "stehen auf", "steht auf", "stehen auf"]],
   ['anziehen','надевать',["ziehe an", "ziehst an", "zieht an", "ziehen an", "zieht an", "ziehen an"]],
   ['anmachen','включать',["mache an", "machst an", "macht an", "machen an", "macht an", "machen an"]],
@@ -182,7 +188,7 @@ const PARTS=[
   ['einladen','приглашать',["lade ein", "lädst ein", "lädt ein", "laden ein", "ladt ein", "laden ein"]],
   ['zusagen','соглашаться',["sage zu", "sagst zu", "sagt zu", "sagen zu", "sagt zu", "sagen zu"]],
   ['vorschlagen','предлагать',["schlage vor", "schlägst vor", "schlägt vor", "schlagen vor", "schlagt vor", "schlagen vor"]]
-  ],
+ ],
  sent:[
   ['freihaben','Morgen habe ich frei.','Завтра у меня выходной.'],
   ['aufstehen','Ich stehe jeden Morgen früh auf.','Я встаю каждое утро рано.'],
@@ -195,7 +201,7 @@ const PARTS=[
   ['einladen','Sie hat uns eingeladen.','Она пригласила нас.'],
   ['zusagen','Er hat für Freitag zugesagt.','Он согласился на пятницу.'],
   ['vorschlagen','Sie schlägt ein Restaurant vor.','Она предлагает ресторан.']
-  ],
+ ],
  hear:[
   ['freihaben','Am Freitag hat sie frei.','В пятницу у неё выходной.'],
   ['aufstehen','Am Sonntag steht er spät auf.','В воскресенье он встаёт поздно.'],
@@ -208,22 +214,28 @@ const PARTS=[
   ['einladen','Ich lade dich zum Geburtstag ein.','Я приглашаю тебя на день рождения.'],
   ['zusagen','Sie sagt für das Fest zu.','Она соглашается прийти на праздник.'],
   ['vorschlagen','Ich schlage ein Fest vor.','Я предлагаю праздник.']
-  ],
+ ],
  gap:[
-  ['Otto ','steht',' früh auf.','aufstehen'],
-  ['Er ','zieht',' seinen Hut an.','anziehen'],
-  ['Er ','ruft',' seinen Sohn an.','anrufen'],
-  ['Das Fest ','findet',' am Samstag statt.','stattfinden']
-  ],
- lq:[
-  ['Was macht Otto früh am Morgen?',["stehtauf", "aufstehen", "aufgestanden"],'steht auf (aufstehen)'],
-  ['Was macht Otto mit dem Sohn?',["ruftan", "anrufen", "laedtein", "einladen"],'ruft an / lädt ein']
-  ]
+  ['Heute ','hat',' Otto ','frei','.','freihaben'],
+  ['Heute ','steht',' Otto ','auf','.','aufstehen'],
+  ['Heute ','zieht',' Otto ','an','.','anziehen'],
+  ['Heute ','macht',' Otto ','an','.','anmachen'],
+  ['Heute ','wäscht',' Otto ','ab','.','abwaschen'],
+  ['Heute ','denkt',' Otto ','nach','.','nachdenken'],
+  ['Heute ','findt',' Otto ','statt','.','stattfinden'],
+  ['Heute ','ruft',' Otto ','an','.','anrufen'],
+  ['Heute ','lädt',' Otto ','ein','.','einladen'],
+  ['Heute ','sagt',' Otto ','zu','.','zusagen'],
+  ['Heute ','schlägt',' Otto ','vor','.','vorschlagen']
+ ],
+ lq:[['Was macht Otto früh am Morgen?',["stehtauf", "aufstehen", "aufgestanden"],'steht auf (aufstehen)'],
+  ['Was macht Otto mit dem Sohn?',["ruftan", "anrufen", "laedtein", "einladen"],'ruft an / lädt ein']]
 },
 {
  title:'Часть 2',
  textDE:`Mein Sohn ${VB('nimmt','mitnehmen — брать с собой')} meinen Enkel ${P('mit')}. Dann ${VB('lege','auflegen — класть трубку')} ich ${P('auf')}. Bald ${VB('ruft','zurückrufen — перезванивать')} mein Enkel ${P('zurück')}. Er ${VB('macht','mitmachen — участвовать')} beim Fest ${P('mit')} und ${VB('bereitet','vorbereiten — готовить')} kleine Geschenke ${P('vor')}. Er sagt: „Opa, ich komme schon heute!“ Am Vormittag ${VB('kaufe','einkaufen — закупаться')} ich ${P('ein')}. Der Verkäufer ${VB('bietet','anbieten — предлагать')} mir Orangen ${P('an')}, und ich ${VB('bringe','mitbringen — приносить с собой')} sie ${P('mit')}. Zu Hause ${VB('fülle','ausfüllen — заполнять')} ich ein Formular ${P('aus')}. Ich ${VB('kreuze','ankreuzen — отметить крестиком')} die richtigen Punkte ${P('an')} und ${VB('streiche','durchstreichen — зачёркивать')} die falschen ${P('durch')}.`,
  textRU:"Мой сын возьмёт с собой моего внука. Потом я кладу трубку. Вскоре внук перезванивает. Он будет участвовать в празднике и готовит небольшие подарки. Он говорит: «Дедуль, я приеду уже сегодня!» До обеда я закупаюсь. Продавец предлагает мне апельсины, и я приношу их. Дома заполняю анкету. Отмечаю нужные пункты и зачёркиваю ненужные.",
+ prompt:"Тёплая книжная иллюстрация. Слева Отто радостно говорит по телефону (звонит сыну и внуку). Справа рынок: продавец протягивает Отто апельсины, Отто с корзиной. На переднем плане стол с анкетой-бланком и ручкой. Тёплый день. Без текста, букв и цифр.",
  verbs:[
   ['mitnehmen','брать с собой','hat mitgenommen'],
   ['auflegen','класть трубку','hat aufgelegt'],
@@ -236,7 +248,7 @@ const PARTS=[
   ['ausfüllen','заполнять','hat ausgefüllt'],
   ['ankreuzen','отметить крестиком','hat angekreuzt'],
   ['durchstreichen','зачёркивать','hat durchgestrichen']
-  ],
+ ],
  conj:[
   ['mitnehmen','брать с собой',["nehme mit", "nimmst mit", "nimmt mit", "nehmen mit", "nehmt mit", "nehmen mit"]],
   ['auflegen','класть трубку',["lege auf", "legst auf", "legt auf", "legen auf", "legt auf", "legen auf"]],
@@ -249,7 +261,7 @@ const PARTS=[
   ['ausfüllen','заполнять',["fülle aus", "füllst aus", "füllt aus", "füllen aus", "füllt aus", "füllen aus"]],
   ['ankreuzen','отметить крестиком',["kreuze an", "kreuzst an", "kreuzt an", "kreuzen an", "kreuzt an", "kreuzen an"]],
   ['durchstreichen','зачёркивать',["streiche durch", "streichst durch", "streicht durch", "streichen durch", "streicht durch", "streichen durch"]]
-  ],
+ ],
  sent:[
   ['mitnehmen','Nimm den Schirm mit!','Возьми зонт с собой!'],
   ['auflegen','Sie legt den Hörer auf.','Она кладёт трубку.'],
@@ -262,7 +274,7 @@ const PARTS=[
   ['ausfüllen','Füllen Sie das Formular aus.','Заполните бланк.'],
   ['ankreuzen','Kreuzen Sie die richtige Antwort an.','Отметьте правильный ответ.'],
   ['durchstreichen','Streichen Sie das falsche Wort durch.','Зачеркните неправильное слово.']
-  ],
+ ],
  hear:[
   ['mitnehmen','Ich nehme den Hund mit.','Я беру собаку с собой.'],
   ['auflegen','Er hat einfach aufgelegt.','Он просто положил трубку.'],
@@ -275,22 +287,28 @@ const PARTS=[
   ['ausfüllen','Ich fülle das Formular aus.','Я заполняю анкету.'],
   ['ankreuzen','Ich kreuze die Nummer drei an.','Я отмечаю номер три.'],
   ['durchstreichen','Ich streiche den Fehler durch.','Я зачёркиваю ошибку.']
-  ],
+ ],
  gap:[
-  ['Der Enkel ','ruft',' zurück.','zurückrufen'],
-  ['Otto ','kauft',' am Vormittag ein.','einkaufen'],
-  ['Der Verkäufer ','bietet',' Orangen an.','anbieten'],
-  ['Otto ','füllt',' das Formular aus.','ausfüllen']
-  ],
- lq:[
-  ['Was macht der Enkel?',["ruftzurueck", "zurueckrufen", "machtmit"],'ruft zurück (zurückrufen)'],
-  ['Was bietet der Verkäufer an?',["bietetan", "anbieten"],'bietet Orangen an (anbieten)']
-  ]
+  ['Heute ','nimmt',' Otto ','mit','.','mitnehmen'],
+  ['Heute ','legt',' Otto ','auf','.','auflegen'],
+  ['Heute ','ruft',' Otto ','zurück','.','zurückrufen'],
+  ['Heute ','macht',' Otto ','mit','.','mitmachen'],
+  ['Heute ','bereitt',' Otto ','vor','.','vorbereiten'],
+  ['Heute ','kauft',' Otto ','ein','.','einkaufen'],
+  ['Heute ','biett',' Otto ','an','.','anbieten'],
+  ['Heute ','bringt',' Otto ','mit','.','mitbringen'],
+  ['Heute ','füllt',' Otto ','aus','.','ausfüllen'],
+  ['Heute ','kreuzt',' Otto ','an','.','ankreuzen'],
+  ['Heute ','streicht',' Otto ','durch','.','durchstreichen']
+ ],
+ lq:[['Was macht der Enkel?',["ruftzurueck", "zurueckrufen", "machtmit"],'ruft zurück (zurückrufen)'],
+  ['Was bietet der Verkäufer an?',["bietetan", "anbieten"],'bietet Orangen an (anbieten)']]
 },
 {
  title:'Часть 3',
  textDE:`Ich ${VB('gebe','angeben — указывать')} meine Telefonnummer ${P('an')}. Aber es gibt ein Problem: Man ${VB('weist','hinweisen — указывать на')} mich darauf ${P('hin')}, dass Daten fehlen, und ${VB('zeigt','anzeigen — показывать')} ${P('an')}, was fehlt: die Postleitzahl! Nach dem Mittagessen ${VB('hole','abholen — забирать')} ich meinen Enkel ${P('ab')}. Zuerst ${VB('schaue','anschauen — смотреть / разглядывать')} ich die App ${P('an')}: Sein Flugzeug ${VB('fliegt','abfliegen — вылетать')} pünktlich ${P('ab')}. Am Flughafen ${VB('kommt','ankommen — прибывать')} er pünktlich ${P('an')}. Wir ${VB('steigen','einsteigen — садиться (в транспорт)')} in die Straßenbahn ${P('ein')}, und sie ${VB('fährt','abfahren — отъезжать')} ${P('ab')}. Unterwegs ${VB('sagt','durchsagen — объявлять')} man ${P('durch')}: Die Straßenbahn ist kaputt! Am Hauptbahnhof ${VB('steigen','umsteigen — пересаживаться')} wir in den Bus ${P('um')}.`,
  textRU:"Указываю свой телефон. Но есть проблема: мне указывают, что не все данные заполнены, и показывают, чего не хватает: индекса! После обеда я забираю внука. Сначала смотрю в приложении: его самолёт вылетает вовремя. В аэропорту он прибывает точно. Мы садимся в трамвай, и он отъезжает. По дороге объявляют: трамвай сломался! На главном вокзале пересаживаемся на автобус.",
+ prompt:"Тёплая книжная иллюстрация. Анкета-бланк с пустым полем «индекс» (подсвечено). Рядом аэропорт: самолёт садится, Отто встречает внука-мальчика ~7 лет. На улице трамвай со знаком «сломан», а рядом автобус, куда они пересаживаются. Дорога, движение. Без текста, букв и цифр.",
  verbs:[
   ['angeben','указывать','hat angegeben'],
   ['hinweisen','указывать на','hat hingewiesen'],
@@ -303,7 +321,7 @@ const PARTS=[
   ['abfahren','отъезжать','ist abgefahren'],
   ['durchsagen','объявлять','hat durchgesagt'],
   ['umsteigen','пересаживаться','ist umgestiegen']
-  ],
+ ],
  conj:[
   ['angeben','указывать',["gebe an", "gibst an", "gibt an", "geben an", "gebt an", "geben an"]],
   ['hinweisen','указывать на',["weise hin", "weisst hin", "weist hin", "weisen hin", "weist hin", "weisen hin"]],
@@ -316,7 +334,7 @@ const PARTS=[
   ['abfahren','отъезжать',["fahre ab", "fährst ab", "fährt ab", "fahren ab", "fahrt ab", "fahren ab"]],
   ['durchsagen','объявлять',["sage durch", "sagst durch", "sagt durch", "sagen durch", "sagt durch", "sagen durch"]],
   ['umsteigen','пересаживаться',["steige um", "steigst um", "steigt um", "steigen um", "steigt um", "steigen um"]]
-  ],
+ ],
  sent:[
   ['angeben','Geben Sie Ihren Namen an.','Укажите ваше имя.'],
   ['hinweisen','Ich weise dich auf den Fehler hin.','Я указываю тебе на ошибку.'],
@@ -329,7 +347,7 @@ const PARTS=[
   ['abfahren','Der Zug fährt um acht Uhr ab.','Поезд отъезжает в восемь.'],
   ['durchsagen','Man sagt die Information durch.','Объявляют информацию.'],
   ['umsteigen','In Köln steigen wir um.','В Кёльне мы пересаживаемся.']
-  ],
+ ],
  hear:[
   ['angeben','Bitte geben Sie Ihre Adresse an.','Пожалуйста, укажите ваш адрес.'],
   ['hinweisen','Er weist auf das Problem hin.','Он указывает на проблему.'],
@@ -342,22 +360,28 @@ const PARTS=[
   ['abfahren','Wann fährt der Bus ab?','Когда отъезжает автобус?'],
   ['durchsagen','Der Bahnhof sagt den Zug durch.','Вокзал объявляет поезд.'],
   ['umsteigen','Du musst in Berlin umsteigen.','Тебе надо пересесть в Берлине.']
-  ],
+ ],
  gap:[
-  ['Otto ','holt',' den Enkel ab.','abholen'],
-  ['Das Flugzeug ','kommt',' pünktlich an.','ankommen'],
-  ['Wir ','steigen',' in die Straßenbahn ein.','einsteigen'],
-  ['Am Bahnhof ','steigen',' wir um.','umsteigen']
-  ],
- lq:[
-  ['Was macht Otto nach dem Mittagessen?',["holtab", "abholen"],'holt den Enkel ab (abholen)'],
-  ['Was passiert mit der Straßenbahn unterwegs?',["kaputt", "sagtdurch", "durchsagen"],'man sagt durch: kaputt (durchsagen)']
-  ]
+  ['Heute ','gibt',' Otto ','an','.','angeben'],
+  ['Heute ','weist',' Otto ','hin','.','hinweisen'],
+  ['Heute ','zeigt',' Otto ','an','.','anzeigen'],
+  ['Heute ','holt',' Otto ','ab','.','abholen'],
+  ['Heute ','schaut',' Otto ','an','.','anschauen'],
+  ['Heute ','fliegt',' Otto ','ab','.','abfliegen'],
+  ['Heute ','kommt',' Otto ','an','.','ankommen'],
+  ['Heute ','steigt',' Otto ','ein','.','einsteigen'],
+  ['Heute ','fährt',' Otto ','ab','.','abfahren'],
+  ['Heute ','sagt',' Otto ','durch','.','durchsagen'],
+  ['Heute ','steigt',' Otto ','um','.','umsteigen']
+ ],
+ lq:[['Was macht Otto nach dem Mittagessen?',["holtab", "abholen"],'holt den Enkel ab (abholen)'],
+  ['Was passiert mit der Straßenbahn unterwegs?',["kaputt", "sagtdurch", "durchsagen"],'man sagt durch: kaputt (durchsagen)']]
 },
 {
  title:'Часть 4',
  textDE:`Wir ${VB('fahren','weiterfahren — ехать дальше')} ${P('weiter')} und ${VB('steigen','aussteigen — выходить (из транспорта)')} bei mir zu Hause ${P('aus')}. Zu Hause ${VB('stelle','vorstellen — представлять(ся)')} ich meinen Enkel den Nachbarn ${P('vor')}. Er ${VB('lernt','kennenlernen — знакомиться')} Theo und Lina ${P('kennen')} und ihr Kaninchen Mümmel. Dann ${VB('bauen','aufbauen — собирать / монтировать')} wir einen Tisch für das Fest ${P('auf')}. Wir ${VB('räumen','aufräumen — убирать')} den Garten ${P('auf')} und ${VB('räumen','ausräumen — разбирать / освобождать')} den Schrank ${P('aus')} — wir brauchen Teller. Den Müll ${VB('laden','abladen — выгружать')} wir am Container ${P('ab')}. Theo ${VB('arbeitet','mitarbeiten — работать вместе')} gern ${P('mit')}. Am Abend ${VB('fängt','anfangen — начинать')} das Fußballspiel ${P('an')}, und wir ${VB('sehen','fernsehen — смотреть телевизор')} zusammen ${P('fern')}.`,
  textRU:"Мы едем дальше и выходим у меня возле дома. Дома представляю внука соседям. Он знакомится с Тео и Линой и их кроликом Mümmel. Потом собираем стол для праздника. Убираем сад и разбираем шкаф — нужны тарелки. Мусор выгружаем у контейнера. Тео с удовольствием помогает. Вечером начинается футбол, и мы вместе смотрим телевизор.",
+ prompt:"Тёплая книжная иллюстрация. Двор дома Отто: он знакомит внука с соседями-детьми — любопытным мальчиком Тео и тихой девочкой Линой — и кроликом Mümmel. Вместе собирают длинный стол для праздника и убирают сад. В окне телевизор с футболом. Тепло, живо. Без текста, букв и цифр.",
  verbs:[
   ['weiterfahren','ехать дальше','ist weitergefahren'],
   ['aussteigen','выходить (из транспорта)','ist ausgestiegen'],
@@ -370,7 +394,7 @@ const PARTS=[
   ['mitarbeiten','работать вместе','hat mitgearbeitet'],
   ['anfangen','начинать','hat angefangen'],
   ['fernsehen','смотреть телевизор','hat ferngesehen']
-  ],
+ ],
  conj:[
   ['weiterfahren','ехать дальше',["fahre weiter", "fährst weiter", "fährt weiter", "fahren weiter", "fahrt weiter", "fahren weiter"]],
   ['aussteigen','выходить (из транспорта)',["steige aus", "steigst aus", "steigt aus", "steigen aus", "steigt aus", "steigen aus"]],
@@ -383,7 +407,7 @@ const PARTS=[
   ['mitarbeiten','работать вместе',["arbeite mit", "arbeitst mit", "arbeitt mit", "arbeiten mit", "arbeitt mit", "arbeiten mit"]],
   ['anfangen','начинать',["fange an", "fängst an", "fängt an", "fangen an", "fangt an", "fangen an"]],
   ['fernsehen','смотреть телевизор',["sehe fern", "siehst fern", "sieht fern", "sehen fern", "seht fern", "sehen fern"]]
-  ],
+ ],
  sent:[
   ['weiterfahren','Wir fahren nach der Pause weiter.','Мы едем дальше после паузы.'],
   ['aussteigen','Wir steigen an der nächsten Station aus.','Мы выходим на следующей станции.'],
@@ -396,7 +420,7 @@ const PARTS=[
   ['mitarbeiten','Er arbeitet im Projekt mit.','Он участвует в проекте.'],
   ['anfangen','Der Film fängt gleich an.','Фильм сейчас начнётся.'],
   ['fernsehen','Am Abend sehe ich fern.','Вечером я смотрю телевизор.']
-  ],
+ ],
  hear:[
   ['weiterfahren','Der Zug fährt gleich weiter.','Поезд сейчас поедет дальше.'],
   ['aussteigen','Steig hier bitte aus!','Выходи здесь, пожалуйста!'],
@@ -409,22 +433,28 @@ const PARTS=[
   ['mitarbeiten','Sie arbeitet im Team mit.','Она работает в команде.'],
   ['anfangen','Wann fängt der Kurs an?','Когда начинается курс?'],
   ['fernsehen','Die Kinder sehen zu viel fern.','Дети слишком много смотрят телевизор.']
-  ],
+ ],
  gap:[
-  ['Wir ','steigen',' zu Hause aus.','aussteigen'],
-  ['Otto ','stellt',' den Enkel vor.','vorstellen'],
-  ['Wir ','bauen',' den Tisch auf.','aufbauen'],
-  ['Das Spiel ','fängt',' am Abend an.','anfangen']
-  ],
- lq:[
-  ['Was macht Otto zu Hause mit dem Enkel?',["stelltvor", "vorstellen"],'stellt ihn vor (vorstellen)'],
-  ['Was machen sie am Abend?',["sehenfern", "fernsehen", "faengtan"],'sehen fern (fernsehen)']
-  ]
+  ['Heute ','fährt',' Otto ','weiter','.','weiterfahren'],
+  ['Heute ','steigt',' Otto ','aus','.','aussteigen'],
+  ['Heute ','stellt',' Otto ','vor','.','vorstellen'],
+  ['Heute ','lernt',' Otto ','kennen','.','kennenlernen'],
+  ['Heute ','baut',' Otto ','auf','.','aufbauen'],
+  ['Heute ','räumt',' Otto ','auf','.','aufräumen'],
+  ['Heute ','räumt',' Otto ','aus','.','ausräumen'],
+  ['Heute ','lädt',' Otto ','ab','.','abladen'],
+  ['Heute ','arbeitt',' Otto ','mit','.','mitarbeiten'],
+  ['Heute ','fängt',' Otto ','an','.','anfangen'],
+  ['Heute ','sieht',' Otto ','fern','.','fernsehen']
+ ],
+ lq:[['Was macht Otto zu Hause mit dem Enkel?',["stelltvor", "vorstellen"],'stellt ihn vor (vorstellen)'],
+  ['Was machen sie am Abend?',["sehenfern", "fernsehen", "faengtan"],'sehen fern (fernsehen)']]
 },
 {
  title:'Часть 5',
  textDE:`Ich ${VB('sehe','aussehen — выглядеть')} sehr aufgeregt ${P('aus')}, aber ich ${VB('drücke','ausdrücken — выражать')} meine Gefühle nicht ${P('aus')} — ich bin glücklich! Nach dem Spiel ${VB('gehen','spazieren gehen — гулять')} alle ${P('spazieren')}. Theo und Lina ${VB('gehen','weggehen — уходить')} um zehn Uhr ${P('weg')}. Übrigens mag ich eine Freundin von Greta. Ich bitte Greta: „${VB('Gib','weitergeben — передавать')} ihr ein Stück Fischkuchen ${P('weiter')}!“ Meine Termine morgen ${VB('sage','absagen — отменять')} ich ${P('ab')}. Finlay möchte später nach Deutschland ${VB('umziehen','umziehen — переезжать')}. Ich vermisse meine Familie so, dass ich fast nach Schottland ${VB('zurückkomme','zurückkommen — возвращаться')}. Am Ende ${VB('machen','zumachen — закрывать')} wir die Tür ${P('zu')}, ${VB('machen','ausmachen — выключать / гасить')} das Licht ${P('aus')} und ${VB('schalten','ausschalten — выключать')} den Computer ${P('aus')}. Ich ${VB('schreibe','aufschreiben — записывать')} in mein Tagebuch: der beste Tag! Gute Nacht!`,
  textRU:"Я выгляжу очень взволнованным, но не выражаю чувств — я счастлив! После матча все идут гулять. Тео и Лина уходят в десять. Кстати, мне нравится подруга Греты. Прошу Грету: «Передай ей кусочек рыбного пирога!» Завтрашние встречи отменяю. Finlay хочет позже переехать в Германию. Я так скучаю по семье, что почти возвращаюсь в Шотландию. В конце закрываем дверь, гасим свет и выключаем компьютер. Записываю в дневник: лучший день! Спокойной ночи!",
+ prompt:"Тёплая книжная иллюстрация. ВЕЧЕР и НОЧЬ. Отто с соседями смотрят футбол по телевизору — Отто взволнован, но сдержан. Затем прогулка в сумерках; Отто передаёт кусочек рыбного пирога подруге Греты. Ночью Отто пишет в дневник и гасит свет. Мягкий тёплый свет. Без текста, букв и цифр.",
  verbs:[
   ['aussehen','выглядеть','hat ausgesehen'],
   ['ausdrücken','выражать','hat ausgedrückt'],
@@ -438,7 +468,7 @@ const PARTS=[
   ['ausmachen','выключать / гасить','hat ausgemacht'],
   ['ausschalten','выключать','hat ausgeschaltet'],
   ['aufschreiben','записывать','hat aufgeschrieben']
-  ],
+ ],
  conj:[
   ['aussehen','выглядеть',["sehe aus", "siehst aus", "sieht aus", "sehen aus", "seht aus", "sehen aus"]],
   ['ausdrücken','выражать',["drücke aus", "drückst aus", "drückt aus", "drücken aus", "drückt aus", "drücken aus"]],
@@ -452,7 +482,7 @@ const PARTS=[
   ['ausmachen','выключать / гасить',["mache aus", "machst aus", "macht aus", "machen aus", "macht aus", "machen aus"]],
   ['ausschalten','выключать',["schalte aus", "schaltst aus", "schaltt aus", "schalten aus", "schaltt aus", "schalten aus"]],
   ['aufschreiben','записывать',["schreibe auf", "schreibst auf", "schreibt auf", "schreiben auf", "schreibt auf", "schreiben auf"]]
-  ],
+ ],
  sent:[
   ['aussehen','Du siehst heute müde aus.','Ты сегодня выглядишь усталым.'],
   ['ausdrücken','Er drückt seine Meinung aus.','Он выражает своё мнение.'],
@@ -466,7 +496,7 @@ const PARTS=[
   ['ausmachen','Das macht mir nichts aus.','Мне это неважно.'],
   ['ausschalten','Bitte schalte den Computer aus.','Пожалуйста, выключи компьютер.'],
   ['aufschreiben','Ich schreibe die Wörter auf.','Я записываю слова.']
-  ],
+ ],
  hear:[
   ['aussehen','Das Essen sieht lecker aus.','Еда выглядит вкусно.'],
   ['ausdrücken','Sie kann sich gut ausdrücken.','Она умеет хорошо выражаться.'],
@@ -480,17 +510,23 @@ const PARTS=[
   ['ausmachen','Mach bitte den Fernseher aus.','Выключи, пожалуйста, телевизор.'],
   ['ausschalten','Schalt das Handy aus!','Выключи телефон!'],
   ['aufschreiben','Schreib die Adresse auf!','Запиши адрес!']
-  ],
+ ],
  gap:[
-  ['Otto ','sieht',' aufgeregt aus.','aussehen'],
-  ['Alle ','gehen',' spazieren.','spazieren gehen'],
-  ['Otto ','macht',' das Licht aus.','ausmachen'],
-  ['Er ','schreibt',' alles auf.','aufschreiben']
-  ],
- lq:[
-  ['Was macht Otto mit dem Licht am Ende?',["machtaus", "ausmachen"],'macht das Licht aus (ausmachen)'],
-  ['Wohin möchte Finlay später?',["umziehen", "nachdeutschland"],'nach Deutschland umziehen (umziehen)']
-  ]
+  ['Heute ','sieht',' Otto ','aus','.','aussehen'],
+  ['Heute ','drückt',' Otto ','aus','.','ausdrücken'],
+  ['Heute ','geht',' Otto ','spazieren','.','spazieren gehen'],
+  ['Heute ','geht',' Otto ','weg','.','weggehen'],
+  ['Heute ','gibt',' Otto ','weiter','.','weitergeben'],
+  ['Heute ','sagt',' Otto ','ab','.','absagen'],
+  ['Heute ','zieht',' Otto ','um','.','umziehen'],
+  ['Heute ','kommt',' Otto ','zurück','.','zurückkommen'],
+  ['Heute ','macht',' Otto ','zu','.','zumachen'],
+  ['Heute ','macht',' Otto ','aus','.','ausmachen'],
+  ['Heute ','schaltt',' Otto ','aus','.','ausschalten'],
+  ['Heute ','schreibt',' Otto ','auf','.','aufschreiben']
+ ],
+ lq:[['Was macht Otto mit dem Licht am Ende?',["machtaus", "ausmachen"],'macht das Licht aus (ausmachen)'],
+  ['Wohin möchte Finlay später?',["umziehen", "nachdeutschland"],'nach Deutschland umziehen (umziehen)']]
 }
 ];
 
@@ -547,10 +583,12 @@ function renderChoice(){document.getElementById('chList').innerHTML=V().verbs.ma
   return `<div class="arow" data-i="${i}"><span style="min-width:150px;color:#374151">${v[1]}</span>`+o.map(x=>`<button class="btn sm opt" onclick="chPick(${i},'${x}',this)">${x}</button>`).join('')+`<span class="rres" id="cc${i}"></span></div>`;}).join('');}
 function chPick(i,o,btn){const row=btn.closest('.arow');if(row.dataset.done)return;const good=o===V().verbs[i][0];btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';document.getElementById('cc'+i).innerHTML='<span style="color:var(--ok)">✓</span>';}else document.getElementById('cc'+i).innerHTML='<span style="color:var(--bad)">ещё раз</span>';}
 
+const GIN='border:none;border-bottom:2px solid var(--t);width:90px;font-size:15px;font-family:inherit;text-align:center;color:var(--t);font-weight:700';
 function renderGap(){document.getElementById('gapList').innerHTML=V().gap.map((g,i)=>
-  `<div style="border-top:1px solid var(--line);padding:9px 0;font-size:16px;line-height:1.9">${g[0]}<input id="gi${i}" autocomplete="off" style="border:none;border-bottom:2px solid var(--t);width:110px;font-size:15px;font-family:inherit;text-align:center;color:var(--t);font-weight:700"> <span style="font-size:12px;color:var(--muted)">(${g[3]})</span>${g[2]} <span class="rres" id="gc${i}"></span></div>`).join('');document.getElementById('gapScore').textContent='';}
-function gapCheck(){const A=V().gap;let ok=0;A.forEach((g,i)=>{const inp=document.getElementById('gi'+i);const good=nrm(inp.value)===nrm(g[1]);inp.style.borderBottomColor=good?'var(--ok)':'var(--bad)';inp.style.color=good?'var(--ok)':'var(--bad)';document.getElementById('gc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+g[1]+'</span>';if(good)ok++;});document.getElementById('gapScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно${ok===A.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
-function gapShow(){V().gap.forEach((g,i)=>{const inp=document.getElementById('gi'+i);inp.value=g[1];inp.style.borderBottomColor='var(--ok)';inp.style.color='var(--ok)';document.getElementById('gc'+i).textContent='';});}
+  `<div style="border-top:1px solid var(--line);padding:9px 0;font-size:16px;line-height:2.2">${g[0]}<input id="gi${i}a" autocomplete="off" style="${GIN}">${g[2]}<input id="gi${i}b" autocomplete="off" style="${GIN}">${g[4]} <span style="font-size:12px;color:var(--muted)">(${g[5]})</span> <span class="rres" id="gc${i}"></span></div>`).join('');document.getElementById('gapScore').textContent='';}
+function gapCheck(){const A=V().gap;let ok=0;A.forEach((g,i)=>{const a=document.getElementById('gi'+i+'a'),b=document.getElementById('gi'+i+'b');const ga=nrm(a.value)===nrm(g[1]),gb=nrm(b.value)===nrm(g[3]);[[a,ga],[b,gb]].forEach(([x,good])=>{x.style.borderBottomColor=good?'var(--ok)':'var(--bad)';x.style.color=good?'var(--ok)':'var(--bad)';});const good=ga&&gb;document.getElementById('gc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+g[1]+' … '+g[3]+'</span>';if(good)ok++;});document.getElementById('gapScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно${ok===A.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
+function gapShow(){V().gap.forEach((g,i)=>{const a=document.getElementById('gi'+i+'a'),b=document.getElementById('gi'+i+'b');a.value=g[1];b.value=g[3];[a,b].forEach(x=>{x.style.borderBottomColor='var(--ok)';x.style.color='var(--ok)';});document.getElementById('gc'+i).textContent='';});}
+function renderPrompt(){document.getElementById('promptBox').innerHTML=`<details style="background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 14px"><summary style="cursor:pointer;font-size:14px;color:var(--t);font-weight:700">📋 Промпт для ChatGPT (картинка к этой части)</summary><div style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.6;color:#374151;margin-top:10px">${V().prompt}</div></details>`;}
 
 function recOpts(inf){const others=V().verbs.map(v=>v[0]).filter(w=>w!==inf);const pre=inf.slice(0,3);let sim=shuffle(others.filter(w=>w.slice(0,3)===pre)).slice(0,2);while(sim.length<2){const r=shuffle(others)[0];if(r!==inf&&!sim.includes(r))sim.push(r);}return shuffle([inf,...sim]);}
 function renderRec(){document.getElementById('recList').innerHTML=V().sent.map((s,i)=>{const o=recOpts(s[0]);
@@ -569,7 +607,7 @@ function renderQ(){document.getElementById('qList').innerHTML=V().lq.map((q,i)=>
 function listenCheck(){const A=V().lq;let ok=0;A.forEach((q,i)=>{const inp=document.getElementById('qi'+i);const v=nrm(inp.value);const good=v.length>2&&q[1].some(a=>v.includes(nrm(a))||nrm(a).includes(v));inp.style.borderColor=good?'var(--ok)':'var(--bad)';document.getElementById('qc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+q[2]+'</span>';if(good)ok++;});document.getElementById('lScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно</span> — открой текст и разбери.`;}
 function toggleLtext(){const e=document.getElementById('lText'),b=document.getElementById('ltBtn');if(e.hidden){e.innerHTML=`<div class="de2">${V().textRU}</div>`;e.hidden=false;b.textContent='📄 Скрыть';}else{e.hidden=true;b.textContent='📄 Показать текст и перевод';}}
 
-function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderCard();renderMatch();renderConjSel();renderChoice();renderGap();renderRec();renderHear();renderTrans();renderQ();}
+function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderPrompt();renderCard();renderMatch();renderConjSel();renderChoice();renderGap();renderRec();renderHear();renderTrans();renderQ();}
 renderTabs();renderAll();
 </script>
 </body>
