@@ -56,6 +56,12 @@
   .q{border-top:1px solid var(--line);padding:10px 0}.q .qt{font-weight:600;color:#374151;margin-bottom:6px}
   .scenenav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 8px}
   .scenenav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:var(--t)}
+  .stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0}
+  .stage img{width:100%;height:auto;display:block}
+  .spot{position:absolute;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--t);color:#fff;border:2px solid #fff;box-shadow:0 1px 6px #0006;cursor:pointer;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;padding:0;z-index:2}
+  .spot .tip{display:none;position:absolute;left:50%;bottom:130%;transform:translateX(-50%);white-space:nowrap;background:#fff;border:2px solid var(--t);border-radius:8px;padding:4px 8px;box-shadow:0 2px 8px #0004;z-index:5;text-align:center}
+  .spot.open{background:#eff3ff;color:var(--t)}.spot.open .tip{display:block}
+  .spot .tip .dd{font-weight:800;color:var(--t);font-size:14px}.spot .tip .rr{color:#374151;font-size:12px}
 </style>
 </head>
 <body>
@@ -85,8 +91,8 @@
   </div>
 
   <div class="panel"><h3>🖼 Картинка к части</h3>
-    <p class="sub">Фото пока нет. Скопируй промпт, вставь в ChatGPT (генерация изображений) — получишь картинку к этой части истории.</p>
-    <div id="promptBox"></div>
+    <p class="sub">Нажми <b>кружок</b> на картинке — там Отто что-то делает: увидишь и услышишь глагол.</p>
+    <div class="stage" id="stage"></div>
   </div>
 
   <div class="part"><span class="pico">🎯</span><div><div class="pk">Шаг 2</div><h2>Упражнения этой части</h2></div></div>
@@ -588,7 +594,16 @@ function renderGap(){document.getElementById('gapList').innerHTML=V().gap.map((g
   `<div style="border-top:1px solid var(--line);padding:9px 0;font-size:16px;line-height:2.2">${g[0]}<input id="gi${i}a" autocomplete="off" style="${GIN}">${g[2]}<input id="gi${i}b" autocomplete="off" style="${GIN}">${g[4]} <span style="font-size:12px;color:var(--muted)">(${g[5]})</span> <span class="rres" id="gc${i}"></span></div>`).join('');document.getElementById('gapScore').textContent='';}
 function gapCheck(){const A=V().gap;let ok=0;A.forEach((g,i)=>{const a=document.getElementById('gi'+i+'a'),b=document.getElementById('gi'+i+'b');const ga=nrm(a.value)===nrm(g[1]),gb=nrm(b.value)===nrm(g[3]);[[a,ga],[b,gb]].forEach(([x,good])=>{x.style.borderBottomColor=good?'var(--ok)':'var(--bad)';x.style.color=good?'var(--ok)':'var(--bad)';});const good=ga&&gb;document.getElementById('gc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+g[1]+' … '+g[3]+'</span>';if(good)ok++;});document.getElementById('gapScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно${ok===A.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 function gapShow(){V().gap.forEach((g,i)=>{const a=document.getElementById('gi'+i+'a'),b=document.getElementById('gi'+i+'b');a.value=g[1];b.value=g[3];[a,b].forEach(x=>{x.style.borderBottomColor='var(--ok)';x.style.color='var(--ok)';});document.getElementById('gc'+i).textContent='';});}
-function renderPrompt(){document.getElementById('promptBox').innerHTML=`<details style="background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 14px"><summary style="cursor:pointer;font-size:14px;color:var(--t);font-weight:700">📋 Промпт для ChatGPT (картинка к этой части)</summary><div style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.6;color:#374151;margin-top:10px">${V().prompt}</div></details>`;}
+const SPOTS=[
+ [{x:30,y:11,de:'anziehen',ru:'надевать (юбку/шляпу)'},{x:6,y:34,de:'abwaschen',ru:'мыть посуду'},{x:86,y:30,de:'anmachen',ru:'включать (ТВ)'},{x:51,y:63,de:'anrufen',ru:'звонить'},{x:76,y:17,de:'stattfinden',ru:'состояться (праздник)'}],
+ [{x:22,y:26,de:'zurückrufen',ru:'перезванивать'},{x:45,y:80,de:'ausfüllen',ru:'заполнять (анкету)'},{x:63,y:40,de:'anbieten',ru:'предлагать (апельсины)'},{x:84,y:66,de:'einkaufen',ru:'закупаться'}],
+ [{x:14,y:34,de:'abholen',ru:'забирать (внука)'},{x:42,y:11,de:'ankommen',ru:'прибывать (самолёт)'},{x:67,y:26,de:'durchsagen',ru:'объявлять (трамвай сломан)'},{x:92,y:33,de:'umsteigen',ru:'пересаживаться'},{x:80,y:76,de:'einsteigen',ru:'садиться (в автобус)'}],
+ [{x:20,y:18,de:'fernsehen',ru:'смотреть телевизор'},{x:31,y:42,de:'vorstellen',ru:'представлять (внука)'},{x:72,y:38,de:'kennenlernen',ru:'знакомиться'},{x:56,y:60,de:'aufbauen',ru:'собирать (стол)'},{x:88,y:82,de:'aufräumen',ru:'убирать (сад)'}],
+ [{x:14,y:26,de:'aussehen',ru:'выглядеть (взволнованным)'},{x:60,y:42,de:'weitergeben',ru:'передавать (пирог)'},{x:82,y:16,de:'spazieren gehen',ru:'гулять'},{x:18,y:80,de:'aufschreiben',ru:'записывать (дневник)'},{x:63,y:80,de:'ausmachen',ru:'выключать (свет)'}]
+];
+function renderImage(){const sp=SPOTS[AP]||[];
+  document.getElementById('stage').innerHTML=`<img src="img/trenn-part-${AP+1}.png?v=1" alt="Часть ${AP+1}">`+
+   sp.map((s,i)=>`<button class="spot" style="left:${s.x}%;top:${s.y}%" onclick="this.classList.toggle('open');playWord('${s.de}','${M}')">${i+1}<span class="tip"><span class="dd">${s.de}</span><br><span class="rr">${s.ru}</span></span></button>`).join('');}
 
 function recOpts(inf){const others=V().verbs.map(v=>v[0]).filter(w=>w!==inf);const pre=inf.slice(0,3);let sim=shuffle(others.filter(w=>w.slice(0,3)===pre)).slice(0,2);while(sim.length<2){const r=shuffle(others)[0];if(r!==inf&&!sim.includes(r))sim.push(r);}return shuffle([inf,...sim]);}
 function renderRec(){document.getElementById('recList').innerHTML=V().sent.map((s,i)=>{const o=recOpts(s[0]);
@@ -607,7 +622,7 @@ function renderQ(){document.getElementById('qList').innerHTML=V().lq.map((q,i)=>
 function listenCheck(){const A=V().lq;let ok=0;A.forEach((q,i)=>{const inp=document.getElementById('qi'+i);const v=nrm(inp.value);const good=v.length>2&&q[1].some(a=>v.includes(nrm(a))||nrm(a).includes(v));inp.style.borderColor=good?'var(--ok)':'var(--bad)';document.getElementById('qc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+q[2]+'</span>';if(good)ok++;});document.getElementById('lScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно</span> — открой текст и разбери.`;}
 function toggleLtext(){const e=document.getElementById('lText'),b=document.getElementById('ltBtn');if(e.hidden){e.innerHTML=`<div class="de2">${V().textRU}</div>`;e.hidden=false;b.textContent='📄 Скрыть';}else{e.hidden=true;b.textContent='📄 Показать текст и перевод';}}
 
-function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderPrompt();renderCard();renderMatch();renderConjSel();renderChoice();renderGap();renderRec();renderHear();renderTrans();renderQ();}
+function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderImage();renderCard();renderMatch();renderConjSel();renderChoice();renderGap();renderRec();renderHear();renderTrans();renderQ();}
 renderTabs();renderAll();
 </script>
 </body>
