@@ -110,39 +110,58 @@
     <div class="score" id="mScore"></div>
   </div>
 
-  <div class="panel"><h3><span class="exnum">3</span>🔤 Спряжение: посмотри → впиши → услышь</h3>
-    <p class="sub">Выбери глагол части, посмотри формы (🔊), впиши форму для <b>er/sie/es</b>, послушай.</p>
+  <div class="panel"><h3><span class="exnum">3</span>🧩 Раздели глаголы: лёгкие ↔ меняют корень</h3>
+    <p class="sub">У лёгких глаголов корень в <b>er/sie/es</b> НЕ меняется (macht, ruft). У сложных — <b>меняется</b> (fährt, lädt, nimmt, sieht, gibt). Выбери для каждого, потом посмотри примеры внизу.</p>
+    <div id="sortP"></div>
+    <div id="sortPdemo" style="margin-top:12px"></div>
+  </div>
+
+  <div class="panel alt"><h3><span class="exnum">4</span>🔤 Спряжение: посмотри → впиши → услышь</h3>
+    <p class="sub">Выбери глагол, посмотри формы (🔊 — голос Отто). Одно лицо <b>скрыто</b> — впиши его форму. «🎲 другое местоимение» — новое задание.</p>
     <select id="cjSel" class="inp" onchange="renderConj(this.value)"></select>
     <div id="cjBox" style="margin-top:10px"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">4</span>🇷🇺 → 🇩🇪 Выбери немецкий глагол</h3>
+  <div class="panel"><h3><span class="exnum">5</span>🇷🇺 → 🇩🇪 Выбери немецкий глагол</h3>
     <div id="chList"></div>
   </div>
 
-  <div class="panel"><h3><span class="exnum">5</span>✍️ Вставь глагол в правильной форме</h3>
-    <p class="sub">В скобках — инфинитив. Впиши сам <b>форму глагола</b> (первое поле) И <b>приставку</b> в конце (второе поле). Все глаголы группы.</p>
+  <div class="panel alt"><h3><span class="exnum">6</span>✍️ Вставь глагол в правильной форме (настоящее)</h3>
+    <p class="sub">В скобках — инфинитив. Впиши <b>форму глагола</b> (первое поле) И <b>приставку</b> в конце (второе). Разные лица! 🔊 — проверить на слух.</p>
     <div id="gapList"></div>
     <div class="toolbar"><button class="btn t sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapShow()">Показать</button></div>
     <div class="score" id="gapScore"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">6</span>🎧 Выцепи глагол <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">(полегче)</span></h3>
+  <div class="panel"><h3><span class="exnum">7</span>🎧 Выцепи глагол <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">(полегче)</span></h3>
     <p class="sub">🔊 послушай и выбери инфинитив.</p>
     <div id="recList"></div>
   </div>
 
-  <div class="panel"><h3><span class="exnum">7</span>🎧 Услышь и переведи <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">(потруднее)</span></h3>
+  <div class="panel alt"><h3><span class="exnum">8</span>🎧 Услышь и переведи <span class="sub" style="margin:0;text-transform:none;letter-spacing:0">(потруднее)</span></h3>
     <p class="sub">🔊 слушай (текст скрыт!), впиши глагол, переведи в уме → «Показать».</p>
     <div id="hearList"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">8</span>✍️ Переведи предложение на немецкий</h3>
-    <p class="sub">Дано русское — напиши по-немецки (приставка в конец!). «Показать» — сверка + 🔊.</p>
+  <div class="panel"><h3><span class="exnum">9</span>🧩 Раздели по Perfekt: причастие на -t ↔ на -en</h3>
+    <p class="sub">Лёгкие (правильные) → причастие на <b>-t</b> (gemacht, angezeigt). Сложные (сильные) → на <b>-en</b> (angerufen, aufgestanden). Выбери для каждого.</p>
+    <div id="sortPf"></div>
+    <div id="sortPfdemo" style="margin-top:12px"></div>
+  </div>
+
+  <div class="panel alt"><h3><span class="exnum">10</span>⏪ Вставь глагол в прошедшем (Perfekt)</h3>
+    <p class="sub">Перепиши в прошедшее: впиши вспомогательный <b>hat / ist / habe / bin…</b> (первое поле) и <b>причастие</b> в конец (второе). В скобках — инфинитив. 🔊 — на слух.</p>
+    <div id="pgapList"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="pgapCheck()">Проверить</button><button class="btn sm" onclick="pgapShow()">Показать</button></div>
+    <div class="score" id="pgapScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">11</span>✍️ Переведи предложение на немецкий</h3>
+    <p class="sub">Дано русское — напиши по-немецки. Задания <b>чередуются</b>: то настоящее, то прошедшее (Perfekt) — смотри пометку. «Показать» — сверка + 🔊.</p>
     <div id="trList"></div>
   </div>
 
-  <div class="panel"><h3><span class="exnum">9</span>🏁 Аудирование этой части</h3>
+  <div class="panel alt"><h3><span class="exnum">12</span>🏁 Аудирование этой части</h3>
     <p class="sub">Не открывай текст сразу! 🔊 послушай, ответь (пиши <b>глагол</b>), «Проверить», потом открой текст и разбери.</p>
     <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="playText(this)">🔊 Прослушать часть</button></div>
     <div id="qList" style="margin-top:8px"></div>
@@ -223,20 +242,38 @@ const PARTS=[
   ['vorschlagen','Ich schlage ein Fest vor.','Я предлагаю праздник.']
  ],
  gap:[
-  ['Am Samstag ','haben',' wir ','frei','.','freihaben'],
-  ['Jeden Morgen ','stehe',' ich früh ','auf','.','aufstehen'],
-  ['Warum ','ziehst',' du den Hut ','an','?','anziehen'],
-  ['Beim Frühstück ','macht',' Otto den Fernseher ','an','.','anmachen'],
-  ['Nach dem Essen ','wascht',' ihr ','ab','.','abwaschen'],
-  ['Danach ','denkt',' Otto über das Fest ','nach','.','nachdenken'],
-  ['Am Samstag ','findet',' das Gartenfest ','statt','.','stattfinden'],
-  ['Zuerst ','rufe',' ich meinen Sohn ','an','.','anrufen'],
-  ['Dann ','lädt',' Otto seinen Enkel ','ein','.','einladen'],
-  ['Der Sohn ','sagt',' sofort ','zu','.','zusagen'],
-  ['Ich ','schlage',' ein Gartenfest ','vor','.','vorschlagen']
+  ['Am Samstag ','haben',' wir ','frei','.','freihaben','В субботу у нас выходной.'],
+  ['Jeden Morgen ','stehe',' ich früh ','auf','.','aufstehen','Каждое утро я встаю рано.'],
+  ['Warum ','ziehst',' du den Hut ','an','?','anziehen','Почему ты надеваешь шляпу?'],
+  ['Beim Frühstück ','macht',' Otto den Fernseher ','an','.','anmachen','За завтраком Отто включает телевизор.'],
+  ['Nach dem Essen ','wascht',' ihr ','ab','.','abwaschen','После еды вы моете посуду.'],
+  ['Danach ','denkt',' Otto über das Fest ','nach','.','nachdenken','Потом Отто думает о празднике.'],
+  ['Am Samstag ','findet',' das Gartenfest ','statt','.','stattfinden','В субботу состоится праздник в саду.'],
+  ['Zuerst ','rufe',' ich meinen Sohn ','an','.','anrufen','Сначала я звоню сыну.'],
+  ['Dann ','lädt',' Otto seinen Enkel ','ein','.','einladen','Потом Отто приглашает внука.'],
+  ['Der Sohn ','sagt',' sofort ','zu','.','zusagen','Сын сразу соглашается.'],
+  ['Ich ','schlage',' ein Gartenfest ','vor','.','vorschlagen','Я предлагаю праздник в саду.']
  ],
- lq:[['Was macht Otto früh am Morgen?',["stehtauf", "aufstehen", "aufgestanden"],'steht auf (aufstehen)'],
-  ['Was macht Otto mit dem Sohn?',["ruftan", "anrufen", "laedtein", "einladen"],'ruft an / lädt ein']]
+ pgap:[
+  ['Am Samstag ','haben',' wir ','freigehabt','.','freihaben','В субботу у нас выходной.'],
+  ['Jeden Morgen ','bin',' ich früh ','aufgestanden','.','aufstehen','Каждое утро я встаю рано.'],
+  ['Warum ','hast',' du den Hut ','angezogen','?','anziehen','Почему ты надеваешь шляпу?'],
+  ['Beim Frühstück ','hat',' Otto den Fernseher ','angemacht','.','anmachen','За завтраком Отто включает телевизор.'],
+  ['Nach dem Essen ','habt',' ihr ','abgewaschen','.','abwaschen','После еды вы моете посуду.'],
+  ['Danach ','hat',' Otto über das Fest ','nachgedacht','.','nachdenken','Потом Отто думает о празднике.'],
+  ['Am Samstag ','hat',' das Gartenfest ','stattgefunden','.','stattfinden','В субботу состоится праздник в саду.'],
+  ['Zuerst ','habe',' ich meinen Sohn ','angerufen','.','anrufen','Сначала я звоню сыну.'],
+  ['Dann ','hat',' Otto seinen Enkel ','eingeladen','.','einladen','Потом Отто приглашает внука.'],
+  ['Der Sohn ','hat',' sofort ','zugesagt','.','zusagen','Сын сразу соглашается.'],
+  ['Ich ','habe',' ein Gartenfest ','vorgeschlagen','.','vorschlagen','Я предлагаю праздник в саду.']
+ ],
+ lq:[
+  ['Was macht Otto früh am Morgen?',["stehtauf", "aufstehen", "aufgestanden"],'steht auf (aufstehen)'],
+  ['Was macht Otto mit Rock und Hut?',["ziehtan", "anziehen", "angezogen"],'zieht an (anziehen)'],
+  ['Was macht Otto beim Frühstück mit der Sendung?',["machtan", "anmachen", "angemacht"],'macht an (anmachen)'],
+  ['Wann findet das Gartenfest statt?',["samstag", "stattfinden", "findetstatt"],'am Samstag (stattfinden)'],
+  ['Was macht Otto mit dem Sohn?',["ruftan", "anrufen", "laedtein", "einladen"],'ruft an / lädt ein'],
+  ['Was macht Otto nach dem Essen?',["waeschtab", "abwaschen", "abgewaschen"],'wäscht ab (abwaschen)']]
 },
 {
  title:'Часть 2',
@@ -296,20 +333,38 @@ const PARTS=[
   ['durchstreichen','Ich streiche den Fehler durch.','Я зачёркиваю ошибку.']
  ],
  gap:[
-  ['Der Sohn ','nimmt',' meinen Enkel ','mit','.','mitnehmen'],
-  ['Dann ','lege',' ich ','auf','.','auflegen'],
-  ['Bald ','ruft',' mein Enkel ','zurück','.','zurückrufen'],
-  ['Beim Fest ','machst',' du ','mit','?','mitmachen'],
-  ['Wir ','bereiten',' kleine Geschenke ','vor','.','vorbereiten'],
-  ['Am Vormittag ','kaufe',' ich ','ein','.','einkaufen'],
-  ['Der Verkäufer ','bietet',' mir Orangen ','an','.','anbieten'],
-  ['Ich ','bringe',' Orangen ','mit','.','mitbringen'],
-  ['Zu Hause ','fülle',' ich ein Formular ','aus','.','ausfüllen'],
-  ['Du ','kreuzt',' die richtige Antwort ','an','.','ankreuzen'],
-  ['Wir ','streichen',' die falschen Wörter ','durch','.','durchstreichen']
+  ['Der Sohn ','nimmt',' meinen Enkel ','mit','.','mitnehmen','Сын берёт с собой моего внука.'],
+  ['Dann ','lege',' ich ','auf','.','auflegen','Потом я кладу трубку.'],
+  ['Bald ','ruft',' mein Enkel ','zurück','.','zurückrufen','Вскоре внук перезванивает.'],
+  ['Beim Fest ','machst',' du ','mit','?','mitmachen','Ты участвуешь в празднике?'],
+  ['Wir ','bereiten',' kleine Geschenke ','vor','.','vorbereiten','Мы готовим маленькие подарки.'],
+  ['Am Vormittag ','kaufe',' ich ','ein','.','einkaufen','До обеда я закупаюсь.'],
+  ['Der Verkäufer ','bietet',' mir Orangen ','an','.','anbieten','Продавец предлагает мне апельсины.'],
+  ['Ich ','bringe',' Orangen ','mit','.','mitbringen','Я приношу апельсины.'],
+  ['Zu Hause ','fülle',' ich ein Formular ','aus','.','ausfüllen','Дома я заполняю анкету.'],
+  ['Du ','kreuzt',' die richtige Antwort ','an','.','ankreuzen','Ты отмечаешь правильный ответ.'],
+  ['Wir ','streichen',' die falschen Wörter ','durch','.','durchstreichen','Мы зачёркиваем неправильные слова.']
  ],
- lq:[['Was macht der Enkel?',["ruftzurueck", "zurueckrufen", "machtmit"],'ruft zurück (zurückrufen)'],
-  ['Was bietet der Verkäufer an?',["bietetan", "anbieten"],'bietet Orangen an (anbieten)']]
+ pgap:[
+  ['Der Sohn ','hat',' meinen Enkel ','mitgenommen','.','mitnehmen','Сын берёт с собой моего внука.'],
+  ['Dann ','habe',' ich ','aufgelegt','.','auflegen','Потом я кладу трубку.'],
+  ['Bald ','hat',' mein Enkel ','zurückgerufen','.','zurückrufen','Вскоре внук перезванивает.'],
+  ['Beim Fest ','hast',' du ','mitgemacht','?','mitmachen','Ты участвуешь в празднике?'],
+  ['Wir ','haben',' kleine Geschenke ','vorbereitet','.','vorbereiten','Мы готовим маленькие подарки.'],
+  ['Am Vormittag ','habe',' ich ','eingekauft','.','einkaufen','До обеда я закупаюсь.'],
+  ['Der Verkäufer ','hat',' mir Orangen ','angeboten','.','anbieten','Продавец предлагает мне апельсины.'],
+  ['Ich ','habe',' Orangen ','mitgebracht','.','mitbringen','Я приношу апельсины.'],
+  ['Zu Hause ','habe',' ich ein Formular ','ausgefüllt','.','ausfüllen','Дома я заполняю анкету.'],
+  ['Du ','hast',' die richtige Antwort ','angekreuzt','.','ankreuzen','Ты отмечаешь правильный ответ.'],
+  ['Wir ','haben',' die falschen Wörter ','durchgestrichen','.','durchstreichen','Мы зачёркиваем неправильные слова.']
+ ],
+ lq:[
+  ['Wen nimmt der Sohn mit?',["enkel", "mitnehmen", "nimmtmit"],'den Enkel (mitnehmen)'],
+  ['Was macht der Enkel bald?',["ruftzurueck", "zurueckrufen"],'ruft zurück (zurückrufen)'],
+  ['Was bereitet der Enkel vor?',["geschenke", "vorbereiten", "bereitetvor"],'kleine Geschenke (vorbereiten)'],
+  ['Was bietet der Verkäufer an?',["bietetan", "anbieten", "orangen"],'bietet Orangen an (anbieten)'],
+  ['Was macht Otto am Vormittag?',["kauftein", "einkaufen", "eingekauft"],'kauft ein (einkaufen)'],
+  ['Was füllt Otto zu Hause aus?',["formular", "ausfuellen", "fuelltaus"],'ein Formular (ausfüllen)']]
 },
 {
  title:'Часть 3',
@@ -369,20 +424,38 @@ const PARTS=[
   ['umsteigen','Du musst in Berlin umsteigen.','Тебе надо пересесть в Берлине.']
  ],
  gap:[
-  ['Ich ','gebe',' meine Telefonnummer ','an','.','angeben'],
-  ['Die App ','weist',' mich auf den Fehler ','hin','.','hinweisen'],
-  ['Das Formular ','zeigt',' den Fehler ','an','.','anzeigen'],
-  ['Nach dem Mittagessen ','hole',' ich meinen Enkel ','ab','.','abholen'],
-  ['Zuerst ','schaue',' ich die App ','an','.','anschauen'],
-  ['Sein Flugzeug ','fliegt',' pünktlich ','ab','.','abfliegen'],
-  ['Am Flughafen ','kommt',' er pünktlich ','an','.','ankommen'],
-  ['Wir ','steigen',' in die Straßenbahn ','ein','.','einsteigen'],
-  ['Die Straßenbahn ','fährt',' langsam ','ab','.','abfahren'],
-  ['Unterwegs ','sagt',' man alles ','durch','.','durchsagen'],
-  ['Am Hauptbahnhof ','steigen',' wir in den Bus ','um','.','umsteigen']
+  ['Ich ','gebe',' meine Telefonnummer ','an','.','angeben','Я указываю свой телефон.'],
+  ['Die App ','weist',' mich auf den Fehler ','hin','.','hinweisen','Приложение указывает мне на ошибку.'],
+  ['Das Formular ','zeigt',' den Fehler ','an','.','anzeigen','Анкета показывает ошибку.'],
+  ['Nach dem Mittagessen ','hole',' ich meinen Enkel ','ab','.','abholen','После обеда я забираю внука.'],
+  ['Zuerst ','schaue',' ich die App ','an','.','anschauen','Сначала я смотрю приложение.'],
+  ['Sein Flugzeug ','fliegt',' pünktlich ','ab','.','abfliegen','Его самолёт вылетает вовремя.'],
+  ['Am Flughafen ','kommt',' er pünktlich ','an','.','ankommen','В аэропорту он прибывает вовремя.'],
+  ['Wir ','steigen',' in die Straßenbahn ','ein','.','einsteigen','Мы садимся в трамвай.'],
+  ['Die Straßenbahn ','fährt',' langsam ','ab','.','abfahren','Трамвай медленно отъезжает.'],
+  ['Unterwegs ','sagt',' man alles ','durch','.','durchsagen','По дороге всё объявляют.'],
+  ['Am Hauptbahnhof ','steigen',' wir in den Bus ','um','.','umsteigen','На вокзале мы пересаживаемся на автобус.']
  ],
- lq:[['Was macht Otto nach dem Mittagessen?',["holtab", "abholen"],'holt den Enkel ab (abholen)'],
-  ['Was passiert mit der Straßenbahn unterwegs?',["kaputt", "sagtdurch", "durchsagen"],'man sagt durch: kaputt (durchsagen)']]
+ pgap:[
+  ['Ich ','habe',' meine Telefonnummer ','angegeben','.','angeben','Я указываю свой телефон.'],
+  ['Die App ','hat',' mich auf den Fehler ','hingewiesen','.','hinweisen','Приложение указывает мне на ошибку.'],
+  ['Das Formular ','hat',' den Fehler ','angezeigt','.','anzeigen','Анкета показывает ошибку.'],
+  ['Nach dem Mittagessen ','habe',' ich meinen Enkel ','abgeholt','.','abholen','После обеда я забираю внука.'],
+  ['Zuerst ','habe',' ich die App ','angeschaut','.','anschauen','Сначала я смотрю приложение.'],
+  ['Sein Flugzeug ','ist',' pünktlich ','abgeflogen','.','abfliegen','Его самолёт вылетает вовремя.'],
+  ['Am Flughafen ','ist',' er pünktlich ','angekommen','.','ankommen','В аэропорту он прибывает вовремя.'],
+  ['Wir ','sind',' in die Straßenbahn ','eingestiegen','.','einsteigen','Мы садимся в трамвай.'],
+  ['Die Straßenbahn ','ist',' langsam ','abgefahren','.','abfahren','Трамвай медленно отъезжает.'],
+  ['Unterwegs ','hat',' man alles ','durchgesagt','.','durchsagen','По дороге всё объявляют.'],
+  ['Am Hauptbahnhof ','sind',' wir in den Bus ','umgestiegen','.','umsteigen','На вокзале мы пересаживаемся на автобус.']
+ ],
+ lq:[
+  ['Was gibt Otto im Formular an?',["telefonnummer", "angeben", "gibtan"],'die Telefonnummer (angeben)'],
+  ['Was fehlt im Formular?',["postleitzahl", "anzeigen"],'die Postleitzahl (anzeigen)'],
+  ['Was macht Otto nach dem Mittagessen?',["holtab", "abholen", "abgeholt"],'holt den Enkel ab (abholen)'],
+  ['Wie kommt der Enkel am Flughafen an?',["puenktlich", "ankommen", "kommtan"],'pünktlich (ankommen)'],
+  ['Was passiert mit der Straßenbahn?',["kaputt", "durchsagen", "sagtdurch"],'sie ist kaputt (durchsagen)'],
+  ['Wohin steigen sie am Hauptbahnhof um?',["bus", "umsteigen", "steigenum"],'in den Bus (umsteigen)']]
 },
 {
  title:'Часть 4',
@@ -442,19 +515,37 @@ const PARTS=[
   ['fernsehen','Die Kinder sehen zu viel fern.','Дети слишком много смотрят телевизор.']
  ],
  gap:[
-  ['Mit dem Bus ','fahren',' wir ','weiter','.','weiterfahren'],
-  ['Zu Hause ','steigen',' wir ','aus','.','aussteigen'],
-  ['Ich ','stelle',' meinen Enkel den Nachbarn ','vor','.','vorstellen'],
-  ['Er ','lernt',' Theo und Lina ','kennen','.','kennenlernen'],
-  ['Zusammen ','bauen',' wir einen Tisch ','auf','.','aufbauen'],
-  ['Ihr ','räumt',' den Garten ','auf','.','aufräumen'],
-  ['Ich ','räume',' den Schrank ','aus','.','ausräumen'],
-  ['Den Müll ','laden',' wir am Container ','ab','.','abladen'],
-  ['Theo ','arbeitet',' gern ','mit','.','mitarbeiten'],
-  ['Am Abend ','fängt',' das Fußballspiel ','an','.','anfangen'],
-  ['Wir ','sehen',' zusammen ','fern','.','fernsehen']
+  ['Mit dem Bus ','fahren',' wir ','weiter','.','weiterfahren','На автобусе мы едем дальше.'],
+  ['Zu Hause ','steigen',' wir ','aus','.','aussteigen','Дома мы выходим.'],
+  ['Ich ','stelle',' meinen Enkel den Nachbarn ','vor','.','vorstellen','Я представляю внука соседям.'],
+  ['Er ','lernt',' Theo und Lina ','kennen','.','kennenlernen','Он знакомится с Тео и Линой.'],
+  ['Zusammen ','bauen',' wir einen Tisch ','auf','.','aufbauen','Вместе мы собираем стол.'],
+  ['Ihr ','räumt',' den Garten ','auf','.','aufräumen','Вы убираете сад.'],
+  ['Ich ','räume',' den Schrank ','aus','.','ausräumen','Я разбираю шкаф.'],
+  ['Den Müll ','laden',' wir am Container ','ab','.','abladen','Мусор мы выгружаем у контейнера.'],
+  ['Theo ','arbeitet',' gern ','mit','.','mitarbeiten','Тео охотно помогает.'],
+  ['Am Abend ','fängt',' das Fußballspiel ','an','.','anfangen','Вечером начинается футбол.'],
+  ['Wir ','sehen',' zusammen ','fern','.','fernsehen','Мы вместе смотрим телевизор.']
  ],
- lq:[['Was macht Otto zu Hause mit dem Enkel?',["stelltvor", "vorstellen"],'stellt ihn vor (vorstellen)'],
+ pgap:[
+  ['Mit dem Bus ','sind',' wir ','weitergefahren','.','weiterfahren','На автобусе мы едем дальше.'],
+  ['Zu Hause ','sind',' wir ','ausgestiegen','.','aussteigen','Дома мы выходим.'],
+  ['Ich ','habe',' meinen Enkel den Nachbarn ','vorgestellt','.','vorstellen','Я представляю внука соседям.'],
+  ['Er ','hat',' Theo und Lina ','kennengelernt','.','kennenlernen','Он знакомится с Тео и Линой.'],
+  ['Zusammen ','haben',' wir einen Tisch ','aufgebaut','.','aufbauen','Вместе мы собираем стол.'],
+  ['Ihr ','habt',' den Garten ','aufgeräumt','.','aufräumen','Вы убираете сад.'],
+  ['Ich ','habe',' den Schrank ','ausgeräumt','.','ausräumen','Я разбираю шкаф.'],
+  ['Den Müll ','haben',' wir am Container ','abgeladen','.','abladen','Мусор мы выгружаем у контейнера.'],
+  ['Theo ','hat',' gern ','mitgearbeitet','.','mitarbeiten','Тео охотно помогает.'],
+  ['Am Abend ','hat',' das Fußballspiel ','angefangen','.','anfangen','Вечером начинается футбол.'],
+  ['Wir ','haben',' zusammen ','ferngesehen','.','fernsehen','Мы вместе смотрим телевизор.']
+ ],
+ lq:[
+  ['Wen stellt Otto den Nachbarn vor?',["enkel", "vorstellen", "stelltvor"],'den Enkel (vorstellen)'],
+  ['Wen lernt der Enkel kennen?',["theo", "lina", "kennenlernen", "lerntkennen"],'Theo und Lina (kennenlernen)'],
+  ['Was bauen sie für das Fest auf?',["tisch", "aufbauen", "bauenauf"],'einen Tisch (aufbauen)'],
+  ['Was räumen sie auf?',["garten", "aufraeumen", "raeumenauf"],'den Garten (aufräumen)'],
+  ['Wer arbeitet gern mit?',["theo", "mitarbeiten", "arbeitetmit"],'Theo (mitarbeiten)'],
   ['Was machen sie am Abend?',["sehenfern", "fernsehen", "faengtan"],'sehen fern (fernsehen)']]
 },
 {
@@ -519,21 +610,40 @@ const PARTS=[
   ['aufschreiben','Schreib die Adresse auf!','Запиши адрес!']
  ],
  gap:[
-  ['Du ','siehst',' heute glücklich ','aus','.','aussehen'],
-  ['Ich ','drücke',' meine Gefühle nicht ','aus','.','ausdrücken'],
-  ['Nach dem Spiel ','gehen',' alle ','spazieren','.','spazieren gehen'],
-  ['Theo und Lina ','gehen',' um zehn Uhr ','weg','.','weggehen'],
-  ['Greta ','gibt',' ein Stück Kuchen ','weiter','.','weitergeben'],
-  ['Meine Termine ','sage',' ich morgen ','ab','.','absagen'],
-  ['Finlay ','zieht',' nach Deutschland ','um','.','umziehen'],
-  ['Fast ','komme',' ich nach Schottland ','zurück','.','zurückkommen'],
-  ['Am Ende ','machen',' wir die Tür ','zu','.','zumachen'],
-  ['Wir ','machen',' das Licht ','aus','.','ausmachen'],
-  ['Ich ','schalte',' den Computer ','aus','.','ausschalten'],
-  ['Am Abend ','schreibe',' ich alles ','auf','.','aufschreiben']
+  ['Du ','siehst',' heute glücklich ','aus','.','aussehen','Ты сегодня выглядишь счастливым.'],
+  ['Ich ','drücke',' meine Gefühle nicht ','aus','.','ausdrücken','Я не выражаю своих чувств.'],
+  ['Nach dem Spiel ','gehen',' alle ','spazieren','.','spazieren gehen','После матча все идут гулять.'],
+  ['Theo und Lina ','gehen',' um zehn Uhr ','weg','.','weggehen','Тео и Лина уходят в десять.'],
+  ['Greta ','gibt',' ein Stück Kuchen ','weiter','.','weitergeben','Грета передаёт кусочек пирога.'],
+  ['Meine Termine ','sage',' ich morgen ','ab','.','absagen','Свои встречи я завтра отменяю.'],
+  ['Finlay ','zieht',' nach Deutschland ','um','.','umziehen','Финлей переезжает в Германию.'],
+  ['Fast ','komme',' ich nach Schottland ','zurück','.','zurückkommen','Я почти возвращаюсь в Шотландию.'],
+  ['Am Ende ','machen',' wir die Tür ','zu','.','zumachen','В конце мы закрываем дверь.'],
+  ['Wir ','machen',' das Licht ','aus','.','ausmachen','Мы гасим свет.'],
+  ['Ich ','schalte',' den Computer ','aus','.','ausschalten','Я выключаю компьютер.'],
+  ['Am Abend ','schreibe',' ich alles ','auf','.','aufschreiben','Вечером я всё записываю.']
  ],
- lq:[['Was macht Otto mit dem Licht am Ende?',["machtaus", "ausmachen"],'macht das Licht aus (ausmachen)'],
-  ['Wohin möchte Finlay später?',["umziehen", "nachdeutschland"],'nach Deutschland umziehen (umziehen)']]
+ pgap:[
+  ['Du ','hast',' heute glücklich ','ausgesehen','.','aussehen','Ты сегодня выглядишь счастливым.'],
+  ['Ich ','habe',' meine Gefühle nicht ','ausgedrückt','.','ausdrücken','Я не выражаю своих чувств.'],
+  ['Nach dem Spiel ','sind',' alle ','spazieren gegangen','.','spazieren gehen','После матча все идут гулять.'],
+  ['Theo und Lina ','sind',' um zehn Uhr ','weggegangen','.','weggehen','Тео и Лина уходят в десять.'],
+  ['Greta ','hat',' ein Stück Kuchen ','weitergegeben','.','weitergeben','Грета передаёт кусочек пирога.'],
+  ['Meine Termine ','habe',' ich morgen ','abgesagt','.','absagen','Свои встречи я завтра отменяю.'],
+  ['Finlay ','ist',' nach Deutschland ','umgezogen','.','umziehen','Финлей переезжает в Германию.'],
+  ['Fast ','bin',' ich nach Schottland ','zurückgekommen','.','zurückkommen','Я почти возвращаюсь в Шотландию.'],
+  ['Am Ende ','haben',' wir die Tür ','zugemacht','.','zumachen','В конце мы закрываем дверь.'],
+  ['Wir ','haben',' das Licht ','ausgemacht','.','ausmachen','Мы гасим свет.'],
+  ['Ich ','habe',' den Computer ','ausgeschaltet','.','ausschalten','Я выключаю компьютер.'],
+  ['Am Abend ','habe',' ich alles ','aufgeschrieben','.','aufschreiben','Вечером я всё записываю.']
+ ],
+ lq:[
+  ['Wie sieht Otto aus?',["aufgeregt", "gluecklich", "aussehen", "siehtaus"],'aufgeregt (aussehen)'],
+  ['Was machen alle nach dem Spiel?',["spazieren", "gehenspazieren"],'gehen spazieren (spazieren gehen)'],
+  ['Wann gehen Theo und Lina weg?',["zehn", "weggehen", "gehenweg"],'um zehn Uhr (weggehen)'],
+  ['Was gibt Greta der Freundin weiter?',["kuchen", "weitergeben", "gibtweiter"],'ein Stück Kuchen (weitergeben)'],
+  ['Wohin möchte Finlay umziehen?',["deutschland", "umziehen", "ziehtum"],'nach Deutschland (umziehen)'],
+  ['Was macht Otto mit dem Licht am Ende?',["machtaus", "ausmachen", "ausgemacht"],'macht das Licht aus (ausmachen)']]
 }
 ];
 
@@ -599,6 +709,31 @@ function renderGap(){document.getElementById('gapList').innerHTML=V().gap.map((g
   `<div style="border-top:1px solid var(--line);padding:9px 0;font-size:16px;line-height:2.2">${g[0]}<input id="gi${i}a" autocomplete="off" style="${GIN}">${g[2]}<input id="gi${i}b" autocomplete="off" style="${GIN}">${g[4]} <span style="font-size:12px;color:var(--muted)">(${g[5]})</span> <button class="say" onclick="playGap(${i})">🔊</button> <span class="rres" id="gc${i}"></span></div>`).join('');document.getElementById('gapScore').textContent='';}
 function gapCheck(){const A=V().gap;let ok=0;A.forEach((g,i)=>{const a=document.getElementById('gi'+i+'a'),b=document.getElementById('gi'+i+'b');const ga=nrm(a.value)===nrm(g[1]),gb=nrm(b.value)===nrm(g[3]);[[a,ga],[b,gb]].forEach(([x,good])=>{x.style.borderBottomColor=good?'var(--ok)':'var(--bad)';x.style.color=good?'var(--ok)':'var(--bad)';});const good=ga&&gb;document.getElementById('gc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+g[1]+' … '+g[3]+'</span>';if(good)ok++;});document.getElementById('gapScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно${ok===A.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 function gapShow(){V().gap.forEach((g,i)=>{const a=document.getElementById('gi'+i+'a'),b=document.getElementById('gi'+i+'b');a.value=g[1];b.value=g[3];[a,b].forEach(x=>{x.style.borderBottomColor='var(--ok)';x.style.color='var(--ok)';});document.getElementById('gc'+i).textContent='';});}
+const GINW=GIN.replace('width:90px','width:180px');
+
+/* ===== Раздели (настоящее): лёгкие ↔ меняют корень ===== */
+function baseFin(f){return f.split(' ')[0];}
+function isHardP(i){const F=V().conj[i][2];let r1=baseFin(F[0]).replace(/e$/,'');let r2=baseFin(F[2]);if(r2.endsWith('et'))r2=r2.slice(0,-2);else if(r2.endsWith('t'))r2=r2.slice(0,-1);return r1!==r2;}
+function sortPick(kind,i,btn){const row=btn.closest('.srow');if(row.dataset.done)return;const good=(kind==='hard')===isHardP(i);btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';document.getElementById('sp'+i).innerHTML='<span style="color:var(--ok)">✓</span>';}else document.getElementById('sp'+i).innerHTML='<span style="color:var(--bad)">ещё раз</span>';}
+function demoBlock(title,list){if(!list.length)return '';const rows=list.slice(0,3).map(c=>{const F=c[2];return `<div style="padding:3px 0">ich <b>${F[0]}</b>, du <b style="color:var(--t)">${F[1]}</b>, er <b style="color:var(--t)">${F[2]}</b> <button class="say" onclick="playWord('er ${F[2]}',M)">🔊</button></div>`;}).join('');return `<div style="background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:8px 11px;margin-top:8px"><div style="font-weight:700;margin-bottom:2px">${title}</div>${rows}</div>`;}
+function renderSortP(){document.getElementById('sortP').innerHTML=V().conj.map((c,i)=>`<div class="srow arow" data-i="${i}"><span style="min-width:150px">${c[0]} <span style="color:var(--muted);font-size:13px">${c[1]}</span></span><button class="btn sm opt" onclick="sortPick('easy',${i},this)">не меняется</button><button class="btn sm opt" onclick="sortPick('hard',${i},this)">меняет корень</button><span class="rres" id="sp${i}"></span></div>`).join('');
+  const hard=V().conj.filter((c,i)=>isHardP(i)),easy=V().conj.filter((c,i)=>!isHardP(i));
+  document.getElementById('sortPdemo').innerHTML=demoBlock('🔴 Меняют корень (сложные)',hard)+demoBlock('🟢 Не меняются (лёгкие)',easy);}
+
+/* ===== Раздели (Perfekt): -t ↔ -en ===== */
+function isEnPP(i){return V().verbs[i][2].trim().split(' ').pop().endsWith('en');}
+function sortPfPick(kind,i,btn){const row=btn.closest('.srow');if(row.dataset.done)return;const good=(kind==='en')===isEnPP(i);btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';document.getElementById('sf'+i).innerHTML='<span style="color:var(--ok)">✓</span>';}else document.getElementById('sf'+i).innerHTML='<span style="color:var(--bad)">ещё раз</span>';}
+function demoPP(title,list){if(!list.length)return '';const rows=list.slice(0,4).map(v=>`<div style="padding:3px 0"><b>${v[0]}</b> → <b style="color:var(--t)">${v[2]}</b></div>`).join('');return `<div style="background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:8px 11px;margin-top:8px"><div style="font-weight:700;margin-bottom:2px">${title}</div>${rows}</div>`;}
+function renderSortPf(){document.getElementById('sortPf').innerHTML=V().verbs.map((v,i)=>`<div class="srow arow" data-i="${i}"><span style="min-width:150px">${v[0]} <span style="color:var(--muted);font-size:13px">${v[1]}</span></span><button class="btn sm opt" onclick="sortPfPick('t',${i},this)">-t</button><button class="btn sm opt" onclick="sortPfPick('en',${i},this)">-en</button><span class="rres" id="sf${i}"></span></div>`).join('');
+  const en=V().verbs.filter((v,i)=>isEnPP(i)),t=V().verbs.filter((v,i)=>!isEnPP(i));
+  document.getElementById('sortPfdemo').innerHTML=demoPP('🔵 -en (сильные)',en)+demoPP('🟢 -t (правильные)',t);}
+
+/* ===== Вставь глагол в Perfekt ===== */
+function playPGap(i){const g=V().pgap[i];playWord(g[0]+g[1]+g[2]+g[3]+g[4],M);}
+function renderPGap(){document.getElementById('pgapList').innerHTML=V().pgap.map((g,i)=>
+  `<div style="border-top:1px solid var(--line);padding:9px 0;font-size:16px;line-height:2.2">${g[0]}<input id="pi${i}a" autocomplete="off" style="${GIN}">${g[2]}<input id="pi${i}b" autocomplete="off" style="${GINW}">${g[4]} <span style="font-size:12px;color:var(--muted)">(${g[5]})</span> <button class="say" onclick="playPGap(${i})">🔊</button> <span class="rres" id="pc${i}"></span></div>`).join('');document.getElementById('pgapScore').textContent='';}
+function pgapCheck(){const A=V().pgap;let ok=0;A.forEach((g,i)=>{const a=document.getElementById('pi'+i+'a'),b=document.getElementById('pi'+i+'b');const ga=nrm(a.value)===nrm(g[1]),gb=nrm(b.value)===nrm(g[3]);[[a,ga],[b,gb]].forEach(([x,good])=>{x.style.borderBottomColor=good?'var(--ok)':'var(--bad)';x.style.color=good?'var(--ok)':'var(--bad)';});const good=ga&&gb;document.getElementById('pc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+g[1]+' … '+g[3]+'</span>';if(good)ok++;});document.getElementById('pgapScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно${ok===A.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
+function pgapShow(){V().pgap.forEach((g,i)=>{const a=document.getElementById('pi'+i+'a'),b=document.getElementById('pi'+i+'b');a.value=g[1];b.value=g[3];[a,b].forEach(x=>{x.style.borderBottomColor='var(--ok)';x.style.color='var(--ok)';});document.getElementById('pc'+i).textContent='';});}
 const SPOTS=[
  [{x:30,y:11,de:'anziehen',ru:'надевать (юбку/шляпу)'},{x:6,y:34,de:'abwaschen',ru:'мыть посуду'},{x:86,y:30,de:'anmachen',ru:'включать (ТВ)'},{x:51,y:63,de:'anrufen',ru:'звонить'},{x:61,y:17,de:'stattfinden',ru:'состояться (праздник)'}],
  [{x:22,y:26,de:'zurückrufen',ru:'перезванивать'},{x:45,y:80,de:'ausfüllen',ru:'заполнять (анкету)'},{x:63,y:40,de:'anbieten',ru:'предлагать (апельсины)'},{x:84,y:66,de:'einkaufen',ru:'закупаться'}],
@@ -619,15 +754,17 @@ function renderHear(){document.getElementById('hearList').innerHTML=V().hear.map
   `<div class="arow"><button class="btn t sm" onclick="playHearSlug('${slug(s[0])}',&quot;${s[1].replace(/"/g,'')}&quot;,this)">🔊 Прослушать</button><input id="hi${i}" class="inp" placeholder="какой глагол?…" autocomplete="off"><button class="btn sm" onclick="hearShow(${i})">Показать</button><div class="hr" id="hr${i}" hidden></div></div>`).join('');}
 function hearShow(i){const s=V().hear[i];const inp=document.getElementById('hi'+i);const t=inp&&inp.value.trim();const good=t&&nrm(inp.value)===nrm(s[0]);const mk=t?(good?' <span style="color:var(--ok)">✓</span>':' <span style="color:var(--bad)">('+inp.value+')</span>'):'';document.getElementById('hr'+i).innerHTML=`<div class="de2">${s[1]}</div><div class="ru2">${s[2]} · <b>${s[0]}</b>${mk}</div>`;document.getElementById('hr'+i).hidden=false;}
 
-function renderTrans(){document.getElementById('trList').innerHTML=V().sent.map((s,i)=>
-  `<div class="arow"><span style="width:100%;color:#374151;font-weight:600">${s[2]}</span><input id="ti${i}" class="inp" style="flex:1;min-width:200px" placeholder="по-немецки…" autocomplete="off"><button class="btn sm" onclick="trShow(${i})">Показать</button><div class="hr" id="tr${i}" hidden></div></div>`).join('');}
-function trShow(i){const s=V().sent[i];document.getElementById('tr'+i).innerHTML=`<div class="de2">${s[1]} <button class="say" onclick="playSentSlug('${slug(s[0])}',&quot;${s[1].replace(/"/g,'')}&quot;,this)">🔊</button></div>`;document.getElementById('tr'+i).hidden=false;}
+function trItem(i){const useP=(i%2===1);const g=(useP?V().pgap:V().gap)[i];return {ru:g[6],de:(g[0]+g[1]+g[2]+g[3]+g[4]),perf:useP};}
+function playTr(i){playWord(trItem(i).de,M);}
+function renderTrans(){document.getElementById('trList').innerHTML=V().gap.map((_,i)=>{const it=trItem(i);
+  return `<div class="arow"><span style="width:100%;color:#374151;font-weight:600">${it.ru} <span style="font-size:12px;font-weight:700;color:${it.perf?'var(--bad)':'var(--ok)'}">→ ${it.perf?'прошедшее (Perfekt)':'настоящее'}</span></span><input id="ti${i}" class="inp" style="flex:1;min-width:200px" placeholder="по-немецки…" autocomplete="off"><button class="btn sm" onclick="trShow(${i})">Показать</button><div class="hr" id="tr${i}" hidden></div></div>`;}).join('');}
+function trShow(i){const it=trItem(i);document.getElementById('tr'+i).innerHTML=`<div class="de2">${it.de} <button class="say" onclick="playTr(${i})">🔊</button></div>`;document.getElementById('tr'+i).hidden=false;}
 
 function renderQ(){document.getElementById('qList').innerHTML=V().lq.map((q,i)=>`<div class="q"><div class="qt">${i+1}. ${q[0]}</div><input id="qi${i}" class="inp" style="min-width:200px" placeholder="глагол…" autocomplete="off"> <span class="rres" id="qc${i}"></span></div>`).join('');document.getElementById('lScore').textContent='';document.getElementById('lText').hidden=true;document.getElementById('ltBtn').textContent='📄 Показать текст и перевод';}
 function listenCheck(){const A=V().lq;let ok=0;A.forEach((q,i)=>{const inp=document.getElementById('qi'+i);const v=nrm(inp.value);const good=v.length>2&&q[1].some(a=>v.includes(nrm(a))||nrm(a).includes(v));inp.style.borderColor=good?'var(--ok)':'var(--bad)';document.getElementById('qc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+q[2]+'</span>';if(good)ok++;});document.getElementById('lScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно</span> — открой текст и разбери.`;}
 function toggleLtext(){const e=document.getElementById('lText'),b=document.getElementById('ltBtn');if(e.hidden){e.innerHTML=`<div class="de2">${V().textRU}</div>`;e.hidden=false;b.textContent='📄 Скрыть';}else{e.hidden=true;b.textContent='📄 Показать текст и перевод';}}
 
-function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderImage();renderCard();renderMatch();renderConjSel();renderChoice();renderGap();renderRec();renderHear();renderTrans();renderQ();}
+function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderImage();renderCard();renderMatch();renderSortP();renderConjSel();renderChoice();renderGap();renderRec();renderHear();renderSortPf();renderPGap();renderTrans();renderQ();}
 renderTabs();renderAll();
 </script>
 </body>
