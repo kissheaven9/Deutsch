@@ -104,6 +104,15 @@ EXTRA_RU = {   # чего нет в словаре, но легко протащ
  'дом':('das','Haus'), 'материал':('das','Material'), 'дерево':('das','Holz'), 'металл':('das','Metall'),
  'стекло':('das','Glas'), 'хлеб':('das','Brot'), 'кафе':('das','Café'), 'ресторан':('das','Restaurant'),
  'страна':('das','Land'), 'возраст':('das','Alter'), 'счастье':('das','Glück'), 'проблема':('das','Problem'),
+ # ЕДА — минное поле: род не угадывается, а еда лезет в любой текст (дневник 16.07:
+ # положила Грете в суп 'соль'=das Salz, 'базилик'=das Basilikum и 'зелёный салат'=der Salat).
+ 'салат':('der','Salat'), 'сыр':('der','Käse'), 'перец':('der','Pfeffer'), 'сахар':('der','Zucker'),
+ 'рис':('der','Reis'), 'сок':('der','Saft'), 'пирог':('der','Kuchen'), 'торт-муж':('der','Kuchen'),
+ 'соль':('das','Salz'), 'базилик':('das','Basilikum'), 'масло':('das','Öl'), 'яйцо':('das','Ei'),
+ 'овощи':('das','Gemüse'), 'фрукты':('das','Obst'), 'мясо':('das','Fleisch'), 'вода':('das','Wasser'),
+ 'помидор':('die','Tomate'), 'лимон':('die','Zitrone'), 'апельсин':('die','Orange'),
+ 'колбаса':('die','Wurst'), 'молоко':('die','Milch'), 'лук':('die','Zwiebel'), 'олива':('die','Olive'),
+ 'оливки':('die','Olive'), 'картошка':('die','Kartoffel'), 'суп':('die','Suppe'), 'торт':('die','Torte'),
  'сумка':('die','Tasche'), 'очки':('die','Brille'), 'кухня':('die','Küche'), 'чашка':('die','Tasse'),
  'цвет':('die','Farbe'), 'семья':('die','Familie'), 'мама':('die','Mutter'), 'сестра':('die','Schwester'),
  'дочь':('die','Tochter'), 'внучка':('die','Enkelin'), 'работа':('die','Arbeit'), 'фирма':('die','Firma'),
