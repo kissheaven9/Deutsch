@@ -241,7 +241,12 @@ def check_one(label, text, target, gen, require):
         print(f'  ⚠️  чужой род, но СТРУКТУРНЫЙ ({len(set(structural))}): {", ".join(sorted(set(structural)))}')
         print('       → заменить наречием (täglich/morgens/abends/heute) или убрать')
     if unknown:
-        print(f'  ❓ нет в словаре, проверить и внести ({len(unknown)}): ' + ', '.join(unknown[:18]))
+        # МОЛЧАНИЕ ≠ БЕЗОПАСНОСТЬ. Неизвестное слово раньше проходило тихо — так «салат» (der)
+        # и «соль» (das) попали Грете в суп. Существительное с неизвестным родом БЛОКИРУЕТ выдачу:
+        # его надо внести в woerter.js/EXTRA и только тогда узнать, чужое оно или своё.
+        errors.append(f'род неизвестен ×{len(unknown)}')
+        print(f'  ❌ РОД НЕИЗВЕСТЕН ({len(unknown)}) — внести в woerter.js/EXTRA и прогнать снова:')
+        print('       ' + ', '.join(unknown[:20]) + ('…' if len(unknown) > 20 else ''))
 
     # 2. ЛИНЗА
     low = text.lower()
