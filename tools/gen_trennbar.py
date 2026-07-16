@@ -17,40 +17,9 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'site'))
 HTML = os.path.join(ROOT, 'thema-trennbar.html')
 WORD = os.path.join(ROOT, 'audio', 'word'); os.makedirs(WORD, exist_ok=True)
 
-PREFIXES = ['spazieren','zurück','weiter','kennen','durch','statt','fern','nach','frei',
-            'aus','auf','ein','mit','vor','weg','hin','ab','an','um','zu']
-STRONG = {
- 'haben':['habe','hast','hat','haben','habt','haben'],
- 'nehmen':['nehme','nimmst','nimmt','nehmen','nehmt','nehmen'],
- 'geben':['gebe','gibst','gibt','geben','gebt','geben'],
- 'sehen':['sehe','siehst','sieht','sehen','seht','sehen'],
- 'fahren':['fahre','fährst','fährt','fahren','fahrt','fahren'],
- 'waschen':['wasche','wäschst','wäscht','waschen','wascht','waschen'],
- 'schlagen':['schlage','schlägst','schlägt','schlagen','schlagt','schlagen'],
- 'fangen':['fange','fängst','fängt','fangen','fangt','fangen'],
- 'laden':['lade','lädst','lädt','laden','ladet','laden'],
-}
-HAB=['habe','hast','hat','haben','habt','haben']; SEIN=['bin','bist','ist','sind','seid','sind']
-
-def split_prefix(inf):
-    if ' ' in inf:
-        part, base = inf.split(' ',1); return base, part
-    for p in PREFIXES:
-        if inf.startswith(p) and len(inf)>len(p)+2: return inf[len(p):], p
-    return inf, ''
-
-def conj_base(base):
-    if base in STRONG: return list(STRONG[base])
-    stem=base[:-2]; last=stem[-1]
-    if last in 'dt': du,er,ihr=stem+'est',stem+'et',stem+'et'
-    elif last in ('s','ß','z','x'): du,er,ihr=stem+'t',stem+'t',stem+'t'
-    else: du,er,ihr=stem+'st',stem+'t',stem+'t'
-    return [stem+'e',du,er,base,ihr,base]
-
-def conj_full(inf):
-    """→ (6 полных форм 'steht auf', приставка, 6 форм базы без приставки)"""
-    base,part=split_prefix(inf); forms=conj_base(base)
-    return [f+(' '+part if part else '') for f in forms], part, forms
+import sys as _sys
+_sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from verben_engine import conj_full, perfekt_forms, PRO_AUDIO as PROA   # ← ЕДИНЫЙ движок, не копия
 
 # ---- глаголы по частям: (инфинитив, перевод, Perfekt) ----
 VERBS=[
@@ -182,7 +151,6 @@ LQ=[
   ("Was macht Otto mit dem Licht am Ende?",["machtaus","ausmachen","ausgemacht"],"macht das Licht aus (ausmachen)")],
 ]
 
-PROA=['ich','du','er','wir','ihr','sie']
 def esc(s): return s.replace('\\','\\\\').replace("'","\\'")
 def slug(s):
     s=s.lower().replace('ä','ae').replace('ö','oe').replace('ü','ue').replace('ß','ss')
@@ -193,7 +161,7 @@ audio={}
 for pi,verbs in enumerate(VERBS):
     clines=[]
     for inf,ru,pp in verbs:
-        full,part,base=conj_full(inf)
+        full,part,base=conj_full(inf,pp)
         clines.append("  ['%s','%s',[%s]]"%(esc(inf),esc(ru),', '.join('"%s"'%f for f in full)))
         for i in range(6): audio[slug(PROA[i]+' '+full[i])]=PROA[i]+' '+full[i]
         audio[slug(pp)]=pp                      # причастие для памятки/списка
@@ -202,12 +170,11 @@ for pi,verbs in enumerate(VERBS):
 
     glines, plines=[], []
     for (inf,ru_v,pp),(g0,pidx,mid,g4,ru) in zip(verbs,GAP[pi]):
-        _,part,base=conj_full(inf)
+        _,part,base=conj_full(inf,pp)
         finite=base[pidx]
         glines.append("  ['%s','%s','%s','%s','%s','%s','%s']"%(esc(g0),esc(finite),esc(mid),esc(part),esc(g4),esc(inf),esc(ru)))
         audio[slug(g0+finite+mid+part+g4)]=g0+finite+mid+part+g4
-        aux=(SEIN if pp.startswith('ist') else HAB)[pidx]
-        partizip=' '.join(pp.split()[1:])
+        aux,partizip=perfekt_forms(pp,pidx)
         plines.append("  ['%s','%s','%s','%s','%s','%s','%s']"%(esc(g0),esc(aux),esc(mid),esc(partizip),esc(g4),esc(inf),esc(ru)))
         audio[slug(g0+aux+mid+partizip+g4)]=g0+aux+mid+partizip+g4
     gap_blocks.append("gap:[\n"+",\n".join(glines)+"\n ],\n pgap:[\n"+",\n".join(plines)+"\n ],\n lq:")
