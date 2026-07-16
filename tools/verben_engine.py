@@ -46,6 +46,13 @@ STRONG = {
  'gefallen':['gefalle','gefällst','gefällt','gefallen','gefallt','gefallen'],
  'beraten':['berate','berätst','berät','beraten','beratet','beraten'],
  'raten':['rate','rätst','rät','raten','ratet','raten'],
+ 'halten':['halte','hältst','hält','halten','haltet','halten'],
+ # НЕотделяемая приставка + СИЛЬНАЯ основа: приставка не отваливается, НО корень меняется.
+ # Учебник A2.1 даёт явно: du behältst / er behält (стр. 106), du übernimmst / er übernimmt (стр. 113).
+ 'behalten':['behalte','behältst','behält','behalten','behaltet','behalten'],
+ 'enthalten':['enthalte','enthältst','enthält','enthalten','enthaltet','enthalten'],
+ 'übernehmen':['übernehme','übernimmst','übernimmt','übernehmen','übernehmt','übernehmen'],
+ 'empfehlen':['empfehle','empfiehlst','empfiehlt','empfehlen','empfehlt','empfehlen'],
 }
 
 HAB = ['habe','hast','hat','haben','habt','haben']
@@ -96,8 +103,16 @@ def conj_base(base):
     """6 личных форм базового глагола (без приставки): ich,du,er,wir,ihr,sie"""
     if base in STRONG:
         return list(STRONG[base])
+    # глаголы на -ern/-eln (verbessern, vermitteln): основа = без -n, а не без -en
+    if base.endswith('ern'):
+        stem = base[:-1]
+        return [stem+'e', stem+'st', stem+'t', base, stem+'t', base]
+    if base.endswith('eln'):
+        stem = base[:-1]                       # vermittel
+        ich = stem[:-2] + 'le'                 # vermittle (выпадает e перед l)
+        return [ich, stem+'st', stem+'t', base, stem+'t', base]
     if not base.endswith('en'):
-        raise ValueError('не инфинитив на -en: %r' % base)
+        raise ValueError('не инфинитив на -en/-ern/-eln: %r' % base)
     stem = base[:-2]
     last = stem[-1]
     if last in 'dt':
