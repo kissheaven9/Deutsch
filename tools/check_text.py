@@ -89,6 +89,78 @@ MATERIAL_LEX = ['aus holz','aus metall','aus glas','aus plastik','material']
 OTTO_MATERIAL_OK = 'kunststoff'   # у Отто материал ОДИН и он МУЖСКОЙ — это сигнатура, не нарушение
 
 
+# ============ ПРОВЕРКА РОДА ПО РУССКОМУ ЧЕРНОВИКУ ============
+# Ошибка «чужой род» рождается в РУССКОМ черновике, где немецкого ещё нет и обычный
+# чекер слеп («зелёная ручка» = der Stift в тексте Греты, дневник 16.07).
+# Ловим по русским переводам из woerter.js: каждое СЛОВО перевода → род.
+EXTRA_RU = {   # чего нет в словаре, но легко протащить
+ 'ручка':('der','Kugelschreiber/Stift'), 'карандаш':('der','Bleistift'), 'кошелёк':('der','Geldbeutel'),
+ 'сад':('der','Garten'), 'кофе':('der','Kaffee'), 'ключ':('der','Schlüssel'), 'стул':('der','Stuhl'),
+ 'профессия':('der','Beruf'), 'цена':('der','Preis'), 'евро':('der','Euro'), 'цент':('der','Cent'),
+ 'пластик':('der','Kunststoff'), 'сын':('der','Sohn'), 'внук':('der','Enkel'), 'брат':('der','Bruder'),
+ 'отец':('der','Vater'), 'дед':('der','Großvater'), 'мужчина':('der','Mann'), 'день':('der','Tag'),
+ 'ребёнок':('das','Kind'), 'ребенок':('das','Kind'), 'девочка':('das','Mädchen'), 'книга':('das','Buch'),
+ 'машина':('das','Auto'), 'телефон':('das','Handy'), 'комната':('das','Zimmer'), 'окно':('das','Fenster'),
+ 'дом':('das','Haus'), 'материал':('das','Material'), 'дерево':('das','Holz'), 'металл':('das','Metall'),
+ 'стекло':('das','Glas'), 'хлеб':('das','Brot'), 'кафе':('das','Café'), 'ресторан':('das','Restaurant'),
+ 'страна':('das','Land'), 'возраст':('das','Alter'), 'счастье':('das','Glück'), 'проблема':('das','Problem'),
+ 'сумка':('die','Tasche'), 'очки':('die','Brille'), 'кухня':('die','Küche'), 'чашка':('die','Tasse'),
+ 'цвет':('die','Farbe'), 'семья':('die','Familie'), 'мама':('die','Mutter'), 'сестра':('die','Schwester'),
+ 'дочь':('die','Tochter'), 'внучка':('die','Enkelin'), 'работа':('die','Arbeit'), 'фирма':('die','Firma'),
+}
+
+def ru_index():
+    """русское слово → (род, немецкое) из woerter.js: индексируем КАЖДОЕ слово перевода"""
+    idx = {}
+    cur = None
+    if os.path.exists(WOERTER):
+        for line in open(WOERTER, encoding='utf-8'):
+            if re.search(r'\bder:\[', line): cur = 'der'
+            elif re.search(r'\bdie:\[', line): cur = 'die'
+            elif re.search(r'\bdas:\[', line): cur = 'das'
+            elif re.search(r'\b(verbs|other|andere|pluralOnly|countries|langs)\s*:', line): cur = None
+            if cur:
+                for de, ru in re.findall(r'\["([^"]+)","([^"]*)"', line):
+                    for w in re.findall(r'[а-яёА-ЯЁ]{4,}', ru.lower()):
+                        idx.setdefault(w, (cur, de))
+    for w, v in EXTRA_RU.items():
+        idx[w] = v
+    return idx
+
+
+def check_ru_draft(path, target):
+    """Русский черновик: ловим чужой род ДО перевода. Код 2 = не переводить."""
+    idx = ru_index()
+    text = open(path, encoding='utf-8').read()
+    words = re.findall(r'[а-яёА-ЯЁ]{4,}', text.lower())
+    foreign, own = {}, set()
+    for w in words:
+        hit = None
+        if w in idx:
+            hit = idx[w]
+        else:                                   # морфология: сверяем по основе
+            for k, v in idx.items():
+                stem = k[:-1] if len(k) > 4 else k
+                if w.startswith(stem) and abs(len(w) - len(k)) <= 3:
+                    hit = v; break
+        if not hit: continue
+        g, de = hit
+        if g == target: own.add(de)
+        elif de not in foreign: foreign[de] = (g, w)
+    print(f'=== РУССКИЙ ЧЕРНОВИК: {path}   (герой: {target})')
+    print(f'словарь: {len(idx)} русских слов с родом')
+    print(f'  ✅ свой род ({target}): {len(own)} — ' + ', '.join(sorted(own)[:12]))
+    if foreign:
+        print(f'\n  ❌ ЧУЖОЙ РОД В ЧЕРНОВИКЕ ({len(foreign)}) — НЕ ПЕРЕВОДИТЬ:')
+        for de, (g, w) in sorted(foreign.items()):
+            print(f'       «{w}» = {g} {de}  → убрать / заменить синонимом своего рода / отдать герою {g}')
+        print('\n❌ Правило рода действует С РУССКОГО (docs/17 §0б). Исправить и прогнать снова.')
+        return 2
+    print('\n✅ Чужого рода в черновике нет — можно переводить.')
+    return 0
+# ============================================================
+
+
 def extract_texts(html):
     """Все форматы, в которых в проекте лежит немецкий текст сцены."""
     out = []
@@ -232,7 +304,13 @@ def main():
     ap.add_argument('page')
     ap.add_argument('--hero', choices=['der', 'die', 'das'])
     ap.add_argument('--require', default='')
+    ap.add_argument('--ru', action='store_true',
+                    help='РУССКИЙ черновик (.txt/.md): ловит чужой род ДО перевода')
     a = ap.parse_args()
+    if a.ru:
+        if not a.hero:
+            print('для --ru укажи --hero der|die|das'); return 1
+        return check_ru_draft(a.page, a.hero)
 
     target = a.hero
     if not target:
