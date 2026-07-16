@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Неотделяемые глаголы — семья Греты</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+  :root{--t:#c2185b;--tbg:#fdecef;--tb:#f8bbd0}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+  .tab{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:14px;font-weight:600}
+  .tab.on{background:var(--t);color:#fff;border-color:var(--t)}
+  .panel{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:12px 0;background:#fff}
+  .panel.alt{background:var(--tbg)}
+  .panel.memo{background:#f6f4ff;border-color:#ddd6fe}
+  .panel.memo h3{color:#6d28d9}
+  .panel.memo .mnote{color:#6d28d9;font-size:13px;margin:0 0 10px;font-weight:600}
+  .exnum{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:50%;background:var(--t);color:#fff;font-size:13px;font-weight:700;margin-right:7px}
+  .part{display:flex;gap:10px;align-items:center;margin:22px 0 6px}
+  .pico{font-size:26px}.pk{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .detxt{font-size:17px;line-height:1.95}
+  .vb{background:#fff3cd;border-bottom:2px solid #f0b429;border-radius:4px;padding:1px 3px;cursor:pointer;font-weight:600}
+  .vb.open{background:var(--tbg);border-color:var(--t);color:var(--t)}
+  .vlistV{display:grid;gap:6px}
+  .vv{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line);padding:5px 0}
+  .vv .de{font-weight:700;min-width:150px}.vv .ru{color:var(--muted);font-size:14px}
+  .vv.noru .ru{visibility:hidden}
+  .say{border:none;background:none;cursor:pointer;font-size:15px;padding:2px 5px}
+  .sein{color:var(--ok);font-weight:700}
+  .arow,.srow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:7px 0;border-top:1px solid var(--line)}
+  .btn.opt.ok{background:#e8f6ee;border-color:var(--ok)}.btn.opt.bad{background:#fdecec;border-color:var(--bad)}
+  .cardwrap{display:flex;justify-content:center;margin:10px 0}
+  .card{width:100%;max-width:420px;min-height:120px;border:2px solid var(--tb);border-radius:16px;display:flex;flex-direction:column;
+        align-items:center;justify-content:center;cursor:pointer;background:var(--tbg);padding:14px;text-align:center}
+  .card.back{background:#fff}.c-text{font-size:20px;font-weight:700}.c-hint{font-size:12px;color:var(--muted);margin-top:8px}
+  .cnav{display:flex;gap:10px;align-items:center;justify-content:center}
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .mchip{border:1px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer;position:relative;font-size:14px}
+  .mchip.sel{outline:2px solid var(--t)}.dot{width:9px;height:9px;border-radius:50%;position:absolute;right:6px;top:8px}
+  .score{margin-top:8px;font-weight:700}
+  .rres{font-size:13px;font-weight:700}
+  .sub{color:var(--muted);font-size:13px;margin:2px 0 10px}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .hr{margin-top:6px;font-size:14px}.de2{font-weight:600}.ru2{color:var(--muted)}
+  .rule{background:var(--tbg);border:1px solid var(--tb);border-radius:12px;padding:10px 13px;margin:10px 0;font-size:15px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch</a><span class="crumb">Неотделяемые глаголы · семья Греты</span></div></header>
+<main class="wrap">
+  <h1>Неотделяемые глаголы — семья Греты</h1>
+  <p class="lead">У Греты приставка <b>приросла намертво</b>: <b style="color:var(--t)">be‑ · er‑ · ver‑ · ge‑ · ent‑ · emp‑</b> и «обманки» <b style="color:var(--t)">über‑ · unter‑ · wieder‑ · um‑</b>.
+  Она не отлетает, как у Отто, и в прошедшем времени <b>нет ‑ge‑</b>. 73 глагола из A1 и A2 (уроки 1–4), 7 частей.</p>
+  <div class="rule">🔑 <b>Правило Греты:</b> <span style="color:var(--t)">bekommen → ich <b>bekomme</b> → hat <b>bekommen</b></span> — приставка на месте, <b>ge‑ нет</b>.<br>
+  ↔ у Отто: <span style="color:#3b5bdb">aufstehen → ich <b>stehe … auf</b> → ist auf<b>ge</b>standen</span> — приставка улетает, ge‑ внутри.</div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 1</div><h2 id="tTitle"></h2></div></div>
+  <div class="panel"><h3>🔤 Глаголы части + прошедшее</h3>
+    <p class="sub">Прочитай, потом «Скрыть переводы» — и переведи сам. 🔊 — голос Греты. <b>⏪</b> — Perfekt (<span style="color:var(--ok);font-weight:700">зелёным</span> — с sein).</p>
+    <div class="toolbar" style="margin-top:0;margin-bottom:10px"><button class="btn t sm" id="eye" onclick="toggleEye(this)">🙈 Скрыть переводы</button></div>
+    <div class="vlistV" id="vlistV"></div>
+  </div>
+  <div class="panel"><h3>📜 Текст части <span class="sub" style="margin:0;text-transform:none">кликни глагол → инфинитив + перевод</span></h3>
+    <div class="toolbar" style="margin-top:0"><button class="btn sm" onclick="playText(this)">🔊 Послушать</button></div>
+    <p class="detxt" id="deText"></p>
+  </div>
+
+  <div class="part"><span class="pico">🎯</span><div><div class="pk">Шаг 2</div><h2>Упражнения этой части</h2></div></div>
+
+  <div class="panel"><h3><span class="exnum">1</span>🃏 Карточки</h3>
+    <p class="sub">Русский — вспомни глагол. Переверни: инфинитив + Perfekt.</p>
+    <div class="cardwrap"><div class="card" id="card" onclick="flip()"><div class="c-text" id="cText"></div><div class="c-hint" id="cHint"></div></div></div>
+    <div class="cnav"><button class="btn" onclick="cardPrev()">← Назад</button><span id="cCount"></span><button class="btn" onclick="cardNext()">Вперёд →</button></div>
+  </div>
+
+  <div class="panel alt"><h3><span class="exnum">2</span>🔗 Соотнеси: глагол ↔ перевод</h3>
+    <div class="match"><div class="mcol" id="mDe"></div><div class="mcol" id="mRu"></div></div>
+    <div class="toolbar"><button class="btn t sm" onclick="matchCheck()">Проверить</button><button class="btn sm" onclick="renderMatch()">Ещё раз</button></div>
+    <div class="score" id="mScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">3</span>🧩 Раздели: лёгкие ↔ меняют корень</h3>
+    <p class="sub">У лёгких корень в <b>er/sie/es</b> не меняется (bekommt, erklärt). У сложных — меняется: <b>behält, übernimmt, empfiehlt, vergisst, gefällt</b>. Сверься с памяткой ниже.</p>
+    <div id="sortP"></div>
+  </div>
+  <div class="panel memo"><h3>📌 Памятка: как меняются глаголы этой части</h3>
+    <p class="mnote">Все глаголы части — по двум группам (приставка при этом ВСЕГДА на месте):</p>
+    <div id="sortPdemo"></div>
+  </div>
+
+  <div class="panel alt"><h3><span class="exnum">4</span>🔤 Спряжение: посмотри → впиши → услышь</h3>
+    <p class="sub">Одно лицо <b>скрыто</b> — впиши его форму. Приставка не отделяется! «🎲» — другое местоимение.</p>
+    <select id="cjSel" class="inp" onchange="renderConj(this.value)"></select>
+    <div id="cjBox" style="margin-top:10px"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">5</span>🇷🇺 → 🇩🇪 Выбери немецкий глагол</h3>
+    <div id="chList"></div>
+  </div>
+
+  <div class="panel alt"><h3><span class="exnum">6</span>✍️ Вставь глагол (настоящее)</h3>
+    <p class="sub">Предложения — <b>из истории части</b>. Впиши форму глагола: приставка остаётся при нём, отделять НЕ нужно. 🔊 — проверить на слух.</p>
+    <div id="gapList"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapShow()">Показать</button></div>
+    <div class="score" id="gapScore"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">7</span>🧩 Раздели по Perfekt: причастие на -t ↔ на -en</h3>
+    <p class="sub">Правильные → <b>-t</b> (erklärt, bezahlt). Сильные → <b>-en</b> (bekommen, verstanden). У всех — <b>без ge-</b>!</p>
+    <div id="sortPf"></div>
+  </div>
+  <div class="panel memo"><h3>📌 Памятка: причастия этой части</h3>
+    <p class="mnote">Главное: у Греты причастие <b>без -ge-</b> — сравни с Отто (auf<b>ge</b>standen):</p>
+    <div id="sortPfdemo"></div>
+  </div>
+
+  <div class="panel alt"><h3><span class="exnum">8</span>⏪ Вставь глагол в прошедшем (Perfekt)</h3>
+    <p class="sub">Впиши вспомогательный (<b>habe / bin</b>) и <b>причастие</b>. Помни: <b>ge- нет!</b></p>
+    <div id="pgapList"></div>
+    <div class="toolbar"><button class="btn t sm" onclick="pgapCheck()">Проверить</button><button class="btn sm" onclick="pgapShow()">Показать</button></div>
+    <div class="score" id="pgapScore"></div>
+  </div>
+
+  <div class="scenenav"><a href="index.html">🏠 Главная</a></div>
+</main>
+<footer>Deutsch · Неотделяемые глаголы · семья Греты</footer>
+<script src="js/app.js?v=4"></script>
+<script>
+const M='female';
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function slug(s){s=s.toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss');return s.replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');}
+function nrm(s){return (s||'').toLowerCase().replace(/ß/g,'ss').replace(/[^a-zäöü]/g,'');}
+function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
+const PARTS=[
+{
+ title:'Часть 1 — Приглашение',
+ textDE:`Alles ${VB('beginnt','beginnen — начинать(ся)')} am Mittwoch. Ich ${VB('bekomme','bekommen — получать')} Post und ${VB('verstehe','verstehen — понимать')} zuerst nicht: von wem? Ich ${VB('vermute','vermuten — предполагать')} das Schlimmste — eine Strafe? Ich habe immer Eile, ich komme immer zu spät, also: eine Strafe! Oder Werbung, davon bekomme ich jede Woche viel. Ich ${VB('überlege','überlegen — обдумывать')}: nein, für Werbung ist das zu schön. Ich ${VB('beachte','beachten — обращать внимание')} die Unterschrift — und da verstehe ich alles. Meine Brille? Natürlich in meinen Locken! Eine halbe Stunde habe ich sie ${VB('verloren','verlieren — терять')}. Ich ${VB('benutze','benutzen — пользоваться')} sie endlich und lese: eine Einladung. Von der Oper! Von meiner Oper. Ich ${VB('entdecke','entdecken — обнаруживать')} weiter: die Premiere, hundert Personen. Sie ${VB('benennen','benennen — называть')} die beste Köchin aus Neapel — und das bin ich! Die beste! So etwas habe ich noch nie ${VB('erlebt','erleben — переживать')}. Mamma mia, hundert Personen — schaffe ich das?`,
+ verbs:[
+  ['beginnen','начинать(ся)','hat begonnen'],
+  ['bekommen','получать','hat bekommen'],
+  ['verstehen','понимать','hat verstanden'],
+  ['vermuten','предполагать','hat vermutet'],
+  ['überlegen','обдумывать','hat überlegt'],
+  ['beachten','обращать внимание','hat beachtet'],
+  ['benutzen','пользоваться','hat benutzt'],
+  ['verlieren','терять','hat verloren'],
+  ['entdecken','обнаруживать','hat entdeckt'],
+  ['benennen','называть','hat benannt'],
+  ['erleben','переживать','hat erlebt']
+ ],
+ conj:[
+  ['beginnen','начинать(ся)',["beginne", "beginnst", "beginnt", "beginnen", "beginnt", "beginnen"]],
+  ['bekommen','получать',["bekomme", "bekommst", "bekommt", "bekommen", "bekommt", "bekommen"]],
+  ['verstehen','понимать',["verstehe", "verstehst", "versteht", "verstehen", "versteht", "verstehen"]],
+  ['vermuten','предполагать',["vermute", "vermutest", "vermutet", "vermuten", "vermutet", "vermuten"]],
+  ['überlegen','обдумывать',["überlege", "überlegst", "überlegt", "überlegen", "überlegt", "überlegen"]],
+  ['beachten','обращать внимание',["beachte", "beachtest", "beachtet", "beachten", "beachtet", "beachten"]],
+  ['benutzen','пользоваться',["benutze", "benutzt", "benutzt", "benutzen", "benutzt", "benutzen"]],
+  ['verlieren','терять',["verliere", "verlierst", "verliert", "verlieren", "verliert", "verlieren"]],
+  ['entdecken','обнаруживать',["entdecke", "entdeckst", "entdeckt", "entdecken", "entdeckt", "entdecken"]],
+  ['benennen','называть',["benenne", "benennst", "benennt", "benennen", "benennt", "benennen"]],
+  ['erleben','переживать',["erlebe", "erlebst", "erlebt", "erleben", "erlebt", "erleben"]]
+ ],
+ gap:[
+  ['Alles ','beginnt',' am Mittwoch.','beginnen'],
+  ['Ich ','bekomme',' Post und verstehe zuerst nicht: von wem?','bekommen'],
+  ['Ich bekomme Post und ','verstehe',' zuerst nicht: von wem?','verstehen'],
+  ['Ich ','vermute',' das Schlimmste — eine Strafe?','vermuten'],
+  ['Ich ','überlege',': nein, für Werbung ist das zu schön.','überlegen'],
+  ['Ich ','beachte',' die Unterschrift — und da verstehe ich alles.','beachten'],
+  ['Ich ','benutze',' sie endlich und lese: eine Einladung.','benutzen'],
+  ['Eine halbe Stunde habe ich sie ','verloren','.','verlieren'],
+  ['Ich ','entdecke',' weiter: die Premiere, hundert Personen.','entdecken'],
+  ['Sie ','benennen',' die beste Köchin aus Neapel — und das bin ich!','benennen'],
+  ['So etwas habe ich noch nie ','erlebt','.','erleben']
+ ],
+ pgap:[
+  ['habe','begonnen','beginnen','начинать(ся)'],
+  ['habe','bekommen','bekommen','получать'],
+  ['habe','verstanden','verstehen','понимать'],
+  ['habe','vermutet','vermuten','предполагать'],
+  ['habe','überlegt','überlegen','обдумывать'],
+  ['habe','beachtet','beachten','обращать внимание'],
+  ['habe','benutzt','benutzen','пользоваться'],
+  ['habe','verloren','verlieren','терять'],
+  ['habe','entdeckt','entdecken','обнаруживать'],
+  ['habe','benannt','benennen','называть'],
+  ['habe','erlebt','erleben','переживать']
+ ]
+},
+{
+ title:'Часть 2 — Почему согласилась',
+ textDE:`Früher habe ich so große Bestellungen ${VB('vermieden','vermeiden — избегать')}: hundert Personen — das ist keine Küche mehr, das ist eine Fabrik. Aber es ist die Oper, und sie ${VB('ermöglicht','ermöglichen — давать возможность')} mir etwas Großes: mich dort zu zeigen, wo ich glücklich bin. Meine Firma Rosso Napoli ${VB('gehört','gehören — принадлежать')} nur mir. Meine rote Suppe habe ich selbst ${VB('erfunden','erfinden — изобретать')}, mit zwanzig, und fünf Jahre lang ${VB('verbessert','verbessern — улучшать')}: mal kräftiger, mal weicher. Dann bin ich hierher ${VB('übersiedelt','übersiedeln — переселяться')} — und die Suppe ist mitgekommen. Was ${VB('bedeutet','bedeuten — значить')} diese Premiere für mich? Alles. Ich ${VB('verfasse','verfassen — писать (текст)')} eine Antwort: Ja, mit Freude! Ich ${VB('unterschreibe','unterschreiben — подписывать')}. Ich ${VB('verschicke','verschicken — отправлять')} sie. Und dann sitze ich da. Mamma mia, was habe ich gemacht?`,
+ verbs:[
+  ['vermeiden','избегать','hat vermieden'],
+  ['ermöglichen','давать возможность','hat ermöglicht'],
+  ['gehören','принадлежать','hat gehört'],
+  ['erfinden','изобретать','hat erfunden'],
+  ['verbessern','улучшать','hat verbessert'],
+  ['übersiedeln','переселяться','ist übersiedelt'],
+  ['bedeuten','значить','hat bedeutet'],
+  ['verfassen','писать (текст)','hat verfasst'],
+  ['unterschreiben','подписывать','hat unterschrieben'],
+  ['verschicken','отправлять','hat verschickt']
+ ],
+ conj:[
+  ['vermeiden','избегать',["vermeide", "vermeidest", "vermeidet", "vermeiden", "vermeidet", "vermeiden"]],
+  ['ermöglichen','давать возможность',["ermögliche", "ermöglichst", "ermöglicht", "ermöglichen", "ermöglicht", "ermöglichen"]],
+  ['gehören','принадлежать',["gehöre", "gehörst", "gehört", "gehören", "gehört", "gehören"]],
+  ['erfinden','изобретать',["erfinde", "erfindest", "erfindet", "erfinden", "erfindet", "erfinden"]],
+  ['verbessern','улучшать',["verbessere", "verbesserst", "verbessert", "verbessern", "verbessert", "verbessern"]],
+  ['übersiedeln','переселяться',["übersiedle", "übersiedelst", "übersiedelt", "übersiedeln", "übersiedelt", "übersiedeln"]],
+  ['bedeuten','значить',["bedeute", "bedeutest", "bedeutet", "bedeuten", "bedeutet", "bedeuten"]],
+  ['verfassen','писать (текст)',["verfasse", "verfasst", "verfasst", "verfassen", "verfasst", "verfassen"]],
+  ['unterschreiben','подписывать',["unterschreibe", "unterschreibst", "unterschreibt", "unterschreiben", "unterschreibt", "unterschreiben"]],
+  ['verschicken','отправлять',["verschicke", "verschickst", "verschickt", "verschicken", "verschickt", "verschicken"]]
+ ],
+ gap:[
+  ['Früher habe ich so große Bestellungen ','vermieden',': hundert Personen — das ist keine Küche mehr, das ist eine Fabrik.','vermeiden'],
+  ['Aber es ist die Oper, und sie ','ermöglicht',' mir etwas Großes: mich dort zu zeigen, wo ich glücklich bin.','ermöglichen'],
+  ['Meine Firma Rosso Napoli ','gehört',' nur mir.','gehören'],
+  ['Meine rote Suppe habe ich selbst ','erfunden',', mit zwanzig, und fünf Jahre lang verbessert: mal kräftiger, mal weicher.','erfinden'],
+  ['Meine rote Suppe habe ich selbst erfunden, mit zwanzig, und fünf Jahre lang ','verbessert',': mal kräftiger, mal weicher.','verbessern'],
+  ['Dann bin ich hierher ','übersiedelt',' — und die Suppe ist mitgekommen.','übersiedeln'],
+  ['Was ','bedeutet',' diese Premiere für mich?','bedeuten'],
+  ['Ich ','verfasse',' eine Antwort: Ja, mit Freude!','verfassen'],
+  ['Ich ','unterschreibe','.','unterschreiben'],
+  ['Ich ','verschicke',' sie.','verschicken']
+ ],
+ pgap:[
+  ['habe','vermieden','vermeiden','избегать'],
+  ['habe','ermöglicht','ermöglichen','давать возможность'],
+  ['habe','gehört','gehören','принадлежать'],
+  ['habe','erfunden','erfinden','изобретать'],
+  ['habe','verbessert','verbessern','улучшать'],
+  ['bin','übersiedelt','übersiedeln','переселяться'],
+  ['habe','bedeutet','bedeuten','значить'],
+  ['habe','verfasst','verfassen','писать (текст)'],
+  ['habe','unterschrieben','unterschreiben','подписывать'],
+  ['habe','verschickt','verschicken','отправлять']
+ ]
+},
+{
+ title:'Часть 3 — Giulia',
+ textDE:`Allein schaffe ich das nicht — hundert Personen! Ich frage Giulia, meine Partnerin. Sie ${VB('beantwortet','beantworten — отвечать на')} meine Frage sofort: „Naturalmente!“ Wir ${VB('verabreden','verabreden — договариваться')} uns für Donnerstag und ${VB('vereinbaren','vereinbaren — согласовывать')} alles genau: sie ${VB('übernimmt','übernehmen — брать на себя')} die Torte, ich die Suppe. Sie ${VB('unterstützt','unterstützen — поддерживать')} mich, und das ${VB('verstärkt','verstärken — укреплять')} unsere Freundschaft — wir arbeiten schon zehn Jahre zusammen. Als sie kommt, ${VB('begrüße','begrüßen — приветствовать')} ich sie und ${VB('umarme','umarmen — обнимать')} sie so fest, dass ihre Mütze fällt. Meine kleinen Bestellungen ${VB('verschiebe','verschieben — переносить')} ich auf nächste Woche. Ich ${VB('verpasse','verpassen — пропускать')} sogar die Messe, und auf die warte ich das ganze Jahr. Egal: die Oper ist wichtiger.`,
+ verbs:[
+  ['beantworten','отвечать на','hat beantwortet'],
+  ['verabreden','договариваться','hat verabredet'],
+  ['vereinbaren','согласовывать','hat vereinbart'],
+  ['übernehmen','брать на себя','hat übernommen'],
+  ['unterstützen','поддерживать','hat unterstützt'],
+  ['verstärken','укреплять','hat verstärkt'],
+  ['begrüßen','приветствовать','hat begrüßt'],
+  ['umarmen','обнимать','hat umarmt'],
+  ['verschieben','переносить','hat verschoben'],
+  ['verpassen','пропускать','hat verpasst']
+ ],
+ conj:[
+  ['beantworten','отвечать на',["beantworte", "beantwortest", "beantwortet", "beantworten", "beantwortet", "beantworten"]],
+  ['verabreden','договариваться',["verabrede", "verabredest", "verabredet", "verabreden", "verabredet", "verabreden"]],
+  ['vereinbaren','согласовывать',["vereinbare", "vereinbarst", "vereinbart", "vereinbaren", "vereinbart", "vereinbaren"]],
+  ['übernehmen','брать на себя',["übernehme", "übernimmst", "übernimmt", "übernehmen", "übernehmt", "übernehmen"]],
+  ['unterstützen','поддерживать',["unterstütze", "unterstützt", "unterstützt", "unterstützen", "unterstützt", "unterstützen"]],
+  ['verstärken','укреплять',["verstärke", "verstärkst", "verstärkt", "verstärken", "verstärkt", "verstärken"]],
+  ['begrüßen','приветствовать',["begrüße", "begrüßt", "begrüßt", "begrüßen", "begrüßt", "begrüßen"]],
+  ['umarmen','обнимать',["umarme", "umarmst", "umarmt", "umarmen", "umarmt", "umarmen"]],
+  ['verschieben','переносить',["verschiebe", "verschiebst", "verschiebt", "verschieben", "verschiebt", "verschieben"]],
+  ['verpassen','пропускать',["verpasse", "verpasst", "verpasst", "verpassen", "verpasst", "verpassen"]]
+ ],
+ gap:[
+  ['Sie ','beantwortet',' meine Frage sofort: „Naturalmente!“ Wir verabreden uns für Donnerstag und vereinbaren alles genau: sie übernimmt die Torte, ich die Suppe.','beantworten'],
+  ['Sie beantwortet meine Frage sofort: „Naturalmente!“ Wir ','verabreden',' uns für Donnerstag und vereinbaren alles genau: sie übernimmt die Torte, ich die Suppe.','verabreden'],
+  ['Sie beantwortet meine Frage sofort: „Naturalmente!“ Wir verabreden uns für Donnerstag und ','vereinbaren',' alles genau: sie übernimmt die Torte, ich die Suppe.','vereinbaren'],
+  ['Sie beantwortet meine Frage sofort: „Naturalmente!“ Wir verabreden uns für Donnerstag und vereinbaren alles genau: sie ','übernimmt',' die Torte, ich die Suppe.','übernehmen'],
+  ['Sie ','unterstützt',' mich, und das verstärkt unsere Freundschaft — wir arbeiten schon zehn Jahre zusammen.','unterstützen'],
+  ['Sie unterstützt mich, und das ','verstärkt',' unsere Freundschaft — wir arbeiten schon zehn Jahre zusammen.','verstärken'],
+  ['Als sie kommt, ','begrüße',' ich sie und umarme sie so fest, dass ihre Mütze fällt.','begrüßen'],
+  ['Als sie kommt, begrüße ich sie und ','umarme',' sie so fest, dass ihre Mütze fällt.','umarmen'],
+  ['Meine kleinen Bestellungen ','verschiebe',' ich auf nächste Woche.','verschieben'],
+  ['Ich ','verpasse',' sogar die Messe, und auf die warte ich das ganze Jahr.','verpassen']
+ ],
+ pgap:[
+  ['habe','beantwortet','beantworten','отвечать на'],
+  ['habe','verabredet','verabreden','договариваться'],
+  ['habe','vereinbart','vereinbaren','согласовывать'],
+  ['habe','übernommen','übernehmen','брать на себя'],
+  ['habe','unterstützt','unterstützen','поддерживать'],
+  ['habe','verstärkt','verstärken','укреплять'],
+  ['habe','begrüßt','begrüßen','приветствовать'],
+  ['habe','umarmt','umarmen','обнимать'],
+  ['habe','verschoben','verschieben','переносить'],
+  ['habe','verpasst','verpassen','пропускать']
+ ]
+},
+{
+ title:'Часть 4 — Лина',
+ textDE:`Es klopft: Lina, meine kleine Nachbarin. Sie ${VB('besucht','besuchen — навещать')} mich oft, und ich ${VB('betreue','betreuen — присматривать')} sie, wenn ihre Mutter arbeitet. „Was machst du?“ — „Suppe.“ — „Darf ich helfen?“ Ich ${VB('erlaube','erlauben — разрешать')} es und ${VB('erteile','erteilen — давать (поручение)')} ihr sofort eine Aufgabe. Beim Kochen ${VB('beobachtet','beobachten — наблюдать')} sie mich: wie ich schneide, wie ich probiere. Sie fragt ohne Ende, und ich ${VB('berate','beraten — консультировать')} sie: warum Tomaten, warum keine Wurst. Ich ${VB('erzähle','erzählen — рассказывать')} ihr von Neapel: die Sonne, die laute Straße, meine Oma in der blauen Bluse. So ${VB('vertieft','vertiefen — углубляться')} Lina sich in meine Küche — und ${VB('verliebt','verlieben — влюбляться')} sich in sie. Und ich ${VB('vermittle','vermitteln — передавать (другому)')} ihr das Wichtigste: nicht die Suppe, sondern die Freude am Kochen.`,
+ verbs:[
+  ['besuchen','навещать','hat besucht'],
+  ['betreuen','присматривать','hat betreut'],
+  ['erlauben','разрешать','hat erlaubt'],
+  ['erteilen','давать (поручение)','hat erteilt'],
+  ['beobachten','наблюдать','hat beobachtet'],
+  ['beraten','консультировать','hat beraten'],
+  ['erzählen','рассказывать','hat erzählt'],
+  ['vertiefen','углубляться','hat vertieft'],
+  ['verlieben','влюбляться','hat verliebt'],
+  ['vermitteln','передавать (другому)','hat vermittelt']
+ ],
+ conj:[
+  ['besuchen','навещать',["besuche", "besuchst", "besucht", "besuchen", "besucht", "besuchen"]],
+  ['betreuen','присматривать',["betreue", "betreust", "betreut", "betreuen", "betreut", "betreuen"]],
+  ['erlauben','разрешать',["erlaube", "erlaubst", "erlaubt", "erlauben", "erlaubt", "erlauben"]],
+  ['erteilen','давать (поручение)',["erteile", "erteilst", "erteilt", "erteilen", "erteilt", "erteilen"]],
+  ['beobachten','наблюдать',["beobachte", "beobachtest", "beobachtet", "beobachten", "beobachtet", "beobachten"]],
+  ['beraten','консультировать',["berate", "berätst", "berät", "beraten", "beratet", "beraten"]],
+  ['erzählen','рассказывать',["erzähle", "erzählst", "erzählt", "erzählen", "erzählt", "erzählen"]],
+  ['vertiefen','углубляться',["vertiefe", "vertiefst", "vertieft", "vertiefen", "vertieft", "vertiefen"]],
+  ['verlieben','влюбляться',["verliebe", "verliebst", "verliebt", "verlieben", "verliebt", "verlieben"]],
+  ['vermitteln','передавать (другому)',["vermittle", "vermittelst", "vermittelt", "vermitteln", "vermittelt", "vermitteln"]]
+ ],
+ gap:[
+  ['Sie ','besucht',' mich oft, und ich betreue sie, wenn ihre Mutter arbeitet.','besuchen'],
+  ['Sie besucht mich oft, und ich ','betreue',' sie, wenn ihre Mutter arbeitet.','betreuen'],
+  ['„Was machst du?“ — „Suppe.“ — „Darf ich helfen?“ Ich ','erlaube',' es und erteile ihr sofort eine Aufgabe.','erlauben'],
+  ['„Was machst du?“ — „Suppe.“ — „Darf ich helfen?“ Ich erlaube es und ','erteile',' ihr sofort eine Aufgabe.','erteilen'],
+  ['Beim Kochen ','beobachtet',' sie mich: wie ich schneide, wie ich probiere.','beobachten'],
+  ['Sie fragt ohne Ende, und ich ','berate',' sie: warum Tomaten, warum keine Wurst.','beraten'],
+  ['Ich ','erzähle',' ihr von Neapel: die Sonne, die laute Straße, meine Oma in der blauen Bluse.','erzählen'],
+  ['So ','vertieft',' Lina sich in meine Küche — und verliebt sich in sie.','vertiefen'],
+  ['So vertieft Lina sich in meine Küche — und ','verliebt',' sich in sie.','verlieben'],
+  ['Und ich ','vermittle',' ihr das Wichtigste: nicht die Suppe, sondern die Freude am Kochen.','vermitteln']
+ ],
+ pgap:[
+  ['habe','besucht','besuchen','навещать'],
+  ['habe','betreut','betreuen','присматривать'],
+  ['habe','erlaubt','erlauben','разрешать'],
+  ['habe','erteilt','erteilen','давать (поручение)'],
+  ['habe','beobachtet','beobachten','наблюдать'],
+  ['habe','beraten','beraten','консультировать'],
+  ['habe','erzählt','erzählen','рассказывать'],
+  ['habe','vertieft','vertiefen','углубляться'],
+  ['habe','verliebt','verlieben','влюбляться'],
+  ['habe','vermittelt','vermitteln','передавать (другому)']
+ ]
+},
+{
+ title:'Часть 5 — За продуктами',
+ textDE:`Ich ${VB('erkläre','erklären — объяснять')} Lina alles: rote Tomaten, gelbe Zitronen, grüne Oliven. Sie ${VB('wiederholt','wiederholen — повторять')} es wie eine Melodie. Ich ${VB('bestelle','bestellen — заказывать')} noch etwas: bring auch eine Zwiebel! Ich ${VB('empfehle','empfehlen — рекомендовать')} ihr: ${VB('berühre','berühren — трогать')} die Tomaten, sie müssen weich sein, aber nicht zu weich. Sie geht mit meiner Tasche. Die Verkäuferin ${VB('verkauft','verkaufen — продавать')} ihr Zitronen — aus Italien! Lina ${VB('vergleicht','vergleichen — сравнивать')} die Sorten und ${VB('bewertet','bewerten — оценивать')} jede: sie berührt die Tomaten, ${VB('überprüft','überprüfen — проверять')} die Frische — sie weiß schon, ich ${VB('verwende','verwenden — использовать')} nur Frisches. Als alles gut ist, ${VB('bezahlt','bezahlen — платить')} sie. Sie kommt stolz zurück.`,
+ verbs:[
+  ['erklären','объяснять','hat erklärt'],
+  ['wiederholen','повторять','hat wiederholt'],
+  ['bestellen','заказывать','hat bestellt'],
+  ['empfehlen','рекомендовать','hat empfohlen'],
+  ['verkaufen','продавать','hat verkauft'],
+  ['vergleichen','сравнивать','hat verglichen'],
+  ['bewerten','оценивать','hat bewertet'],
+  ['berühren','трогать','hat berührt'],
+  ['überprüfen','проверять','hat überprüft'],
+  ['verwenden','использовать','hat verwendet'],
+  ['bezahlen','платить','hat bezahlt']
+ ],
+ conj:[
+  ['erklären','объяснять',["erkläre", "erklärst", "erklärt", "erklären", "erklärt", "erklären"]],
+  ['wiederholen','повторять',["wiederhole", "wiederholst", "wiederholt", "wiederholen", "wiederholt", "wiederholen"]],
+  ['bestellen','заказывать',["bestelle", "bestellst", "bestellt", "bestellen", "bestellt", "bestellen"]],
+  ['empfehlen','рекомендовать',["empfehle", "empfiehlst", "empfiehlt", "empfehlen", "empfehlt", "empfehlen"]],
+  ['verkaufen','продавать',["verkaufe", "verkaufst", "verkauft", "verkaufen", "verkauft", "verkaufen"]],
+  ['vergleichen','сравнивать',["vergleiche", "vergleichst", "vergleicht", "vergleichen", "vergleicht", "vergleichen"]],
+  ['bewerten','оценивать',["bewerte", "bewertest", "bewertet", "bewerten", "bewertet", "bewerten"]],
+  ['berühren','трогать',["berühre", "berührst", "berührt", "berühren", "berührt", "berühren"]],
+  ['überprüfen','проверять',["überprüfe", "überprüfst", "überprüft", "überprüfen", "überprüft", "überprüfen"]],
+  ['verwenden','использовать',["verwende", "verwendest", "verwendet", "verwenden", "verwendet", "verwenden"]],
+  ['bezahlen','платить',["bezahle", "bezahlst", "bezahlt", "bezahlen", "bezahlt", "bezahlen"]]
+ ],
+ gap:[
+  ['Ich ','erkläre',' Lina alles: rote Tomaten, gelbe Zitronen, grüne Oliven.','erklären'],
+  ['Sie ','wiederholt',' es wie eine Melodie.','wiederholen'],
+  ['Ich ','bestelle',' noch etwas: bring auch eine Zwiebel!','bestellen'],
+  ['Ich ','empfehle',' ihr: berühre die Tomaten, sie müssen weich sein, aber nicht zu weich.','empfehlen'],
+  ['Die Verkäuferin ','verkauft',' ihr Zitronen — aus Italien!','verkaufen'],
+  ['Lina ','vergleicht',' die Sorten und bewertet jede: sie berührt die Tomaten, überprüft die Frische — sie weiß schon, ich verwende nur Frisches.','vergleichen'],
+  ['Lina vergleicht die Sorten und ','bewertet',' jede: sie berührt die Tomaten, überprüft die Frische — sie weiß schon, ich verwende nur Frisches.','bewerten'],
+  ['Lina vergleicht die Sorten und bewertet jede: sie ','berührt',' die Tomaten, überprüft die Frische — sie weiß schon, ich verwende nur Frisches.','berühren'],
+  ['Lina vergleicht die Sorten und bewertet jede: sie berührt die Tomaten, ','überprüft',' die Frische — sie weiß schon, ich verwende nur Frisches.','überprüfen'],
+  ['Lina vergleicht die Sorten und bewertet jede: sie berührt die Tomaten, überprüft die Frische — sie weiß schon, ich ','verwende',' nur Frisches.','verwenden'],
+  ['Als alles gut ist, ','bezahlt',' sie.','bezahlen']
+ ],
+ pgap:[
+  ['habe','erklärt','erklären','объяснять'],
+  ['habe','wiederholt','wiederholen','повторять'],
+  ['habe','bestellt','bestellen','заказывать'],
+  ['habe','empfohlen','empfehlen','рекомендовать'],
+  ['habe','verkauft','verkaufen','продавать'],
+  ['habe','verglichen','vergleichen','сравнивать'],
+  ['habe','bewertet','bewerten','оценивать'],
+  ['habe','berührt','berühren','трогать'],
+  ['habe','überprüft','überprüfen','проверять'],
+  ['habe','verwendet','verwenden','использовать'],
+  ['habe','bezahlt','bezahlen','платить']
+ ]
+},
+{
+ title:'Часть 6 — Апельсин и суп',
+ textDE:`In der Tasche ist noch eine Orange. „Woher?“ — „Ich habe sie ${VB('gewonnen','gewinnen — выигрывать')}! Die Verkäuferin hat eine Frage gestellt, ich habe richtig geantwortet.“ Ich ${VB('bedanke','bedanken — благодарить (sich)')} mich bei ihr: ${VB('behalte','behalten — оставить себе')} diese Orange, du hast sie verdient! Ich beginne. Ich ${VB('verbinde','verbinden — соединять')} Tomaten, Zitronen und Oliven — rot, gelb, grün in einer Pfanne. Ich probiere. Es ${VB('gefällt','gefallen — нравиться')} mir: sauer, kräftig, genau richtig. Meine Suppe ${VB('enthält','enthalten — содержать')} nur das. Ich ${VB('beschreibe','beschreiben — описывать')} Lina alles und ${VB('berichte','berichten — сообщать')} das Wichtigste: Wurst in der Suppe ${VB('verbiete','verbieten — запрещать')} ich! Mamma mia, nie! Lina lacht und ${VB('ergänzt','ergänzen — дополнять')}: und keine Milch! Brava! Ihre Mutter kommt spät — und Lina ${VB('übernachtet','übernachten — ночевать')} bei mir.`,
+ verbs:[
+  ['gewinnen','выигрывать','hat gewonnen'],
+  ['bedanken','благодарить (sich)','hat bedankt'],
+  ['behalten','оставить себе','hat behalten'],
+  ['verbinden','соединять','hat verbunden'],
+  ['gefallen','нравиться','hat gefallen'],
+  ['enthalten','содержать','hat enthalten'],
+  ['beschreiben','описывать','hat beschrieben'],
+  ['berichten','сообщать','hat berichtet'],
+  ['verbieten','запрещать','hat verboten'],
+  ['ergänzen','дополнять','hat ergänzt'],
+  ['übernachten','ночевать','hat übernachtet']
+ ],
+ conj:[
+  ['gewinnen','выигрывать',["gewinne", "gewinnst", "gewinnt", "gewinnen", "gewinnt", "gewinnen"]],
+  ['bedanken','благодарить (sich)',["bedanke", "bedankst", "bedankt", "bedanken", "bedankt", "bedanken"]],
+  ['behalten','оставить себе',["behalte", "behältst", "behält", "behalten", "behaltet", "behalten"]],
+  ['verbinden','соединять',["verbinde", "verbindest", "verbindet", "verbinden", "verbindet", "verbinden"]],
+  ['gefallen','нравиться',["gefalle", "gefällst", "gefällt", "gefallen", "gefallt", "gefallen"]],
+  ['enthalten','содержать',["enthalte", "enthältst", "enthält", "enthalten", "enthaltet", "enthalten"]],
+  ['beschreiben','описывать',["beschreibe", "beschreibst", "beschreibt", "beschreiben", "beschreibt", "beschreiben"]],
+  ['berichten','сообщать',["berichte", "berichtest", "berichtet", "berichten", "berichtet", "berichten"]],
+  ['verbieten','запрещать',["verbiete", "verbietest", "verbietet", "verbieten", "verbietet", "verbieten"]],
+  ['ergänzen','дополнять',["ergänze", "ergänzt", "ergänzt", "ergänzen", "ergänzt", "ergänzen"]],
+  ['übernachten','ночевать',["übernachte", "übernachtest", "übernachtet", "übernachten", "übernachtet", "übernachten"]]
+ ],
+ gap:[
+  ['„Woher?“ — „Ich habe sie ','gewonnen','!','gewinnen'],
+  ['Die Verkäuferin hat eine Frage gestellt, ich habe richtig geantwortet.“ Ich ','bedanke',' mich bei ihr: behalte diese Orange, du hast sie verdient!','bedanken'],
+  ['Die Verkäuferin hat eine Frage gestellt, ich habe richtig geantwortet.“ Ich bedanke mich bei ihr: ','behalte',' diese Orange, du hast sie verdient!','behalten'],
+  ['Ich ','verbinde',' Tomaten, Zitronen und Oliven — rot, gelb, grün in einer Pfanne.','verbinden'],
+  ['Es ','gefällt',' mir: sauer, kräftig, genau richtig.','gefallen'],
+  ['Meine Suppe ','enthält',' nur das.','enthalten'],
+  ['Ich ','beschreibe',' Lina alles und berichte das Wichtigste: Wurst in der Suppe verbiete ich!','beschreiben'],
+  ['Ich beschreibe Lina alles und ','berichte',' das Wichtigste: Wurst in der Suppe verbiete ich!','berichten'],
+  ['Ich beschreibe Lina alles und berichte das Wichtigste: Wurst in der Suppe ','verbiete',' ich!','verbieten'],
+  ['Lina lacht und ','ergänzt',': und keine Milch!','ergänzen'],
+  ['Ihre Mutter kommt spät — und Lina ','übernachtet',' bei mir.','übernachten']
+ ],
+ pgap:[
+  ['habe','gewonnen','gewinnen','выигрывать'],
+  ['habe','bedankt','bedanken','благодарить (sich)'],
+  ['habe','behalten','behalten','оставить себе'],
+  ['habe','verbunden','verbinden','соединять'],
+  ['habe','gefallen','gefallen','нравиться'],
+  ['habe','enthalten','enthalten','содержать'],
+  ['habe','beschrieben','beschreiben','описывать'],
+  ['habe','berichtet','berichten','сообщать'],
+  ['habe','verboten','verbieten','запрещать'],
+  ['habe','ergänzt','ergänzen','дополнять'],
+  ['habe','übernachtet','übernachten','ночевать']
+ ]
+},
+{
+ title:'Часть 7 — Вечер',
+ textDE:`Am Abend malt Lina: sie ${VB('umkreist','umkreisen — обводить кружком')} die Speisen, die ihr gefallen, ${VB('bezeichnet','bezeichnen — обозначать')} die wichtigsten mit kleinen Zeichnungen — Tomate, Zitrone, Sonne — und ${VB('unterstreicht','unterstreichen — подчёркивать')} das Wichtige gelb. Alles ist ${VB('erledigt','erledigen — улаживать')}: die Zutaten sind da, die Torte bei Giulia, die Suppe bei mir. Ich ${VB('verabschiede','verabschieden — прощаться (sich)')} mich von Giulia an der Tür. Ich schaue auf die Liste: hundert Personen. ${VB('Bestehe','bestehen — выдержать')} ich das? Ich ${VB('versuche','versuchen — пытаться')} es — ich versuche immer. So ${VB('verdiene','verdienen — зарабатывать')} ich: nicht mit einer Fabrik, sondern mit meiner Küche. Ich ${VB('vermisse','vermissen — скучать по')} Neapel, meine Mutter, die Sonne. Aber diesen Mittwoch ${VB('vergesse','vergessen — забывать')} ich nie.`,
+ verbs:[
+  ['umkreisen','обводить кружком','hat umkreist'],
+  ['bezeichnen','обозначать','hat bezeichnet'],
+  ['unterstreichen','подчёркивать','hat unterstrichen'],
+  ['erledigen','улаживать','hat erledigt'],
+  ['verabschieden','прощаться (sich)','hat verabschiedet'],
+  ['bestehen','выдержать','hat bestanden'],
+  ['versuchen','пытаться','hat versucht'],
+  ['verdienen','зарабатывать','hat verdient'],
+  ['vermissen','скучать по','hat vermisst'],
+  ['vergessen','забывать','hat vergessen']
+ ],
+ conj:[
+  ['umkreisen','обводить кружком',["umkreise", "umkreist", "umkreist", "umkreisen", "umkreist", "umkreisen"]],
+  ['bezeichnen','обозначать',["bezeichne", "bezeichnst", "bezeichnt", "bezeichnen", "bezeichnt", "bezeichnen"]],
+  ['unterstreichen','подчёркивать',["unterstreiche", "unterstreichst", "unterstreicht", "unterstreichen", "unterstreicht", "unterstreichen"]],
+  ['erledigen','улаживать',["erledige", "erledigst", "erledigt", "erledigen", "erledigt", "erledigen"]],
+  ['verabschieden','прощаться (sich)',["verabschiede", "verabschiedest", "verabschiedet", "verabschieden", "verabschiedet", "verabschieden"]],
+  ['bestehen','выдержать',["bestehe", "bestehst", "besteht", "bestehen", "besteht", "bestehen"]],
+  ['versuchen','пытаться',["versuche", "versuchst", "versucht", "versuchen", "versucht", "versuchen"]],
+  ['verdienen','зарабатывать',["verdiene", "verdienst", "verdient", "verdienen", "verdient", "verdienen"]],
+  ['vermissen','скучать по',["vermisse", "vermisst", "vermisst", "vermissen", "vermisst", "vermissen"]],
+  ['vergessen','забывать',["vergesse", "vergisst", "vergisst", "vergessen", "vergesst", "vergessen"]]
+ ],
+ gap:[
+  ['Am Abend malt Lina: sie ','umkreist',' die Speisen, die ihr gefallen, bezeichnet die wichtigsten mit kleinen Zeichnungen — Tomate, Zitrone, Sonne — und unterstreicht das Wichtige gelb.','umkreisen'],
+  ['Am Abend malt Lina: sie umkreist die Speisen, die ihr gefallen, ','bezeichnet',' die wichtigsten mit kleinen Zeichnungen — Tomate, Zitrone, Sonne — und unterstreicht das Wichtige gelb.','bezeichnen'],
+  ['Am Abend malt Lina: sie umkreist die Speisen, die ihr gefallen, bezeichnet die wichtigsten mit kleinen Zeichnungen — Tomate, Zitrone, Sonne — und ','unterstreicht',' das Wichtige gelb.','unterstreichen'],
+  ['Alles ist ','erledigt',': die Zutaten sind da, die Torte bei Giulia, die Suppe bei mir.','erledigen'],
+  ['Ich ','verabschiede',' mich von Giulia an der Tür.','verabschieden'],
+  ['','Bestehe',' ich das?','bestehen'],
+  ['Ich ','versuche',' es — ich versuche immer.','versuchen'],
+  ['So ','verdiene',' ich: nicht mit einer Fabrik, sondern mit meiner Küche.','verdienen'],
+  ['Ich ','vermisse',' Neapel, meine Mutter, die Sonne.','vermissen'],
+  ['Aber diesen Mittwoch ','vergesse',' ich nie.','vergessen']
+ ],
+ pgap:[
+  ['habe','umkreist','umkreisen','обводить кружком'],
+  ['habe','bezeichnet','bezeichnen','обозначать'],
+  ['habe','unterstrichen','unterstreichen','подчёркивать'],
+  ['habe','erledigt','erledigen','улаживать'],
+  ['habe','verabschiedet','verabschieden','прощаться (sich)'],
+  ['habe','bestanden','bestehen','выдержать'],
+  ['habe','versucht','versuchen','пытаться'],
+  ['habe','verdient','verdienen','зарабатывать'],
+  ['habe','vermisst','vermissen','скучать по'],
+  ['habe','vergessen','vergessen','забывать']
+ ]
+}
+];
+let AP=0;
+const V=()=>PARTS[AP];
+const PRO=['ich','du','er/sie/es','wir','ihr','sie/Sie'];
+const PROA=['ich','du','er','wir','ihr','sie'];
+
+function renderTabs(){document.getElementById('tabs').innerHTML=PARTS.map((p,i)=>`<button class="tab${i===AP?' on':''}" onclick="setPart(${i})">${p.title.split(' — ')[0]}</button>`).join('');}
+function setPart(i){AP=i;renderTabs();renderAll();window.scrollTo({top:0,behavior:'smooth'});}
+function renderText(){const p=V();document.getElementById('tTitle').textContent=p.title;
+  document.getElementById('deText').innerHTML=p.textDE;
+  document.querySelectorAll('#deText .vb').forEach(s=>s.addEventListener('click',()=>{const o=s.classList.toggle('open');s.textContent=o?s.dataset.ru:s.dataset.de;}));}
+function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.vb').forEach(s=>s.textContent=s.dataset.de);
+  if(typeof toggleSpeak==='function')toggleSpeak(t.innerText.replace(/\s+/g,' ').trim(),btn,M);}
+function renderVerbs(){document.getElementById('vlistV').innerHTML=V().verbs.map(([de,ru,pp],i)=>{const sein=pp.indexOf('ist')===0;
+  return `<div class="vv"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">${de}</span><span class="ru">${ru}</span>`+
+  `<button class="btn sm" onclick="const e=document.getElementById('pp${i}');e.hidden=!e.hidden">⏪</button>`+
+  `<span id="pp${i}" hidden><span class="${sein?'sein':''}">${pp}</span> <button class="say" onclick="playVpp(${i})">🔊</button></span></div>`;}).join('');
+  document.getElementById('eye').textContent='🙈 Скрыть переводы';}
+function playVpp(i){playWord(V().verbs[i][2],M);}
+function toggleEye(b){const rows=[...document.querySelectorAll('#vlistV .vv')];const any=rows.some(r=>!r.classList.contains('noru'));rows.forEach(r=>r.classList.toggle('noru',any));b.textContent=any?'👁 Показать переводы':'🙈 Скрыть переводы';}
+
+let ci=0,flipped=false;
+function renderCard(){const A=V().verbs;if(ci>=A.length)ci=0;const [de,ru,pp]=A[ci];
+  document.getElementById('cText').innerHTML=flipped?`${de} <button class="say" onclick="event.stopPropagation();playWord('${de}','${M}')">🔊</button><div style="font-size:15px;margin-top:8px;color:#c2410c">⏪ ${pp}</div>`:ru;
+  document.getElementById('cHint').textContent=flipped?'нажми — назад':'нажми — глагол + Perfekt';
+  document.getElementById('cCount').textContent=`${ci+1} / ${A.length}`;document.getElementById('card').classList.toggle('back',flipped);}
+function flip(){flipped=!flipped;renderCard();}
+function cardNext(){ci=(ci+1)%V().verbs.length;flipped=false;renderCard();}
+function cardPrev(){ci=(ci-1+V().verbs.length)%V().verbs.length;flipped=false;renderCard();}
+
+const PCOL=['#c2185b','#f97316','#3b5bdb','#22c55e','#a855f7','#eab308'];
+let selDe=null,links={},colorOf={},nextC=0,MA=[];
+function cDe(i){return document.querySelector(`#mDe .mchip[data-i="${i}"]`);}
+function paint(el,c){if(!el)return;el.querySelector('.dot')?.remove();if(c){el.style.background=c+'22';el.style.borderColor=c;el.insertAdjacentHTML('beforeend',`<span class="dot" style="background:${c}"></span>`);}else{el.style.background='';el.style.borderColor='';}}
+function renderMatch(){MA=shuffle(V().verbs).slice(0,6);selDe=null;links={};colorOf={};nextC=0;const order=shuffle(MA.map((p,i)=>i));
+  document.getElementById('mDe').innerHTML=MA.map((p,i)=>`<div class="mchip de" data-i="${i}" onclick="pickDe(${i})">${p[0]}</div>`).join('');
+  document.getElementById('mRu').innerHTML=order.map(i=>`<div class="mchip ru" data-i="${i}" onclick="pickRu(${i})">${MA[i][1]}</div>`).join('');document.getElementById('mScore').textContent='';}
+function pickDe(i){playWord(MA[i][0],M);selDe=(selDe===i?null:i);document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.toggle('sel',+c.dataset.i===selDe));}
+function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
+function matchCheck(){let ok=0;MA.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--ok)':'var(--bad)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MA.length?'var(--ok)':'var(--bad)'}">${ok} / ${MA.length} верно</span>`;}
+
+function baseFin(f){return f.split(' ')[0];}
+function isHardP(i){const F=V().conj[i][2];let r1=baseFin(F[0]).replace(/e$/,'');let r2=baseFin(F[2]);if(r2.endsWith('et'))r2=r2.slice(0,-2);else if(r2.endsWith('t'))r2=r2.slice(0,-1);return r1!==r2;}
+function sortPick(kind,i,btn){const row=btn.closest('.srow');if(row.dataset.done)return;const good=(kind==='hard')===isHardP(i);btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';document.getElementById('sp'+i).innerHTML='<span style="color:var(--ok)">✓</span>';}else document.getElementById('sp'+i).innerHTML='<span style="color:var(--bad)">ещё раз</span>';}
+function playDemo(i){playWord(PROA[2]+' '+V().conj[i][2][2],M);}
+function demoBlock(title,idxs){const rows=idxs.map(i=>{const F=V().conj[i][2];return `<div style="padding:3px 0">ich <b>${F[0]}</b>, du <b style="color:var(--t)">${F[1]}</b>, er <b style="color:var(--t)">${F[2]}</b> <button class="say" onclick="playDemo(${i})">🔊</button></div>`;}).join('')||'<div style="color:var(--muted)">—</div>';
+  return `<div style="background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:8px 11px"><div style="font-weight:700;margin-bottom:2px">${title}</div>${rows}</div>`;}
+function renderSortP(){document.getElementById('sortP').innerHTML=V().conj.map((c,i)=>`<div class="srow" data-i="${i}"><span style="min-width:150px">${c[0]} <span style="color:var(--muted);font-size:13px">${c[1]}</span></span><button class="btn sm opt" onclick="sortPick('easy',${i},this)">не меняется</button><button class="btn sm opt" onclick="sortPick('hard',${i},this)">меняет корень</button><span class="rres" id="sp${i}"></span></div>`).join('');
+  const hard=[],easy=[];V().conj.forEach((c,i)=>{(isHardP(i)?hard:easy).push(i);});
+  document.getElementById('sortPdemo').innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">${demoBlock('🔴 Меняют корень',hard)}${demoBlock('🟢 Не меняются',easy)}</div>`;}
+
+function isEnPP(i){return V().verbs[i][2].trim().split(' ').pop().endsWith('en');}
+function sortPfPick(kind,i,btn){const row=btn.closest('.srow');if(row.dataset.done)return;const good=(kind==='en')===isEnPP(i);btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';document.getElementById('sf'+i).innerHTML='<span style="color:var(--ok)">✓</span>';}else document.getElementById('sf'+i).innerHTML='<span style="color:var(--bad)">ещё раз</span>';}
+function playDemoPP(i){playWord(V().verbs[i][2],M);}
+function demoPP(title,idxs){const rows=idxs.map(i=>{const v=V().verbs[i];return `<div style="padding:3px 0"><b>${v[0]}</b> → <b style="color:var(--t)">${v[2]}</b> <button class="say" onclick="playDemoPP(${i})">🔊</button></div>`;}).join('')||'<div style="color:var(--muted)">—</div>';
+  return `<div style="background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:8px 11px"><div style="font-weight:700;margin-bottom:2px">${title}</div>${rows}</div>`;}
+function renderSortPf(){document.getElementById('sortPf').innerHTML=V().verbs.map((v,i)=>`<div class="srow" data-i="${i}"><span style="min-width:150px">${v[0]} <span style="color:var(--muted);font-size:13px">${v[1]}</span></span><button class="btn sm opt" onclick="sortPfPick('t',${i},this)">-t</button><button class="btn sm opt" onclick="sortPfPick('en',${i},this)">-en</button><span class="rres" id="sf${i}"></span></div>`).join('');
+  const en=[],t=[];V().verbs.forEach((v,i)=>{(isEnPP(i)?en:t).push(i);});
+  document.getElementById('sortPfdemo').innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">${demoPP('🔵 -en (сильные)',en)}${demoPP('🟢 -t (правильные)',t)}</div>`;}
+
+let cjIdx=0,cjT=2;
+function playConjForm(i){playWord(PROA[i]+' '+V().conj[cjIdx][2][i],M);}
+function renderConjSel(){document.getElementById('cjSel').innerHTML=V().conj.map((c,i)=>`<option value="${i}">${c[0]} — ${c[1]}</option>`).join('');renderConj(0);}
+function renderConj(idx){idx=+idx;cjIdx=idx;const [inf,ru,forms]=V().conj[idx];cjT=Math.floor(Math.random()*6);
+  const rows=forms.map((fr,i)=>`<div style="display:flex;gap:8px;align-items:center;padding:3px 0"><span style="min-width:82px;color:var(--muted)">${PRO[i]}</span>`+(i===cjT?`<b style="color:var(--muted);letter-spacing:3px">▢▢▢</b> <span style="font-size:12px;color:var(--t)">← впиши</span>`:`<b style="color:var(--t)">${fr}</b> <button class="say" onclick="playConjForm(${i})">🔊</button>`)+`</div>`).join('');
+  document.getElementById('cjBox').innerHTML=`<div style="background:#fff;border:1px solid var(--tb);border-radius:10px;padding:10px">${rows}</div><div class="arow" style="flex-wrap:wrap"><span>Впиши форму для <b style="color:var(--t)">${PRO[cjT]}</b> (<b>${inf}</b>) →</span><input id="cjIn" class="inp" placeholder="форма…" autocomplete="off"><button class="btn t sm" onclick="cjCheck()">Проверить</button><button class="btn sm" onclick="renderConj(cjIdx)">🎲 другое местоимение</button><span class="rres" id="cjRes"></span></div>`;}
+function cjCheck(){const ans=V().conj[cjIdx][2][cjT];const inp=document.getElementById('cjIn');const good=nrm(inp.value)===nrm(ans);inp.style.borderColor=good?'var(--ok)':'var(--bad)';document.getElementById('cjRes').innerHTML=(good?`<span style="color:var(--ok)">✓ ${ans}</span>`:`<span style="color:var(--bad)">→ ${ans}</span>`)+` <button class="say" onclick="playConjForm(${cjT})">🔊</button>`;}
+
+function opts3(inf){const others=V().verbs.map(v=>v[0]).filter(w=>w!==inf);return shuffle([inf,...shuffle(others).slice(0,2)]);}
+function renderChoice(){document.getElementById('chList').innerHTML=V().verbs.map((v,i)=>{const o=opts3(v[0]);
+  return `<div class="arow" data-i="${i}"><span style="min-width:150px;color:#374151">${v[1]}</span>`+o.map(x=>`<button class="btn sm opt" onclick="chPick(${i},'${x}',this)">${x}</button>`).join('')+`<span class="rres" id="cc${i}"></span></div>`;}).join('');}
+function chPick(i,o,btn){const row=btn.closest('.arow');if(row.dataset.done)return;const good=o===V().verbs[i][0];btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';document.getElementById('cc'+i).innerHTML='<span style="color:var(--ok)">✓</span>';}else document.getElementById('cc'+i).innerHTML='<span style="color:var(--bad)">ещё раз</span>';}
+
+const GIN='border:none;border-bottom:2px solid var(--t);width:130px;font-size:15px;font-family:inherit;text-align:center;color:var(--t);font-weight:700';
+function playGap(i){const g=V().gap[i];playWord(g[0]+g[1]+g[2],M);}
+function renderGap(){document.getElementById('gapList').innerHTML=V().gap.map((g,i)=>
+  `<div style="border-top:1px solid var(--line);padding:9px 0;font-size:16px;line-height:2.2">${g[0]}<input id="gi${i}" autocomplete="off" style="${GIN}">${g[2]} <span style="font-size:12px;color:var(--muted)">(${g[3]})</span> <button class="say" onclick="playGap(${i})">🔊</button> <span class="rres" id="gc${i}"></span></div>`).join('');document.getElementById('gapScore').textContent='';}
+function gapCheck(){const A=V().gap;let ok=0;A.forEach((g,i)=>{const a=document.getElementById('gi'+i);const good=nrm(a.value)===nrm(g[1]);a.style.borderBottomColor=good?'var(--ok)':'var(--bad)';a.style.color=good?'var(--ok)':'var(--bad)';document.getElementById('gc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+g[1]+'</span>';if(good)ok++;});
+  document.getElementById('gapScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно${ok===A.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
+function gapShow(){V().gap.forEach((g,i)=>{const a=document.getElementById('gi'+i);a.value=g[1];a.style.borderBottomColor='var(--ok)';a.style.color='var(--ok)';document.getElementById('gc'+i).textContent='';});}
+
+const GINW=GIN.replace('width:130px','width:80px');
+function playPGap(i){const g=V().pgap[i];playWord('Ich '+g[0]+' '+g[1],M);}
+function renderPGap(){document.getElementById('pgapList').innerHTML=V().pgap.map((g,i)=>
+  `<div style="border-top:1px solid var(--line);padding:9px 0;font-size:16px;line-height:2.2">Ich <input id="pi${i}a" autocomplete="off" style="${GINW}"> … <input id="pi${i}b" autocomplete="off" style="${GIN}">. <span style="font-size:12px;color:var(--muted)">(${g[2]} — ${g[3]})</span> <button class="say" onclick="playPGap(${i})">🔊</button> <span class="rres" id="pc${i}"></span></div>`).join('');document.getElementById('pgapScore').textContent='';}
+function pgapCheck(){const A=V().pgap;let ok=0;A.forEach((g,i)=>{const a=document.getElementById('pi'+i+'a'),b=document.getElementById('pi'+i+'b');const ga=nrm(a.value)===nrm(g[0]),gb=nrm(b.value)===nrm(g[1]);
+  [[a,ga],[b,gb]].forEach(([x,good])=>{x.style.borderBottomColor=good?'var(--ok)':'var(--bad)';x.style.color=good?'var(--ok)':'var(--bad)';});
+  const good=ga&&gb;document.getElementById('pc'+i).innerHTML=good?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--bad)">→ '+g[0]+' … '+g[1]+'</span>';if(good)ok++;});
+  document.getElementById('pgapScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно${ok===A.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
+function pgapShow(){V().pgap.forEach((g,i)=>{const a=document.getElementById('pi'+i+'a'),b=document.getElementById('pi'+i+'b');a.value=g[0];b.value=g[1];[a,b].forEach(x=>{x.style.borderBottomColor='var(--ok)';x.style.color='var(--ok)';});document.getElementById('pc'+i).textContent='';});}
+
+function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderCard();renderMatch();renderSortP();renderConjSel();renderChoice();renderGap();renderSortPf();renderPGap();}
+renderTabs();renderAll();
+</script>
+</body>
+</html>
