@@ -138,9 +138,14 @@ def check_ru_draft(path, target):
         hit = None
         if w in idx:
             hit = idx[w]
-        else:                                   # морфология: сверяем по основе
+        else:
+            # морфология: основа = слово без КОНЕЧНОЙ ГЛАСНОЙ (ручка→ручк: ручку/ручки).
+            # Слово на согласную — основа целиком (успех→успех), иначе «успею» ловилось
+            # как «успех»=der Erfolg — ложная тревога, а ей потом перестают верить.
             for k, v in idx.items():
-                stem = k[:-1] if len(k) > 4 else k
+                stem = k[:-1] if (len(k) > 4 and k[-1] in 'аяоеыиуёь') else k
+                if len(stem) < 4:
+                    continue
                 if w.startswith(stem) and abs(len(w) - len(k)) <= 3:
                     hit = v; break
         if not hit: continue
