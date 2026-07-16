@@ -52,6 +52,14 @@ EXTRA = {
  'Freundin':'die','Kamera':'die','Nachbarin':'die','Blume':'die','Pflanze':'die','Insel':'die','Luft':'die',
  'Küche':'die','Stadt':'die','Küste':'die','Straßenbahn':'die','App':'die','Postleitzahl':'die',
  'Lieblingssendung':'die','Antwort':'die','Information':'die','Tür':'die','Party':'die','Prüfung':'die',
+ 'Post':'die','Strafe':'die','Werbung':'die','Unterschrift':'die','Locke':'die','Stunde':'die',
+ 'Einladung':'die','Oper':'die','Premiere':'die','Person':'die','Sorte':'die','Zitrone':'die',
+ 'Tomate':'die','Olive':'die','Zwiebel':'die','Torte':'die','Orange':'die','Wurst':'die',
+ 'Suppe':'die','Partnerin':'die','Freundin':'die','Enkelin':'die','Tochter':'die','Schwester':'die',
+ 'Frische':'die','Messe':'die','Bestellung':'die','Rechnung':'die','Frage':'die','Jacke':'die',
+ 'Fabrik':'die','Freundschaft':'die','Aufgabe':'die','Straße':'die','Melodie':'die','Pfanne':'die',
+ 'Speise':'die','Zeichnung':'die','Zutat':'die','Sahne':'die','Milch':'die','Ketchup':'der',
+ 'Mütze':'die','Bluse':'die','Schüssel':'die','Freude':'die','Hand':'die','Musik':'die','Heimat':'die',
  'Tier':'das','Pferd':'das','Schaf':'das','Feld':'das','Dorf':'das','Tal':'das','Meer':'das','Ufer':'das',
  'Kaninchen':'das','Land':'das','Kind':'das','Mädchen':'das','Haus':'das','Glück':'das','Problem':'das',
  'Wasser':'das','Gras':'das','Jahr':'das','Fest':'das','Essen':'das','Fenster':'das','Material':'das',
@@ -71,6 +79,9 @@ LEMMA = {
  'Kinder':'Kind','Blumen':'Blume','Inseln':'Insel','Felder':'Feld','Feldern':'Feld','Brücken':'Brücke',
  'Kühe':'Kuh','Termine':'Termin','Geschenke':'Geschenk','Orangen':'Orange','Nachbarn':'Nachbar',
  'Wörter':'Wort','Punkte':'Punkt','Gefühle':'Gefühl','Leute':'Leute','Schuhe':'Schuh','Tassen':'Tasse',
+ 'Locken':'Locke','Personen':'Person','Zitronen':'Zitrone','Tomaten':'Tomate','Oliven':'Olive',
+ 'Bestellungen':'Bestellung','Speisen':'Speise','Zeichnungen':'Zeichnung','Zutaten':'Zutat','Jahre':'Jahr',
+ 'Sorten':'Sorte','Fragen':'Frage','Stunden':'Stunde','Einladungen':'Einladung','Strafen':'Strafe',
 }
 IGNORE = set("""Otto Greta Grete Theo Lina Bianca Anna Ben Noah Lea Mümmel Mamma Finlay Deutschland
 Schottland Italien Neapel Österreich Polen Toskana Er Sie Es Aber Und Am Im In Dann Dort Hier Jeden Als So
@@ -78,7 +89,12 @@ Was Wo Warum Welches Welche Neben Zu Auf Schau Cool Ein Eine Einmal Das Die Der 
 Ihre Ihr Manchmal Dies Diese Mit Von Bei Wie Nur Noch Wenn Denn Hause Zuhause Hallo Danke Bitte Guten Ich
 Du Wir Alle Heute Morgen Nach Vor Beim Zuerst Danach Bald Fast Darum Übrigens Gute Nacht Vielen Samstag
 Sonntag Montag Freitag Deutsch Perfekt Präsens Opa Mein Meine Meinen Unterwegs Zusammen Ende Gib Mach
-Kannst Ruf Bring Denk Wann Wer Wen Wohin Kreuzen Streichen Füllen Geben Sehen Machen Alles Etwas Man""".split())
+Kannst Ruf Bring Denk Wann Wer Wen Wohin Kreuzen Streichen Füllen Geben Sehen Machen Alles Etwas Man
+Mittwoch Donnerstag Dienstag Oder Natürlich Schlimmste Beste Naturalmente Rosso Napoli Giulia Lina
+Schau Komm Nimm Trag Leg Lies Nein Ja Oh Ach Also Aber Immer Nie Schon Endlich Zuerst Weiter Wieder
+Hundert Zwanzig Zehn Sonne Post
+Früher Großes Allein Egal Darf Kochen Wichtigste Wichtige Woher Brava Frisches Bestehe Braves
+Schlimmste Melodie2 Sofort Genau Richtig Stolz Egal2 Alles2""".split())
 
 # --- ЛИНЗА (docs/17 §0): категорию назначает род САМОГО слова категории ---
 LENS_OWNER = {'der': 'Отто · ЦЕНА (der Preis)', 'die': 'Грета · ЦВЕТ (die Farbe)', 'das': 'Тео · МАТЕРИАЛ (das Material)'}
@@ -207,7 +223,7 @@ def clean(t):
     return re.sub(r'\s+', ' ', t).strip()
 
 
-def check_one(label, text, target, gen, require):
+def check_one(label, text, target, gen, require, verbblock=False, part=False):
     errors, warns = [], []
     print('\n' + '─' * 78)
     print(f'▶ {label}   (цель: {target} — {LENS_OWNER.get(target, "?")})')
@@ -248,12 +264,17 @@ def check_one(label, text, target, gen, require):
         print(f'  ❌ РОД НЕИЗВЕСТЕН ({len(unknown)}) — внести в woerter.js/EXTRA и прогнать снова:')
         print('       ' + ', '.join(unknown[:20]) + ('…' if len(unknown) > 20 else ''))
 
-    # 2. ЛИНЗА
+    # 2. ЛИНЗА — только для ЛЕКСИЧЕСКИХ тем. В глагольном блоке учим ГЛАГОЛЫ,
+    # цвет/цена/материал там не изучаются → не накачиваем (docs/17 §0б «Два режима текста»).
     low = text.lower()
+    if verbblock:
+        print('  ℹ️  глагольный блок: линза не проверяется (учим глаголы, не слова) — род всё равно строг')
     price = sorted({w for w in PRICE_LEX if re.search(r'\b' + re.escape(w) + r'\b', low)})
     color = sorted({w for w in COLOR_LEX if re.search(r'\b' + re.escape(w) + r'\b', low)})
     material = sorted({m for m in MATERIAL_LEX if m in low})
-    if target == 'der':
+    if verbblock:
+        pass
+    elif target == 'der':
         if color:
             warns.append('цвет у Отто')
             print(f'  ⚠️  ЦВЕТ в тексте Отто — это линза Греты: {", ".join(color)} (у Отто акцент — ЦЕНА)')
@@ -294,9 +315,10 @@ def check_one(label, text, target, gen, require):
 
     # 3. ОБЪЁМ
     n = len(re.findall(r'\b\w+\b', text))
-    if n < 150:
+    lim = 100 if part else 150
+    if n < lim:
         warns.append(f'объём {n}')
-        print(f'  ⚠️  ОБЪЁМ {n} слов — мало (норма ≥150, на A2 больше)')
+        print(f'  ⚠️  ОБЪЁМ {n} слов — мало (норма ≥{lim})')
     else:
         print(f'  ✅ объём {n} слов')
 
@@ -323,6 +345,9 @@ def main():
     ap.add_argument('page')
     ap.add_argument('--hero', choices=['der', 'die', 'das'])
     ap.add_argument('--require', default='')
+    ap.add_argument('--verbblock', action='store_true',
+                    help='ГЛАГОЛЬНЫЙ блок: линзу не проверять (учим глаголы, не слова/род) — docs/17 §0б')
+    ap.add_argument('--part', action='store_true', help='это ЧАСТЬ текста: норма объёма ~100, не 150')
     ap.add_argument('--ru', action='store_true',
                     help='РУССКИЙ черновик (.txt/.md): ловит чужой род ДО перевода')
     a = ap.parse_args()
@@ -352,7 +377,7 @@ def main():
     require = [w.strip() for w in a.require.split(',') if w.strip()]
     E, W = [], []
     for i, (label, raw) in enumerate(texts, 1):
-        e, w = check_one(f'{label} #{i}', clean(raw), target, gen, require)
+        e, w = check_one(f'{label} #{i}', clean(raw), target, gen, require, a.verbblock, a.part)
         E += e; W += w
 
     print('\n' + '═' * 78)
