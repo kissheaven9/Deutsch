@@ -42,7 +42,23 @@ def check(path):
             warn.append(f'{name}:{line} — переменная в onclick: {frag[:60]}… '
                         f'(глобальные const НЕ на window → обработчик падает молча)')
 
-    # 4) анти-кэш на css/js (дневник 07.06)
+    # 4) ПЕРЕВОД РАЗЪЕХАЛСЯ С ТЕКСТОМ (дневник 16.07): немецкий переписан, русский от старой версии.
+    # Ловим по числу предложений: у перевода их должно быть примерно столько же.
+    de = re.findall(r'^ textDE:`(.*?)`,$', h, re.S | re.M)
+    ru = re.findall(r'^ textRU:`(.*?)`,$', h, re.S | re.M)
+    if de and ru:
+        if len(de) != len(ru):
+            err.append(f'{name} — частей с textDE {len(de)}, а с textRU {len(ru)}: перевод есть НЕ ВЕЗДЕ')
+        for k, (d, r) in enumerate(zip(de, ru), 1):
+            d2 = re.sub(r"\$\{VB\('([^']+)','[^']*'\)\}", r'\1', d)
+            nd = len(re.findall(r'[.!?]', d2)); nr = len(re.findall(r'[.!?]', r))
+            if abs(nd - nr) > 3:
+                err.append(f'{name} часть {k} — предложений DE {nd} ≠ RU {nr}: '
+                           f'перевод похоже от ДРУГОЙ версии текста (правь DE и RU одной правкой)')
+    elif de and not ru:
+        warn.append(f'{name} — есть немецкий текст, но нет textRU (кнопки перевода не будет)')
+
+    # 5) анти-кэш на css/js (дневник 07.06)
     for m in re.finditer(r'(href|src)="(css|js)/[^"?]+\.(css|js)"', body):
         line = body[:m.start()].count('\n') + 1
         warn.append(f'{name}:{line} — нет ?v=N: {m.group(0)} (пользователь увидит кэш)')
