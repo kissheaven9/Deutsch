@@ -58,7 +58,25 @@ def check(path):
     elif de and not ru:
         warn.append(f'{name} — есть немецкий текст, но нет textRU (кнопки перевода не будет)')
 
-    # 5) анти-кэш на css/js (дневник 07.06)
+    # 5) ПРОПУСКИ ИЗ ТЕКСТА / ПОДСКАЗЫВАЮТ ДРУГ ДРУГА (дневник 16.07)
+    import collections
+    gaps = re.findall(r'^ gap:\[(.*?)\n \],$', h, re.S | re.M)
+    de_all = ' '.join(re.sub(r"\$\{VB\('([^']+)','[^']*'\)\}", r'\1', d)
+                      for d in re.findall(r'^ textDE:`(.*?)`,$', h, re.S | re.M))
+    de_all = re.sub(r'\s+', ' ', de_all)
+    for pi, b in enumerate(gaps, 1):
+        rows = re.findall(r"\['(.*?)','(.*?)','(.*?)','(.*?)'\]", b)
+        cnt = collections.Counter((bf + f + af).strip() for bf, f, af, _ in rows)
+        share = sum(c for c in cnt.values() if c > 1)
+        if share:
+            err.append(f'{name} часть {pi} — {share} пропусков сидят в ОДНОМ предложении с другим: '
+                       f'они подсказывают друг друга (у каждого пропуска — своё предложение)')
+        from_text = sum(1 for s_ in cnt if s_[:40] in de_all)
+        if from_text:
+            err.append(f'{name} часть {pi} — {from_text} предложений взяты ИЗ ТЕКСТА части: '
+                       f'проверяется память о тексте, а не знание глагола (нужны ДРУГИЕ предложения)')
+
+    # 6) анти-кэш на css/js (дневник 07.06)
     for m in re.finditer(r'(href|src)="(css|js)/[^"?]+\.(css|js)"', body):
         line = body[:m.start()].count('\n') + 1
         warn.append(f'{name}:{line} — нет ?v=N: {m.group(0)} (пользователь увидит кэш)')
