@@ -37,6 +37,7 @@ def find_sentence(sents, forms):
     return None, None
 
 audio = {}
+text_audio = {}     # ТЕКСТЫ частей — тоже mp3 Гретой! speak() (робот) запрещён (дневник 09.07 и 16.07)
 parts = []
 texts = load_texts()
 assert len(texts) == len(VERBS), (len(texts), len(VERBS))
@@ -60,6 +61,8 @@ for pi, verbs in enumerate(VERBS):
         before, after = s.split(f, 1)
         gap.append((before, f, after, inf))
         audio[slug(s)] = s
+    plain = re.sub(r'\s+', ' ', texts[pi]).strip()
+    text_audio['greta-part-%d' % (pi+1)] = plain
     parts.append(dict(conj=conj, gap=gap))
     if miss: print('  ⚠️ часть %d: не нашла в тексте: %s' % (pi+1, ', '.join(miss)))
 
@@ -76,6 +79,12 @@ async def tts(t, out):
     return 'fail'
 
 async def main():
+    # 1) тексты частей — отдельными файлами audio/greta-part-N.mp3
+    AUD = os.path.join(ROOT, 'audio')
+    for name, t in text_audio.items():
+        r = await tts(t, os.path.join(AUD, name + '.mp3'))
+        print('  текст %s: %s' % (name, r))
+    # 2) слова/формы/предложения
     d=s=f=0; items=list(audio.items())
     for k,(sl,t) in enumerate(items):
         r = await tts(t, os.path.join(WORD, sl+'.mp3'))
