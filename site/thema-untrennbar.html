@@ -83,24 +83,20 @@
     <div class="score" id="mScore"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">3</span>🔤 Спряжение: посмотри → впиши → услышь</h3>
-    <p class="sub">Одно лицо <b>скрыто</b> — впиши его форму. Приставка не отделяется! «🎲» — другое местоимение.</p>
-    <select id="cjSel" class="inp" onchange="renderConj(this.value)"></select>
-    <div id="cjBox" style="margin-top:10px"></div>
-  </div>
-
-  <div class="panel"><h3><span class="exnum">4</span>🇷🇺 → 🇩🇪 Выбери немецкий глагол</h3>
+  <div class="panel"><h3><span class="exnum">3</span>🇷🇺 → 🇩🇪 Выбери немецкий глагол</h3>
+    <p class="sub">Порядок каждый раз <b>перемешан</b> — чтобы запоминалось слово, а не его место. «Ещё раз» — новый порядок.</p>
+    <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="renderChoice()">🔀 Ещё раз</button></div>
     <div id="chList"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">5</span>✍️ Вставь глагол (настоящее)</h3>
+  <div class="panel alt"><h3><span class="exnum">4</span>✍️ Вставь глагол (настоящее)</h3>
     <p class="sub">Предложения — <b>из истории части</b>. Впиши форму глагола: приставка остаётся при нём, отделять НЕ нужно. 🔊 — проверить на слух.</p>
     <div id="gapList"></div>
     <div class="toolbar"><button class="btn t sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapShow()">Показать</button></div>
     <div class="score" id="gapScore"></div>
   </div>
 
-  <div class="panel"><h3><span class="exnum">6</span>🧩 Раздели по Perfekt: причастие на -t ↔ на -en</h3>
+  <div class="panel"><h3><span class="exnum">5</span>🧩 Раздели по Perfekt: причастие на -t ↔ на -en</h3>
     <p class="sub">Правильные → <b>-t</b> (erklärt, bezahlt). Сильные → <b>-en</b> (bekommen, verstanden). У всех — <b>без ge-</b>!</p>
     <div id="sortPf"></div>
   </div>
@@ -109,7 +105,7 @@
     <div id="sortPfdemo"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">7</span>⏪ Вставь глагол в прошедшем (Perfekt)</h3>
+  <div class="panel alt"><h3><span class="exnum">6</span>⏪ Вставь глагол в прошедшем (Perfekt)</h3>
     <p class="sub">Впиши вспомогательный (<b>habe / bin</b>) и <b>причастие</b>. Помни: <b>ge- нет!</b></p>
     <div id="pgapList"></div>
     <div class="toolbar"><button class="btn t sm" onclick="pgapCheck()">Проверить</button><button class="btn sm" onclick="pgapShow()">Показать</button></div>
@@ -568,16 +564,10 @@ function renderSortPf(){document.getElementById('sortPf').innerHTML=V().verbs.ma
   const en=[],t=[];V().verbs.forEach((v,i)=>{(isEnPP(i)?en:t).push(i);});
   document.getElementById('sortPfdemo').innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">${demoPP('🔵 -en (сильные)',en)}${demoPP('🟢 -t (правильные)',t)}</div>`;}
 
-let cjIdx=0,cjT=2;
-function playConjForm(i){playWord(PROA[i]+' '+V().conj[cjIdx][2][i],M);}
-function renderConjSel(){document.getElementById('cjSel').innerHTML=V().conj.map((c,i)=>`<option value="${i}">${c[0]} — ${c[1]}</option>`).join('');renderConj(0);}
-function renderConj(idx){idx=+idx;cjIdx=idx;const [inf,ru,forms]=V().conj[idx];cjT=Math.floor(Math.random()*6);
-  const rows=forms.map((fr,i)=>`<div style="display:flex;gap:8px;align-items:center;padding:3px 0"><span style="min-width:82px;color:var(--muted)">${PRO[i]}</span>`+(i===cjT?`<b style="color:var(--muted);letter-spacing:3px">▢▢▢</b> <span style="font-size:12px;color:var(--t)">← впиши</span>`:`<b style="color:var(--t)">${fr}</b> <button class="say" onclick="playConjForm(${i})">🔊</button>`)+`</div>`).join('');
-  document.getElementById('cjBox').innerHTML=`<div style="background:#fff;border:1px solid var(--tb);border-radius:10px;padding:10px">${rows}</div><div class="arow" style="flex-wrap:wrap"><span>Впиши форму для <b style="color:var(--t)">${PRO[cjT]}</b> (<b>${inf}</b>) →</span><input id="cjIn" class="inp" placeholder="форма…" autocomplete="off"><button class="btn t sm" onclick="cjCheck()">Проверить</button><button class="btn sm" onclick="renderConj(cjIdx)">🎲 другое местоимение</button><span class="rres" id="cjRes"></span></div>`;}
-function cjCheck(){const ans=V().conj[cjIdx][2][cjT];const inp=document.getElementById('cjIn');const good=nrm(inp.value)===nrm(ans);inp.style.borderColor=good?'var(--ok)':'var(--bad)';document.getElementById('cjRes').innerHTML=(good?`<span style="color:var(--ok)">✓ ${ans}</span>`:`<span style="color:var(--bad)">→ ${ans}</span>`)+` <button class="say" onclick="playConjForm(${cjT})">🔊</button>`;}
-
 function opts3(inf){const others=V().verbs.map(v=>v[0]).filter(w=>w!==inf);return shuffle([inf,...shuffle(others).slice(0,2)]);}
-function renderChoice(){document.getElementById('chList').innerHTML=V().verbs.map((v,i)=>{const o=opts3(v[0]);
+// ПОРЯДОК ПЕРЕМЕШИВАЕМ: иначе запоминается позиция (как в карточках), а не слово.
+function renderChoice(){const order=shuffle(V().verbs.map((v,i)=>i));
+  document.getElementById('chList').innerHTML=order.map(i=>{const v=V().verbs[i];const o=opts3(v[0]);
   return `<div class="arow" data-i="${i}"><span style="min-width:150px;color:#374151">${v[1]}</span>`+o.map(x=>`<button class="btn sm opt" onclick="chPick(${i},'${x}',this)">${x}</button>`).join('')+`<span class="rres" id="cc${i}"></span></div>`;}).join('');}
 function chPick(i,o,btn){const row=btn.closest('.arow');if(row.dataset.done)return;const good=o===V().verbs[i][0];btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';document.getElementById('cc'+i).innerHTML='<span style="color:var(--ok)">✓</span>';}else document.getElementById('cc'+i).innerHTML='<span style="color:var(--bad)">ещё раз</span>';}
 
@@ -599,7 +589,7 @@ function pgapCheck(){const A=V().pgap;let ok=0;A.forEach((g,i)=>{const a=documen
   document.getElementById('pgapScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно${ok===A.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 function pgapShow(){V().pgap.forEach((g,i)=>{const a=document.getElementById('pi'+i+'a'),b=document.getElementById('pi'+i+'b');a.value=g[0];b.value=g[1];[a,b].forEach(x=>{x.style.borderBottomColor='var(--ok)';x.style.color='var(--ok)';});document.getElementById('pc'+i).textContent='';});}
 
-function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderCard();renderMatch();renderConjSel();renderChoice();renderGap();renderSortPf();renderPGap();}
+function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderCard();renderMatch();renderChoice();renderGap();renderSortPf();renderPGap();}
 renderTabs();renderAll();
 </script>
 </body>
