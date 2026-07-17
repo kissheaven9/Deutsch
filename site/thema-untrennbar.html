@@ -83,33 +83,24 @@
     <div class="score" id="mScore"></div>
   </div>
 
-  <div class="panel"><h3><span class="exnum">3</span>🧩 Раздели: лёгкие ↔ меняют корень</h3>
-    <p class="sub">У лёгких корень в <b>er/sie/es</b> не меняется (bekommt, erklärt). У сложных — меняется: <b>behält, übernimmt, empfiehlt, vergisst, gefällt</b>. Сверься с памяткой ниже.</p>
-    <div id="sortP"></div>
-  </div>
-  <div class="panel memo"><h3>📌 Памятка: как меняются глаголы этой части</h3>
-    <p class="mnote">Все глаголы части — по двум группам (приставка при этом ВСЕГДА на месте):</p>
-    <div id="sortPdemo"></div>
-  </div>
-
-  <div class="panel alt"><h3><span class="exnum">4</span>🔤 Спряжение: посмотри → впиши → услышь</h3>
+  <div class="panel alt"><h3><span class="exnum">3</span>🔤 Спряжение: посмотри → впиши → услышь</h3>
     <p class="sub">Одно лицо <b>скрыто</b> — впиши его форму. Приставка не отделяется! «🎲» — другое местоимение.</p>
     <select id="cjSel" class="inp" onchange="renderConj(this.value)"></select>
     <div id="cjBox" style="margin-top:10px"></div>
   </div>
 
-  <div class="panel"><h3><span class="exnum">5</span>🇷🇺 → 🇩🇪 Выбери немецкий глагол</h3>
+  <div class="panel"><h3><span class="exnum">4</span>🇷🇺 → 🇩🇪 Выбери немецкий глагол</h3>
     <div id="chList"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">6</span>✍️ Вставь глагол (настоящее)</h3>
+  <div class="panel alt"><h3><span class="exnum">5</span>✍️ Вставь глагол (настоящее)</h3>
     <p class="sub">Предложения — <b>из истории части</b>. Впиши форму глагола: приставка остаётся при нём, отделять НЕ нужно. 🔊 — проверить на слух.</p>
     <div id="gapList"></div>
     <div class="toolbar"><button class="btn t sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapShow()">Показать</button></div>
     <div class="score" id="gapScore"></div>
   </div>
 
-  <div class="panel"><h3><span class="exnum">7</span>🧩 Раздели по Perfekt: причастие на -t ↔ на -en</h3>
+  <div class="panel"><h3><span class="exnum">6</span>🧩 Раздели по Perfekt: причастие на -t ↔ на -en</h3>
     <p class="sub">Правильные → <b>-t</b> (erklärt, bezahlt). Сильные → <b>-en</b> (bekommen, verstanden). У всех — <b>без ge-</b>!</p>
     <div id="sortPf"></div>
   </div>
@@ -118,7 +109,7 @@
     <div id="sortPfdemo"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">8</span>⏪ Вставь глагол в прошедшем (Perfekt)</h3>
+  <div class="panel alt"><h3><span class="exnum">7</span>⏪ Вставь глагол в прошедшем (Perfekt)</h3>
     <p class="sub">Впиши вспомогательный (<b>habe / bin</b>) и <b>причастие</b>. Помни: <b>ge- нет!</b></p>
     <div id="pgapList"></div>
     <div class="toolbar"><button class="btn t sm" onclick="pgapCheck()">Проверить</button><button class="btn sm" onclick="pgapShow()">Показать</button></div>
@@ -568,16 +559,6 @@ function pickDe(i){playWord(MA[i][0],M);selDe=(selDe===i?null:i);document.queryS
 function pickRu(j){if(selDe===null)return;for(const k in links){if(links[k]===j&&+k!==selDe){delete links[k];paint(cDe(+k),null);}}links[selDe]=j;if(colorOf[selDe]===undefined){colorOf[selDe]=PCOL[nextC%PCOL.length];nextC++;}paint(cDe(selDe),colorOf[selDe]);document.querySelectorAll('#mRu .mchip').forEach(c=>{const o=Object.keys(links).find(k=>links[k]===+c.dataset.i);paint(c,o!==undefined?colorOf[o]:null);});document.querySelectorAll('#mDe .mchip').forEach(c=>c.classList.remove('sel'));selDe=null;}
 function matchCheck(){let ok=0;MA.forEach((p,i)=>{const c=cDe(i);if(!c)return;const good=links[i]===i;c.querySelector('.dot')?.remove();c.style.background=good?'#e8f6ee':'#fdecec';c.style.borderColor=good?'var(--ok)':'var(--bad)';if(good)ok++;});document.getElementById('mScore').innerHTML=`<span style="color:${ok===MA.length?'var(--ok)':'var(--bad)'}">${ok} / ${MA.length} верно</span>`;}
 
-function baseFin(f){return f.split(' ')[0];}
-function isHardP(i){const F=V().conj[i][2];let r1=baseFin(F[0]).replace(/e$/,'');let r2=baseFin(F[2]);if(r2.endsWith('et'))r2=r2.slice(0,-2);else if(r2.endsWith('t'))r2=r2.slice(0,-1);return r1!==r2;}
-function sortPick(kind,i,btn){const row=btn.closest('.srow');if(row.dataset.done)return;const good=(kind==='hard')===isHardP(i);btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';document.getElementById('sp'+i).innerHTML='<span style="color:var(--ok)">✓</span>';}else document.getElementById('sp'+i).innerHTML='<span style="color:var(--bad)">ещё раз</span>';}
-function playDemo(i){playWord(PROA[2]+' '+V().conj[i][2][2],M);}
-function demoBlock(title,idxs){const rows=idxs.map(i=>{const F=V().conj[i][2];return `<div style="padding:3px 0">ich <b>${F[0]}</b>, du <b style="color:var(--t)">${F[1]}</b>, er <b style="color:var(--t)">${F[2]}</b> <button class="say" onclick="playDemo(${i})">🔊</button></div>`;}).join('')||'<div style="color:var(--muted)">—</div>';
-  return `<div style="background:var(--tbg);border:1px solid var(--tb);border-radius:10px;padding:8px 11px"><div style="font-weight:700;margin-bottom:2px">${title}</div>${rows}</div>`;}
-function renderSortP(){document.getElementById('sortP').innerHTML=V().conj.map((c,i)=>`<div class="srow" data-i="${i}"><span style="min-width:150px">${c[0]} <span style="color:var(--muted);font-size:13px">${c[1]}</span></span><button class="btn sm opt" onclick="sortPick('easy',${i},this)">не меняется</button><button class="btn sm opt" onclick="sortPick('hard',${i},this)">меняет корень</button><span class="rres" id="sp${i}"></span></div>`).join('');
-  const hard=[],easy=[];V().conj.forEach((c,i)=>{(isHardP(i)?hard:easy).push(i);});
-  document.getElementById('sortPdemo').innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">${demoBlock('🔴 Меняют корень',hard)}${demoBlock('🟢 Не меняются',easy)}</div>`;}
-
 function isEnPP(i){return V().verbs[i][2].trim().split(' ').pop().endsWith('en');}
 function sortPfPick(kind,i,btn){const row=btn.closest('.srow');if(row.dataset.done)return;const good=(kind==='en')===isEnPP(i);btn.classList.add(good?'ok':'bad');if(good){row.dataset.done='1';document.getElementById('sf'+i).innerHTML='<span style="color:var(--ok)">✓</span>';}else document.getElementById('sf'+i).innerHTML='<span style="color:var(--bad)">ещё раз</span>';}
 function playDemoPP(i){playWord(V().verbs[i][2],M);}
@@ -618,7 +599,7 @@ function pgapCheck(){const A=V().pgap;let ok=0;A.forEach((g,i)=>{const a=documen
   document.getElementById('pgapScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно${ok===A.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 function pgapShow(){V().pgap.forEach((g,i)=>{const a=document.getElementById('pi'+i+'a'),b=document.getElementById('pi'+i+'b');a.value=g[0];b.value=g[1];[a,b].forEach(x=>{x.style.borderBottomColor='var(--ok)';x.style.color='var(--ok)';});document.getElementById('pc'+i).textContent='';});}
 
-function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderCard();renderMatch();renderSortP();renderConjSel();renderChoice();renderGap();renderSortPf();renderPGap();}
+function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderCard();renderMatch();renderConjSel();renderChoice();renderGap();renderSortPf();renderPGap();}
 renderTabs();renderAll();
 </script>
 </body>
