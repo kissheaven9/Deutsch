@@ -156,7 +156,7 @@ function tNew(){tCur=shuffle(P1)[0];const pres='Ich '+tCur.forms[0]+' …';
   const good=`Ich ${auxI} … ${part}.`;
   const w1=`Ich ${auxI} … ge${part}.`;const w2=`Ich ${aux==='ist'?'habe':'bin'} … ${part}.`;
   const opts=shuffle([good,w1,w2]);
-  document.getElementById('tq').innerHTML=`Настоящее: <b>${pres}</b><br><span style="font-size:14px;color:var(--muted)">(${tCur.inf} — ${tCur.ru})</span>`;
+  document.getElementById('tq').innerHTML=`Настоящее: <b>${pres}</b>`;
   document.getElementById('tFb').textContent='';
   document.getElementById('tOpts').innerHTML=opts.map(o=>`<div class="opt" style="font-size:16px" onclick="tPick(this,'${o===good}')">${o}</div>`).join('');}
 function tPick(el,ok){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';
