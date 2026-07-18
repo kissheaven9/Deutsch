@@ -119,9 +119,13 @@ function hNext(){if(hi>=hQ.length){return hEnd();}hCur=hQ[hi];
 function hPlay(){playWord(hCur.inf,M);}
 function hPick(r,el){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';
   const good=r===hCur.ru;el.classList.add(good?'ok':'bad');playWord(hCur.inf,M);
-  if(good){hOk++;errOk(hCur.inf);document.getElementById('hFb').innerHTML=`<span style="color:var(--ok)">✓ <b>${hCur.inf}</b> — ${hCur.ru}</span>`;}
-  else{hWrong.push(hCur);errBump(hCur.inf);document.getElementById('hFb').innerHTML=`<span style="color:var(--bad)">Верно: <b>${hCur.inf}</b> — ${hCur.ru}</span> 🔊`;}
-  hi++;setTimeout(()=>{document.getElementById('hOpts').dataset.done='';hNext();},good?800:1500);}
+  // показать верный вариант среди кнопок
+  [...document.querySelectorAll('#hOpts .opt')].forEach(o=>{if(o.textContent===hCur.ru)o.classList.add('ok');});
+  if(good){hOk++;errOk(hCur.inf);}else{hWrong.push(hCur);errBump(hCur.inf);}
+  hi++;
+  const label=hi>=hQ.length?'Показать итог →':'Дальше →';
+  document.getElementById('hFb').innerHTML=`<span style="color:${good?'var(--ok)':'var(--bad)'}">${good?'✓':'Верно:'} <b>${hCur.inf}</b> — ${hCur.ru}</span> <button class="say" onclick="playWord('${hCur.inf}','${M}')">🔊</button><br><button class="btn t sm" style="margin-top:8px" onclick="hAdvance()">${label}</button>`;}
+function hAdvance(){document.getElementById('hOpts').dataset.done='';hNext();}
 function hEnd(){clearInterval(hT);document.getElementById('hBody').hidden=true;
   const uniq=[...new Map(hWrong.map(v=>[v.inf,v])).values()];
   const R=document.getElementById('hResult');R.hidden=false;
