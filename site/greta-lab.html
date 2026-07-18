@@ -11,7 +11,7 @@
  .sub{color:var(--muted);font-size:13px;margin:2px 0 12px}
  .q{font-size:22px;font-weight:800;text-align:center;margin:6px 0 14px;min-height:30px}
  .opts{display:grid;gap:9px;grid-template-columns:1fr}
- @media(min-width:520px){.opts.g2{grid-template-columns:1fr 1fr}}
+ .opts.g3{grid-template-columns:repeat(3,1fr)}
  .opt{border:2px solid var(--line);border-radius:12px;padding:13px;cursor:pointer;background:#fff;font-size:17px;text-align:center;transition:.1s}
  .opt:hover{border-color:var(--tb)} .opt.ok{background:#e8f6ee;border-color:var(--ok)} .opt.bad{background:#fdecec;border-color:var(--bad)}
  .fb{margin-top:12px;font-size:15px;min-height:24px;text-align:center}
@@ -42,7 +42,7 @@
   <p class="sub">60 секунд. Немецкий глагол → выбери русский. Ошибка <b>звучит верным глаголом</b> и возвращается в конце.</p>
   <div class="timer" id="tmr">60</div>
   <div class="q" id="dq">—</div>
-  <div class="opts g2" id="dOpts"></div>
+  <div class="opts g3" id="dOpts"></div>
   <div class="fb" id="dFb"></div>
   <div style="text-align:center"><button class="btn t sm" onclick="dStart()">▶ Старт</button> <span class="prog" id="dScore"></span></div>
 </div>
