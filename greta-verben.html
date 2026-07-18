@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Значения глаголов — Грета (часть 1)</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ :root{--g:#c2185b;--gbg:#fdecef;--gb:#f8bbd0}
+ body{background:#fff}
+ .ghead{background:linear-gradient(135deg,#c2185b,#e05a86);color:#fff;border-radius:16px;padding:16px 18px;margin:10px 0;display:flex;gap:14px;align-items:center}
+ .ghead .av{font-size:40px}.ghead b{font-size:19px}.ghead .badge{background:#ffffff2e;border:1px solid #ffffff66;border-radius:8px;padding:3px 9px;font-size:12px;display:inline-block;margin-top:3px}
+ .ghead .rule{font-size:13px;opacity:.95;margin-top:4px}
+ .tabs{display:flex;gap:8px;margin:12px 0}
+ .tab{flex:1;padding:10px;border-radius:12px;border:1px solid var(--gb);background:#fff;cursor:pointer;font-weight:700;text-align:center;font-size:14px}
+ .tab.on{background:var(--g);color:#fff;border-color:var(--g)}
+ .panel{border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff}
+ .pre{background:var(--g);color:#fff;border-radius:5px;padding:0 4px}
+ .card{max-width:460px;margin:0 auto;text-align:center}
+ .emo{font-size:60px;margin:6px}
+ .say{border:none;background:var(--gbg);border-radius:10px;cursor:pointer;font-size:20px;padding:6px 12px}
+ .de{font-size:30px;font-weight:800;margin:8px 0}
+ .reveal{background:var(--gbg);border-radius:12px;padding:12px 14px;margin:10px 0;text-align:left;font-size:16px;line-height:1.5}
+ .idi{color:var(--g);font-weight:700;margin-top:6px}
+ .btn2{border:1px solid var(--gb);background:#fff;border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:600;margin:4px}
+ .dots{text-align:center;margin-top:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gb);margin:0 3px}.dot.on{background:var(--g)}
+ .cf{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+ .cf .opt{border:2px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;text-align:center}
+ .cf .opt .v{font-size:20px;font-weight:800}.cf .opt .g{font-size:13px;color:var(--muted);margin-top:5px}
+ .cf .opt.ok{background:#e8f6ee;border-color:var(--ok)}.cf .opt.bad{background:#fff4e5;border-color:#f0a020}
+ .q{font-size:20px;font-weight:700;text-align:center;margin:6px 0 12px}
+ .opts{display:grid;gap:9px}.opt3{border:2px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;text-align:center;font-size:16px}
+ .opt3.ok{background:#e8f6ee;border-color:var(--ok)}.opt3.bad{background:#fdecec;border-color:var(--bad)}
+ .fb{text-align:center;margin-top:10px;min-height:22px}
+</style></head><body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch</a><span class="crumb">Значения · Грета ч.1</span></div></header>
+<main class="wrap">
+<div class="ghead"><span class="av">👩‍🍳</span><div><b>Greta</b> <span class="badge">die · untrennbare Verben</span>
+  <div class="rule">Приставка <b>приклеена</b>, в прошедшем <b>ge нет</b>: verstehen → hat verstanden. Класс помнить не надо — учим только ЗНАЧЕНИЕ.</div></div></div>
+<p class="lead">Самое трудное у неотделяемых — абстрактный смысл. Ловим его через <b>образ-мост</b> (приставка+корень) и русскую идиому.</p>
+<div class="tabs"><div class="tab on" onclick="tab(0)">1 · Карточка</div><div class="tab" onclick="tab(1)">2 · Не перепутай</div><div class="tab" onclick="tab(2)">3 · На слух</div></div>
+
+<div class="panel" id="t0">
+  <div class="card">
+    <div class="emo" id="cEmo"></div>
+    <button class="say" onclick="playWord(D.V[ci].inf,'female')">🔊 инфинитив</button>
+    <div class="de" id="cDe"></div>
+    <div id="cStep"></div>
+    <div style="margin-top:10px"><button class="btn2" onclick="cReveal()" id="cBtn"></button></div>
+  </div>
+  <div class="dots" id="cDots"></div>
+  <div style="display:flex;justify-content:center;gap:14px;margin-top:12px"><button class="btn" onclick="cNav(-1)">←</button><button class="btn" onclick="cNav(1)">→</button></div>
+</div>
+
+<div class="panel" id="t1" hidden>
+  <div class="q" id="cfQ"></div>
+  <div class="cf" id="cfOpts"></div>
+  <div class="fb" id="cfFb"></div>
+  <div style="text-align:center;margin-top:8px"><button class="btn sm" onclick="cfNext()">Дальше →</button></div>
+</div>
+
+<div class="panel" id="t2" hidden>
+  <p class="sub" style="text-align:center;color:var(--muted)">Слушай фразу из истории (текст скрыт) → выбери значение глагола.</p>
+  <div style="text-align:center"><button class="btn t" onclick="earPlay()">🔊 Слушать фразу</button></div>
+  <div class="opts" id="earOpts" style="margin-top:12px"></div>
+  <div class="fb" id="earFb"></div>
+  <div style="text-align:center;margin-top:8px"><button class="btn sm" onclick="earNext()">Дальше →</button></div>
+</div>
+<div class="scenenav"><a href="thema-untrennbar.html">← Раздел Греты</a></div>
+</main><footer>Deutsch · значения глаголов</footer>
+<script src="js/app.js?v=4"></script>
+<script>
+const D={"V": [{"inf": "bekommen", "ru": "получать", "pre": "be", "root": "kommen", "rru": "приходить", "em": "📩→🤲", "br": "be+kommen: «приходит К тебе в руки». ⚠️ НЕ «становиться» (ложный друг!)", "idi": "", "pp": "hat bekommen", "sent": "Ich bekomme Post und verstehe zuerst nicht: von wem?"}, {"inf": "verstehen", "ru": "понимать", "pre": "ver", "root": "stehen", "rru": "стоять", "em": "💡🧠", "br": "ver+stehen: «встал в теме» → разобрался", "idi": "до меня дошло", "pp": "hat verstanden", "sent": "Ich beachte die Unterschrift — und da verstehe ich alles."}, {"inf": "vermuten", "ru": "предполагать", "pre": "ver", "root": "Mut", "rru": "дух, смелость", "em": "🤔❓", "br": "ver+Mut: духом чую → догадка БЕЗ фактов", "idi": "сдаётся мне", "pp": "hat vermutet", "sent": "Ich vermute das Schlimmste — eine Strafe?"}, {"inf": "überlegen", "ru": "обдумывать", "pre": "über", "root": "legen", "rru": "класть", "em": "⚖️🧩", "br": "über+legen: раскладывает варианты ПОВЕРХ, взвешивает", "idi": "взвесить", "pp": "hat überlegt", "sent": "Ich überlege: nein, für Werbung ist das zu schön."}, {"inf": "beachten", "ru": "обращать внимание", "pre": "be", "root": "achten", "rru": "внимание", "em": "👀❗", "br": "be+achten: заметить И учесть", "idi": "принять во внимание", "pp": "hat beachtet", "sent": "Ich beachte die Unterschrift."}, {"inf": "entdecken", "ru": "обнаруживать", "pre": "ent", "root": "decken", "rru": "покрывать", "em": "🔍🎁", "br": "ent+decken: СНЯТЬ покрывало (ent-=прочь) → раскрыть", "idi": "открыть, раскрыть", "pp": "hat entdeckt", "sent": "Ich entdecke weiter: die Premiere, hundert Personen."}, {"inf": "benutzen", "ru": "пользоваться", "pre": "be", "root": "Nutzen", "rru": "польза", "em": "🔧🖐", "br": "be+Nutzen: пустить в дело, извлечь пользу", "idi": "пустить в ход", "pp": "hat benutzt", "sent": "Ich benutze sie endlich und lese: eine Einladung."}, {"inf": "verlieren", "ru": "терять", "pre": "ver", "root": "", "rru": "", "em": "🔑💨", "br": "ver- = «прочь, впустую»: выронил, ушло безвозвратно. ⚠️ НЕ -ieren (не как studieren)!", "idi": "потерять", "pp": "hat verloren", "sent": "Eine halbe Stunde habe ich sie verloren."}, {"inf": "beginnen", "ru": "начинать", "pre": "be", "root": "ginnen", "rru": "(старин.) браться", "em": "🎬▶️", "br": "be+ginnen: взяться за дело → старт", "idi": "положить начало", "pp": "hat begonnen", "sent": "Alles beginnt am Mittwoch."}, {"inf": "benennen", "ru": "называть", "pre": "be", "root": "nennen", "rru": "звать", "em": "🏷️✍️", "br": "be+nennen: дать имя, обозначить", "idi": "дать имя", "pp": "hat benannt", "sent": "Sie benennen die beste Köchin aus Neapel."}, {"inf": "erleben", "ru": "переживать", "pre": "er", "root": "leben", "rru": "жить", "em": "🎢❤️", "br": "er+leben: прожить НА СЕБЕ, испытать", "idi": "пережить", "pp": "hat erlebt", "sent": "So etwas habe ich noch nie erlebt."}], "C": [{"ru": "«понял/догадался?»", "a": {"inf": "verstehen", "g": "точно понял 💡 (встал в теме)"}, "b": {"inf": "vermuten", "g": "лишь догадка ❓ (без фактов)"}}, {"ru": "«заметил?»", "a": {"inf": "beachten", "g": "обратил внимание, учёл 👀"}, "b": {"inf": "entdecken", "g": "обнаружил новое 🔍 (снял покрывало)"}}]};
+function tab(i){[0,1,2].forEach(n=>{document.getElementById('t'+n).hidden=n!==i;document.querySelectorAll('.tab')[n].classList.toggle('on',n===i);});}
+function pre(inf,p){return p&&inf.startsWith(p)?`<span class="pre">${p}</span>${inf.slice(p.length)}`:inf;}
+
+/* 1 Карточка — ритуал 3 касаний */
+let ci=0,cs=0;
+function cShow(){const v=D.V[ci];cs=0;document.getElementById('cEmo').textContent=v.em;
+  document.getElementById('cDe').innerHTML='';document.getElementById('cStep').innerHTML='';
+  document.getElementById('cBtn').textContent='① разбор приставки →';
+  document.getElementById('cDots').innerHTML=D.V.map((_,i)=>`<span class="dot${i===ci?' on':''}"></span>`).join('');
+  playWord(v.inf,'female');}
+function cReveal(){const v=D.V[ci];cs++;
+  if(cs===1){document.getElementById('cDe').innerHTML=pre(v.inf,v.pre)+' <button class="say" style="font-size:15px;padding:3px 8px" onclick="playWord(D.V['+ci+'].inf,\'female\')">🔊</button>';
+    document.getElementById('cStep').innerHTML=`<div class="reveal">🧩 <b>${v.pre}${v.root?' + '+v.root+(v.rru?' ('+v.rru+')':''):''}</b><br>${v.br}</div>`;
+    document.getElementById('cBtn').textContent='② перевод →';}
+  else if(cs===2){document.getElementById('cStep').innerHTML+=`<div class="reveal" style="background:#fff;border:1px solid var(--gb)">🇷🇺 <b>${v.ru}</b>${v.idi?`<div class="idi">Русский думает так же: «${v.idi}»</div>`:''}<div style="margin-top:6px;color:var(--muted);font-size:14px">Perfekt: <b>${v.pp}</b> — ge нет!</div></div>`;
+    document.getElementById('cBtn').textContent='✓ дальше (→)';}
+  else cNav(1);}
+function cNav(d){ci=(ci+d+D.V.length)%D.V.length;cShow();}
+
+/* 2 Не перепутай */
+let cfi=0;
+function cfShow(){const c=D.C[cfi];document.getElementById('cfFb').textContent='';
+  document.getElementById('cfQ').innerHTML=c.ru;
+  const opts=Math.random()<.5?[c.a,c.b]:[c.b,c.a];
+  document.getElementById('cfOpts').innerHTML=opts.map(o=>`<div class="opt" onclick="cfPick('${o.inf}',this)"><div class="v">${o.inf}</div><div class="g">${o.g}</div></div>`).join('');}
+function cfPick(inf,el){if(el.closest('.cf').dataset.done)return;el.closest('.cf').dataset.done='1';
+  const c=D.C[cfi];const good=inf===c.a.inf;el.classList.add(good?'ok':'bad');playWord(inf,'female');
+  document.querySelectorAll('#cfOpts .opt').forEach(o=>{if(o.querySelector('.v').textContent===c.a.inf)o.classList.add('ok');});
+  document.getElementById('cfFb').innerHTML=good?'<span style="color:var(--ok)">✓ верно</span>':`<span style="color:#c47f00">это другое действие — верно: <b>${c.a.inf}</b></span>`;}
+function cfNext(){document.getElementById('cfOpts').dataset.done='';cfi=(cfi+1)%D.C.length;cfShow();}
+
+/* 3 На слух */
+let ei=0;
+function earShow(){const v=D.V[ei];document.getElementById('earFb').textContent='';
+  const others=D.V.filter(x=>x.inf!==v.inf).sort(()=>Math.random()-.5).slice(0,2).map(x=>x.ru);
+  const opts=[v.ru,...others].sort(()=>Math.random()-.5);
+  document.getElementById('earOpts').innerHTML=opts.map(r=>`<div class="opt3" onclick="earPick('${r.replace(/'/g,"\\'")}',this)">${r}</div>`).join('');}
+function earPlay(){playWord(D.V[ei].sent,'female');}
+function earPick(r,el){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';const v=D.V[ei];const good=r===v.ru;el.classList.add(good?'ok':'bad');playWord(v.sent,'female');
+  document.getElementById('earFb').innerHTML=`${good?'✓':'Верно: '+v.ru} · <i>${v.sent}</i>`;}
+function earNext(){document.getElementById('earOpts').dataset.done='';ei=(ei+1)%D.V.length;earShow();earPlay();}
+
+cShow();cfShow();earShow();
+</script></body></html>
