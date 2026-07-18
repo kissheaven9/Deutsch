@@ -43,6 +43,16 @@
   .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
   .hr{margin-top:6px;font-size:14px}.de2{font-weight:600}.ru2{color:var(--muted)}
   .rule{background:var(--tbg);border:1px solid var(--tb);border-radius:12px;padding:10px 13px;margin:10px 0;font-size:15px}
+  .pre{background:var(--t);color:#fff;border-radius:5px;padding:0 4px}
+  .mnEmo{font-size:52px;text-align:center;margin:4px}
+  .mnCard{max-width:460px;margin:0 auto;text-align:center}
+  .reveal{background:var(--tbg);border-radius:12px;padding:11px 13px;margin:9px 0;text-align:left;font-size:15px;line-height:1.5}
+  .idi{color:var(--t);font-weight:700;margin-top:5px}
+  .dots{text-align:center;margin-top:10px}.dt{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--tb);margin:0 3px}.dt.on{background:var(--t)}
+  .cf{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cf .o{border:2px solid var(--line);border-radius:12px;padding:13px;cursor:pointer;text-align:center}
+  .cf .o .v{font-size:18px;font-weight:800}.cf .o .g{font-size:12px;color:var(--muted);margin-top:4px}
+  .cf .o.ok{background:#e8f6ee;border-color:var(--ok)}.cf .o.bad{background:#fff4e5;border-color:#f0a020}
+  .eo{border:2px solid var(--line);border-radius:11px;padding:11px;cursor:pointer;text-align:center;margin:5px 0}.eo.ok{background:#e8f6ee;border-color:var(--ok)}.eo.bad{background:#fdecec;border-color:var(--bad)}
 </style>
 </head>
 <body>
@@ -56,7 +66,30 @@
 
   <div class="tabs" id="tabs"></div>
 
-  <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 1</div><h2 id="tTitle"></h2></div></div>
+  <div class="part"><span class="pico">🧠</span><div><div class="pk">Шаг 1 · знакомство</div><h2 id="tTitle"></h2></div></div>
+  <div class="panel" style="background:#fdecef;border-color:#f8bbd0" id="mnWrap">
+    <p class="sub">Сначала <b>поймай смысл</b> глагола — через образ (приставка+корень) и русскую идиому. Потом уже текст. 🔊 — голос Греты.</p>
+    <div id="mnNote"></div>
+    <div id="mnCardBox">
+      <div class="mnCard"><div class="mnEmo" id="mnEmo"></div>
+        <button class="say" style="font-size:16px" onclick="mnPlay()">🔊 инфинитив</button>
+        <div style="font-size:26px;font-weight:800;margin:6px 0" id="mnDe"></div>
+        <div id="mnStep"></div>
+        <div style="margin-top:8px"><button class="btn t sm" onclick="mnReveal()" id="mnBtn"></button></div>
+      </div>
+      <div class="dots" id="mnDots"></div>
+      <div style="display:flex;justify-content:center;gap:12px;margin-top:10px"><button class="btn sm" onclick="mnNav(-1)">←</button><button class="btn sm" onclick="mnNav(1)">→</button></div>
+      <hr style="border:none;border-top:1px solid var(--line);margin:14px 0">
+      <div id="mnCfBox"><b>Не перепутай:</b> <span id="mnCfQ"></span><div class="cf" id="mnCfOpts" style="margin-top:8px"></div><div class="rres" id="mnCfFb" style="text-align:center;margin-top:6px"></div>
+        <div style="text-align:center;margin-top:6px"><button class="btn sm" onclick="mnCfNext()">другая пара →</button></div></div>
+      <hr style="border:none;border-top:1px solid var(--line);margin:14px 0">
+      <div><b>На слух</b> (фраза из истории, текст скрыт → выбери значение): <button class="btn t sm" onclick="mnEarPlay()">🔊 Слушать</button>
+        <div id="mnEarOpts" style="margin-top:8px"></div><div class="rres" id="mnEarFb" style="text-align:center;margin-top:6px"></div>
+        <div style="text-align:center;margin-top:6px"><button class="btn sm" onclick="mnEarNext()">Дальше →</button></div></div>
+    </div>
+  </div>
+
+  <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 2 · текст</div><h2>Теперь читай историю</h2></div></div>
   <div class="panel"><h3>📜 Текст части <span class="sub" style="margin:0;text-transform:none">кликни глагол → инфинитив + перевод</span></h3>
     <div class="toolbar" style="margin-top:0"><button class="btn sm" onclick="playText(this)">🔊 Послушать</button></div>
     <p class="detxt" id="deText"></p>
@@ -64,15 +97,9 @@
     <p id="ruText" hidden style="color:#374151;background:var(--tbg);border-radius:10px;padding:10px 12px;line-height:1.7"></p>
   </div>
   <div class="panel"><h3>🔤 Глаголы части + прошедшее</h3>
-    <p class="sub">Прочитай, потом «Скрыть переводы» — и переведи сам. 🔊 — голос Греты. <b>⏪</b> — Perfekt (<span style="color:var(--ok);font-weight:700">зелёным</span> — с sein).</p>
+    <p class="sub">🔊 — голос Греты. <b>⏪</b> — Perfekt (<span style="color:var(--ok);font-weight:700">зелёным</span> — с sein).</p>
     <div class="toolbar" style="margin-top:0;margin-bottom:10px"><button class="btn t sm" id="eye" onclick="toggleEye(this)">🙈 Скрыть переводы</button></div>
     <div class="vlistV" id="vlistV"></div>
-  </div>
-
-  <div class="part"><span class="pico">🧠</span><div><div class="pk">Шаг 2 · знакомство со значением</div><h2>Сначала пойми смысл</h2></div></div>
-  <div class="panel" style="background:#fdecef;border-color:#f8bbd0">
-    <p class="sub">У неотделяемых трудное — абстрактный смысл. Поймай его через <b>образ-мост</b> (приставка+корень) и русскую идиому: карточка → «не перепутай» → «на слух». <b>Это перед тренировкой.</b></p>
-    <a class="btn t" href="greta-verben.html">🧠 Учить значения →</a>
   </div>
 
   <div class="part"><span class="pico">🎯</span><div><div class="pk">Шаг 3 · тренировка</div><h2>Упражнения этой части</h2></div></div>
@@ -523,6 +550,7 @@ const PARTS=[
  ]
 }
 ];
+const MEANING=[{"V": [{"inf": "bekommen", "ru": "получать", "pre": "be", "root": "kommen", "rru": "приходить", "em": "📩→🤲", "br": "be+kommen: «приходит К тебе в руки». ⚠️ НЕ «становиться» (ложный друг!)", "idi": "", "pp": "hat bekommen", "sent": "Ich bekomme Post und verstehe zuerst nicht: von wem?"}, {"inf": "verstehen", "ru": "понимать", "pre": "ver", "root": "stehen", "rru": "стоять", "em": "💡🧠", "br": "ver+stehen: «встал в теме» → разобрался", "idi": "до меня дошло", "pp": "hat verstanden", "sent": "Ich beachte die Unterschrift — und da verstehe ich alles."}, {"inf": "vermuten", "ru": "предполагать", "pre": "ver", "root": "Mut", "rru": "дух, смелость", "em": "🤔❓", "br": "ver+Mut: духом чую → догадка БЕЗ фактов", "idi": "сдаётся мне", "pp": "hat vermutet", "sent": "Ich vermute das Schlimmste — eine Strafe?"}, {"inf": "überlegen", "ru": "обдумывать", "pre": "über", "root": "legen", "rru": "класть", "em": "⚖️🧩", "br": "über+legen: раскладывает варианты ПОВЕРХ, взвешивает", "idi": "взвесить", "pp": "hat überlegt", "sent": "Ich überlege: nein, für Werbung ist das zu schön."}, {"inf": "beachten", "ru": "обращать внимание", "pre": "be", "root": "achten", "rru": "внимание", "em": "👀❗", "br": "be+achten: заметить И учесть", "idi": "принять во внимание", "pp": "hat beachtet", "sent": "Ich beachte die Unterschrift."}, {"inf": "entdecken", "ru": "обнаруживать", "pre": "ent", "root": "decken", "rru": "покрывать", "em": "🔍🎁", "br": "ent+decken: СНЯТЬ покрывало (ent-=прочь) → раскрыть", "idi": "открыть, раскрыть", "pp": "hat entdeckt", "sent": "Ich entdecke weiter: die Premiere, hundert Personen."}, {"inf": "benutzen", "ru": "пользоваться", "pre": "be", "root": "Nutzen", "rru": "польза", "em": "🔧🖐", "br": "be+Nutzen: пустить в дело, извлечь пользу", "idi": "пустить в ход", "pp": "hat benutzt", "sent": "Ich benutze sie endlich und lese: eine Einladung."}, {"inf": "verlieren", "ru": "терять", "pre": "ver", "root": "", "rru": "", "em": "🔑💨", "br": "ver- = «прочь, впустую»: выронил, ушло безвозвратно. ⚠️ НЕ -ieren (не как studieren)!", "idi": "потерять", "pp": "hat verloren", "sent": "Eine halbe Stunde habe ich sie verloren."}, {"inf": "beginnen", "ru": "начинать", "pre": "be", "root": "ginnen", "rru": "(старин.) браться", "em": "🎬▶️", "br": "be+ginnen: взяться за дело → старт", "idi": "положить начало", "pp": "hat begonnen", "sent": "Alles beginnt am Mittwoch."}, {"inf": "benennen", "ru": "называть", "pre": "be", "root": "nennen", "rru": "звать", "em": "🏷️✍️", "br": "be+nennen: дать имя, обозначить", "idi": "дать имя", "pp": "hat benannt", "sent": "Sie benennen die beste Köchin aus Neapel."}, {"inf": "erleben", "ru": "переживать", "pre": "er", "root": "leben", "rru": "жить", "em": "🎢❤️", "br": "er+leben: прожить НА СЕБЕ, испытать", "idi": "пережить", "pp": "hat erlebt", "sent": "So etwas habe ich noch nie erlebt."}], "C": [{"ru": "«понял/догадался?»", "a": {"inf": "verstehen", "g": "точно понял 💡 (встал в теме)"}, "b": {"inf": "vermuten", "g": "лишь догадка ❓ (без фактов)"}}, {"ru": "«заметил?»", "a": {"inf": "beachten", "g": "обратил внимание, учёл 👀"}, "b": {"inf": "entdecken", "g": "обнаружил новое 🔍 (снял покрывало)"}}]},null,null,null,null,null,null];
 let AP=0;
 const V=()=>PARTS[AP];
 const PRO=['ich','du','er/sie/es','wir','ihr','sie/Sie'];
@@ -605,7 +633,47 @@ function pgapCheck(){const A=V().pgap;let ok=0;A.forEach((g,i)=>{const a=documen
   document.getElementById('pgapScore').innerHTML=`<span style="color:${ok===A.length?'var(--ok)':'var(--bad)'}">${ok} / ${A.length} верно${ok===A.length&&typeof praise==='function'?' — '+praise():''}</span>`;}
 function pgapShow(){V().pgap.forEach((g,i)=>{const a=document.getElementById('pi'+i+'a'),b=document.getElementById('pi'+i+'b');a.value=g[0];b.value=g[1];[a,b].forEach(x=>{x.style.borderBottomColor='var(--ok)';x.style.color='var(--ok)';});document.getElementById('pc'+i).textContent='';});}
 
-function renderAll(){ci=0;flipped=false;renderText();renderVerbs();renderCard();renderMatch();renderChoice();renderGap();renderSortPf();renderPGap();}
+
+/* ===== Шаг 1: ЗНАКОМСТВО СО ЗНАЧЕНИЕМ (образы) ===== */
+function mnData(){return MEANING[AP];}
+function preHi(inf,pf){return pf&&inf.startsWith(pf)?`<span class="pre">${pf}</span>${inf.slice(pf.length)}`:inf;}
+let mnCi=0,mnCs=0,mnCfi=0,mnEi=0;
+function renderMeaning(){const D=mnData();
+  const box=document.getElementById('mnCardBox'),note=document.getElementById('mnNote');
+  if(!D){box.hidden=true;note.innerHTML='<p style="color:var(--muted)">Образы этой части ещё готовятся. Пока переходи к тексту ниже.</p>';return;}
+  box.hidden=false;note.innerHTML='';mnCi=0;mnCfi=0;mnEi=0;mnCard();mnCf();mnEar();}
+function mnPlay(){playWord(mnData().V[mnCi].inf,M);}
+function mnCard(){const v=mnData().V[mnCi];mnCs=0;document.getElementById('mnEmo').textContent=v.em||'🔤';
+  document.getElementById('mnDe').innerHTML='';document.getElementById('mnStep').innerHTML='';
+  document.getElementById('mnBtn').textContent='① разбор приставки →';
+  document.getElementById('mnDots').innerHTML=mnData().V.map((_,i)=>`<span class="dt${i===mnCi?' on':''}"></span>`).join('');
+  playWord(v.inf,M);}
+function mnReveal(){const v=mnData().V[mnCi];mnCs++;
+  if(mnCs===1){document.getElementById('mnDe').innerHTML=preHi(v.inf,v.pre)+' <button class="say" onclick="mnPlay()">🔊</button>';
+    document.getElementById('mnStep').innerHTML=`<div class="reveal">🧩 <b>${v.pre}${v.root?' + '+v.root+(v.rru?' ('+v.rru+')':''):''}</b><br>${v.br}</div>`;
+    document.getElementById('mnBtn').textContent='② перевод →';}
+  else if(mnCs===2){document.getElementById('mnStep').innerHTML+=`<div class="reveal" style="background:#fff;border:1px solid var(--tb)">🇷🇺 <b>${v.ru}</b>${v.idi?`<div class="idi">Русский думает так же: «${v.idi}»</div>`:''}<div style="margin-top:5px;color:var(--muted);font-size:13px">Perfekt: <b>${v.pp}</b> — ge нет!</div></div>`;
+    document.getElementById('mnBtn').textContent='✓ дальше (→)';}
+  else mnNav(1);}
+function mnNav(d){const n=mnData().V.length;mnCi=(mnCi+d+n)%n;mnCard();}
+function mnCf(){const C=mnData().C;const box=document.getElementById('mnCfBox');if(!C||!C.length){box.hidden=true;return;}box.hidden=false;
+  const c=C[mnCfi];document.getElementById('mnCfFb').textContent='';document.getElementById('mnCfQ').textContent=c.ru;
+  const opts=Math.random()<.5?[c.a,c.b]:[c.b,c.a];
+  document.getElementById('mnCfOpts').innerHTML=opts.map(o=>`<div class="o" onclick="mnCfPick('${o.inf}',this)"><div class="v">${o.inf}</div><div class="g">${o.g}</div></div>`).join('');}
+function mnCfPick(inf,el){if(el.closest('.cf').dataset.done)return;el.closest('.cf').dataset.done='1';const c=mnData().C[mnCfi];const good=inf===c.a.inf;el.classList.add(good?'ok':'bad');playWord(inf,M);
+  document.querySelectorAll('#mnCfOpts .o').forEach(o=>{if(o.querySelector('.v').textContent===c.a.inf)o.classList.add('ok');});
+  document.getElementById('mnCfFb').innerHTML=good?'<span style="color:var(--ok)">✓ верно</span>':`<span style="color:#c47f00">это другое действие — верно: <b>${c.a.inf}</b></span>`;}
+function mnCfNext(){document.getElementById('mnCfOpts').dataset.done='';mnCfi=(mnCfi+1)%mnData().C.length;mnCf();}
+function mnEar(){const V=mnData().V;const v=V[mnEi];document.getElementById('mnEarFb').textContent='';
+  const others=V.filter(x=>x.inf!==v.inf).sort(()=>Math.random()-.5).slice(0,2).map(x=>x.ru);
+  const opts=[v.ru,...others].sort(()=>Math.random()-.5);
+  document.getElementById('mnEarOpts').innerHTML=opts.map(r=>`<div class="eo" onclick="mnEarPick('${r.replace(/'/g,"\'")}',this)">${r}</div>`).join('');}
+function mnEarPlay(){playWord(mnData().V[mnEi].sent,M);}
+function mnEarPick(r,el){if(el.closest('#mnEarOpts').dataset.done)return;el.closest('#mnEarOpts').dataset.done='1';const v=mnData().V[mnEi];const good=r===v.ru;el.classList.add(good?'ok':'bad');playWord(v.sent,M);
+  document.getElementById('mnEarFb').innerHTML=`${good?'✓':'Верно: '+v.ru} · <i>${v.sent}</i>`;}
+function mnEarNext(){document.getElementById('mnEarOpts').dataset.done='';mnEi=(mnEi+1)%mnData().V.length;mnEar();mnEarPlay();}
+
+function renderAll(){ci=0;flipped=false;renderMeaning();renderText();renderVerbs();renderCard();renderMatch();renderChoice();renderGap();renderSortPf();renderPGap();}
 renderTabs();renderAll();
 </script>
 </body>
