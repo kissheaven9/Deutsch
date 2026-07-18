@@ -1,64 +1,83 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Лаборатория — часть 1 Греты</title>
+<title>Лаборатория — глаголы Греты (часть 1)</title>
 <link rel="stylesheet" href="css/style.css?v=3">
 <style>
- :root{--t:#c2185b;--tbg:#fdecef;--tb:#f8bbd0;--otto:#3b5bdb;--teo:#22a06b}
- .panel{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:14px 0;background:#fff}
+ :root{--t:#c2185b;--tbg:#fdecef;--tb:#f8bbd0}
+ .panel{border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0;background:#fff}
  .panel.alt{background:var(--tbg)}
  .lab{background:#fff8e1;border:1px solid #ffd54f;border-radius:12px;padding:10px 13px;margin:10px 0;font-size:14px}
- .exnum{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:50%;
-   background:var(--t);color:#fff;font-size:13px;font-weight:700;margin-right:7px}
- .sub{color:var(--muted);font-size:13px;margin:2px 0 10px}
- .who{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
- .who .w{font-weight:700;min-width:150px}
- .hb{border:1px solid var(--line);border-radius:10px;padding:6px 12px;cursor:pointer;background:#fff;font-weight:600;font-size:14px}
- .hb.otto{border-color:var(--otto);color:var(--otto)} .hb.greta{border-color:var(--t);color:var(--t)}
- .hb.teo{border-color:var(--teo);color:var(--teo)}
- .hb.ok{background:#e8f6ee;border-color:var(--ok)} .hb.bad{background:#fdecec;border-color:var(--bad)}
- .big{font-size:26px;font-weight:800;text-align:center;padding:14px}
- .timer{font-size:34px;font-weight:800;text-align:center;color:var(--t)}
- .chat{border:1px solid var(--line);border-radius:12px;height:290px;overflow-y:auto;padding:10px;background:#fafafa}
- .msg{margin:7px 0;padding:8px 11px;border-radius:12px;max-width:85%;font-size:15px;line-height:1.5}
- .msg.me{background:#e3f2fd;margin-left:auto} .msg.g{background:var(--tbg)}
- .msg.sys{background:#fff8e1;font-size:13px;color:#7a5c00;max-width:100%}
+ .exnum{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;border-radius:50%;background:var(--t);color:#fff;font-size:13px;font-weight:700;margin-right:8px}
+ .sub{color:var(--muted);font-size:13px;margin:2px 0 12px}
+ .q{font-size:22px;font-weight:800;text-align:center;margin:6px 0 14px;min-height:30px}
+ .opts{display:grid;gap:9px;grid-template-columns:1fr}
+ @media(min-width:520px){.opts.g2{grid-template-columns:1fr 1fr}}
+ .opt{border:2px solid var(--line);border-radius:12px;padding:13px;cursor:pointer;background:#fff;font-size:17px;text-align:center;transition:.1s}
+ .opt:hover{border-color:var(--tb)} .opt.ok{background:#e8f6ee;border-color:var(--ok)} .opt.bad{background:#fdecec;border-color:var(--bad)}
+ .fb{margin-top:12px;font-size:15px;min-height:24px;text-align:center}
+ .prog{font-weight:700;color:var(--t)} .timer{font-size:30px;font-weight:800;color:var(--t);text-align:center}
+ .step{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:8px 0}
+ .chat{border:1px solid var(--line);border-radius:12px;height:270px;overflow-y:auto;padding:10px;background:#fafafa}
+ .msg{margin:7px 0;padding:8px 11px;border-radius:12px;max-width:88%;font-size:15px;line-height:1.5}
+ .msg.me{background:#e3f2fd;margin-left:auto}.msg.g{background:var(--tbg)}
  .row{display:flex;gap:8px;margin-top:8px}.row input{flex:1}
- .key{background:#f6f4ff;border:1px solid #ddd6fe;border-radius:10px;padding:10px 12px;font-size:13px;margin:10px 0}
+ .key{background:#f6f4ff;border:1px solid #ddd6fe;border-radius:10px;padding:10px 12px;font-size:13px;margin:14px 0}
+ .task{background:var(--tbg);border-radius:10px;padding:9px 12px;margin-bottom:8px;font-weight:600}
 </style></head><body>
-<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch</a><span class="crumb">Лаборатория · часть 1 Греты</span></div></header>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch</a><span class="crumb">Лаборатория · глаголы Греты</span></div></header>
 <main class="wrap">
-<h1>Лаборатория упражнений</h1>
-<p class="lead">Пробуем новые типы на <b>части 1 Греты</b> (11 неотделяемых глаголов). Понравится — раскатаем на все 7 частей и на Отто.</p>
-<div class="lab">🧪 Это черновик для оценки: смотри, что работает, что лишнее. Ничего из этого пока не встроено в основной раздел.</div>
+<h1>Лаборатория глаголов — часть 1</h1>
+<p class="lead">Цель: выучить <b>глаголы, их формы и прошедшее (Perfekt)</b>. Всё на выбор; при ошибке — <b>слышишь верный вариант</b>. Оцени, раскатаем на все части.</p>
+<div class="lab">🧪 Черновик. Что живое — что лишнее — чего не хватает?</div>
 
-<div class="panel"><h3><span class="exnum">A</span>🎭 Чей это глагол?</h3>
-  <p class="sub">Главное упражнение метода: по <b>поведению</b> приставки узнай семью → героя. Отто — приставка улетает (steht … auf). Грета — приросла, Perfekt без ge-. Тео — на -ieren.</p>
-  <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="renderWho()">🔀 Ещё раз</button><span id="wScore" style="font-weight:700;margin-left:8px"></span></div>
-  <div id="whoList"></div>
+<div class="panel"><h3><span class="exnum">1</span>👂 Услышь глагол → выбери перевод</h3>
+  <p class="sub">Играет глагол голосом Греты. Узнай на слух. Ошибся — <b>переслушай верный</b>.</p>
+  <div class="q" id="lq"><button class="btn t" onclick="lPlay()">🔊 Играть</button></div>
+  <div class="opts" id="lOpts"></div>
+  <div class="fb" id="lFb"></div>
+  <div style="text-align:center;margin-top:8px"><span class="prog" id="lProg"></span></div>
 </div>
 
-<div class="panel alt"><h3><span class="exnum">B</span>⏱ Дрилл на время</h3>
-  <p class="sub">60 секунд: русский → впиши немецкий инфинитив. Порядок случайный, ошибки возвращаются.</p>
+<div class="panel alt"><h3><span class="exnum">2</span>⏱ Дрилл на время — выбери перевод</h3>
+  <p class="sub">60 секунд. Немецкий глагол → выбери русский. Ошибка <b>звучит верным глаголом</b> и возвращается в конце.</p>
   <div class="timer" id="tmr">60</div>
-  <div class="big" id="drillWord">—</div>
-  <div class="row"><input id="drillIn" class="inp" placeholder="по-немецки…" autocomplete="off" onkeydown="if(event.key==='Enter')drillCheck()"><button class="btn t" onclick="drillCheck()">OK</button></div>
-  <div class="toolbar"><button class="btn t sm" onclick="drillStart()">▶ Старт</button><span id="dScore" style="font-weight:700;margin-left:6px"></span></div>
+  <div class="q" id="dq">—</div>
+  <div class="opts g2" id="dOpts"></div>
+  <div class="fb" id="dFb"></div>
+  <div style="text-align:center"><button class="btn t sm" onclick="dStart()">▶ Старт</button> <span class="prog" id="dScore"></span></div>
 </div>
 
-<div class="panel"><h3><span class="exnum">C</span>✍️ Напиши сам — Грета проверит</h3>
-  <p class="sub">Составь предложение с глаголом. Грета проверит <b>по правилам метода</b>: не «это мужской род», а «кошелёк — это же Отто, он вечно его достаёт, помнишь?».</p>
-  <div class="row"><select id="wVerb" class="inp"></select></div>
-  <div class="row"><input id="wIn" class="inp" placeholder="Schreib einen Satz…" autocomplete="off" onkeydown="if(event.key==='Enter')aiCheck()"><button class="btn t" onclick="aiCheck()">Проверить</button></div>
-  <div id="wOut" class="hr" style="margin-top:10px"></div>
+<div class="panel"><h3><span class="exnum">3</span>⏪ Собери прошедшее (Perfekt)</h3>
+  <p class="sub">Главное в теме. Выбери вспомогательный и <b>причастие</b>. Ловушка: у Греты <b>ge- НЕТ</b> (bekommen, не gebekommen).</p>
+  <div class="q" id="pq">—</div>
+  <div class="step" id="pAux"></div>
+  <div class="step" id="pPart"></div>
+  <div class="fb" id="pFb"></div>
+  <div style="text-align:center;margin-top:8px"><span class="prog" id="pProg"></span></div>
 </div>
 
-<div class="panel alt"><h3><span class="exnum">D</span>💬 Чат с Гретой</h3>
-  <p class="sub">Пиши ей по-немецки. Она отвечает в характере, на твоём уровне и <b>только женским родом</b>.</p>
+<div class="panel alt"><h3><span class="exnum">4</span>🔄 Настоящее → прошедшее</h3>
+  <p class="sub">Дано настоящее — выбери, как то же самое звучит в Perfekt.</p>
+  <div class="q" id="tq">—</div>
+  <div class="opts" id="tOpts"></div>
+  <div class="fb" id="tFb"></div>
+  <div style="text-align:center;margin-top:8px"><span class="prog" id="tProg"></span></div>
+</div>
+
+<div class="panel"><h3><span class="exnum">5</span>✍️ Напиши предложение — Грета проверит</h3>
+  <p class="sub">Конкретное задание: составь предложение с глаголом. Грета проверит по правилам метода и напомнит род <b>через персонажа</b>.</p>
+  <div class="task" id="wTask">—</div>
+  <div class="row"><input id="wIn" class="inp" placeholder="Schreib einen Satz…" autocomplete="off" onkeydown="if(event.key==='Enter')aiCheck()"><button class="btn t" onclick="aiCheck()">Проверить</button><button class="btn sm" onclick="wNext()">↻ другой</button></div>
+  <div id="wOut" class="fb" style="text-align:left"></div>
+</div>
+
+<div class="panel alt"><h3><span class="exnum">6</span>💬 Диалог с Гретой — с заданием</h3>
+  <p class="sub" id="chGoal"></p>
   <div class="chat" id="chat"></div>
   <div class="row"><input id="chIn" class="inp" placeholder="Schreib Greta…" autocomplete="off" onkeydown="if(event.key==='Enter')chatSend()"><button class="btn t" onclick="chatSend()">➤</button></div>
 </div>
 
-<div class="key">🔑 <b>Ключ ИИ.</b> Хранится <b>только в этом браузере</b> (localStorage), в репозиторий не попадает и мне не виден.
+<div class="key">🔑 <b>Ключ ИИ</b> (для 5 и 6). Хранится <b>только в этом браузере</b>, в репозиторий не попадает.
   <div class="row"><input id="apiKey" class="inp" type="password" placeholder="sk-..." autocomplete="off"><button class="btn sm" onclick="saveKey()">Сохранить</button><button class="btn sm" onclick="clearKey()">Удалить</button></div>
   <div id="keyState" style="margin-top:6px"></div>
 </div>
@@ -68,96 +87,103 @@
 <script src="js/app.js?v=4"></script>
 <script>
 const M='female';
-const DATA={"p1": [{"inf": "beginnen", "ru": "начинать(ся)", "pp": "hat begonnen", "forms": ["beginne", "beginnst", "beginnt", "beginnen", "beginnt", "beginnen"]}, {"inf": "bekommen", "ru": "получать", "pp": "hat bekommen", "forms": ["bekomme", "bekommst", "bekommt", "bekommen", "bekommt", "bekommen"]}, {"inf": "verstehen", "ru": "понимать", "pp": "hat verstanden", "forms": ["verstehe", "verstehst", "versteht", "verstehen", "versteht", "verstehen"]}, {"inf": "vermuten", "ru": "предполагать", "pp": "hat vermutet", "forms": ["vermute", "vermutest", "vermutet", "vermuten", "vermutet", "vermuten"]}, {"inf": "überlegen", "ru": "обдумывать", "pp": "hat überlegt", "forms": ["überlege", "überlegst", "überlegt", "überlegen", "überlegt", "überlegen"]}, {"inf": "beachten", "ru": "обращать внимание", "pp": "hat beachtet", "forms": ["beachte", "beachtest", "beachtet", "beachten", "beachtet", "beachten"]}, {"inf": "benutzen", "ru": "пользоваться", "pp": "hat benutzt", "forms": ["benutze", "benutzt", "benutzt", "benutzen", "benutzt", "benutzen"]}, {"inf": "verlieren", "ru": "терять", "pp": "hat verloren", "forms": ["verliere", "verlierst", "verliert", "verlieren", "verliert", "verlieren"]}, {"inf": "entdecken", "ru": "обнаруживать", "pp": "hat entdeckt", "forms": ["entdecke", "entdeckst", "entdeckt", "entdecken", "entdeckt", "entdecken"]}, {"inf": "benennen", "ru": "называть", "pp": "hat benannt", "forms": ["benenne", "benennst", "benennt", "benennen", "benennt", "benennen"]}, {"inf": "erleben", "ru": "переживать", "pp": "hat erlebt", "forms": ["erlebe", "erlebst", "erlebt", "erleben", "erlebt", "erleben"]}], "who": [{"inf": "beginnen", "ru": "начинать(ся)", "pp": "hat begonnen", "h": "greta"}, {"inf": "bekommen", "ru": "получать", "pp": "hat bekommen", "h": "greta"}, {"inf": "verstehen", "ru": "понимать", "pp": "hat verstanden", "h": "greta"}, {"inf": "vermuten", "ru": "предполагать", "pp": "hat vermutet", "h": "greta"}, {"inf": "überlegen", "ru": "обдумывать", "pp": "hat überlegt", "h": "greta"}, {"inf": "beachten", "ru": "обращать внимание", "pp": "hat beachtet", "h": "greta"}, {"inf": "benutzen", "ru": "пользоваться", "pp": "hat benutzt", "h": "greta"}, {"inf": "verlieren", "ru": "терять", "pp": "hat verloren", "h": "greta"}, {"inf": "entdecken", "ru": "обнаруживать", "pp": "hat entdeckt", "h": "greta"}, {"inf": "benennen", "ru": "называть", "pp": "hat benannt", "h": "greta"}, {"inf": "erleben", "ru": "переживать", "pp": "hat erlebt", "h": "greta"}, {"inf": "aufstehen", "ru": "вставать", "pp": "ist aufgestanden", "h": "otto"}, {"inf": "anrufen", "ru": "звонить", "pp": "hat angerufen", "h": "otto"}, {"inf": "einkaufen", "ru": "закупаться", "pp": "hat eingekauft", "h": "otto"}, {"inf": "mitnehmen", "ru": "брать с собой", "pp": "hat mitgenommen", "h": "otto"}, {"inf": "abholen", "ru": "забирать", "pp": "hat abgeholt", "h": "otto"}, {"inf": "vorschlagen", "ru": "предлагать", "pp": "hat vorgeschlagen", "h": "otto"}, {"inf": "organisieren", "ru": "организовывать", "pp": "hat organisiert", "h": "teo"}, {"inf": "reparieren", "ru": "чинить", "pp": "hat repariert", "h": "teo"}, {"inf": "telefonieren", "ru": "звонить по телефону", "pp": "hat telefoniert", "h": "teo"}, {"inf": "reservieren", "ru": "бронировать", "pp": "hat reserviert", "h": "teo"}]};
-const HERO={otto:'Отто (der) — отделяемые',greta:'Грета (die) — неотделяемые',teo:'Тео (das) — на -ieren'};
+const P1=[{"inf": "beginnen", "ru": "начинать(ся)", "pp": "hat begonnen", "forms": ["beginne", "beginnst", "beginnt", "beginnen", "beginnt", "beginnen"]}, {"inf": "bekommen", "ru": "получать", "pp": "hat bekommen", "forms": ["bekomme", "bekommst", "bekommt", "bekommen", "bekommt", "bekommen"]}, {"inf": "verstehen", "ru": "понимать", "pp": "hat verstanden", "forms": ["verstehe", "verstehst", "versteht", "verstehen", "versteht", "verstehen"]}, {"inf": "vermuten", "ru": "предполагать", "pp": "hat vermutet", "forms": ["vermute", "vermutest", "vermutet", "vermuten", "vermutet", "vermuten"]}, {"inf": "überlegen", "ru": "обдумывать", "pp": "hat überlegt", "forms": ["überlege", "überlegst", "überlegt", "überlegen", "überlegt", "überlegen"]}, {"inf": "beachten", "ru": "обращать внимание", "pp": "hat beachtet", "forms": ["beachte", "beachtest", "beachtet", "beachten", "beachtet", "beachten"]}, {"inf": "benutzen", "ru": "пользоваться", "pp": "hat benutzt", "forms": ["benutze", "benutzt", "benutzt", "benutzen", "benutzt", "benutzen"]}, {"inf": "verlieren", "ru": "терять", "pp": "hat verloren", "forms": ["verliere", "verlierst", "verliert", "verlieren", "verliert", "verlieren"]}, {"inf": "entdecken", "ru": "обнаруживать", "pp": "hat entdeckt", "forms": ["entdecke", "entdeckst", "entdeckt", "entdecken", "entdeckt", "entdecken"]}, {"inf": "benennen", "ru": "называть", "pp": "hat benannt", "forms": ["benenne", "benennst", "benennt", "benennen", "benennt", "benennen"]}, {"inf": "erleben", "ru": "переживать", "pp": "hat erlebt", "forms": ["erlebe", "erlebst", "erlebt", "erleben", "erlebt", "erleben"]}];
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function nrm(s){return (s||'').toLowerCase().replace(/ß/g,'ss').replace(/[^a-zäöü]/g,'');}
+function pick3(arr,notInf,key){const o=shuffle(arr.filter(x=>x.inf!==notInf)).slice(0,2).map(x=>x[key]);return shuffle([arr.find(x=>x.inf===notInf)[key],...o]);}
 
-/* A — Чей это глагол? */
-let wOk=0,wAll=0;
-function renderWho(){wOk=0;wAll=0;document.getElementById('wScore').textContent='';
-  document.getElementById('whoList').innerHTML=shuffle(DATA.who).slice(0,9).map((v,i)=>
-   `<div class="who" data-h="${v.h}" data-i="${i}"><span class="w">${v.inf}</span>
-    <button class="hb otto" onclick="whoPick('otto',this)">Отто</button>
-    <button class="hb greta" onclick="whoPick('greta',this)">Грета</button>
-    <button class="hb teo" onclick="whoPick('teo',this)">Тео</button>
-    <span class="rres" id="wr${i}" style="font-size:13px"></span></div>`).join('');}
-function whoPick(h,btn){const row=btn.closest('.who');if(row.dataset.done)return;
-  const good=row.dataset.h===h;btn.classList.add(good?'ok':'bad');wAll++;
-  if(good){row.dataset.done='1';wOk++;document.getElementById('wr'+row.dataset.i).innerHTML='<span style="color:var(--ok)">✓ '+HERO[h]+'</span>';}
-  else document.getElementById('wr'+row.dataset.i).innerHTML='<span style="color:var(--bad)">не он — вспомни, как ведёт себя приставка</span>';
-  document.getElementById('wScore').textContent=wOk+' / '+wAll;}
+/* 1. Услышь → выбери перевод */
+let lCur=null;
+function lNew(){lCur=shuffle(P1)[0];document.getElementById('lFb').textContent='';
+  document.getElementById('lq').innerHTML=`<button class="btn t" onclick="lPlay()">🔊 Играть ещё</button>`;
+  const opts=pick3(P1,lCur.inf,'ru');
+  document.getElementById('lOpts').innerHTML=opts.map(r=>`<div class="opt" onclick="lPick('${r.replace(/'/g,"\\'")}',this)">${r}</div>`).join('');
+  setTimeout(lPlay,150);}
+function lPlay(){playWord(lCur.inf,M);}
+function lPick(r,el){if(el.closest('.opts').dataset.done)return;const good=r===lCur.ru;
+  el.classList.add(good?'ok':'bad');el.closest('.opts').dataset.done='1';
+  playWord(lCur.inf,M);   // ← слышим верный глагол В ЛЮБОМ случае, особенно при ошибке
+  document.getElementById('lFb').innerHTML=good?`<span style="color:var(--ok)">✓ <b>${lCur.inf}</b> — ${lCur.ru}</span>`
+    :`<span style="color:var(--bad)">Верно: <b>${lCur.inf}</b> — ${lCur.ru}</span> (послушай ещё раз)`;
+  setTimeout(lNew,1400);}
 
-/* B — дрилл на время */
-let dQ=[],dCur=null,dLeft=60,dTimer=null,dOk=0;
-function drillStart(){dQ=shuffle(DATA.p1.slice());dOk=0;dLeft=60;
-  clearInterval(dTimer);dTimer=setInterval(()=>{dLeft--;document.getElementById('tmr').textContent=dLeft;
-    if(dLeft<=0){clearInterval(dTimer);document.getElementById('drillWord').textContent='⏱ Стоп!';
-      document.getElementById('dScore').textContent='Верно: '+dOk;}},1000);
-  drillNext();}
-function drillNext(){if(!dQ.length)dQ=shuffle(DATA.p1.slice());dCur=dQ.shift();
-  document.getElementById('drillWord').textContent=dCur.ru;document.getElementById('wIn');
-  const i=document.getElementById('drillIn');i.value='';i.focus();}
-function drillCheck(){if(!dCur||dLeft<=0)return;const i=document.getElementById('drillIn');
-  const good=nrm(i.value)===nrm(dCur.inf);
-  if(good){dOk++;playWord(dCur.inf,M);document.getElementById('dScore').innerHTML='<span style="color:var(--ok)">✓ '+dCur.inf+'</span> · верно: '+dOk;drillNext();}
-  else{document.getElementById('dScore').innerHTML='<span style="color:var(--bad)">→ '+dCur.inf+'</span>';dQ.push(dCur);drillNext();}}
+/* 2. Дрилл на время */
+let dQ=[],dCur=null,dLeft=60,dT=null,dOk=0,dErr=[];
+function dStart(){dQ=shuffle(P1.slice());dErr=[];dOk=0;dLeft=60;
+  clearInterval(dT);dT=setInterval(()=>{dLeft--;document.getElementById('tmr').textContent=dLeft;
+    if(dLeft<=0){clearInterval(dT);document.getElementById('dq').textContent='⏱ Стоп!';
+      document.getElementById('dOpts').innerHTML='';
+      document.getElementById('dScore').innerHTML=`Верно: ${dOk}`+(dErr.length?` · повтори: <b>${[...new Set(dErr)].join(', ')}</b>`:' 🎉');}},1000);
+  dNext();}
+function dNext(){if(dLeft<=0)return;if(!dQ.length)dQ=shuffle(P1.slice());dCur=dQ.shift();
+  document.getElementById('dFb').textContent='';document.getElementById('dq').innerHTML=`<b>${dCur.inf}</b> <button class="say" onclick="playWord('${dCur.inf}','${M}')">🔊</button>`;
+  const opts=pick3(P1,dCur.inf,'ru');
+  document.getElementById('dOpts').innerHTML=opts.map(r=>`<div class="opt" onclick="dPick('${r.replace(/'/g,"\\'")}',this)">${r}</div>`).join('');}
+function dPick(r,el){if(dLeft<=0)return;const good=r===dCur.ru;el.classList.add(good?'ok':'bad');
+  if(good){dOk++;document.getElementById('dFb').innerHTML='<span style="color:var(--ok)">✓</span>';setTimeout(dNext,350);}
+  else{dErr.push(dCur.inf);dQ.push(dCur);playWord(dCur.inf,M);   // ← звучит верный
+    document.getElementById('dFb').innerHTML=`<span style="color:var(--bad)">${dCur.inf} = ${dCur.ru}</span> 🔊`;setTimeout(dNext,1300);}
+  document.getElementById('dScore').textContent='Верно: '+dOk;}
 
-/* ключ */
-function saveKey(){const k=document.getElementById('apiKey').value.trim();if(!k)return;
-  localStorage.setItem('deutsch_ai_key',k);document.getElementById('apiKey').value='';keyState();}
+/* 3. Собери Perfekt */
+let pCur=null,pAuxOk=false;
+function pNew(){pCur=shuffle(P1)[0];pAuxOk=false;
+  const [aux,part]=pCur.pp.split(' ');
+  document.getElementById('pq').innerHTML=`<b>${pCur.inf}</b> <span style="font-size:15px;color:var(--muted)">— ${pCur.ru}</span><br><span style="font-size:15px">Ich ___ … ___.</span>`;
+  document.getElementById('pFb').textContent='';
+  const auxOpt=shuffle([aux==='ist'?'bin':'habe', aux==='ist'?'habe':'bin']);
+  document.getElementById('pAux').innerHTML='<b style="align-self:center">1) вспом.:</b> '+auxOpt.map(a=>`<button class="btn opt" style="padding:8px 16px" onclick="pAuxPick('${a}',this)">${a}</button>`).join('');
+  // причастие + ловушка ge-
+  const distr=shuffle([part,'ge'+part,pCur.forms[2]]);
+  document.getElementById('pPart').innerHTML='<b style="align-self:center">2) причастие:</b> '+distr.map(x=>`<button class="btn opt" style="padding:8px 16px" onclick="pPartPick('${x}',this)">${x}</button>`).join('');}
+function pAuxPick(a,el){const [aux]=pCur.pp.split(' ');const need=aux==='ist'?'bin':'habe';const good=a===need;
+  el.classList.add(good?'ok':'bad');pAuxOk=good;
+  document.getElementById('pFb').innerHTML=good?'<span style="color:var(--ok)">✓ вспом. верно, теперь причастие</span>':`<span style="color:var(--bad)">→ ${need} (${aux==='ist'?'sein':'haben'})</span>`;}
+function pPartPick(x,el){const part=pCur.pp.split(' ')[1];const good=x===part;el.classList.add(good?'ok':'bad');
+  playWord(pCur.pp,M);   // ← слышим правильный Perfekt всегда
+  document.getElementById('pFb').innerHTML=good?`<span style="color:var(--ok)">✓ Ich <b>${pCur.pp.replace('hat','habe').replace('ist','bin')}</b> — без ge-! 🔊</span>`
+    :`<span style="color:var(--bad)">Верно: <b>${part}</b> — у Греты ge- НЕТ! 🔊</span>`;
+  setTimeout(pNew,1700);}
+
+/* 4. Präsens → Perfekt */
+let tCur=null;
+function tNew(){tCur=shuffle(P1)[0];const pres='Ich '+tCur.forms[0]+' …';
+  const [aux,part]=tCur.pp.split(' ');const auxI=aux==='ist'?'bin':'habe';
+  const good=`Ich ${auxI} … ${part}.`;
+  const w1=`Ich ${auxI} … ge${part}.`;const w2=`Ich ${aux==='ist'?'habe':'bin'} … ${part}.`;
+  const opts=shuffle([good,w1,w2]);
+  document.getElementById('tq').innerHTML=`Настоящее: <b>${pres}</b><br><span style="font-size:14px;color:var(--muted)">(${tCur.inf} — ${tCur.ru})</span>`;
+  document.getElementById('tFb').textContent='';
+  document.getElementById('tOpts').innerHTML=opts.map(o=>`<div class="opt" style="font-size:16px" onclick="tPick(this,'${o===good}')">${o}</div>`).join('');}
+function tPick(el,ok){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';
+  const good=ok==='true';el.classList.add(good?'ok':'bad');playWord(tCur.pp,M);
+  document.getElementById('tFb').innerHTML=good?'<span style="color:var(--ok)">✓ верно! 🔊</span>':`<span style="color:var(--bad)">Верно: Ich ${tCur.pp.replace('hat','habe').replace('ist','bin')} … — без ge- 🔊</span>`;
+  setTimeout(()=>{document.querySelector('#tOpts').dataset.done='';tNew();},1600);}
+
+/* ключ + ИИ */
+function saveKey(){const k=document.getElementById('apiKey').value.trim();if(k)localStorage.setItem('deutsch_ai_key',k);document.getElementById('apiKey').value='';keyState();}
 function clearKey(){localStorage.removeItem('deutsch_ai_key');keyState();}
 function getKey(){return localStorage.getItem('deutsch_ai_key')||'';}
-function keyState(){document.getElementById('keyState').innerHTML=getKey()
-  ? '<span style="color:var(--ok);font-weight:700">✅ ключ сохранён в этом браузере</span>'
-  : '<span style="color:var(--muted)">ключ не задан — упражнения C и D не работают</span>';}
-
-/* ПРАВИЛА МЕТОДА для ИИ — поправка МНЕМОНИЧЕСКАЯ, не грамматическая */
-const SYS = `Ты — Грета: тёплая шумная итальянка из Неаполя, повар (die Köchin), соседка молчуна Отто. Говоришь «Mamma mia!».
-Ученица учит немецкий на уровне A1–A2 по методу, где РОД привязан к персонажу:
-- der → ОТТО: шотландец-садовник, бережливый, знает цену всему до цента, вечно достаёт старый кошелёк (der Geldbeutel), килт, пластик (der Kunststoff). Его линза — ЦЕНА.
-- die → ГРЕТА (ты): кухня, цвета, сумка, очки в кудрях, часы, солнце Неаполя. Твоя линза — ЦВЕТ.
-- das → ТЕО: ребёнок, игрушки, из чего сделано (das Material/Holz/Metall/Glas). Его линза — МАТЕРИАЛ.
-ГЛАГОЛЫ по семьям: отделяемые → Отто (steht … auf, aufgestanden). Неотделяемые be-/er-/ver-/ge- → ты (bekommen → hat bekommen, БЕЗ ge-). На -ieren → Тео (organisiert).
-
-КАК ИСПРАВЛЯТЬ (самое важное):
-- Ошибка в РОДЕ → НЕ говори «это мужской род». Напомни через ПЕРСОНАЖА и его черту:
-  «der Geldbeutel — это же Отто! Он жадный и вечно его достаёт, помнишь? Значит der.»
-- Ошибка в СЕМЬЕ глагола → напомни поведение: «bekommen — мой глагол: приставка приросла, и в Perfekt нет ge-.»
-- Уровень: только простое A1–A2. Не давай слов выше уровня.
-- Отвечай КОРОТКО (2–4 строки), по-русски с немецкими примерами, тепло и эмоционально, как Грета.
-- Если всё верно — похвали и добавь ОДНУ живую деталь из своего мира.`;
-
-async function ask(messages){
-  const k=getKey();
-  if(!k){return '⚠️ Сначала введи ключ ИИ внизу страницы.';}
-  try{
-    const r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+k},
-      body:JSON.stringify({model:'gpt-4o-mini',messages,temperature:0.7,max_tokens:400})});
-    if(!r.ok){const t=await r.text();return '⚠️ Ошибка ИИ ('+r.status+'): '+t.slice(0,160);}
-    const j=await r.json();return j.choices[0].message.content;
-  }catch(e){return '⚠️ Сеть недоступна: '+e.message;}
-}
-
-/* C — проверка письма */
-function fillVerbs(){document.getElementById('wVerb').innerHTML=DATA.p1.map(v=>`<option value="${v.inf}">${v.inf} — ${v.ru}</option>`).join('');}
-async function aiCheck(){const v=document.getElementById('wVerb').value;const s=document.getElementById('wIn').value.trim();
-  if(!s)return;const out=document.getElementById('wOut');out.innerHTML='<span style="color:var(--muted)">Грета читает…</span>';
-  const a=await ask([{role:'system',content:SYS},
-    {role:'user',content:`Я составила предложение с глаголом «${v}»:\n${s}\n\nПроверь: грамматика, уровень A1-A2, семья глагола, и РОД (в моём тексте должен быть только женский — я Грета). Если род чужой — напомни через персонажа.`}]);
-  out.innerHTML='<div class="msg g">'+a.replace(/\n/g,'<br>')+'</div>';}
-
-/* D — чат */
+function keyState(){document.getElementById('keyState').innerHTML=getKey()?'<span style="color:var(--ok);font-weight:700">✅ ключ в этом браузере</span>':'<span style="color:var(--muted)">ключ не задан — 5 и 6 не работают</span>';}
+const SYS=`Ты — Грета: тёплая шумная итальянка из Неаполя, повар, соседка молчуна Отто. Говоришь «Mamma mia!». Ученица учит немецкий A1-A2 по методу, где РОД привязан к персонажу: der→ОТТО (жадный садовник, кошелёк der Geldbeutel, цена), die→ГРЕТА (ты: кухня, цвета, солнце), das→ТЕО (ребёнок, из чего сделано). Глаголы: отделяемые→Отто (steht…auf), неотделяемые be-/er-/ver-/ge-→ты (bekommen→hat bekommen, БЕЗ ge-), -ieren→Тео. ИСПРАВЛЯЙ РОД ЧЕРЕЗ ПЕРСОНАЖА, не грамматикой: не «это мужской род», а «der Geldbeutel — это же Отто, он вечно его достаёт, помнишь? значит der». Уровень строго A1-A2. Коротко (2-4 строки), тепло, как Грета.`;
+async function ask(msgs){const k=getKey();if(!k)return '⚠️ Введи ключ ИИ внизу.';
+  try{const r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+k},body:JSON.stringify({model:'gpt-4o-mini',messages:msgs,temperature:0.7,max_tokens:400})});
+  if(!r.ok)return '⚠️ Ошибка ИИ '+r.status+': '+(await r.text()).slice(0,140);const j=await r.json();return j.choices[0].message.content;}catch(e){return '⚠️ Сеть: '+e.message;}}
+let wCur=null;
+function wNext(){wCur=shuffle(P1)[0];document.getElementById('wTask').innerHTML=`✍️ Составь предложение с глаголом <b style="color:var(--t)">${wCur.inf}</b> (${wCur.ru}). Perfekt: <b>${wCur.pp}</b>.`;document.getElementById('wIn').value='';document.getElementById('wOut').textContent='';}
+async function aiCheck(){const s=document.getElementById('wIn').value.trim();if(!s)return;
+  document.getElementById('wOut').innerHTML='<span style="color:var(--muted)">Грета читает…</span>';
+  const a=await ask([{role:'system',content:SYS},{role:'user',content:`Задание было: составить предложение с «${wCur.inf}» (${wCur.ru}). Я написала:\n${s}\nПроверь грамматику, уровень, семью глагола и РОД (у меня, Греты, только женский). Если род чужой — напомни через персонажа. В конце покажи правильный вариант, если была ошибка.`}]);
+  document.getElementById('wOut').innerHTML='<div class="msg g">'+a.replace(/\n/g,'<br>')+'</div>';}
+/* чат с целью */
+const GOAL='🎯 Задание: расскажи Грете по-немецки, что ты на этой неделе ПОЛУЧИЛА (bekommen) и что ЗАБЫЛА (vergessen). Она поможет и поправит.';
 let hist=[];
 function addMsg(t,cls){const c=document.getElementById('chat');c.insertAdjacentHTML('beforeend','<div class="msg '+cls+'">'+t.replace(/\n/g,'<br>')+'</div>');c.scrollTop=c.scrollHeight;}
-async function chatSend(){const i=document.getElementById('chIn');const s=i.value.trim();if(!s)return;
-  addMsg(s,'me');i.value='';hist.push({role:'user',content:s});
-  addMsg('…','g');
-  const a=await ask([{role:'system',content:SYS+'\nЭто ЧАТ: отвечай как Грета, по-немецки простыми фразами A1-A2, 1-3 предложения, потом в скобках короткий перевод. Мягко поправляй ошибки через персонажей.'},...hist.slice(-8)]);
-  document.getElementById('chat').lastChild.remove();
-  addMsg(a,'g');hist.push({role:'assistant',content:a});}
+async function chatSend(){const i=document.getElementById('chIn');const s=i.value.trim();if(!s)return;addMsg(s,'me');i.value='';hist.push({role:'user',content:s});addMsg('…','g');
+  const a=await ask([{role:'system',content:SYS+'\nЭто ЧАТ с ЗАДАНИЕМ: ученица рассказывает, что получила (bekommen) и забыла (vergessen) на неделе. Веди диалог по-немецки простыми фразами A1-A2 (1-3 предложения + короткий перевод в скобках), задавай наводящие вопросы, мягко правь через персонажей. Хвали за верные Perfekt-формы.'},...hist.slice(-8)]);
+  document.getElementById('chat').lastChild.remove();addMsg(a,'g');hist.push({role:'assistant',content:a});}
 
-renderWho();fillVerbs();keyState();
-addMsg('Ciao! Ich bin Greta. Schreib mir etwas! <i>(Привет! Я Грета. Напиши мне что-нибудь!)</i>','g');
+lNew();pNew();tNew();wNext();keyState();
+document.getElementById('chGoal').innerHTML=GOAL;
+addMsg('Ciao! Erzähl mir: Was hast du diese Woche <b>bekommen</b>? Und was hast du <b>vergessen</b>? <i>(Что получила и что забыла на этой неделе?)</i>','g');
 </script></body></html>
