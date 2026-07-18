@@ -29,7 +29,7 @@
 <main class="wrap">
 <h1>Лестница глаголов — часть 1</h1>
 <p class="lead">Не набор игр, а <b>прогрессия</b>: сначала узнаёшь, потом вспоминаешь сам, потом производишь Perfekt, потом в контексте. Память строит <b>усилие вспоминания</b>, поэтому чем ниже ступень — тем больше пишешь сам.</p>
-<div class="ladder">🪜 <b>Ступени:</b> 1 Знакомство → 2 Узнай на слух → 3 <b>Вспомни (пишешь сам)</b> → 4 <b>Perfekt (пишешь сам)</b> → 5 В связном тексте → 6 Слушай и пойми → 7 Скажи сам (Грета проверит)</div>
+<div class="ladder">🪜 <b>Ступени:</b> 1 Знакомство → 2 <b>Читай историю</b> (вход) → 3 Узнай на слух → 4 <b>Вспомни (пишешь сам)</b> → 5 <b>Perfekt (пишешь сам)</b> → 6 В связном тексте → 7 Слушай и пойми → 8 Скажи сам</div>
 
 <div class="panel"><h3><span class="exnum">1</span>📇 Знакомство</h3>
   <span class="why">кодирование: звук + смысл + Perfekt вместе</span>
@@ -37,14 +37,23 @@
   <div class="row" style="justify-content:center"><button class="btn" onclick="c1Prev()">←</button><span id="c1n" style="align-self:center"></span><button class="btn" onclick="c1Next()">→</button></div>
 </div>
 
-<div class="panel alt"><h3><span class="exnum">2</span>👂 Узнай на слух</h3>
+
+<div class="panel alt"><h3><span class="exnum">2</span>📖 Читай историю + слушай + клик по слову</h3>
+  <span class="why">главный ВХОД: слово живёт в связном тексте (comprehensible input)</span>
+  <p class="sub">🔊 — слушай Грету. Нажми на любое <b>слово</b> — перевод.</p>
+  <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="rdPlay(this)">🔊 Слушать историю</button></div>
+  <p id="rdText" style="font-size:17px;line-height:2.1"></p>
+  <div id="rdPop" class="fb" style="text-align:left;font-weight:600"></div>
+</div>
+
+<div class="panel alt"><h3><span class="exnum">3</span>👂 Узнай на слух</h3>
   <span class="why">узнавание — разминка, самый лёгкий уровень</span>
   <div class="hdr"><span class="prog" id="p2">Старт</span></div>
   <div class="q" id="q2"><button class="btn t" onclick="s2start()">▶ Старт</button></div>
   <div class="opts" id="o2"></div><div class="fb" id="f2"></div>
 </div>
 
-<div class="panel"><h3><span class="exnum">3</span>💬 Вспомни: русский → немецкий</h3>
+<div class="panel"><h3><span class="exnum">4</span>💬 Вспомни: русский → немецкий</h3>
   <span class="why">ВСПОМИНАНИЕ (пишешь сам) — вот что строит память и речь</span>
   <p class="sub">Дан русский — впиши немецкий инфинитив. Не помнишь — «подсказка», но лучше помучиться. Ошибка звучит верным.</p>
   <div class="hdr"><span class="prog" id="p3">Слово 1 / 11</span></div>
@@ -53,7 +62,7 @@
   <div class="fb" id="f3"></div>
 </div>
 
-<div class="panel alt"><h3><span class="exnum">4</span>⏪ Perfekt — впиши сам</h3>
+<div class="panel alt"><h3><span class="exnum">5</span>⏪ Perfekt — впиши сам</h3>
   <span class="why">ГЛАВНАЯ ЦЕЛЬ: производство прошедшего, ловушка «без ge-»</span>
   <p class="sub">Дан инфинитив — напиши Perfekt (<b>hat/ist + причастие</b>). У Греты <b>ge- НЕТ</b>: bekommen → hat bekommen.</p>
   <div class="hdr"><span class="prog" id="p4">Слово 1 / 11</span></div>
@@ -63,21 +72,21 @@
   <div id="r4" hidden></div>
 </div>
 
-<div class="panel"><h3><span class="exnum">5</span>🔤 В связном тексте</h3>
+<div class="panel"><h3><span class="exnum">6</span>🔤 В связном тексте</h3>
   <span class="why">контекст: глагол в смысле, а не в вакууме</span>
   <p id="t5" style="font-size:17px;line-height:2.4"></p>
   <div class="fb" id="f5"></div>
   <div style="text-align:center"><button class="btn t sm" onclick="s5check()">Проверить</button> <button class="btn sm" onclick="s5build()">↻</button></div>
 </div>
 
-<div class="panel alt"><h3><span class="exnum">6</span>🎧 Слушай историю → ответь</h3>
+<div class="panel alt"><h3><span class="exnum">7</span>🎧 Слушай историю → ответь</h3>
   <span class="why">понимание на слух: текст скрыт</span>
   <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="s6play(this)">🔊 Слушать</button></div>
   <div class="q" id="q6" style="font-size:17px"></div>
   <div class="opts" id="o6"></div><div class="fb" id="f6"></div>
 </div>
 
-<div class="panel"><h3><span class="exnum">7</span>✍️ Скажи сам — Грета проверит</h3>
+<div class="panel"><h3><span class="exnum">8</span>✍️ Скажи сам — Грета проверит</h3>
   <span class="why">свободная продукция + разбор через персонажа</span>
   <div style="background:var(--tbg);border-radius:10px;padding:9px 12px;margin-bottom:8px;font-weight:600" id="t7"></div>
   <div class="row"><input id="i7" class="inp" placeholder="Schreib einen Satz…" onkeydown="if(event.key==='Enter')s7check()"><button class="btn t" onclick="s7check()">Проверить</button><button class="btn sm" onclick="s7next()">↻ другой</button></div>
@@ -164,5 +173,12 @@ async function s7check(){const s=document.getElementById('i7').value.trim();if(!
   const a=await aiAsk([{role:'system',content:METHOD_SYS},{role:'user',content:`Задание: предложение с «${cur7.inf}» (${cur7.ru}). Я написала:\n${s}\nПроверь грамматику, уровень A1-A2, семью глагола, РОД (у меня только женский). Род поправь через персонажа. Покажи верный вариант, если ошибка.`}]);
   document.getElementById('o7').innerHTML='<div class="mne">'+a.replace(/\n/g,'<br>')+'</div>';}
 
-c1show();s3new();s4new();s5build();s6show();s7next();kState();
+
+/* 2 Читай историю: контекст + аудио + клик по слову */
+const GLOSS={alles:'всё',beginnt:'начинается',mittwoch:'среда',bekomme:'получаю',post:'почта',verstehe:'понимаю',zuerst:'сначала',vermute:'предполагаю',schlimmste:'худшее',strafe:'штраф',immer:'всегда',eile:'спешка',komme:'прихожу',spät:'поздно',werbung:'реклама',woche:'неделя',überlege:'обдумываю',schön:'красиво',beachte:'замечаю',unterschrift:'подпись',brille:'очки',locken:'кудри',stunde:'час',verloren:'потеряла',benutze:'пользуюсь',endlich:'наконец',lese:'читаю',einladung:'приглашение',oper:'опера',entdecke:'обнаруживаю',weiter:'дальше',premiere:'премьера',hundert:'сто',personen:'персон(ы)',benennen:'называют',beste:'лучшую',köchin:'повариха',neapel:'Неаполь',erlebt:'переживала',schaffe:'справлюсь',halbe:'половину'};
+function rdRender(){document.getElementById('rdText').innerHTML=T1.split(/(\s+)/).map(w=>{const k=w.toLowerCase().replace(/[^a-zäöüß]/g,'');return GLOSS[k]?`<span style="cursor:pointer;border-bottom:1px dotted var(--t)" onclick="rdWord('${k}',this)">${w}</span>`:w;}).join('');}
+function rdWord(k,el){document.getElementById('rdPop').innerHTML=`<b>${el.textContent}</b> — ${GLOSS[k]||'?'} <button class="say" onclick="playWord('${k}','${M}')">🔊</button>`;}
+function rdPlay(b){playSeq(['audio/greta-part-1.mp3?v=1'],b,[{t:T1,role:M}]);}
+
+c1show();rdRender();s3new();s4new();s5build();s6show();s7next();kState();
 </script></body></html>
