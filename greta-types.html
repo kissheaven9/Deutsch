@@ -42,7 +42,7 @@
     <div class="fb" id="hFb"></div>
   </div>
   <div id="hResult" hidden></div>
-  <div style="text-align:center;margin-top:8px"><button class="btn sm" onclick="hStart()">↻ Начать заново</button></div>
+  <div style="text-align:center;margin-top:8px"><button class="btn sm" onclick="hReady()">↻ Заново</button></div>
 </div>
 
 <div class="panel alt"><h3><span class="exnum">2</span>🧩 Собери фразу (прошедшее)</h3>
@@ -100,6 +100,11 @@ function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
 
 /* 1. Услышь — РАУНД */
 let hQ=[],hi=0,hCur=null,hOk=0,hWrong=[],hSec=0,hT=null;
+function hReady(){document.getElementById('hResult').hidden=true;document.getElementById('hBody').hidden=false;
+  clearInterval(hT);document.getElementById('hClock').textContent='0:00';
+  document.getElementById('hProg').textContent='Раунд из '+P1.length+' глаголов';
+  document.getElementById('hQ').innerHTML='<button class="btn t" onclick="hStart()">▶ Старт</button>';
+  document.getElementById('hOpts').innerHTML='';document.getElementById('hFb').textContent='';}
 function hStart(){hQ=shuffle(P1.slice());hi=0;hOk=0;hWrong=[];hSec=0;
   document.getElementById('hResult').hidden=true;document.getElementById('hBody').hidden=false;
   clearInterval(hT);hT=setInterval(()=>{hSec++;document.getElementById('hClock').textContent=fmt(hSec);},1000);
@@ -174,7 +179,7 @@ function kSave(){aiSaveKey(document.getElementById('apiKey').value);document.get
 function kClear(){aiClearKey();kState();}
 function kState(){document.getElementById('kState').innerHTML=aiGetKey()?'<span style="color:var(--ok);font-weight:700">✅ ключ в этом браузере</span>':'<span style="color:var(--muted)">без ключа подсказки-мнемоники не работают</span>';}
 
-hStart();wbNext();clNew();kState();
+hReady();wbNext();clNew();kState();
 
 /* 4. Читай в контексте + аудио + клик по слову */
 const GLOSS={alles:'всё',beginnt:'начинается',mittwoch:'среда',bekomme:'получаю',post:'почта',verstehe:'понимаю',zuerst:'сначала',vermute:'предполагаю',schlimmste:'худшее',strafe:'штраф',immer:'всегда',eile:'спешка',komme:'прихожу',spät:'поздно',werbung:'реклама',woche:'неделя',überlege:'обдумываю',schön:'красиво',beachte:'замечаю',unterschrift:'подпись',brille:'очки',locken:'кудри',stunde:'час',verloren:'потеряла',benutze:'пользуюсь',endlich:'наконец',lese:'читаю',einladung:'приглашение',oper:'опера',entdecke:'обнаруживаю',weiter:'дальше',premiere:'премьера',hundert:'сто',personen:'персон(ы)',benennen:'называют',beste:'лучшую',köchin:'повариха',neapel:'Неаполь',erlebt:'переживала',schaffe:'справлюсь',halbe:'половину'};
