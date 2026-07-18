@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Типы упражнений — глаголы Греты</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ :root{--t:#c2185b;--tbg:#fdecef;--tb:#f8bbd0}
+ .panel{border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0;background:#fff}
+ .panel.alt{background:var(--tbg)}
+ .lab{background:#fff8e1;border:1px solid #ffd54f;border-radius:12px;padding:10px 13px;margin:10px 0;font-size:14px}
+ .exnum{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;border-radius:50%;background:var(--t);color:#fff;font-size:13px;font-weight:700;margin-right:8px}
+ .sub{color:var(--muted);font-size:13px;margin:2px 0 12px}
+ .hdr{display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:10px}
+ .hdr .prog{color:var(--t)} .hdr .clock{font-variant-numeric:tabular-nums;color:var(--muted)}
+ .q{font-size:22px;font-weight:800;text-align:center;margin:8px 0 14px;min-height:30px}
+ .opts{display:grid;gap:9px}.opt{border:2px solid var(--line);border-radius:12px;padding:13px;cursor:pointer;background:#fff;font-size:17px;text-align:center}
+ .opt:hover{border-color:var(--tb)}.opt.ok{background:#e8f6ee;border-color:var(--ok)}.opt.bad{background:#fdecec;border-color:var(--bad)}
+ .fb{margin-top:10px;text-align:center;min-height:22px}
+ .result{text-align:center;padding:12px}
+ .result .big{font-size:40px;font-weight:800;color:var(--t)}
+ .chip{display:inline-block;border:1px solid var(--tb);border-radius:999px;padding:6px 13px;margin:4px;cursor:pointer;background:var(--tbg);font-weight:600}
+ .chip:hover{background:#fff}
+ .mne{background:#f6f4ff;border:1px solid #ddd6fe;border-radius:10px;padding:10px 12px;margin-top:10px;text-align:left;font-size:15px}
+ .blocks{display:flex;flex-wrap:wrap;gap:8px;min-height:46px;border:2px dashed var(--tb);border-radius:10px;padding:8px;margin-bottom:8px}
+ .bank{display:flex;flex-wrap:wrap;gap:8px}
+ .blk{border:1px solid var(--line);border-radius:9px;padding:8px 13px;cursor:pointer;background:#fff;font-size:16px}
+ .blk.used{opacity:.35;pointer-events:none}
+ .row{display:flex;gap:8px;margin-top:8px}.row input{flex:1}
+ .key{background:#f6f4ff;border:1px solid #ddd6fe;border-radius:10px;padding:10px 12px;font-size:13px;margin:14px 0}
+</style></head><body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch</a><span class="crumb">Типы упражнений · глаголы Греты</span></div></header>
+<main class="wrap">
+<h1>Типы упражнений — часть 1</h1>
+<p class="lead">Разные форматы на пробу. Оцени каждый: что оставить, что убрать.</p>
+<div class="lab">🧪 Черновик. Внизу — ключ ИИ (для подсказок-мнемоник).</div>
+
+<div class="panel"><h3><span class="exnum">1</span>👂 Услышь глагол — раунд</h3>
+  <p class="sub">Слушаешь глагол → выбираешь перевод. В конце — сколько верно, за какое время, и какие глаголы подтянуть (клик по глаголу → Грета подскажет, как запомнить).</p>
+  <div id="hBody">
+    <div class="hdr"><span class="prog" id="hProg">Глагол 1 / 11</span><span class="clock" id="hClock">0:00</span></div>
+    <div class="q" id="hQ"><button class="btn t" onclick="hPlay()">🔊 Играть</button></div>
+    <div class="opts" id="hOpts"></div>
+    <div class="fb" id="hFb"></div>
+  </div>
+  <div id="hResult" hidden></div>
+  <div style="text-align:center;margin-top:8px"><button class="btn sm" onclick="hStart()">↻ Начать заново</button></div>
+</div>
+
+<div class="panel alt"><h3><span class="exnum">2</span>🧩 Собери фразу (прошедшее)</h3>
+  <p class="sub">Нажимай блоки по порядку — собери Perfekt. Тренирует порядок слов: <b>вспом. — … — причастие в конце</b>.</p>
+  <div class="q" id="wbRu" style="font-size:17px">—</div>
+  <div class="blocks" id="wbLine"></div>
+  <div class="bank" id="wbBank"></div>
+  <div class="fb" id="wbFb"></div>
+  <div style="text-align:center;margin-top:8px"><button class="btn sm" onclick="wbUndo()">← Стереть</button> <button class="btn t sm" onclick="wbNext()">Дальше →</button></div>
+</div>
+
+<div class="panel"><h3><span class="exnum">3</span>🔁 Один глагол — много контекстов</h3>
+  <p class="sub">Один глагол в РАЗНЫХ предложениях (не из текста). Так он запоминается как слово, а не как место в тексте.</p>
+  <div class="q" id="clQ" style="font-size:18px">—</div>
+  <div class="opts" id="clOpts"></div>
+  <div class="fb" id="clFb"></div>
+</div>
+
+<div class="key">🔑 <b>Ключ ИИ</b> — только в этом браузере. <div class="row"><input id="apiKey" class="inp" type="password" placeholder="sk-..."><button class="btn sm" onclick="kSave()">Сохранить</button><button class="btn sm" onclick="kClear()">Удалить</button></div><div id="kState" style="margin-top:6px"></div></div>
+<div class="scenenav"><a href="thema-untrennbar.html">← Раздел Греты</a> · <a href="greta-lab.html">другая лаборатория</a></div>
+</main>
+<footer>Deutsch · типы упражнений</footer>
+<script src="js/app.js?v=4"></script>
+<script src="js/ai.js?v=1"></script>
+<script>
+const M='female';
+const P1=[{"inf": "beginnen", "ru": "начинать(ся)", "pp": "hat begonnen", "forms": ["beginne", "beginnst", "beginnt", "beginnen", "beginnt", "beginnen"]}, {"inf": "bekommen", "ru": "получать", "pp": "hat bekommen", "forms": ["bekomme", "bekommst", "bekommt", "bekommen", "bekommt", "bekommen"]}, {"inf": "verstehen", "ru": "понимать", "pp": "hat verstanden", "forms": ["verstehe", "verstehst", "versteht", "verstehen", "versteht", "verstehen"]}, {"inf": "vermuten", "ru": "предполагать", "pp": "hat vermutet", "forms": ["vermute", "vermutest", "vermutet", "vermuten", "vermutet", "vermuten"]}, {"inf": "überlegen", "ru": "обдумывать", "pp": "hat überlegt", "forms": ["überlege", "überlegst", "überlegt", "überlegen", "überlegt", "überlegen"]}, {"inf": "beachten", "ru": "обращать внимание", "pp": "hat beachtet", "forms": ["beachte", "beachtest", "beachtet", "beachten", "beachtet", "beachten"]}, {"inf": "benutzen", "ru": "пользоваться", "pp": "hat benutzt", "forms": ["benutze", "benutzt", "benutzt", "benutzen", "benutzt", "benutzen"]}, {"inf": "verlieren", "ru": "терять", "pp": "hat verloren", "forms": ["verliere", "verlierst", "verliert", "verlieren", "verliert", "verlieren"]}, {"inf": "entdecken", "ru": "обнаруживать", "pp": "hat entdeckt", "forms": ["entdecke", "entdeckst", "entdeckt", "entdecken", "entdeckt", "entdecken"]}, {"inf": "benennen", "ru": "называть", "pp": "hat benannt", "forms": ["benenne", "benennst", "benennt", "benennen", "benennt", "benennen"]}, {"inf": "erleben", "ru": "переживать", "pp": "hat erlebt", "forms": ["erlebe", "erlebst", "erlebt", "erleben", "erlebt", "erleben"]}];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function pick3(arr,notInf,key){const o=shuffle(arr.filter(x=>x.inf!==notInf)).slice(0,2).map(x=>x[key]);return shuffle([arr.find(x=>x.inf===notInf)[key],...o]);}
+function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+
+/* 1. Услышь — РАУНД */
+let hQ=[],hi=0,hCur=null,hOk=0,hWrong=[],hSec=0,hT=null;
+function hStart(){hQ=shuffle(P1.slice());hi=0;hOk=0;hWrong=[];hSec=0;
+  document.getElementById('hResult').hidden=true;document.getElementById('hBody').hidden=false;
+  clearInterval(hT);hT=setInterval(()=>{hSec++;document.getElementById('hClock').textContent=fmt(hSec);},1000);
+  hNext();}
+function hNext(){if(hi>=hQ.length){return hEnd();}hCur=hQ[hi];
+  document.getElementById('hProg').textContent='Глагол '+(hi+1)+' / '+hQ.length;
+  document.getElementById('hFb').textContent='';
+  document.getElementById('hQ').innerHTML='<button class="btn t" onclick="hPlay()">🔊 Играть ещё</button>';
+  const opts=pick3(P1,hCur.inf,'ru');
+  document.getElementById('hOpts').innerHTML=opts.map(r=>`<div class="opt" onclick="hPick('${r.replace(/'/g,"\\'")}',this)">${r}</div>`).join('');
+  setTimeout(hPlay,150);}
+function hPlay(){playWord(hCur.inf,M);}
+function hPick(r,el){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';
+  const good=r===hCur.ru;el.classList.add(good?'ok':'bad');playWord(hCur.inf,M);
+  if(good){hOk++;errOk(hCur.inf);document.getElementById('hFb').innerHTML=`<span style="color:var(--ok)">✓ <b>${hCur.inf}</b> — ${hCur.ru}</span>`;}
+  else{hWrong.push(hCur);errBump(hCur.inf);document.getElementById('hFb').innerHTML=`<span style="color:var(--bad)">Верно: <b>${hCur.inf}</b> — ${hCur.ru}</span> 🔊`;}
+  hi++;setTimeout(()=>{document.getElementById('hOpts').dataset.done='';hNext();},good?800:1500);}
+function hEnd(){clearInterval(hT);document.getElementById('hBody').hidden=true;
+  const uniq=[...new Map(hWrong.map(v=>[v.inf,v])).values()];
+  const R=document.getElementById('hResult');R.hidden=false;
+  R.innerHTML=`<div class="result"><div class="big">${hOk} / ${hQ.length}</div>
+    <div style="color:var(--muted);margin:6px 0">верно · время ${fmt(hSec)}</div>
+    ${uniq.length?`<div style="margin-top:10px">Подтяни (нажми — Грета подскажет, как запомнить):<br>${uniq.map(v=>`<span class="chip" onclick="hMne('${v.inf}','${v.ru}','${v.pp}',this)">${v.inf} — ${v.ru}</span>`).join('')}</div>`:'<div style="color:var(--ok);font-weight:700;margin-top:8px">🎉 Идеально!</div>'}
+    <div id="mneBox"></div></div>`;}
+async function hMne(inf,ru,pp,el){const box=document.getElementById('mneBox');
+  box.innerHTML='<div class="mne">Грета придумывает, как запомнить <b>'+inf+'</b>…</div>';
+  const m=await aiMnemonic(inf,ru,pp);box.innerHTML='<div class="mne">🧠 <b>'+inf+':</b> '+m.replace(/\n/g,'<br>')+'</div>';}
+
+/* 2. Собери фразу (word bank) — Perfekt */
+const WB=[
+ {ru:'Я получила почту.',blocks:['Ich','habe','Post','bekommen']},
+ {ru:'Я забыла свои очки.',blocks:['Ich','habe','meine','Brille','vergessen']},
+ {ru:'Я поняла вопрос.',blocks:['Ich','habe','die','Frage','verstanden']},
+];
+let wbCur=null,wbBuilt=[];
+function wbNext(){wbCur=shuffle(WB)[0];wbBuilt=[];
+  document.getElementById('wbRu').textContent=wbCur.ru;document.getElementById('wbFb').textContent='';
+  document.getElementById('wbLine').innerHTML='';
+  document.getElementById('wbBank').innerHTML=shuffle(wbCur.blocks).map((b,i)=>`<div class="blk" data-w="${b}" onclick="wbAdd(this)">${b}</div>`).join('');}
+function wbAdd(el){el.classList.add('used');wbBuilt.push(el.dataset.w);
+  document.getElementById('wbLine').innerHTML=wbBuilt.map(w=>`<span class="blk">${w}</span>`).join('');
+  if(wbBuilt.length===wbCur.blocks.length){const good=wbBuilt.join(' ')===wbCur.blocks.join(' ');
+    playWord(wbCur.blocks.join(' '),M);
+    document.getElementById('wbFb').innerHTML=good?'<span style="color:var(--ok)">✓ верно! 🔊 вспом. на 2 месте, причастие — в конце</span>':`<span style="color:var(--bad)">Верно: <b>${wbCur.blocks.join(' ')}</b> 🔊</span>`;}}
+function wbUndo(){wbBuilt.pop();document.getElementById('wbLine').innerHTML=wbBuilt.map(w=>`<span class="blk">${w}</span>`).join('');
+  const bank=document.getElementById('wbBank');[...bank.children].forEach(c=>{if(!wbBuilt.includes(c.dataset.w)||wbBuilt.filter(w=>w===c.dataset.w).length<[...bank.children].filter(x=>x.dataset.w===c.dataset.w).length)c.classList.remove('used');});
+  // упрощённо: перерисовать банк
+  wbRedraw();}
+function wbRedraw(){const bank=document.getElementById('wbBank');const need=wbCur.blocks.slice();wbBuilt.forEach(w=>{const i=need.indexOf(w);if(i>=0)need.splice(i,1);});
+  const all=shuffle(wbCur.blocks);bank.innerHTML=all.map(b=>`<div class="blk" data-w="${b}" onclick="wbAdd(this)">${b}</div>`).join('');
+  let used={};[...bank.children].forEach(c=>{const w=c.dataset.w;used[w]=(used[w]||0)+1;const inBuilt=wbBuilt.filter(x=>x===w).length;if(used[w]<=inBuilt)c.classList.add('used');});}
+
+/* 3. Много контекстов (cloze) — bekommen */
+const CL=[
+ {s:['Heute ',' ich eine Einladung.'],a:'bekomme'},
+ {s:['Was ',' du heute?'],a:'bekommst'},
+ {s:['Meine Schwester ',' eine gute Nachricht.'],a:'bekommt'},
+];
+let clCur=null;
+function clNew(){clCur=shuffle(CL)[0];document.getElementById('clFb').textContent='';
+  document.getElementById('clQ').innerHTML='<b>bekommen</b> (получать): '+clCur.s[0]+'<b style="color:var(--t)">___</b>'+clCur.s[1];
+  const opts=shuffle(['bekomme','bekommst','bekommt']);
+  document.getElementById('clOpts').innerHTML=opts.map(o=>`<div class="opt" onclick="clPick('${o}',this)">${o}</div>`).join('');}
+function clPick(o,el){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';
+  const good=o===clCur.a;el.classList.add(good?'ok':'bad');
+  if(!good)errBump('bekommen');else errOk('bekommen');
+  document.getElementById('clFb').innerHTML=(good?'<span style="color:var(--ok)">✓</span>':`<span style="color:var(--bad)">→ ${clCur.a}</span>`)+' — '+clCur.s[0]+'<b>'+clCur.a+'</b>'+clCur.s[1];
+  setTimeout(()=>{document.getElementById('clOpts').dataset.done='';clNew();},1400);}
+
+/* ключ */
+function kSave(){aiSaveKey(document.getElementById('apiKey').value);document.getElementById('apiKey').value='';kState();}
+function kClear(){aiClearKey();kState();}
+function kState(){document.getElementById('kState').innerHTML=aiGetKey()?'<span style="color:var(--ok);font-weight:700">✅ ключ в этом браузере</span>':'<span style="color:var(--muted)">без ключа подсказки-мнемоники не работают</span>';}
+
+hStart();wbNext();clNew();kState();
+</script></body></html>
