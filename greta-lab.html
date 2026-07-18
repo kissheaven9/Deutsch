@@ -135,11 +135,15 @@ function pNew(){pCur=shuffle(P1)[0];pAuxOk=false;
   document.getElementById('pAux').innerHTML='<b style="align-self:center">1) вспом.:</b> '+auxOpt.map(a=>`<button class="btn opt" style="padding:8px 16px" onclick="pAuxPick('${a}',this)">${a}</button>`).join('');
   // причастие + ловушка ge-
   const distr=shuffle([part,'ge'+part,pCur.forms[2]]);
+  document.getElementById('pPart').dataset.done='';
   document.getElementById('pPart').innerHTML='<b style="align-self:center">2) причастие:</b> '+distr.map(x=>`<button class="btn opt" style="padding:8px 16px" onclick="pPartPick('${x}',this)">${x}</button>`).join('');}
 function pAuxPick(a,el){const [aux]=pCur.pp.split(' ');const need=aux==='ist'?'bin':'habe';const good=a===need;
   el.classList.add(good?'ok':'bad');pAuxOk=good;
   document.getElementById('pFb').innerHTML=good?'<span style="color:var(--ok)">✓ вспом. верно, теперь причастие</span>':`<span style="color:var(--bad)">→ ${need} (${aux==='ist'?'sein':'haben'})</span>`;}
-function pPartPick(x,el){const part=pCur.pp.split(' ')[1];const good=x===part;el.classList.add(good?'ok':'bad');
+function pPartPick(x,el){
+  if(!pAuxOk){document.getElementById('pFb').innerHTML='<span style="color:var(--t)">Сначала выбери вспомогательный (habe / bin) ↑</span>';return;}
+  if(el.closest('.step').dataset.done)return;el.closest('.step').dataset.done='1';
+  const part=pCur.pp.split(' ')[1];const good=x===part;el.classList.add(good?'ok':'bad');
   playWord(pCur.pp,M);   // ← слышим правильный Perfekt всегда
   document.getElementById('pFb').innerHTML=good?`<span style="color:var(--ok)">✓ Ich <b>${pCur.pp.replace('hat','habe').replace('ist','bin')}</b> — без ge-! 🔊</span>`
     :`<span style="color:var(--bad)">Верно: <b>${part}</b> — у Греты ge- НЕТ! 🔊</span>`;
