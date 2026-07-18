@@ -67,8 +67,8 @@
   <div class="tabs" id="tabs"></div>
 
   <div class="part"><span class="pico">🧠</span><div><div class="pk">Шаг 1 · знакомство</div><h2 id="tTitle"></h2></div></div>
-  <div class="panel" style="background:#fdecef;border-color:#f8bbd0" id="mnWrap">
-    <p class="sub">Сначала <b>поймай смысл</b> глагола — через образ (приставка+корень) и русскую идиому. Потом уже текст. 🔊 — голос Греты.</p>
+  <div class="panel"><h3><span class="exnum">1</span>🃏 Карточка-образ</h3>
+    <p class="sub">Эмодзи и звук → разбор приставки → перевод + идиома. 🔊 — голос Греты.</p>
     <div id="mnNote"></div>
     <div id="mnCardBox">
       <div class="mnCard"><div class="mnEmo" id="mnEmo"></div>
@@ -79,14 +79,20 @@
       </div>
       <div class="dots" id="mnDots"></div>
       <div style="display:flex;justify-content:center;gap:12px;margin-top:10px"><button class="btn sm" onclick="mnNav(-1)">←</button><button class="btn sm" onclick="mnNav(1)">→</button></div>
-      <hr style="border:none;border-top:1px solid var(--line);margin:14px 0">
-      <div id="mnCfBox"><b>Не перепутай:</b> <span id="mnCfQ"></span><div class="cf" id="mnCfOpts" style="margin-top:8px"></div><div class="rres" id="mnCfFb" style="text-align:center;margin-top:6px"></div>
-        <div style="text-align:center;margin-top:6px"><button class="btn sm" onclick="mnCfNext()">другая пара →</button></div></div>
-      <hr style="border:none;border-top:1px solid var(--line);margin:14px 0">
-      <div><b>На слух</b> (фраза из истории, текст скрыт → выбери значение): <button class="btn t sm" onclick="mnEarPlay()">🔊 Слушать</button>
-        <div id="mnEarOpts" style="margin-top:8px"></div><div class="rres" id="mnEarFb" style="text-align:center;margin-top:6px"></div>
-        <div style="text-align:center;margin-top:6px"><button class="btn sm" onclick="mnEarNext()">Дальше →</button></div></div>
     </div>
+  </div>
+
+  <div class="panel alt" id="mnCfPanel"><h3><span class="exnum">2</span>🎭 Не перепутай</h3>
+    <p class="sub">Одно русское слово — два похожих глагола. Различи по жесту.</p>
+    <div id="mnCfBox"><span id="mnCfQ" style="font-weight:700"></span><div class="cf" id="mnCfOpts" style="margin-top:8px"></div><div class="rres" id="mnCfFb" style="text-align:center;margin-top:6px"></div>
+      <div style="text-align:center;margin-top:6px"><button class="btn sm" onclick="mnCfNext()">другая пара →</button></div></div>
+  </div>
+
+  <div class="panel" id="mnEarPanel"><h3><span class="exnum">3</span>🎧 На слух</h3>
+    <p class="sub">Фраза из истории (текст скрыт) → выбери значение глагола.</p>
+    <div style="text-align:center"><button class="btn t sm" onclick="mnEarPlay()">🔊 Слушать</button></div>
+    <div id="mnEarOpts" style="margin-top:8px"></div><div class="rres" id="mnEarFb" style="text-align:center;margin-top:6px"></div>
+    <div style="text-align:center;margin-top:6px"><button class="btn sm" onclick="mnEarNext()">Дальше →</button></div>
   </div>
 
   <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 2 · текст</div><h2>Теперь читай историю</h2></div></div>
@@ -640,8 +646,10 @@ function preHi(inf,pf){return pf&&inf.startsWith(pf)?`<span class="pre">${pf}</s
 let mnCi=0,mnCs=0,mnCfi=0,mnEi=0;
 function renderMeaning(){const D=mnData();
   const box=document.getElementById('mnCardBox'),note=document.getElementById('mnNote');
-  if(!D){box.hidden=true;note.innerHTML='<p style="color:var(--muted)">Образы этой части ещё готовятся. Пока переходи к тексту ниже.</p>';return;}
-  box.hidden=false;note.innerHTML='';mnCi=0;mnCfi=0;mnEi=0;mnCard();mnCf();mnEar();}
+  const cf=document.getElementById('mnCfPanel'),ear=document.getElementById('mnEarPanel');
+  if(!D){box.hidden=true;cf.hidden=true;ear.hidden=true;
+    note.innerHTML='<p style="color:var(--muted)">Образы этой части ещё готовятся. Пока переходи к тексту ниже.</p>';return;}
+  box.hidden=false;cf.hidden=false;ear.hidden=false;note.innerHTML='';mnCi=0;mnCfi=0;mnEi=0;mnCard();mnCf();mnEar();}
 function mnPlay(){playWord(mnData().V[mnCi].inf,M);}
 function mnCard(){const v=mnData().V[mnCi];mnCs=0;document.getElementById('mnEmo').textContent=v.em||'🔤';
   document.getElementById('mnDe').innerHTML='';document.getElementById('mnStep').innerHTML='';
