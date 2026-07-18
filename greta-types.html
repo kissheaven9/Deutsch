@@ -1,229 +1,168 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Типы упражнений — глаголы Греты</title>
+<title>Лестница глаголов — Грета, часть 1</title>
 <link rel="stylesheet" href="css/style.css?v=3">
 <style>
  :root{--t:#c2185b;--tbg:#fdecef;--tb:#f8bbd0}
  .panel{border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0;background:#fff}
  .panel.alt{background:var(--tbg)}
- .lab{background:#fff8e1;border:1px solid #ffd54f;border-radius:12px;padding:10px 13px;margin:10px 0;font-size:14px}
+ .why{font-size:12px;color:#8a6d00;background:#fff8e1;border-radius:8px;padding:5px 9px;display:inline-block;margin-bottom:8px}
+ .st{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
  .exnum{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;border-radius:50%;background:var(--t);color:#fff;font-size:13px;font-weight:700;margin-right:8px}
  .sub{color:var(--muted);font-size:13px;margin:2px 0 12px}
- .hdr{display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:10px}
- .hdr .prog{color:var(--t)} .hdr .clock{font-variant-numeric:tabular-nums;color:var(--muted)}
  .q{font-size:22px;font-weight:800;text-align:center;margin:8px 0 14px;min-height:30px}
- .opts{display:grid;gap:9px}.opt{border:2px solid var(--line);border-radius:12px;padding:13px;cursor:pointer;background:#fff;font-size:17px;text-align:center}
+ .opts{display:grid;gap:9px;grid-template-columns:repeat(3,1fr)}
+ .opt{border:2px solid var(--line);border-radius:12px;padding:13px;cursor:pointer;background:#fff;font-size:16px;text-align:center}
  .opt:hover{border-color:var(--tb)}.opt.ok{background:#e8f6ee;border-color:var(--ok)}.opt.bad{background:#fdecec;border-color:var(--bad)}
  .fb{margin-top:10px;text-align:center;min-height:22px}
- .result{text-align:center;padding:12px}
- .result .big{font-size:40px;font-weight:800;color:var(--t)}
- .chip{display:inline-block;border:1px solid var(--tb);border-radius:999px;padding:6px 13px;margin:4px;cursor:pointer;background:var(--tbg);font-weight:600}
- .chip:hover{background:#fff}
- .mne{background:#f6f4ff;border:1px solid #ddd6fe;border-radius:10px;padding:10px 12px;margin-top:10px;text-align:left;font-size:15px}
- .blocks{display:flex;flex-wrap:wrap;gap:8px;min-height:46px;border:2px dashed var(--tb);border-radius:10px;padding:8px;margin-bottom:8px}
- .bank{display:flex;flex-wrap:wrap;gap:8px}
- .blk{border:1px solid var(--line);border-radius:9px;padding:8px 13px;cursor:pointer;background:#fff;font-size:16px}
- .blk.used{opacity:.35;pointer-events:none}
+ .hdr{display:flex;justify-content:space-between;font-weight:700;margin-bottom:8px}.hdr .prog{color:var(--t)}.hdr .clock{color:var(--muted);font-variant-numeric:tabular-nums}
+ .card{max-width:420px;margin:0 auto;text-align:center;border:2px solid var(--tb);border-radius:16px;padding:18px;background:var(--tbg)}
+ .card .de{font-size:26px;font-weight:800}.card .ru{color:#374151;margin:4px 0}.card .pf{color:var(--t);font-weight:700}
  .row{display:flex;gap:8px;margin-top:8px}.row input{flex:1}
+ .result{text-align:center}.result .big{font-size:38px;font-weight:800;color:var(--t)}
+ .chip{display:inline-block;border:1px solid var(--tb);border-radius:999px;padding:6px 12px;margin:4px;cursor:pointer;background:var(--tbg);font-weight:600}
+ .mne{background:#f6f4ff;border:1px solid #ddd6fe;border-radius:10px;padding:10px 12px;margin-top:10px;text-align:left;font-size:15px}
  .key{background:#f6f4ff;border:1px solid #ddd6fe;border-radius:10px;padding:10px 12px;font-size:13px;margin:14px 0}
+ .ladder{background:var(--tbg);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.8}
 </style></head><body>
-<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch</a><span class="crumb">Типы упражнений · глаголы Греты</span></div></header>
+<header class="top"><div class="wrap"><a class="home" href="index.html">🇩🇪 Deutsch</a><span class="crumb">Лестница глаголов · Грета ч.1</span></div></header>
 <main class="wrap">
-<h1>Типы упражнений — часть 1</h1>
-<p class="lead">Разные форматы на пробу. Оцени каждый: что оставить, что убрать.</p>
-<div class="lab">🧪 Черновик. Внизу — ключ ИИ (для подсказок-мнемоник).</div>
+<h1>Лестница глаголов — часть 1</h1>
+<p class="lead">Не набор игр, а <b>прогрессия</b>: сначала узнаёшь, потом вспоминаешь сам, потом производишь Perfekt, потом в контексте. Память строит <b>усилие вспоминания</b>, поэтому чем ниже ступень — тем больше пишешь сам.</p>
+<div class="ladder">🪜 <b>Ступени:</b> 1 Знакомство → 2 Узнай на слух → 3 <b>Вспомни (пишешь сам)</b> → 4 <b>Perfekt (пишешь сам)</b> → 5 В связном тексте → 6 Слушай и пойми → 7 Скажи сам (Грета проверит)</div>
 
-<div class="panel"><h3><span class="exnum">1</span>👂 Услышь глагол — раунд</h3>
-  <p class="sub">Слушаешь глагол → выбираешь перевод. В конце — сколько верно, за какое время, и какие глаголы подтянуть (клик по глаголу → Грета подскажет, как запомнить).</p>
-  <div id="hBody">
-    <div class="hdr"><span class="prog" id="hProg">Глагол 1 / 11</span><span class="clock" id="hClock">0:00</span></div>
-    <div class="q" id="hQ"><button class="btn t" onclick="hPlay()">🔊 Играть</button></div>
-    <div class="opts" id="hOpts"></div>
-    <div class="fb" id="hFb"></div>
-  </div>
-  <div id="hResult" hidden></div>
-  <div style="text-align:center;margin-top:8px"><button class="btn sm" onclick="hReady()">↻ Заново</button></div>
+<div class="panel"><h3><span class="exnum">1</span>📇 Знакомство</h3>
+  <span class="why">кодирование: звук + смысл + Perfekt вместе</span>
+  <div class="card" id="c1"></div>
+  <div class="row" style="justify-content:center"><button class="btn" onclick="c1Prev()">←</button><span id="c1n" style="align-self:center"></span><button class="btn" onclick="c1Next()">→</button></div>
 </div>
 
-<div class="panel alt"><h3><span class="exnum">2</span>🧩 Собери фразу (прошедшее)</h3>
-  <p class="sub">Нажимай блоки по порядку — собери Perfekt. Тренирует порядок слов: <b>вспом. — … — причастие в конце</b>.</p>
-  <div class="q" id="wbRu" style="font-size:17px">—</div>
-  <div class="blocks" id="wbLine"></div>
-  <div class="bank" id="wbBank"></div>
-  <div class="fb" id="wbFb"></div>
-  <div style="text-align:center;margin-top:8px"><button class="btn sm" onclick="wbUndo()">← Стереть</button> <button class="btn t sm" onclick="wbNext()">Дальше →</button></div>
+<div class="panel alt"><h3><span class="exnum">2</span>👂 Узнай на слух</h3>
+  <span class="why">узнавание — разминка, самый лёгкий уровень</span>
+  <div class="hdr"><span class="prog" id="p2">Старт</span></div>
+  <div class="q" id="q2"><button class="btn t" onclick="s2start()">▶ Старт</button></div>
+  <div class="opts" id="o2"></div><div class="fb" id="f2"></div>
 </div>
 
-<div class="panel"><h3><span class="exnum">3</span>🔁 Один глагол — много контекстов</h3>
-  <p class="sub">Один глагол в РАЗНЫХ предложениях (не из текста). Так он запоминается как слово, а не как место в тексте.</p>
-  <div class="q" id="clQ" style="font-size:18px">—</div>
-  <div class="opts" id="clOpts"></div>
-  <div class="fb" id="clFb"></div>
+<div class="panel"><h3><span class="exnum">3</span>💬 Вспомни: русский → немецкий</h3>
+  <span class="why">ВСПОМИНАНИЕ (пишешь сам) — вот что строит память и речь</span>
+  <p class="sub">Дан русский — впиши немецкий инфинитив. Не помнишь — «подсказка», но лучше помучиться. Ошибка звучит верным.</p>
+  <div class="hdr"><span class="prog" id="p3">Слово 1 / 11</span></div>
+  <div class="q" id="q3">—</div>
+  <div class="row"><input id="i3" class="inp" placeholder="по-немецки…" autocomplete="off" autocapitalize="off" onkeydown="if(event.key==='Enter')s3check()"><button class="btn t" onclick="s3check()">OK</button><button class="btn sm" onclick="s3hint()">💡</button></div>
+  <div class="fb" id="f3"></div>
 </div>
 
-
-<div class="panel"><h3><span class="exnum">4</span>📖 Читай в контексте + слушай + клик по слову</h3>
-  <p class="sub">Слово в живом тексте запоминается лучше, чем в списке. Нажми <b>🔊</b> — слушай Грету. Нажми на любое <b>слово</b> — перевод.</p>
-  <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="rdPlay(this)">🔊 Слушать историю</button></div>
-  <p id="rdText" style="font-size:17px;line-height:2"></p>
-  <div id="rdPop" class="fb" style="text-align:left;font-weight:600"></div>
+<div class="panel alt"><h3><span class="exnum">4</span>⏪ Perfekt — впиши сам</h3>
+  <span class="why">ГЛАВНАЯ ЦЕЛЬ: производство прошедшего, ловушка «без ge-»</span>
+  <p class="sub">Дан инфинитив — напиши Perfekt (<b>hat/ist + причастие</b>). У Греты <b>ge- НЕТ</b>: bekommen → hat bekommen.</p>
+  <div class="hdr"><span class="prog" id="p4">Слово 1 / 11</span></div>
+  <div class="q" id="q4">—</div>
+  <div class="row"><input id="i4" class="inp" placeholder="hat/ist + причастие…" autocomplete="off" autocapitalize="off" onkeydown="if(event.key==='Enter')s4check()"><button class="btn t" onclick="s4check()">OK</button><button class="btn sm" onclick="s4hint()">💡</button></div>
+  <div class="fb" id="f4"></div>
+  <div id="r4" hidden></div>
 </div>
 
-<div class="panel alt"><h3><span class="exnum">5</span>🎧 Слушай историю → ответь (аудирование)</h3>
-  <p class="sub">Текст скрыт! Слушай Грету и отвечай про действие. Ошибся — звучит верный глагол.</p>
-  <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="acPlay(this)">🔊 Слушать</button></div>
-  <div class="q" id="acQ" style="font-size:17px"></div>
-  <div class="opts" id="acOpts"></div>
-  <div class="fb" id="acFb"></div>
-  <div style="text-align:center"><span class="prog" id="acProg"></span></div>
+<div class="panel"><h3><span class="exnum">5</span>🔤 В связном тексте</h3>
+  <span class="why">контекст: глагол в смысле, а не в вакууме</span>
+  <p id="t5" style="font-size:17px;line-height:2.4"></p>
+  <div class="fb" id="f5"></div>
+  <div style="text-align:center"><button class="btn t sm" onclick="s5check()">Проверить</button> <button class="btn sm" onclick="s5build()">↻</button></div>
 </div>
 
-<div class="panel"><h3><span class="exnum">6</span>🔤 Вставь глаголы в связном тексте</h3>
-  <p class="sub">Cloze в СВЯЗНОМ отрывке (не отдельные фразы): по смыслу подбери глагол. Так работает контекст.</p>
-  <p id="ctText" style="font-size:17px;line-height:2.2"></p>
-  <div class="fb" id="ctFb"></div>
-  <div style="text-align:center;margin-top:6px"><button class="btn t sm" onclick="ctCheck()">Проверить</button> <button class="btn sm" onclick="ctBuild()">↻ заново</button></div>
+<div class="panel alt"><h3><span class="exnum">6</span>🎧 Слушай историю → ответь</h3>
+  <span class="why">понимание на слух: текст скрыт</span>
+  <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="s6play(this)">🔊 Слушать</button></div>
+  <div class="q" id="q6" style="font-size:17px"></div>
+  <div class="opts" id="o6"></div><div class="fb" id="f6"></div>
 </div>
 
-<div class="key">🔑 <b>Ключ ИИ</b> — только в этом браузере. <div class="row"><input id="apiKey" class="inp" type="password" placeholder="sk-..."><button class="btn sm" onclick="kSave()">Сохранить</button><button class="btn sm" onclick="kClear()">Удалить</button></div><div id="kState" style="margin-top:6px"></div></div>
-<div class="scenenav"><a href="thema-untrennbar.html">← Раздел Греты</a> · <a href="greta-lab.html">другая лаборатория</a></div>
-</main>
-<footer>Deutsch · типы упражнений</footer>
-<script src="js/app.js?v=4"></script>
-<script src="js/ai.js?v=1"></script>
+<div class="panel"><h3><span class="exnum">7</span>✍️ Скажи сам — Грета проверит</h3>
+  <span class="why">свободная продукция + разбор через персонажа</span>
+  <div style="background:var(--tbg);border-radius:10px;padding:9px 12px;margin-bottom:8px;font-weight:600" id="t7"></div>
+  <div class="row"><input id="i7" class="inp" placeholder="Schreib einen Satz…" onkeydown="if(event.key==='Enter')s7check()"><button class="btn t" onclick="s7check()">Проверить</button><button class="btn sm" onclick="s7next()">↻ другой</button></div>
+  <div id="o7" class="fb" style="text-align:left"></div>
+</div>
+
+<div class="key">🔑 <b>Ключ ИИ</b> (для ступени 7 и подсказок-мнемоник) — только в этом браузере.
+  <div class="row"><input id="apiKey" class="inp" type="password" placeholder="sk-..."><button class="btn sm" onclick="kSave()">Сохранить</button><button class="btn sm" onclick="kClear()">Удалить</button></div><div id="kState" style="margin-top:6px"></div></div>
+<div class="scenenav"><a href="thema-untrennbar.html">← Раздел Греты</a></div>
+</main><footer>Deutsch · лестница глаголов</footer>
+<script src="js/app.js?v=4"></script><script src="js/ai.js?v=1"></script>
 <script>
-const M='female';
-const P1=[{"inf": "beginnen", "ru": "начинать(ся)", "pp": "hat begonnen", "forms": ["beginne", "beginnst", "beginnt", "beginnen", "beginnt", "beginnen"]}, {"inf": "bekommen", "ru": "получать", "pp": "hat bekommen", "forms": ["bekomme", "bekommst", "bekommt", "bekommen", "bekommt", "bekommen"]}, {"inf": "verstehen", "ru": "понимать", "pp": "hat verstanden", "forms": ["verstehe", "verstehst", "versteht", "verstehen", "versteht", "verstehen"]}, {"inf": "vermuten", "ru": "предполагать", "pp": "hat vermutet", "forms": ["vermute", "vermutest", "vermutet", "vermuten", "vermutet", "vermuten"]}, {"inf": "überlegen", "ru": "обдумывать", "pp": "hat überlegt", "forms": ["überlege", "überlegst", "überlegt", "überlegen", "überlegt", "überlegen"]}, {"inf": "beachten", "ru": "обращать внимание", "pp": "hat beachtet", "forms": ["beachte", "beachtest", "beachtet", "beachten", "beachtet", "beachten"]}, {"inf": "benutzen", "ru": "пользоваться", "pp": "hat benutzt", "forms": ["benutze", "benutzt", "benutzt", "benutzen", "benutzt", "benutzen"]}, {"inf": "verlieren", "ru": "терять", "pp": "hat verloren", "forms": ["verliere", "verlierst", "verliert", "verlieren", "verliert", "verlieren"]}, {"inf": "entdecken", "ru": "обнаруживать", "pp": "hat entdeckt", "forms": ["entdecke", "entdeckst", "entdeckt", "entdecken", "entdeckt", "entdecken"]}, {"inf": "benennen", "ru": "называть", "pp": "hat benannt", "forms": ["benenne", "benennst", "benennt", "benennen", "benennt", "benennen"]}, {"inf": "erleben", "ru": "переживать", "pp": "hat erlebt", "forms": ["erlebe", "erlebst", "erlebt", "erleben", "erlebt", "erleben"]}];
+const M='female';const P1=[{"inf": "beginnen", "ru": "начинать(ся)", "pp": "hat begonnen", "forms": ["beginne", "beginnst", "beginnt", "beginnen", "beginnt", "beginnen"]}, {"inf": "bekommen", "ru": "получать", "pp": "hat bekommen", "forms": ["bekomme", "bekommst", "bekommt", "bekommen", "bekommt", "bekommen"]}, {"inf": "verstehen", "ru": "понимать", "pp": "hat verstanden", "forms": ["verstehe", "verstehst", "versteht", "verstehen", "versteht", "verstehen"]}, {"inf": "vermuten", "ru": "предполагать", "pp": "hat vermutet", "forms": ["vermute", "vermutest", "vermutet", "vermuten", "vermutet", "vermuten"]}, {"inf": "überlegen", "ru": "обдумывать", "pp": "hat überlegt", "forms": ["überlege", "überlegst", "überlegt", "überlegen", "überlegt", "überlegen"]}, {"inf": "beachten", "ru": "обращать внимание", "pp": "hat beachtet", "forms": ["beachte", "beachtest", "beachtet", "beachten", "beachtet", "beachten"]}, {"inf": "benutzen", "ru": "пользоваться", "pp": "hat benutzt", "forms": ["benutze", "benutzt", "benutzt", "benutzen", "benutzt", "benutzen"]}, {"inf": "verlieren", "ru": "терять", "pp": "hat verloren", "forms": ["verliere", "verlierst", "verliert", "verlieren", "verliert", "verlieren"]}, {"inf": "entdecken", "ru": "обнаруживать", "pp": "hat entdeckt", "forms": ["entdecke", "entdeckst", "entdeckt", "entdecken", "entdeckt", "entdecken"]}, {"inf": "benennen", "ru": "называть", "pp": "hat benannt", "forms": ["benenne", "benennst", "benennt", "benennen", "benennt", "benennen"]}, {"inf": "erleben", "ru": "переживать", "pp": "hat erlebt", "forms": ["erlebe", "erlebst", "erlebt", "erleben", "erlebt", "erleben"]}];const T1=`Alles beginnt am Mittwoch. Ich bekomme Post und verstehe zuerst nicht: von wem? Ich vermute das Schlimmste — eine Strafe? Ich habe immer Eile, ich komme immer zu spät, also: eine Strafe! Oder Werbung, davon bekomme ich jede Woche viel. Ich überlege: nein, für Werbung ist das zu schön. Ich beachte die Unterschrift — und da verstehe ich alles. Meine Brille? Natürlich in meinen Locken! Eine halbe Stunde habe ich sie verloren. Ich benutze sie endlich und lese: eine Einladung. Von der Oper! Ich entdecke weiter: die Premiere, hundert Personen. Sie benennen die beste Köchin aus Neapel — und das bin ich! So etwas habe ich noch nie erlebt. Mamma mia, hundert Personen — schaffe ich das?`;
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function pick3(arr,notInf,key){const o=shuffle(arr.filter(x=>x.inf!==notInf)).slice(0,2).map(x=>x[key]);return shuffle([arr.find(x=>x.inf===notInf)[key],...o]);}
-function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function nrm(s){return (s||'').toLowerCase().replace(/ß/g,'ss').replace(/[^a-zäöü ]/g,'').trim().replace(/\s+/g,' ');}
+function pick3(notInf,key){const o=shuffle(P1.filter(x=>x.inf!==notInf)).slice(0,2).map(x=>x[key]);return shuffle([P1.find(x=>x.inf===notInf)[key],...o]);}
 
-/* 1. Услышь — РАУНД */
-let hQ=[],hi=0,hCur=null,hOk=0,hWrong=[],hSec=0,hT=null;
-function hReady(){document.getElementById('hResult').hidden=true;document.getElementById('hBody').hidden=false;
-  clearInterval(hT);document.getElementById('hClock').textContent='0:00';
-  document.getElementById('hProg').textContent='Раунд из '+P1.length+' глаголов';
-  document.getElementById('hQ').innerHTML='<button class="btn t" onclick="hStart()">▶ Старт</button>';
-  document.getElementById('hOpts').innerHTML='';document.getElementById('hFb').textContent='';}
-function hStart(){hQ=shuffle(P1.slice());hi=0;hOk=0;hWrong=[];hSec=0;
-  document.getElementById('hResult').hidden=true;document.getElementById('hBody').hidden=false;
-  clearInterval(hT);hT=setInterval(()=>{hSec++;document.getElementById('hClock').textContent=fmt(hSec);},1000);
-  hNext();}
-function hNext(){if(hi>=hQ.length){return hEnd();}hCur=hQ[hi];
-  document.getElementById('hProg').textContent='Глагол '+(hi+1)+' / '+hQ.length;
-  document.getElementById('hFb').textContent='';
-  document.getElementById('hQ').innerHTML='<button class="btn t" onclick="hPlay()">🔊 Играть ещё</button>';
-  const opts=pick3(P1,hCur.inf,'ru');
-  document.getElementById('hOpts').innerHTML=opts.map(r=>`<div class="opt" onclick="hPick('${r.replace(/'/g,"\\'")}',this)">${r}</div>`).join('');
-  setTimeout(hPlay,150);}
-function hPlay(){playWord(hCur.inf,M);}
-function hPick(r,el){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';
-  const good=r===hCur.ru;el.classList.add(good?'ok':'bad');playWord(hCur.inf,M);
-  // показать верный вариант среди кнопок
-  [...document.querySelectorAll('#hOpts .opt')].forEach(o=>{if(o.textContent===hCur.ru)o.classList.add('ok');});
-  if(good){hOk++;errOk(hCur.inf);}else{hWrong.push(hCur);errBump(hCur.inf);}
-  hi++;
-  const label=hi>=hQ.length?'Показать итог →':'Дальше →';
-  document.getElementById('hFb').innerHTML=`<span style="color:${good?'var(--ok)':'var(--bad)'}">${good?'✓':'Верно:'} <b>${hCur.inf}</b> — ${hCur.ru}</span> <button class="say" onclick="playWord('${hCur.inf}','${M}')">🔊</button><br><button class="btn t sm" style="margin-top:8px" onclick="hAdvance()">${label}</button>`;}
-function hAdvance(){document.getElementById('hOpts').dataset.done='';hNext();}
-function hEnd(){clearInterval(hT);document.getElementById('hBody').hidden=true;
-  const uniq=[...new Map(hWrong.map(v=>[v.inf,v])).values()];
-  const R=document.getElementById('hResult');R.hidden=false;
-  R.innerHTML=`<div class="result"><div class="big">${hOk} / ${hQ.length}</div>
-    <div style="color:var(--muted);margin:6px 0">верно · время ${fmt(hSec)}</div>
-    ${uniq.length?`<div style="margin-top:10px">Подтяни (нажми — Грета подскажет, как запомнить):<br>${uniq.map(v=>`<span class="chip" onclick="hMne('${v.inf}','${v.ru}','${v.pp}',this)">${v.inf} — ${v.ru}</span>`).join('')}</div>`:'<div style="color:var(--ok);font-weight:700;margin-top:8px">🎉 Идеально!</div>'}
-    <div id="mneBox"></div></div>`;}
-async function hMne(inf,ru,pp,el){const box=document.getElementById('mneBox');
-  box.innerHTML='<div class="mne">Грета придумывает, как запомнить <b>'+inf+'</b>…</div>';
-  const m=await aiMnemonic(inf,ru,pp);box.innerHTML='<div class="mne">🧠 <b>'+inf+':</b> '+m.replace(/\n/g,'<br>')+'</div>';}
+/* 1 Знакомство */
+let c1i=0;
+function c1show(){const v=P1[c1i];document.getElementById('c1').innerHTML=`<div class="de">${v.inf} <button class="say" onclick="playWord('${v.inf}','${M}')">🔊</button></div><div class="ru">${v.ru}</div><div class="pf">Perfekt: ${v.pp} <button class="say" onclick="playWord('${v.pp}','${M}')">🔊</button></div><div style="font-size:12px;color:var(--muted);margin-top:6px">неотделяемый · в Perfekt <b>без ge-</b></div>`;document.getElementById('c1n').textContent=(c1i+1)+' / '+P1.length;}
+function c1Next(){c1i=(c1i+1)%P1.length;c1show();}
+function c1Prev(){c1i=(c1i-1+P1.length)%P1.length;c1show();}
 
-/* 2. Собери фразу (word bank) — Perfekt */
-const WB=[
- {ru:'Я получила почту.',blocks:['Ich','habe','Post','bekommen']},
- {ru:'Я забыла свои очки.',blocks:['Ich','habe','meine','Brille','vergessen']},
- {ru:'Я поняла вопрос.',blocks:['Ich','habe','die','Frage','verstanden']},
-];
-let wbCur=null,wbBuilt=[];
-function wbNext(){wbCur=shuffle(WB)[0];wbBuilt=[];
-  document.getElementById('wbRu').textContent=wbCur.ru;document.getElementById('wbFb').textContent='';
-  document.getElementById('wbLine').innerHTML='';
-  document.getElementById('wbBank').innerHTML=shuffle(wbCur.blocks).map((b,i)=>`<div class="blk" data-w="${b}" onclick="wbAdd(this)">${b}</div>`).join('');}
-function wbAdd(el){el.classList.add('used');wbBuilt.push(el.dataset.w);
-  document.getElementById('wbLine').innerHTML=wbBuilt.map(w=>`<span class="blk">${w}</span>`).join('');
-  if(wbBuilt.length===wbCur.blocks.length){const good=wbBuilt.join(' ')===wbCur.blocks.join(' ');
-    playWord(wbCur.blocks.join(' '),M);
-    document.getElementById('wbFb').innerHTML=good?'<span style="color:var(--ok)">✓ верно! 🔊 вспом. на 2 месте, причастие — в конце</span>':`<span style="color:var(--bad)">Верно: <b>${wbCur.blocks.join(' ')}</b> 🔊</span>`;}}
-function wbUndo(){wbBuilt.pop();document.getElementById('wbLine').innerHTML=wbBuilt.map(w=>`<span class="blk">${w}</span>`).join('');
-  const bank=document.getElementById('wbBank');[...bank.children].forEach(c=>{if(!wbBuilt.includes(c.dataset.w)||wbBuilt.filter(w=>w===c.dataset.w).length<[...bank.children].filter(x=>x.dataset.w===c.dataset.w).length)c.classList.remove('used');});
-  // упрощённо: перерисовать банк
-  wbRedraw();}
-function wbRedraw(){const bank=document.getElementById('wbBank');const need=wbCur.blocks.slice();wbBuilt.forEach(w=>{const i=need.indexOf(w);if(i>=0)need.splice(i,1);});
-  const all=shuffle(wbCur.blocks);bank.innerHTML=all.map(b=>`<div class="blk" data-w="${b}" onclick="wbAdd(this)">${b}</div>`).join('');
-  let used={};[...bank.children].forEach(c=>{const w=c.dataset.w;used[w]=(used[w]||0)+1;const inBuilt=wbBuilt.filter(x=>x===w).length;if(used[w]<=inBuilt)c.classList.add('used');});}
+/* 2 Узнай на слух (recognition) */
+let q2=[],x2=0,cur2=null;
+function s2start(){q2=shuffle(P1.slice());x2=0;s2next();}
+function s2next(){if(x2>=q2.length){document.getElementById('q2').innerHTML='<button class="btn t" onclick="s2start()">↻ Заново</button>';document.getElementById('o2').innerHTML='';document.getElementById('p2').textContent='Готово';return;}
+  cur2=q2[x2];document.getElementById('p2').textContent='Глагол '+(x2+1)+' / '+q2.length;document.getElementById('f2').textContent='';
+  document.getElementById('q2').innerHTML='<button class="btn t" onclick="playWord(\''+cur2.inf+'\',\''+M+'\')">🔊 Играть</button>';
+  document.getElementById('o2').innerHTML=pick3(cur2.inf,'ru').map(r=>`<div class="opt" onclick="s2pick('${r.replace(/'/g,"\\'")}',this)">${r}</div>`).join('');
+  setTimeout(()=>playWord(cur2.inf,M),150);}
+function s2pick(r,el){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';const good=r===cur2.ru;el.classList.add(good?'ok':'bad');playWord(cur2.inf,M);if(!good)errBump(cur2.inf);else errOk(cur2.inf);
+  document.getElementById('f2').innerHTML=`${good?'✓':'Верно:'} <b>${cur2.inf}</b> — ${cur2.ru} <button class="btn t sm" onclick="s2adv()">Дальше →</button>`;}
+function s2adv(){document.getElementById('o2').dataset.done='';x2++;s2next();}
 
-/* 3. Много контекстов (cloze) — bekommen */
-const CL=[
- {s:['Heute ',' ich eine Einladung.'],a:'bekomme'},
- {s:['Was ',' du heute?'],a:'bekommst'},
- {s:['Meine Schwester ',' eine gute Nachricht.'],a:'bekommt'},
-];
-let clCur=null;
-function clNew(){clCur=shuffle(CL)[0];document.getElementById('clFb').textContent='';
-  document.getElementById('clQ').innerHTML='<b>bekommen</b> (получать): '+clCur.s[0]+'<b style="color:var(--t)">___</b>'+clCur.s[1];
-  const opts=shuffle(['bekomme','bekommst','bekommt']);
-  document.getElementById('clOpts').innerHTML=opts.map(o=>`<div class="opt" onclick="clPick('${o}',this)">${o}</div>`).join('');}
-function clPick(o,el){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';
-  const good=o===clCur.a;el.classList.add(good?'ok':'bad');
-  if(!good)errBump('bekommen');else errOk('bekommen');
-  document.getElementById('clFb').innerHTML=(good?'<span style="color:var(--ok)">✓</span>':`<span style="color:var(--bad)">→ ${clCur.a}</span>`)+' — '+clCur.s[0]+'<b>'+clCur.a+'</b>'+clCur.s[1];
-  setTimeout(()=>{document.getElementById('clOpts').dataset.done='';clNew();},1400);}
+/* 3 Вспомни RU→DE (PRODUCTION, type) */
+let q3=[],x3=0,cur3=null;
+function s3new(){q3=q3.length?q3:shuffle(P1.slice());cur3=q3[x3];document.getElementById('p3').textContent='Слово '+(x3+1)+' / '+q3.length;
+  document.getElementById('q3').innerHTML=`<span style="color:var(--t)">${cur3.ru}</span> → ?`;document.getElementById('i3').value='';document.getElementById('f3').textContent='';document.getElementById('i3').focus();}
+function s3check(){const good=nrm(document.getElementById('i3').value)===nrm(cur3.inf);playWord(cur3.inf,M);
+  if(good){errOk(cur3.inf);document.getElementById('f3').innerHTML='<span style="color:var(--ok)">✓ '+cur3.inf+'</span>';}
+  else{errBump(cur3.inf);document.getElementById('f3').innerHTML='<span style="color:var(--bad)">→ '+cur3.inf+' 🔊</span> (запомни, вернётся)';q3.push(cur3);}
+  document.getElementById('f3').innerHTML+=' <button class="btn t sm" onclick="s3adv()">Дальше →</button>';}
+function s3hint(){document.getElementById('f3').innerHTML='💡 '+cur3.inf[0]+'…'+cur3.inf.slice(-2);}
+function s3adv(){x3++;if(x3>=q3.length){document.getElementById('q3').innerHTML='🎉 Готово! <button class="btn t sm" onclick="s3restart()">↻</button>';document.getElementById('f3').textContent='';return;}s3new();}
+function s3restart(){q3=[];x3=0;s3new();}
 
-/* ключ */
+/* 4 Perfekt (PRODUCTION, type) */
+let q4=[],x4=0,cur4=null;
+function s4new(){q4=q4.length?q4:shuffle(P1.slice());cur4=q4[x4];document.getElementById('p4').textContent='Слово '+(x4+1)+' / '+q4.length;
+  document.getElementById('q4').innerHTML=`<b>${cur4.inf}</b> <span style="font-size:15px;color:var(--muted)">— ${cur4.ru}</span> → Perfekt?`;document.getElementById('i4').value='';document.getElementById('f4').textContent='';document.getElementById('i4').focus();}
+function s4check(){const v=nrm(document.getElementById('i4').value);const good=v===nrm(cur4.pp)||v===nrm(cur4.pp.replace('hat','habe').replace('ist','bin'));playWord(cur4.pp,M);
+  if(good){errOk(cur4.inf);document.getElementById('f4').innerHTML='<span style="color:var(--ok)">✓ '+cur4.pp+' — без ge-! 🔊</span>';}
+  else{errBump(cur4.inf);const trap=v.includes('ge'+cur4.pp.split(' ')[1].replace(/^ge/,''))?' — помни: у Греты ge- НЕТ!':'';document.getElementById('f4').innerHTML='<span style="color:var(--bad)">→ '+cur4.pp+' 🔊'+trap+'</span>';q4.push(cur4);}
+  document.getElementById('f4').innerHTML+=' <button class="btn t sm" onclick="s4adv()">Дальше →</button>';}
+function s4hint(){document.getElementById('f4').innerHTML='💡 '+cur4.pp.split(' ')[0]+' …';}
+function s4adv(){x4++;if(x4>=q4.length){document.getElementById('q4').innerHTML='🎉 Готово! <button class="btn t sm" onclick="s4restart()">↻</button>';document.getElementById('f4').textContent='';return;}s4new();}
+function s4restart(){q4=[];x4=0;s4new();}
+
+/* 5 связный cloze */
+const CT={pre:'Am Mittwoch @0 ich Post. Zuerst @1 ich nicht: von wem? Ich @2 das Schlimmste. Dann @3 ich die Unterschrift — die Oper! Ich @4 meine Brille und lese die Einladung.',ans:['bekomme','verstehe','vermute','beachte','benutze']};
+function s5build(){const bank=shuffle(CT.ans.slice());document.getElementById('f5').textContent='';let html=CT.pre;
+  CT.ans.forEach((a,i)=>{html=html.replace('@'+i,`<select id="s5${i}" class="inp" style="width:auto;padding:3px 6px"><option value="">…</option>${bank.map(b=>`<option>${b}</option>`).join('')}</select>`);});
+  document.getElementById('t5').innerHTML=html;}
+function s5check(){let ok=0;CT.ans.forEach((a,i)=>{const s=document.getElementById('s5'+i);const g=s.value===a;s.style.borderColor=g?'var(--ok)':'var(--bad)';if(g)ok++;});
+  document.getElementById('f5').innerHTML=`<span style="color:${ok===CT.ans.length?'var(--ok)':'var(--bad)'}">${ok} / ${CT.ans.length} верно</span>`+(ok===CT.ans.length?' 🎉':'');}
+
+/* 6 аудирование */
+const AC=[{q:'Что Грета делает с очками, чтобы прочитать?',a:'benutzen',o:['benutzen','verlieren','bekommen']},{q:'Что Грета сначала НЕ делает с письмом?',a:'verstehen',o:['verstehen','beachten','entdecken']},{q:'Такого праздника она ещё не …?',a:'erleben',o:['erleben','vermuten','benennen']}];
+let x6=0;
+function s6show(){const c=AC[x6];document.getElementById('q6').textContent=c.q;document.getElementById('f6').textContent='';document.getElementById('o6').innerHTML=shuffle(c.o).map(x=>`<div class="opt" onclick="s6pick('${x}',this)">${x}</div>`).join('');}
+function s6play(b){playSeq(['audio/greta-part-1.mp3?v=1'],b);}
+function s6pick(x,el){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';const c=AC[x6],good=x===c.a;el.classList.add(good?'ok':'bad');playWord(c.a,M);if(!good)errBump(c.a);
+  document.getElementById('f6').innerHTML=`${good?'✓':'Верно:'} ${c.a} 🔊 <button class="btn t sm" onclick="s6adv()">Дальше →</button>`;}
+function s6adv(){document.getElementById('o6').dataset.done='';x6=(x6+1)%AC.length;s6show();}
+
+/* 7 AI */
 function kSave(){aiSaveKey(document.getElementById('apiKey').value);document.getElementById('apiKey').value='';kState();}
 function kClear(){aiClearKey();kState();}
-function kState(){document.getElementById('kState').innerHTML=aiGetKey()?'<span style="color:var(--ok);font-weight:700">✅ ключ в этом браузере</span>':'<span style="color:var(--muted)">без ключа подсказки-мнемоники не работают</span>';}
+function kState(){document.getElementById('kState').innerHTML=aiGetKey()?'<span style="color:var(--ok);font-weight:700">✅ ключ в этом браузере</span>':'<span style="color:var(--muted)">без ключа ступень 7 не работает</span>';}
+let cur7=null;
+function s7next(){cur7=shuffle(P1)[0];document.getElementById('t7').innerHTML=`✍️ Составь предложение с <b style="color:var(--t)">${cur7.inf}</b> (${cur7.ru}). Perfekt: <b>${cur7.pp}</b>.`;document.getElementById('i7').value='';document.getElementById('o7').textContent='';}
+async function s7check(){const s=document.getElementById('i7').value.trim();if(!s)return;document.getElementById('o7').innerHTML='<span style="color:var(--muted)">Грета читает…</span>';
+  const a=await aiAsk([{role:'system',content:METHOD_SYS},{role:'user',content:`Задание: предложение с «${cur7.inf}» (${cur7.ru}). Я написала:\n${s}\nПроверь грамматику, уровень A1-A2, семью глагола, РОД (у меня только женский). Род поправь через персонажа. Покажи верный вариант, если ошибка.`}]);
+  document.getElementById('o7').innerHTML='<div class="mne">'+a.replace(/\n/g,'<br>')+'</div>';}
 
-hReady();wbNext();clNew();kState();
-
-/* 4. Читай в контексте + аудио + клик по слову */
-const GLOSS={alles:'всё',beginnt:'начинается',mittwoch:'среда',bekomme:'получаю',post:'почта',verstehe:'понимаю',zuerst:'сначала',vermute:'предполагаю',schlimmste:'худшее',strafe:'штраф',immer:'всегда',eile:'спешка',komme:'прихожу',spät:'поздно',werbung:'реклама',woche:'неделя',überlege:'обдумываю',schön:'красиво',beachte:'замечаю',unterschrift:'подпись',brille:'очки',locken:'кудри',stunde:'час',verloren:'потеряла',benutze:'пользуюсь',endlich:'наконец',lese:'читаю',einladung:'приглашение',oper:'опера',entdecke:'обнаруживаю',weiter:'дальше',premiere:'премьера',hundert:'сто',personen:'персон(ы)',benennen:'называют',beste:'лучшую',köchin:'повариха',neapel:'Неаполь',erlebt:'переживала',schaffe:'справлюсь',halbe:'половину'};
-const T1=`Alles beginnt am Mittwoch. Ich bekomme Post und verstehe zuerst nicht: von wem? Ich vermute das Schlimmste — eine Strafe? Ich habe immer Eile, ich komme immer zu spät, also: eine Strafe! Oder Werbung, davon bekomme ich jede Woche viel. Ich überlege: nein, für Werbung ist das zu schön. Ich beachte die Unterschrift — und da verstehe ich alles. Meine Brille? Natürlich in meinen Locken! Eine halbe Stunde habe ich sie verloren. Ich benutze sie endlich und lese: eine Einladung. Von der Oper! Von meiner Oper. Ich entdecke weiter: die Premiere, hundert Personen. Sie benennen die beste Köchin aus Neapel — und das bin ich! Die beste! So etwas habe ich noch nie erlebt. Mamma mia, hundert Personen — schaffe ich das?`;
-function rdRender(){document.getElementById('rdText').innerHTML=T1.split(/(\s+)/).map(w=>{
-  const k=w.toLowerCase().replace(/[^a-zäöüß]/g,'');
-  return GLOSS[k]?`<span style="cursor:pointer;border-bottom:1px dotted var(--t)" onclick="rdWord('${k}',this)">${w}</span>`:w;}).join('');}
-function rdWord(k,el){document.getElementById('rdPop').innerHTML=`<b>${el.textContent}</b> — ${GLOSS[k]||'?'} <button class="say" onclick="playWord('${k}','${M}')">🔊</button>`;}
-function rdPlay(b){playSeq(['audio/greta-part-1.mp3?v=1'],b,[{t:T1,role:M}]);}
-
-/* 5. Аудирование → ответ (вопрос БЕЗ целевого глагола, ответ = глагол) */
-const AC=[
- {q:'Что Грета делает с очками, чтобы прочитать письмо?',a:'benutzen',o:['benutzen','verlieren','bekommen']},
- {q:'Что Грета сначала НЕ делает с письмом?',a:'verstehen',o:['verstehen','beachten','entdecken']},
- {q:'Такого праздника она ещё никогда не …?',a:'erleben',o:['erleben','vermuten','benennen']},
-];
-let acI=0;
-function acR(){acI=0;acShow();}
-function acShow(){const c=AC[acI];document.getElementById('acProg').textContent='Вопрос '+(acI+1)+' / '+AC.length;
-  document.getElementById('acFb').textContent='';document.getElementById('acQ').textContent=c.q;
-  document.getElementById('acOpts').innerHTML=shuffle(c.o).map(x=>`<div class="opt" onclick="acPick('${x}',this)">${x}</div>`).join('');}
-function acPlay(b){playSeq(['audio/greta-part-1.mp3?v=1'],b);}
-function acPick(x,el){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';
-  const c=AC[acI],good=x===c.a;el.classList.add(good?'ok':'bad');playWord(c.a,M);
-  if(!good)errBump(c.a);
-  document.getElementById('acFb').innerHTML=good?`<span style="color:var(--ok)">✓ ${c.a} 🔊</span>`:`<span style="color:var(--bad)">Верно: ${c.a} 🔊</span>`;
-  setTimeout(()=>{document.getElementById('acOpts').dataset.done='';acI=(acI+1)%AC.length;acShow();},1500);}
-
-/* 6. Cloze в связном тексте */
-const CT={pre:'Am Mittwoch @0 ich Post. Zuerst @1 ich nicht: von wem? Ich @2 das Schlimmste. Dann @3 ich die Unterschrift — die Oper! Ich @4 meine Brille und lese die Einladung.',
-  ans:['bekomme','verstehe','vermute','beachte','benutze']};
-function ctBuild(){const bank=shuffle(CT.ans.slice());
-  document.getElementById('ctFb').textContent='';
-  let html=CT.pre;CT.ans.forEach((a,i)=>{html=html.replace('@'+i,`<select id="ct${i}" class="inp" style="width:auto;padding:3px 6px"><option value="">…</option>${bank.map(b=>`<option>${b}</option>`).join('')}</select>`);});
-  document.getElementById('ctText').innerHTML=html;}
-function ctCheck(){let ok=0;CT.ans.forEach((a,i)=>{const s=document.getElementById('ct'+i);const good=s.value===a;
-  s.style.borderColor=good?'var(--ok)':'var(--bad)';if(good)ok++;else errBump(a);});
-  document.getElementById('ctFb').innerHTML=`<span style="color:${ok===CT.ans.length?'var(--ok)':'var(--bad)'}">${ok} / ${CT.ans.length} верно</span>`+
-   (ok===CT.ans.length?' 🎉':'');}
-
-rdRender();acR();ctBuild();
-
+c1show();s3new();s4new();s5build();s6show();s7next();kState();
 </script></body></html>
