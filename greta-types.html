@@ -61,6 +61,30 @@
   <div class="fb" id="clFb"></div>
 </div>
 
+
+<div class="panel"><h3><span class="exnum">4</span>📖 Читай в контексте + слушай + клик по слову</h3>
+  <p class="sub">Слово в живом тексте запоминается лучше, чем в списке. Нажми <b>🔊</b> — слушай Грету. Нажми на любое <b>слово</b> — перевод.</p>
+  <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="rdPlay(this)">🔊 Слушать историю</button></div>
+  <p id="rdText" style="font-size:17px;line-height:2"></p>
+  <div id="rdPop" class="fb" style="text-align:left;font-weight:600"></div>
+</div>
+
+<div class="panel alt"><h3><span class="exnum">5</span>🎧 Слушай историю → ответь (аудирование)</h3>
+  <p class="sub">Текст скрыт! Слушай Грету и отвечай про действие. Ошибся — звучит верный глагол.</p>
+  <div class="toolbar" style="margin-top:0"><button class="btn t sm" onclick="acPlay(this)">🔊 Слушать</button></div>
+  <div class="q" id="acQ" style="font-size:17px"></div>
+  <div class="opts" id="acOpts"></div>
+  <div class="fb" id="acFb"></div>
+  <div style="text-align:center"><span class="prog" id="acProg"></span></div>
+</div>
+
+<div class="panel"><h3><span class="exnum">6</span>🔤 Вставь глаголы в связном тексте</h3>
+  <p class="sub">Cloze в СВЯЗНОМ отрывке (не отдельные фразы): по смыслу подбери глагол. Так работает контекст.</p>
+  <p id="ctText" style="font-size:17px;line-height:2.2"></p>
+  <div class="fb" id="ctFb"></div>
+  <div style="text-align:center;margin-top:6px"><button class="btn t sm" onclick="ctCheck()">Проверить</button> <button class="btn sm" onclick="ctBuild()">↻ заново</button></div>
+</div>
+
 <div class="key">🔑 <b>Ключ ИИ</b> — только в этом браузере. <div class="row"><input id="apiKey" class="inp" type="password" placeholder="sk-..."><button class="btn sm" onclick="kSave()">Сохранить</button><button class="btn sm" onclick="kClear()">Удалить</button></div><div id="kState" style="margin-top:6px"></div></div>
 <div class="scenenav"><a href="thema-untrennbar.html">← Раздел Греты</a> · <a href="greta-lab.html">другая лаборатория</a></div>
 </main>
@@ -151,4 +175,46 @@ function kClear(){aiClearKey();kState();}
 function kState(){document.getElementById('kState').innerHTML=aiGetKey()?'<span style="color:var(--ok);font-weight:700">✅ ключ в этом браузере</span>':'<span style="color:var(--muted)">без ключа подсказки-мнемоники не работают</span>';}
 
 hStart();wbNext();clNew();kState();
+
+/* 4. Читай в контексте + аудио + клик по слову */
+const GLOSS={alles:'всё',beginnt:'начинается',mittwoch:'среда',bekomme:'получаю',post:'почта',verstehe:'понимаю',zuerst:'сначала',vermute:'предполагаю',schlimmste:'худшее',strafe:'штраф',immer:'всегда',eile:'спешка',komme:'прихожу',spät:'поздно',werbung:'реклама',woche:'неделя',überlege:'обдумываю',schön:'красиво',beachte:'замечаю',unterschrift:'подпись',brille:'очки',locken:'кудри',stunde:'час',verloren:'потеряла',benutze:'пользуюсь',endlich:'наконец',lese:'читаю',einladung:'приглашение',oper:'опера',entdecke:'обнаруживаю',weiter:'дальше',premiere:'премьера',hundert:'сто',personen:'персон(ы)',benennen:'называют',beste:'лучшую',köchin:'повариха',neapel:'Неаполь',erlebt:'переживала',schaffe:'справлюсь',halbe:'половину'};
+const T1=`Alles beginnt am Mittwoch. Ich bekomme Post und verstehe zuerst nicht: von wem? Ich vermute das Schlimmste — eine Strafe? Ich habe immer Eile, ich komme immer zu spät, also: eine Strafe! Oder Werbung, davon bekomme ich jede Woche viel. Ich überlege: nein, für Werbung ist das zu schön. Ich beachte die Unterschrift — und da verstehe ich alles. Meine Brille? Natürlich in meinen Locken! Eine halbe Stunde habe ich sie verloren. Ich benutze sie endlich und lese: eine Einladung. Von der Oper! Von meiner Oper. Ich entdecke weiter: die Premiere, hundert Personen. Sie benennen die beste Köchin aus Neapel — und das bin ich! Die beste! So etwas habe ich noch nie erlebt. Mamma mia, hundert Personen — schaffe ich das?`;
+function rdRender(){document.getElementById('rdText').innerHTML=T1.split(/(\s+)/).map(w=>{
+  const k=w.toLowerCase().replace(/[^a-zäöüß]/g,'');
+  return GLOSS[k]?`<span style="cursor:pointer;border-bottom:1px dotted var(--t)" onclick="rdWord('${k}',this)">${w}</span>`:w;}).join('');}
+function rdWord(k,el){document.getElementById('rdPop').innerHTML=`<b>${el.textContent}</b> — ${GLOSS[k]||'?'} <button class="say" onclick="playWord('${k}','${M}')">🔊</button>`;}
+function rdPlay(b){playSeq(['audio/greta-part-1.mp3?v=1'],b,[{t:T1,role:M}]);}
+
+/* 5. Аудирование → ответ (вопрос БЕЗ целевого глагола, ответ = глагол) */
+const AC=[
+ {q:'Что Грета делает с очками, чтобы прочитать письмо?',a:'benutzen',o:['benutzen','verlieren','bekommen']},
+ {q:'Что Грета сначала НЕ делает с письмом?',a:'verstehen',o:['verstehen','beachten','entdecken']},
+ {q:'Такого праздника она ещё никогда не …?',a:'erleben',o:['erleben','vermuten','benennen']},
+];
+let acI=0;
+function acR(){acI=0;acShow();}
+function acShow(){const c=AC[acI];document.getElementById('acProg').textContent='Вопрос '+(acI+1)+' / '+AC.length;
+  document.getElementById('acFb').textContent='';document.getElementById('acQ').textContent=c.q;
+  document.getElementById('acOpts').innerHTML=shuffle(c.o).map(x=>`<div class="opt" onclick="acPick('${x}',this)">${x}</div>`).join('');}
+function acPlay(b){playSeq(['audio/greta-part-1.mp3?v=1'],b);}
+function acPick(x,el){if(el.closest('.opts').dataset.done)return;el.closest('.opts').dataset.done='1';
+  const c=AC[acI],good=x===c.a;el.classList.add(good?'ok':'bad');playWord(c.a,M);
+  if(!good)errBump(c.a);
+  document.getElementById('acFb').innerHTML=good?`<span style="color:var(--ok)">✓ ${c.a} 🔊</span>`:`<span style="color:var(--bad)">Верно: ${c.a} 🔊</span>`;
+  setTimeout(()=>{document.getElementById('acOpts').dataset.done='';acI=(acI+1)%AC.length;acShow();},1500);}
+
+/* 6. Cloze в связном тексте */
+const CT={pre:'Am Mittwoch @0 ich Post. Zuerst @1 ich nicht: von wem? Ich @2 das Schlimmste. Dann @3 ich die Unterschrift — die Oper! Ich @4 meine Brille und lese die Einladung.',
+  ans:['bekomme','verstehe','vermute','beachte','benutze']};
+function ctBuild(){const bank=shuffle(CT.ans.slice());
+  document.getElementById('ctFb').textContent='';
+  let html=CT.pre;CT.ans.forEach((a,i)=>{html=html.replace('@'+i,`<select id="ct${i}" class="inp" style="width:auto;padding:3px 6px"><option value="">…</option>${bank.map(b=>`<option>${b}</option>`).join('')}</select>`);});
+  document.getElementById('ctText').innerHTML=html;}
+function ctCheck(){let ok=0;CT.ans.forEach((a,i)=>{const s=document.getElementById('ct'+i);const good=s.value===a;
+  s.style.borderColor=good?'var(--ok)':'var(--bad)';if(good)ok++;else errBump(a);});
+  document.getElementById('ctFb').innerHTML=`<span style="color:${ok===CT.ans.length?'var(--ok)':'var(--bad)'}">${ok} / ${CT.ans.length} верно</span>`+
+   (ok===CT.ans.length?' 🎉':'');}
+
+rdRender();acR();ctBuild();
+
 </script></body></html>
