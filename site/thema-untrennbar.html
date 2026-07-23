@@ -151,6 +151,44 @@
     <div class="score" id="pgapScore"></div>
   </div>
 
+  <style>
+   .los{display:grid;gap:9px;grid-template-columns:1fr;margin-top:8px}.los.g3{grid-template-columns:repeat(3,1fr)}
+   @media(max-width:520px){.los.g3{grid-template-columns:1fr}}
+   .lo{border:2px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;background:#fff;font-size:16px;text-align:center;margin:3px}
+   .lo:hover{border-color:var(--t)}.lo.ok{background:#e8f6ee;border-color:#16a34a}.lo.bad{background:#fdecec;border-color:#dc2626}
+   .lq{font-size:20px;font-weight:800;text-align:center;margin:6px 0 4px;min-height:26px}
+   .lfb{text-align:center;min-height:22px;margin-top:8px;font-size:15px}
+   .ltmr{font-size:28px;font-weight:800;color:var(--t);text-align:center}
+   .rev{margin-top:12px}.rev:empty{margin:0}
+   .rrow{padding:5px 9px;border-radius:8px;margin:3px 0;font-size:14px}.rrow.ok{background:#e8f6ee}.rrow.bad{background:#fdecec}
+  </style>
+
+  <div class="panel"><h3><span class="exnum">7</span>⏱ Дрилл на время — выбери перевод</h3>
+    <p class="sub">60 секунд, глаголы этой части. Немецкий → выбери русский; при ошибке звучит верный глагол. В конце — список твоих ответов.</p>
+    <div class="ltmr" id="drTmr">60</div>
+    <div class="lq" id="drQ"></div>
+    <div class="los g3" id="drOpts"></div>
+    <div class="lfb" id="drFb"></div>
+    <div class="rev" id="drRev"></div>
+  </div>
+
+  <div class="panel alt"><h3><span class="exnum">8</span>⏪ Собери прошедшее (Perfekt)</h3>
+    <p class="sub">Все глаголы части по разу. Выбери вспомогательный (habe/bin) и причастие. Ловушка: <b>ge- НЕТ</b>. В конце — список ответов.</p>
+    <div class="lq" id="pf2Q"></div>
+    <div style="text-align:center" id="pf2Aux"></div>
+    <div style="text-align:center" id="pf2Part"></div>
+    <div class="lfb" id="pf2Fb"></div>
+    <div class="rev" id="pf2Rev"></div>
+  </div>
+
+  <div class="panel"><h3><span class="exnum">9</span>🔄 Настоящее → прошедшее</h3>
+    <p class="sub">Все глаголы части по разу. Дано настоящее — выбери, как это звучит в Perfekt. В конце — список ответов.</p>
+    <div class="lq" id="tpQ"></div>
+    <div class="los" id="tpOpts"></div>
+    <div class="lfb" id="tpFb"></div>
+    <div class="rev" id="tpRev"></div>
+  </div>
+
   <div class="panel" style="background:#fff8e1;border-color:#ffd54f">
     <h3>🧪 Черновики упражнений (часть 1 — на пробу)</h3>
     <p class="sub">Три площадки, оцениваешь что оставить:</p>
@@ -680,7 +718,80 @@ function mnEarPick(r,el){if(el.closest('#mnEarOpts').dataset.done)return;el.clos
   document.getElementById('mnEarFb').innerHTML=`${good?'✓':'Верно: '+v.ru} · <i>${v.sent}</i>`;}
 function mnEarNext(){document.getElementById('mnEarOpts').dataset.done='';mnEi=(mnEi+1)%mnData().V.length;mnEar();mnEarPlay();}
 
-function renderAll(){ci=0;flipped=false;renderMeaning();renderText();renderVerbs();renderCard();renderMatch();renderChoice();renderGap();renderSortPf();renderPGap();}
+/* ===== перенесено из лаборатории: 7 дрилл · 8 собери Perfekt · 9 наст→прош (по глаголам текущей части, с итоговым списком ответов) ===== */
+function reviewList(rows){if(!rows.length)return'';const ok=rows.filter(r=>r.ok).length;
+  return `<b>Твои ответы: ${ok}/${rows.length}</b>`+rows.map(r=>`<div class="rrow ${r.ok?'ok':'bad'}">${r.ok?'✓':'✗'} <b>${r.q}</b> — ты: ${r.mine||'—'}${r.ok?'':' · верно: <b>'+r.correct+'</b>'}</div>`).join('');}
+function presIch(inf){const c=(V().conj||[]).find(x=>x[0]===inf);return c?c[2][0]:inf;}
+function pres3(inf){const c=(V().conj||[]).find(x=>x[0]===inf);return c?c[2][2]:inf;}
+
+/* 7. Дрилл на время */
+let drQ=[],drCur=null,drLeft=0,drT=null,drLog=[],drOptArr=[];
+function renderDrill(){clearInterval(drT);drLeft=0;drLog=[];
+  document.getElementById('drTmr').textContent='60';
+  document.getElementById('drQ').innerHTML='<button class="btn t sm" onclick="drStart()">▶ Старт</button>';
+  document.getElementById('drOpts').innerHTML='';document.getElementById('drFb').textContent='';document.getElementById('drRev').innerHTML='';}
+function drStart(){drQ=shuffle(V().verbs.slice());drLog=[];drLeft=60;document.getElementById('drRev').innerHTML='';document.getElementById('drTmr').textContent='60';
+  clearInterval(drT);drT=setInterval(()=>{drLeft--;document.getElementById('drTmr').textContent=drLeft;if(drLeft<=0)drEnd();},1000);drNext();}
+function drNext(){if(drLeft<=0)return;if(!drQ.length)drQ=shuffle(V().verbs.slice());drCur=drQ.shift();
+  document.getElementById('drFb').textContent='';document.getElementById('drQ').innerHTML=`<b>${drCur[0]}</b>`;
+  drOptArr=shuffle([drCur[1],...shuffle(V().verbs.filter(v=>v[1]!==drCur[1])).slice(0,2).map(v=>v[1])]);
+  const box=document.getElementById('drOpts');box.dataset.done='';
+  box.innerHTML=drOptArr.map((r,i)=>`<div class="lo" onclick="drPick(this,${i})">${r}</div>`).join('');}
+function drPick(el,i){if(drLeft<=0)return;const box=el.parentElement;if(box.dataset.done)return;box.dataset.done='1';
+  const r=drOptArr[i],ok=r===drCur[1];el.classList.add(ok?'ok':'bad');drLog.push({q:drCur[0],mine:r,correct:drCur[1],ok});
+  if(!ok)playWord(drCur[0],M);
+  document.getElementById('drFb').innerHTML=ok?'<span style="color:#16a34a">✓</span>':`<span style="color:#dc2626">${drCur[0]} = ${drCur[1]}</span> 🔊`;
+  setTimeout(drNext,ok?300:1100);}
+function drEnd(){clearInterval(drT);document.getElementById('drQ').innerHTML='⏱ Стоп!';document.getElementById('drOpts').innerHTML='';document.getElementById('drFb').textContent='';
+  document.getElementById('drRev').innerHTML=reviewList(drLog)+'<div style="text-align:center;margin-top:8px"><button class="btn t sm" onclick="drStart()">↻ Ещё раз</button></div>';}
+
+/* 8. Собери Perfekt */
+let pfList=[],pfi=0,pfLog=[],pfAuxArr=[],pfPartArr=[],pfAuxChosen='',pfAuxOk=false;
+function renderPf2(){pfList=shuffle(V().verbs.slice());pfi=0;pfLog=[];document.getElementById('pf2Rev').innerHTML='';pf2Card();}
+function pf2Card(){if(pfi>=pfList.length)return pf2End();
+  const v=pfList[pfi];pfAuxOk=false;pfAuxChosen='';
+  document.getElementById('pf2Q').innerHTML=`<b>${v[0]}</b> — ${v[1]} <span style="color:var(--t);font-weight:700">(${pfi+1}/${pfList.length})</span><br><span style="font-size:15px">Ich ___ … ___.</span>`;
+  document.getElementById('pf2Fb').textContent='';
+  pfAuxArr=shuffle(['habe','bin']);const ab=document.getElementById('pf2Aux');ab.dataset.done='';
+  ab.innerHTML='<span style="font-weight:700;margin-right:4px">1)</span>'+pfAuxArr.map((a,i)=>`<button class="lo" style="display:inline-block;min-width:90px" onclick="pf2Aux(this,${i})">${a}</button>`).join('');
+  const part=v[2].split(' ')[1];let d=new Set([part,'ge'+part]);const p3=pres3(v[0]);if(p3!==part)d.add(p3);
+  pfPartArr=shuffle([...d]).slice(0,3);if(!pfPartArr.includes(part)){pfPartArr[0]=part;pfPartArr=shuffle(pfPartArr);}
+  const pb=document.getElementById('pf2Part');pb.dataset.done='';
+  pb.innerHTML='<span style="font-weight:700;margin-right:4px">2)</span>'+pfPartArr.map((x,i)=>`<button class="lo" style="display:inline-block;min-width:90px" onclick="pf2Part(this,${i})">${x}</button>`).join('');}
+function pf2Aux(el,i){const box=el.parentElement;if(box.dataset.done)return;box.dataset.done='1';
+  pfAuxChosen=pfAuxArr[i];const need=pfList[pfi][2].split(' ')[0]==='ist'?'bin':'habe';el.classList.add(pfAuxChosen===need?'ok':'bad');pfAuxOk=true;
+  document.getElementById('pf2Fb').innerHTML='теперь выбери причастие ↓';}
+function pf2Part(el,i){if(!pfAuxOk){document.getElementById('pf2Fb').innerHTML='<span style="color:var(--t)">Сначала вспомогательный ↑</span>';return;}
+  const box=el.parentElement;if(box.dataset.done)return;box.dataset.done='1';
+  const v=pfList[pfi],aux=v[2].split(' ')[0],part=v[2].split(' ')[1],needAux=aux==='ist'?'bin':'habe';
+  const chosen=pfPartArr[i],ok=chosen===part&&pfAuxChosen===needAux;el.classList.add(chosen===part?'ok':'bad');
+  const full=`Ich ${needAux} … ${part}`;playWord(v[2],M);
+  pfLog.push({q:v[0],mine:`${pfAuxChosen} … ${chosen}`,correct:full,ok});
+  document.getElementById('pf2Fb').innerHTML=ok?`<span style="color:#16a34a">✓ ${full} — без ge-! 🔊</span>`:`<span style="color:#dc2626">Верно: ${full} 🔊</span>`;
+  pfi++;setTimeout(pf2Card,1500);}
+function pf2End(){document.getElementById('pf2Q').innerHTML='Готово!';document.getElementById('pf2Aux').innerHTML='';document.getElementById('pf2Part').innerHTML='';document.getElementById('pf2Fb').textContent='';
+  document.getElementById('pf2Rev').innerHTML=reviewList(pfLog)+'<div style="text-align:center;margin-top:8px"><button class="btn t sm" onclick="renderPf2()">↻ Ещё раз</button></div>';}
+
+/* 9. Настоящее → Perfekt */
+let tpList=[],tpi=0,tpLog=[],tpOptArr=[];
+function renderTp(){tpList=shuffle(V().verbs.slice());tpi=0;tpLog=[];document.getElementById('tpRev').innerHTML='';tpCard();}
+function tpCard(){if(tpi>=tpList.length)return tpEnd();
+  const v=tpList[tpi],aux=v[2].split(' ')[0],part=v[2].split(' ')[1],auxI=aux==='ist'?'bin':'habe';
+  const good=`Ich ${auxI} … ${part}.`,w1=`Ich ${auxI} … ge${part}.`,w2=`Ich ${aux==='ist'?'habe':'bin'} … ${part}.`;
+  tpOptArr=shuffle([good,w1,w2]);
+  document.getElementById('tpQ').innerHTML=`Настоящее: <b>Ich ${presIch(v[0])} …</b> <span style="color:var(--t);font-weight:700">(${tpi+1}/${tpList.length})</span>`;
+  document.getElementById('tpFb').textContent='';const box=document.getElementById('tpOpts');box.dataset.done='';
+  box.innerHTML=tpOptArr.map((o,i)=>`<div class="lo" onclick="tpPick(this,${i})">${o}</div>`).join('');}
+function tpPick(el,i){const box=el.parentElement;if(box.dataset.done)return;box.dataset.done='1';
+  const v=tpList[tpi],aux=v[2].split(' ')[0],part=v[2].split(' ')[1],auxI=aux==='ist'?'bin':'habe',good=`Ich ${auxI} … ${part}.`;
+  const chosen=tpOptArr[i],ok=chosen===good;el.classList.add(ok?'ok':'bad');playWord(v[2],M);
+  tpLog.push({q:v[0],mine:chosen,correct:good,ok});
+  document.getElementById('tpFb').innerHTML=ok?'<span style="color:#16a34a">✓ 🔊</span>':`<span style="color:#dc2626">Верно: ${good} — без ge- 🔊</span>`;
+  tpi++;setTimeout(tpCard,1500);}
+function tpEnd(){document.getElementById('tpQ').innerHTML='Готово!';document.getElementById('tpOpts').innerHTML='';document.getElementById('tpFb').textContent='';
+  document.getElementById('tpRev').innerHTML=reviewList(tpLog)+'<div style="text-align:center;margin-top:8px"><button class="btn t sm" onclick="renderTp()">↻ Ещё раз</button></div>';}
+
+function renderAll(){ci=0;flipped=false;renderMeaning();renderText();renderVerbs();renderCard();renderMatch();renderChoice();renderGap();renderSortPf();renderPGap();renderDrill();renderPf2();renderTp();}
 renderTabs();renderAll();
 </script>
 </body>
