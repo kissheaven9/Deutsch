@@ -97,6 +97,11 @@ def check(path):
                         played.add(('Ich '+f[0]+' '+f[1]).strip())
                     elif len(f) >= 3:             # неотделяемые gap: g0+g1+g2
                         played.add((f[0]+f[1]+f[2]).strip())
+        # TRANSU (Переведи на немецкий): playWord озвучивает эталонный немецкий (2-е поле строки)
+        tm = re.search(r'const TRANSU=(\[[\s\S]*?\]\n\];)', h)
+        if tm:
+            for de_ in re.findall(r'\["(?:[^"\\]|\\.)*","((?:[^"\\]|\\.)*)","', tm.group(1)):
+                played.add(de_)
         played = {re.sub(r'\s+', ' ', p).strip() for p in played if p.strip()}
         miss = [p for p in played if not os.path.exists(os.path.join(wdir, _slug(p) + '.mp3'))]
         if miss:
