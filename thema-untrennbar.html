@@ -194,6 +194,11 @@
     <div id="truList"></div>
   </div>
 
+  <div class="panel"><h3><span class="exnum">11</span>🧩 Вставь глаголы в текст (по смыслу)</h3>
+    <p class="sub">Продолжение истории Греты. Вставь все глаголы части по смыслу (настоящее время) — контекст подсказывает. Внизу банк глаголов. «Показать» — ответы, 🔊 — весь текст голосом Греты.</p>
+    <div id="clozeBox"></div>
+  </div>
+
   <div class="panel" style="background:#fff8e1;border-color:#ffd54f">
     <h3>🧪 Черновики упражнений (часть 1 — на пробу)</h3>
     <p class="sub">Три площадки, оцениваешь что оставить:</p>
@@ -820,7 +825,26 @@ function truGoto(p){truPage=p;renderTransU();}
 function truShow(i){const t=TRANSU[AP][i];const el=document.getElementById('tru'+i);el.innerHTML=`✔ <b>${t[1]}</b> <button class="say" onclick="truPlay(${i})">🔊</button>`;el.hidden=false;}
 function truPlay(i){playWord(TRANSU[AP][i][1],M);}
 
-function renderAll(){ci=0;flipped=false;truPage=0;renderMeaning();renderText();renderVerbs();renderCard();renderMatch();renderChoice();renderGap();renderSortPf();renderPGap();renderDrill();renderPf2();renderTp();renderTransU();}
+/* ===== 11. Вставь глаголы в текст (продолжение истории Греты, все глаголы части) ===== */
+const CLOZE=[
+ {text:`Die Premiere ist in einer Woche, und die Vorbereitung {0} schon heute. Am Morgen {1} Greta die Gästeliste aus dem Theater — hundert Personen! Zuerst {2} sie nicht alles. Sie {3} viele Kinder — also braucht sie auch einfache Gerichte. Lange {4} sie das Menü. Das Fest ist draußen, darum {5} sie jedes Detail: das Essen muss praktisch sein. Alles soll italienisch schmecken — Farbe, Geschmack, Geruch. Ihr Hauptgericht {6} sie „Klein Italien". Damit sie nichts vergisst, {7} sie den Computer. Wie immer {8} sie ihre Brille — und diesmal {9} sie sie in der Küche, im Mehl! „So einen großen Tag {10} ich zum ersten Mal!", lächelt Greta.`,
+  gaps:[["beginnt","beginnen"],["bekommt","bekommen"],["versteht","verstehen"],["vermutet","vermuten"],["überlegt","überlegen"],["beachtet","beachten"],["benennt","benennen"],["benutzt","benutzen"],["verliert","verlieren"],["entdeckt","entdecken"],["erlebe","erleben"]]},
+ null,null,null,null,null,null
+];
+function clozeNorm(s){return (s||'').toLowerCase().replace(/ß/g,'ss').replace(/[^a-zäöü]/g,'');}
+function clozeFull(C){return C.text.replace(/\{(\d+)\}/g,(m,i)=>C.gaps[i][0]);}
+function renderCloze(){const C=CLOZE[AP];const box=document.getElementById('clozeBox');if(!box)return;
+  if(!C){box.innerHTML='<p style="color:var(--muted)">Текст этой части готовится.</p>';return;}
+  const bank=shuffle(C.gaps.map(g=>g[1]));
+  const html=C.text.replace(/\{(\d+)\}/g,(m,i)=>`<input id="clz${i}" style="width:130px;border:none;border-bottom:2px solid var(--t);font-family:inherit;font-size:15px;text-align:center;color:var(--t);background:#faf7ff" autocomplete="off">`);
+  box.innerHTML=`<div style="background:#f5f3ff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;line-height:2.4;font-size:15px">${html}</div>`
+   +`<div style="margin:10px 0;font-size:13px;color:#555">Банк глаголов: ${bank.map(b=>`<b style="color:var(--t)">${b}</b>`).join(' · ')}</div>`
+   +`<div class="toolbar"><button class="btn t sm" onclick="clozeCheck()">Проверить</button><button class="btn sm" onclick="clozeShow()">Показать</button><button class="btn sm" onclick="clozePlay(this)">🔊 Текст</button></div><div class="score" id="clozeScore"></div>`;}
+function clozeCheck(){const C=CLOZE[AP];if(!C)return;let ok=0;C.gaps.forEach((g,i)=>{const inp=document.getElementById('clz'+i);const v=clozeNorm(inp.value);const good=v===clozeNorm(g[0])||v===clozeNorm(g[1]);inp.style.borderColor=good?'#16a34a':'#dc2626';inp.style.color=good?'#16a34a':'#dc2626';if(good)ok++;});document.getElementById('clozeScore').innerHTML=`<span style="color:${ok===C.gaps.length?'#16a34a':'#dc2626'}">${ok} / ${C.gaps.length} верно</span>`;}
+function clozeShow(){const C=CLOZE[AP];if(!C)return;C.gaps.forEach((g,i)=>{const inp=document.getElementById('clz'+i);inp.value=g[0];inp.style.borderColor='#16a34a';inp.style.color='#16a34a';});document.getElementById('clozeScore').innerHTML='<span style="color:var(--accent)">Показаны ответы 🔊</span>';clozePlay();}
+function clozePlay(btn){if(CLOZE[AP])playSeq(['audio/greta-cloze-'+(AP+1)+'.mp3?v=1'],btn||null);}
+
+function renderAll(){ci=0;flipped=false;truPage=0;renderMeaning();renderText();renderVerbs();renderCard();renderMatch();renderChoice();renderGap();renderSortPf();renderPGap();renderDrill();renderPf2();renderTp();renderTransU();renderCloze();}
 renderTabs();renderAll();
 </script>
 </body>
