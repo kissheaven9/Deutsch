@@ -654,8 +654,7 @@ function mnPlay(){playWord(mnData().V[mnCi].inf,M);}
 function mnCard(){const v=mnData().V[mnCi];mnCs=0;document.getElementById('mnEmo').textContent=v.em||'🔤';
   document.getElementById('mnDe').innerHTML='';document.getElementById('mnStep').innerHTML='';
   document.getElementById('mnBtn').textContent='① разбор приставки →';
-  document.getElementById('mnDots').innerHTML=mnData().V.map((_,i)=>`<span class="dt${i===mnCi?' on':''}"></span>`).join('');
-  playWord(v.inf,M);}
+  document.getElementById('mnDots').innerHTML=mnData().V.map((_,i)=>`<span class="dt${i===mnCi?' on':''}"></span>`).join('');}
 function mnReveal(){const v=mnData().V[mnCi];mnCs++;
   if(mnCs===1){document.getElementById('mnDe').innerHTML=preHi(v.inf,v.pre)+' <button class="say" onclick="mnPlay()">🔊</button>';
     document.getElementById('mnStep').innerHTML=`<div class="reveal">🧩 <b>${v.pre}${v.root?' + '+v.root+(v.rru?' ('+v.rru+')':''):''}</b><br>${v.br}</div>`;
