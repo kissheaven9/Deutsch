@@ -76,6 +76,19 @@ def check(path):
             err.append(f'{name} часть {pi} — {from_text} предложений взяты ИЗ ТЕКСТА части: '
                        f'проверяется память о тексте, а не знание глагола (нужны ДРУГИЕ предложения)')
 
+    # 7) mnEar «На слух»: каждое проигрываемое предложение (sent) ДОЛЖНО иметь mp3, иначе РОБОТ (дневник 19.07)
+    #    playWord(sent) ищет audio/word/<slug(sent)>.mp3; нет файла → браузерный голос = робот.
+    if any(k in name for k in HERO_PAGES):
+        def _slug(x):
+            x = x.lower().replace('ä','ae').replace('ö','oe').replace('ü','ue').replace('ß','ss')
+            return re.sub(r'[^a-z0-9]+','-', x).strip('-')
+        wdir = os.path.join(ROOT, 'site', 'audio', 'word')
+        miss = [s_ for s_ in re.findall(r'"sent":\s*"([^"]+)"', h)
+                if not os.path.exists(os.path.join(wdir, _slug(s_) + '.mp3'))]
+        if miss:
+            err.append(f'{name} — {len(miss)} предложений «На слух» БЕЗ mp3 → браузерный РОБОТ. '
+                       f'Сгенерируй голосом героя (edge-tts). Пример: «{miss[0][:45]}…»')
+
     # 6) анти-кэш на css/js (дневник 07.06)
     for m in re.finditer(r'(href|src)="(css|js)/[^"?]+\.(css|js)"', body):
         line = body[:m.start()].count('\n') + 1

@@ -145,6 +145,16 @@ async def main():
     for g,w in words:
         text = f'{g} {w}'
         await tts(text, WORD_ROLE[g], os.path.join(AUDIO,'word', slug(text)+'.mp3'))
+    # предложения «На слух» (mnEar) со страниц героев: поле "sent" в MEANING → голосом героя (иначе робот, дневник 19.07)
+    SENT_PAGES=[('thema-untrennbar.html','female'),('thema-trennbar.html','male')]
+    for fn,role in SENT_PAGES:
+        fp=os.path.join(ROOT,fn)
+        if not os.path.exists(fp): continue
+        html=open(fp,encoding='utf-8').read()
+        sents=re.findall(r'"sent":\s*"([^"]+)"', html)
+        print(f'{fn}: предложений «На слух» {len(sents)}')
+        for t in sents:
+            await tts(t, role, os.path.join(AUDIO,'word', slug(t)+'.mp3'))
     # глаголы (мужской голос)
     VERBS=['wohnen','leben','lernen','machen','arbeiten','studieren','planen','glauben',
            'sein','haben','sprechen','heißen','kommen','gehen',
