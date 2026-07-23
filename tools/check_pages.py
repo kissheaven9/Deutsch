@@ -83,11 +83,25 @@ def check(path):
             x = x.lower().replace('ä','ae').replace('ö','oe').replace('ü','ue').replace('ß','ss')
             return re.sub(r'[^a-z0-9]+','-', x).strip('-')
         wdir = os.path.join(ROOT, 'site', 'audio', 'word')
-        miss = [s_ for s_ in re.findall(r'"sent":\s*"([^"]+)"', h)
-                if not os.path.exists(os.path.join(wdir, _slug(s_) + '.mp3'))]
+        played = set(re.findall(r'"sent":\s*"([^"]+)"', h))   # mnEar «На слух»
+        # gap (Вставь глагол) и pgap (Вставь Perfekt): playWord собирает предложение из полей строки
+        for block_re in (r'(?<!p)gap:\[(.*?)\n\s*\],', r'pgap:\[(.*?)\n\s*\]'):
+            is_pgap = 'pgap' in block_re
+            for bm in re.finditer(block_re, h, re.S):
+                for rowm in re.finditer(r'\[([^\]]*)\]', bm.group(1)):
+                    f = re.findall(r"'((?:[^'\\]|\\.)*)'", rowm.group(1))
+                    f = [x.replace("\\'", "'") for x in f]
+                    if len(f) >= 6:               # отделяемые: g0..g4
+                        played.add((f[0]+f[1]+f[2]+f[3]+f[4]).strip())
+                    elif is_pgap and len(f) >= 2: # неотделяемые pgap: 'Ich '+g0+' '+g1
+                        played.add(('Ich '+f[0]+' '+f[1]).strip())
+                    elif len(f) >= 3:             # неотделяемые gap: g0+g1+g2
+                        played.add((f[0]+f[1]+f[2]).strip())
+        played = {re.sub(r'\s+', ' ', p).strip() for p in played if p.strip()}
+        miss = [p for p in played if not os.path.exists(os.path.join(wdir, _slug(p) + '.mp3'))]
         if miss:
-            err.append(f'{name} — {len(miss)} предложений «На слух» БЕЗ mp3 → браузерный РОБОТ. '
-                       f'Сгенерируй голосом героя (edge-tts). Пример: «{miss[0][:45]}…»')
+            err.append(f'{name} — {len(miss)} проигрываемых предложений (На слух/Вставь глагол/Perfekt) БЕЗ mp3 → '
+                       f'браузерный РОБОТ. Сгенерируй голосом героя (edge-tts). Пример: «{miss[0][:45]}…»')
 
     # 6) анти-кэш на css/js (дневник 07.06)
     for m in re.finditer(r'(href|src)="(css|js)/[^"?]+\.(css|js)"', body):
