@@ -128,27 +128,13 @@
     <div id="chList"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">4</span>✍️ Вставь глагол (настоящее)</h3>
-    <p class="sub">Предложения — <b>из истории части</b>. Впиши форму глагола: приставка остаётся при нём, отделять НЕ нужно. 🔊 — проверить на слух.</p>
-    <div id="gapList"></div>
-    <div class="toolbar"><button class="btn t sm" onclick="gapCheck()">Проверить</button><button class="btn sm" onclick="gapShow()">Показать</button></div>
-    <div class="score" id="gapScore"></div>
-  </div>
-
-  <div class="panel"><h3><span class="exnum">5</span>🧩 Раздели по Perfekt: причастие на -t ↔ на -en</h3>
+  <div class="panel"><h3><span class="exnum">4</span>🧩 Раздели по Perfekt: причастие на -t ↔ на -en</h3>
     <p class="sub">Правильные → <b>-t</b> (erklärt, bezahlt). Сильные → <b>-en</b> (bekommen, verstanden). У всех — <b>без ge-</b>!</p>
     <div id="sortPf"></div>
   </div>
   <div class="panel memo"><h3>📌 Памятка: причастия этой части</h3>
     <p class="mnote">Главное: у Греты причастие <b>без -ge-</b> — сравни с Отто (auf<b>ge</b>standen):</p>
     <div id="sortPfdemo"></div>
-  </div>
-
-  <div class="panel alt"><h3><span class="exnum">6</span>⏪ Вставь глагол в прошедшем (Perfekt)</h3>
-    <p class="sub">Впиши вспомогательный (<b>habe / bin</b>) и <b>причастие</b>. Помни: <b>ge- нет!</b></p>
-    <div id="pgapList"></div>
-    <div class="toolbar"><button class="btn t sm" onclick="pgapCheck()">Проверить</button><button class="btn sm" onclick="pgapShow()">Показать</button></div>
-    <div class="score" id="pgapScore"></div>
   </div>
 
   <style>
@@ -163,7 +149,7 @@
    .rrow{padding:5px 9px;border-radius:8px;margin:3px 0;font-size:14px}.rrow.ok{background:#e8f6ee}.rrow.bad{background:#fdecec}
   </style>
 
-  <div class="panel"><h3><span class="exnum">7</span>⏱ Дрилл на время — выбери перевод</h3>
+  <div class="panel"><h3><span class="exnum">5</span>⏱ Дрилл на время — выбери перевод</h3>
     <p class="sub">60 секунд, глаголы этой части. Немецкий → выбери русский; при ошибке звучит верный глагол. В конце — список твоих ответов.</p>
     <div class="ltmr" id="drTmr">60</div>
     <div class="lq" id="drQ"></div>
@@ -172,7 +158,7 @@
     <div class="rev" id="drRev"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">8</span>⏪ Собери прошедшее (Perfekt)</h3>
+  <div class="panel alt"><h3><span class="exnum">6</span>⏪ Собери прошедшее (Perfekt)</h3>
     <p class="sub">Все глаголы части по разу. Выбери вспомогательный (habe/bin) и причастие. Ловушка: <b>ge- НЕТ</b>. В конце — список ответов.</p>
     <div class="lq" id="pf2Q"></div>
     <div style="text-align:center" id="pf2Aux"></div>
@@ -181,7 +167,7 @@
     <div class="rev" id="pf2Rev"></div>
   </div>
 
-  <div class="panel"><h3><span class="exnum">9</span>🔄 Настоящее → прошедшее</h3>
+  <div class="panel"><h3><span class="exnum">7</span>🔄 Настоящее → прошедшее</h3>
     <p class="sub">Все глаголы части по разу. Дано настоящее — выбери, как это звучит в Perfekt. В конце — список ответов.</p>
     <div class="lq" id="tpQ"></div>
     <div class="los" id="tpOpts"></div>
@@ -189,24 +175,14 @@
     <div class="rev" id="tpRev"></div>
   </div>
 
-  <div class="panel alt"><h3><span class="exnum">10</span>✍️ Переведи на немецкий (из памяти)</h3>
+  <div class="panel alt"><h3><span class="exnum">8</span>✍️ Переведи на немецкий (из памяти)</h3>
     <p class="sub">Дано по-русски — напиши по-немецки САМ(А), доставая слово из памяти. Только пройденные слова. «Показать» — эталон и 🔊 голосом Греты.</p>
     <div id="truList"></div>
   </div>
 
-  <div class="panel"><h3><span class="exnum">11</span>🧩 Вставь глаголы в текст (по смыслу)</h3>
+  <div class="panel"><h3><span class="exnum">9</span>🧩 Вставь глаголы в текст (по смыслу)</h3>
     <p class="sub">Продолжение истории Греты. Вставь все глаголы части по смыслу (настоящее время) — контекст подсказывает. Внизу банк глаголов. «Показать» — ответы, 🔊 — весь текст голосом Греты.</p>
     <div id="clozeBox"></div>
-  </div>
-
-  <div class="panel" style="background:#fff8e1;border-color:#ffd54f">
-    <h3>🧪 Черновики упражнений (часть 1 — на пробу)</h3>
-    <p class="sub">Три площадки, оцениваешь что оставить:</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <a class="btn t" href="greta-types.html">🪜 Лестница (8 ступеней)</a>
-      <a class="btn" href="greta-lab.html">🧪 Лаборатория</a>
-      <a class="btn" href="greta-verben.html">🧠 Значения (образы)</a>
-    </div>
   </div>
 
   <div class="scenenav"><a href="index.html">🏠 Главная</a></div>
@@ -624,7 +600,7 @@ function toggleRu(){const r=document.getElementById('ruText'),b=document.getElem
   r.hidden=!r.hidden;b.textContent=r.hidden?'🇷🇺 Показать перевод':'🇷🇺 Скрыть перевод';}
 function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.vb').forEach(s=>s.textContent=s.dataset.de);
   const plain=t.innerText.replace(/\s+/g,' ').trim();
-  playSeq(['audio/greta-part-'+(AP+1)+'.mp3?v=1'],btn,[{t:plain,role:M}]);}
+  playSeq(['audio/greta-part-'+(AP+1)+'.mp3?v=2'],btn,[{t:plain,role:M}]);}
 function renderVerbs(){document.getElementById('vlistV').innerHTML=V().verbs.map(([de,ru,pp],i)=>{const sein=pp.indexOf('ist')===0;
   return `<div class="vv"><button class="say" onclick="playWord('${de}','${M}')">🔊</button><span class="de">${de}</span><span class="ru">${ru}</span>`+
   `<button class="btn sm" onclick="const e=document.getElementById('pp${i}');e.hidden=!e.hidden">⏪</button>`+
@@ -865,7 +841,7 @@ function clozePlay(btn){if(CLOZE[AP])playSeq(['audio/greta-cloze-'+(AP+1)+'.mp3?
 function clozeRestart(btn){if(!CLOZE[AP])return;if(typeof _stopAll==='function')_stopAll();playSeq(['audio/greta-cloze-'+(AP+1)+'.mp3?v=4'],btn||null);}
 function clozeTrans(btn){const d=document.getElementById('clozeRU');if(!d)return;const show=d.style.display==='none';d.style.display=show?'block':'none';if(btn)btn.textContent=show?'🇷🇺 Скрыть перевод':'🇷🇺 Перевод';}
 
-function renderAll(){ci=0;flipped=false;truPage=0;renderMeaning();renderText();renderVerbs();renderCard();renderMatch();renderChoice();renderGap();renderSortPf();renderPGap();renderDrill();renderPf2();renderTp();renderTransU();renderCloze();}
+function renderAll(){ci=0;flipped=false;truPage=0;renderMeaning();renderText();renderVerbs();renderCard();renderMatch();renderChoice();renderSortPf();renderDrill();renderPf2();renderTp();renderTransU();renderCloze();}
 renderTabs();renderAll();
 </script>
 </body>
