@@ -48,19 +48,18 @@ async def tts(text, role, out):
 
 
 async def build(part):
+    # Отдельные файлы-сегменты greta-part-N-i.mp3 — плеер (playSeq) играет их по очереди.
+    # Это надёжнее бинарной склейки mp3 (некоторые браузеры её не доигрывают) и даёт чистую смену голоса.
     segs = SEGMENTS[part]
-    tmp = []
+    names = []
     for i, (role, text) in enumerate(segs):
-        p = os.path.join(AUD, f'_seg_{part}_{i}.mp3')
-        await tts(text, role, p)
-        tmp.append(p)
-    out = os.path.join(AUD, f'greta-part-{part}.mp3')
-    with open(out, 'wb') as w:
-        for p in tmp:
-            with open(p, 'rb') as r:
-                w.write(r.read())
-            os.remove(p)
-    print('OK', out, os.path.getsize(out), 'bytes')
+        name = f'greta-part-{part}-{i}.mp3'
+        await tts(text, role, os.path.join(AUD, name))
+        names.append(name)
+    print('OK part', part, '→', len(names), 'сегментов:')
+    for n in names:
+        print('   ', n)
+    print('JS для playText:', ['audio/' + n for n in names])
 
 
 if __name__ == '__main__':
