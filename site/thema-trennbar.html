@@ -665,7 +665,7 @@ function playSentSlug(sl,de,btn){playSeq(['audio/trenn-sent-'+sl+'.mp3?v=6'],btn
 function playHearSlug(sl,de,btn){playSeq(['audio/trenn-hear-'+sl+'.mp3?v=6'],btn,[{t:de,role:M}]);}
 
 function renderTabs(){document.getElementById('tabs').innerHTML=PARTS.map((p,i)=>`<button class="tab${i===AP?' on':''}" onclick="setPart(${i})">${p.title}</button>`).join('');}
-function setPart(i){AP=i;renderTabs();renderAll();window.scrollTo({top:0,behavior:'smooth'});}
+function setPart(i){if(typeof _stopAll==='function')_stopAll();AP=i;renderTabs();renderAll();window.scrollTo({top:0,behavior:'smooth'});}
 
 function renderText(){const p=V();document.getElementById('tTitle').textContent=p.title+' — читаем текст и глаголы';
   document.getElementById('deText').innerHTML=p.textDE;document.getElementById('ruText').innerHTML=p.textRU;document.getElementById('ruText').hidden=true;document.getElementById('ruBtn').textContent='Показать перевод';
