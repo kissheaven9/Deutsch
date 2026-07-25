@@ -741,7 +741,7 @@ let pfList=[],pfi=0,pfLog=[],pfAuxArr=[],pfPartArr=[],pfAuxChosen='',pfAuxOk=fal
 function renderPf2(){pfList=shuffle(V().verbs.slice());pfi=0;pfLog=[];document.getElementById('pf2Rev').innerHTML='';pf2Card();}
 function pf2Card(){if(pfi>=pfList.length)return pf2End();
   const v=pfList[pfi];pfAuxOk=false;pfAuxChosen='';
-  document.getElementById('pf2Q').innerHTML=`<b>${v[0]}</b> — ${v[1]} <span style="color:var(--t);font-weight:700">(${pfi+1}/${pfList.length})</span><br><span style="font-size:15px">Ich ___ … ___.</span>`;
+  document.getElementById('pf2Q').innerHTML=`<b>${v[0]}</b> <span style="color:var(--t);font-weight:700">(${pfi+1}/${pfList.length})</span><br><span style="font-size:15px">Ich ___ … ___.</span>`;
   document.getElementById('pf2Fb').textContent='';
   pfAuxArr=shuffle(['habe','bin']);const ab=document.getElementById('pf2Aux');ab.dataset.done='';
   ab.innerHTML='<span style="font-weight:700;margin-right:4px">1)</span>'+pfAuxArr.map((a,i)=>`<button class="lo" style="display:inline-block;min-width:90px" onclick="pf2Aux(this,${i})">${a}</button>`).join('');
