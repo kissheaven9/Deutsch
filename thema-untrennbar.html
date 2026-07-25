@@ -88,19 +88,19 @@
       <div style="text-align:center;margin-top:6px"><button class="btn sm" onclick="mnCfNext()">другая пара →</button></div></div>
   </div>
 
-  <div class="panel" id="mnEarPanel"><h3><span class="exnum">3</span>🎧 На слух</h3>
-    <p class="sub">Фраза из истории (текст скрыт) → выбери значение глагола.</p>
-    <div style="text-align:center"><button class="btn t sm" onclick="mnEarPlay()">🔊 Слушать</button></div>
-    <div id="mnEarOpts" style="margin-top:8px"></div><div class="rres" id="mnEarFb" style="text-align:center;margin-top:6px"></div>
-    <div style="text-align:center;margin-top:6px"><button class="btn sm" onclick="mnEarNext()">Дальше →</button></div>
-  </div>
-
   <div class="part"><span class="pico">📜</span><div><div class="pk">Шаг 2 · текст</div><h2>Теперь читай историю</h2></div></div>
   <div class="panel"><h3>📜 Текст части <span class="sub" style="margin:0;text-transform:none">кликни глагол → инфинитив + перевод</span></h3>
     <div class="toolbar" style="margin-top:0"><button class="btn sm" onclick="playText(this)">🔊 Послушать</button></div>
     <p class="detxt" id="deText"></p>
     <div class="toolbar"><button class="btn sm" id="ruBtn" onclick="toggleRu()">🇷🇺 Показать перевод</button></div>
     <p id="ruText" hidden style="color:#374151;background:var(--tbg);border-radius:10px;padding:10px 12px;line-height:1.7"></p>
+  </div>
+
+  <div class="panel" id="mnEarPanel"><h3>🎧 На слух</h3>
+    <p class="sub">Прочитал историю выше — теперь проверь на слух: слушай фразу и выбери значение глагола.</p>
+    <div style="text-align:center"><button class="btn t sm" onclick="mnEarPlay()">🔊 Слушать</button></div>
+    <div id="mnEarOpts" style="margin-top:8px"></div><div class="rres" id="mnEarFb" style="text-align:center;margin-top:6px"></div>
+    <div style="text-align:center;margin-top:6px"><button class="btn sm" onclick="mnEarNext()">Дальше →</button></div>
   </div>
   <div class="panel"><h3>🔤 Глаголы части + прошедшее</h3>
     <p class="sub">🔊 — голос Греты. <b>⏪</b> — Perfekt (<span style="color:var(--ok);font-weight:700">зелёным</span> — с sein).</p>
