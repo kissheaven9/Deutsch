@@ -705,8 +705,17 @@ function mnEar(){const V=mnData().V;const v=V[mnEi];document.getElementById('mnE
   const others=V.filter(x=>x.inf!==v.inf).sort(()=>Math.random()-.5).slice(0,2).map(x=>x.ru);
   const opts=[v.ru,...others].sort(()=>Math.random()-.5);
   document.getElementById('mnEarOpts').innerHTML=opts.map(r=>`<div class="eo" onclick="mnEarPick('${r.replace(/'/g,"\'")}',this)">${r}</div>`).join('');}
-function mnEarPlay(){playWord(mnData().V[mnEi].sent,M);}
-function mnEarPick(r,el){if(el.closest('#mnEarOpts').dataset.done)return;el.closest('#mnEarOpts').dataset.done='1';const v=mnData().V[mnEi];const good=r===v.ru;el.classList.add(good?'ok':'bad');playWord(v.sent,M);
+// «На слух»: фразы-реплики Лины → сегменты её голосом (playSeq), остальное — Гретой (playWord).
+// Ключ AP:инфинитив; значения — файлы-сегменты (см. tools/gen_part_multivoice.py, SENT_SEGMENTS).
+const EARSEG={
+  '3:erlauben':['ear-4-erlauben-0.mp3','ear-4-erlauben-1.mp3','ear-4-erlauben-2.mp3','ear-4-erlauben-3.mp3'],
+  '5:gewinnen':['ear-6-gewinnen-0.mp3','ear-6-gewinnen-1.mp3'],
+  '5:bedanken':['ear-6-bedanken-0.mp3','ear-6-bedanken-1.mp3'],
+  '5:ergänzen':['ear-6-ergaenzen-0.mp3','ear-6-ergaenzen-1.mp3']
+};
+function mnPlaySent(v){const seg=EARSEG[AP+':'+v.inf];if(seg){playSeq(seg.map(u=>'audio/'+u+'?v=1'),null,[{t:v.sent,role:M}]);}else{playWord(v.sent,M);}}
+function mnEarPlay(){mnPlaySent(mnData().V[mnEi]);}
+function mnEarPick(r,el){if(el.closest('#mnEarOpts').dataset.done)return;el.closest('#mnEarOpts').dataset.done='1';const v=mnData().V[mnEi];const good=r===v.ru;el.classList.add(good?'ok':'bad');mnPlaySent(v);
   document.getElementById('mnEarFb').innerHTML=`${good?'✓':'Верно: '+v.ru} · <i>${v.sent}</i>`;}
 function mnEarNext(){document.getElementById('mnEarOpts').dataset.done='';mnEi=(mnEi+1)%mnData().V.length;mnEar();mnEarPlay();}
 
