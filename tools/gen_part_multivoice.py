@@ -43,6 +43,31 @@ SEGMENTS = {
 }
 
 
+# Фразы упражнения «На слух» (mnEar), где есть реплики Лины → сегменты с её голосом.
+# Ключ = префикс файла (ear-<часть>-<slug инфинитива>), значение = сегменты (voice, text).
+# Склейка текстов сегментов должна равняться полю sent соответствующего глагола.
+SENT_SEGMENTS = {
+    'ear-4-erlauben': [
+        ('lina',  '„Was machst du?“'),
+        ('greta', '„Suppe.“'),
+        ('lina',  '„Darf ich helfen?“'),
+        ('greta', 'Ich erlaube es und erteile ihr sofort eine Aufgabe.'),
+    ],
+    'ear-6-gewinnen': [
+        ('greta', '„Woher?“ —'),
+        ('lina',  '„Ich habe sie gewonnen!'),
+    ],
+    'ear-6-bedanken': [
+        ('lina',  'Die Verkäuferin hat eine Frage gestellt, ich habe richtig geantwortet.“'),
+        ('greta', 'Ich bedanke mich bei ihr: behalte diese Orange, du hast sie verdient!'),
+    ],
+    'ear-6-ergaenzen': [
+        ('greta', 'Lina lacht und ergänzt:'),
+        ('lina',  'und keine Milch!'),
+    ],
+}
+
+
 async def tts(text, role, out):
     cfg = VOICE[role]
     for _ in range(3):
@@ -69,6 +94,16 @@ async def build(part):
     print('JS для playText:', ['audio/' + n for n in names])
 
 
+async def build_sents():
+    for prefix, segs in SENT_SEGMENTS.items():
+        for i, (role, text) in enumerate(segs):
+            await tts(text, role, os.path.join(AUD, f'{prefix}-{i}.mp3'))
+        print('OK', prefix, '→', len(segs), 'сегм.:', [f'{prefix}-{i}.mp3' for i in range(len(segs))])
+
+
 if __name__ == '__main__':
-    part = int(sys.argv[1]) if len(sys.argv) > 1 else 4
-    asyncio.run(build(part))
+    arg = sys.argv[1] if len(sys.argv) > 1 else '4'
+    if arg == 'sents':
+        asyncio.run(build_sents())
+    else:
+        asyncio.run(build(int(arg)))
