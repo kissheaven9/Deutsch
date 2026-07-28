@@ -600,7 +600,8 @@ function toggleRu(){const r=document.getElementById('ruText'),b=document.getElem
   r.hidden=!r.hidden;b.textContent=r.hidden?'🇷🇺 Показать перевод':'🇷🇺 Скрыть перевод';}
 // Части, где текст озвучен НЕСКОЛЬКИМИ голосами (реплики других героев): список файлов-сегментов.
 // Часть 4 — реплики Лины детским голосом (см. tools/gen_part_multivoice.py).
-const PARTSEG={4:['greta-part-4-0.mp3','greta-part-4-1.mp3','greta-part-4-2.mp3','greta-part-4-3.mp3','greta-part-4-4.mp3']};
+const PARTSEG={4:['greta-part-4-0.mp3','greta-part-4-1.mp3','greta-part-4-2.mp3','greta-part-4-3.mp3','greta-part-4-4.mp3'],
+  6:['greta-part-6-0.mp3','greta-part-6-1.mp3','greta-part-6-2.mp3','greta-part-6-3.mp3','greta-part-6-4.mp3']};
 function playText(btn){const t=document.getElementById('deText').cloneNode(true);t.querySelectorAll('.vb').forEach(s=>s.textContent=s.dataset.de);
   const plain=t.innerText.replace(/\s+/g,' ').trim();
   const seg=PARTSEG[AP+1];

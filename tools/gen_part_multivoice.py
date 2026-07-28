@@ -33,6 +33,13 @@ SEGMENTS = {
         ('lina',  '„Darf ich helfen?“'),
         ('greta', 'Ich erlaube es und erteile ihr sofort eine Aufgabe. Beim Kochen beobachtet sie mich: wie ich schneide, wie ich probiere. Sie fragt ohne Ende, und ich berate sie: warum Tomaten, warum keine Wurst. Ich erzähle ihr von Neapel: die Sonne, die laute Straße, meine Oma in der blauen Bluse. So vertieft Lina sich in meine Küche — und verliebt sich in sie. Und ich vermittle ihr das Wichtigste: nicht die Suppe, sondern die Freude am Kochen.'),
     ],
+    6: [
+        ('greta', 'In der Tasche ist noch eine Orange. „Woher?“ —'),
+        ('lina',  '„Ich habe sie gewonnen! Die Verkäuferin hat eine Frage gestellt, ich habe richtig geantwortet.“'),
+        ('greta', 'Ich bedanke mich bei ihr: behalte diese Orange, du hast sie verdient! Ich beginne. Ich verbinde Tomaten, Zitronen und Oliven — rot, gelb, grün in einer Pfanne. Ich probiere. Es gefällt mir: sauer, kräftig, genau richtig. Meine Suppe enthält nur das. Ich beschreibe Lina alles und berichte das Wichtigste: Wurst in der Suppe verbiete ich! Mamma mia, nie! Lina lacht und ergänzt:'),
+        ('lina',  'und keine Milch!'),
+        ('greta', 'Brava! Ihre Mutter kommt spät — und Lina übernachtet bei mir.'),
+    ],
 }
 
 
