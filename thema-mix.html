@@ -6,82 +6,38 @@
 <title>Отделяемые и неотделяемые вместе</title>
 <link rel="stylesheet" href="css/style.css?v=3">
 <style>
- .wrap{max-width:860px;margin:0 auto;padding:16px}
+ .wrap{max-width:880px;margin:0 auto;padding:16px}
  .rule{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:14px;padding:14px 16px;line-height:1.7;margin:10px 0 6px}
- .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 8px}
- .tab{border:none;border-radius:12px;padding:9px 14px;font-weight:700;background:var(--tbg);color:#6d28d9;cursor:pointer;font-family:inherit}
- .tab.on{background:#6d28d9;color:#fff}
- .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
- .detxt{font-size:18px;line-height:2}
- .rutxt{font-size:16px;line-height:1.8;color:#374151;background:var(--tbg);border-radius:12px;padding:12px 14px}
- .vb{font-weight:700;cursor:pointer;border-bottom:1.5px dotted}
- .vb.A{color:#3b5bdb;border-bottom-color:#3b5bdb} .vb.B{color:#c2185b;border-bottom-color:#c2185b}
- .vb.open{color:#166534;border-bottom-color:#166534}
- .pre{color:#3b5bdb;font-weight:800}
- .btn{border:none;border-radius:12px;padding:10px 15px;font-weight:700;background:var(--tbg);color:#6d28d9;cursor:pointer;font-family:inherit;font-size:15px}
- .btn.sm{padding:8px 12px;font-size:14px} .btn.on{background:#6d28d9;color:#fff}
- .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
- .sec{font-weight:800;color:#6d28d9;margin:26px 0 8px;font-size:18px}
- .q{font-size:22px;font-weight:800;text-align:center;margin:8px 0}
- .qru{color:#6b7280;text-align:center;font-size:15px;margin-bottom:8px}
- .opts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
- .fb{text-align:center;min-height:24px;margin-top:10px;font-size:15px}
- .rev{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:10px 12px;margin-top:10px;text-align:center;font-size:17px}
- .cnt{color:#9ca3af;text-align:center;font-size:13px}
- .say{border:none;background:var(--tbg);border-radius:10px;padding:5px 9px;cursor:pointer}
+ .sec{font-weight:800;color:#6d28d9;margin:26px 0 10px;font-size:17px}
+ .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+ .tcard{text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;color:#1f2937}
+ .tcard:hover{border-color:#6d28d9}
+ .tcard img{width:100%;height:150px;object-fit:cover;display:block;background:#ede9fe}
+ .tcb{padding:12px 14px}.tct{font-weight:800}.tcs{color:#6b7280;font-size:13px;margin:3px 0 6px}.tcgo{color:#6d28d9;font-weight:700;font-size:14px}
+ .dcard{display:block;text-decoration:none;background:#ede9fe;border:1px solid #ddd6fe;border-radius:16px;padding:16px;color:#5b21b6}
+ .dcard:hover{border-color:#6d28d9}
+ .lead{color:#4b5563;line-height:1.7}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap" style="padding:10px 16px"><a class="home" href="index.html">🇩🇪 Deutsch A1</a> <span class="crumb">/ Отделяемые + неотделяемые</span></div></header>
 <main class="wrap">
-  <h1 style="font-size:25px;margin:6px 0 2px">🔀 Отделяемые и неотделяемые — вместе</h1>
-  <p class="sub" style="color:#6b7280;margin:0 0 6px">Раньше учили по группам. Теперь — вперемешку: узнать тип на лету и употребить верно.</p>
+  <h1 style="font-size:26px;margin:6px 0 2px">🔀 Отделяемые и неотделяемые — вместе</h1>
+  <p class="lead">Раньше учили группы порознь. Теперь — вперемешку: узнать тип на лету и употребить верно.</p>
   <div class="rule">
     <b style="color:#3b5bdb">Отто (отделяемые):</b> приставка улетает в конец — <i>ich stehe früh <b>auf</b></i>; в Perfekt <b>ge внутри</b> — <i>ist auf<b>ge</b>standen</i>.<br>
     <b style="color:#c2185b">Грета (неотделяемые):</b> приставка приросла — <i>ich <b>be</b>komme</i>; в Perfekt <b>ge НЕТ</b> — <i>hat bekommen</i>.
   </div>
 
-  <div class="sec">📖 Три текста (глаголы вперемешку)</div>
-  <div class="tabs" id="txtTabs"></div>
-  <div class="panel">
-    <h3 id="txtTitle" style="margin:0 0 6px"></h3>
-    <p class="sub" style="color:#6b7280;margin:0 0 8px">Кликни глагол → инфинитив, перевод и тип (<b style="color:#3b5bdb">отд.</b>/<b style="color:#c2185b">неотд.</b>). 🔊 — озвучка.</p>
-    <div class="toolbar" style="margin-top:0"><button class="btn sm" onclick="txtPlay(this)">🔊 Послушать</button><button class="btn sm" id="txtRuBtn" onclick="toggleTxtRu()">Показать перевод</button></div>
-    <p class="detxt" id="txtDe"></p>
-    <p class="rutxt" id="txtRu" hidden></p>
+  <div class="sec">Тексты по теме — читать (глаголы вперемешку)</div>
+  <div class="tgrid">
+    <a class="tcard" href="thema-mix-text.html?n=1"><img src="img/mix-text-1.png" alt="" onerror="this.style.display='none'"><div class="tcb"><div class="tct">Текст 1 — Соседи становятся друзьями</div><div class="tcs">Отто зовёт Грету в сад — тепло и волнительно</div><span class="tcgo">Читать →</span></div></a>
+    <a class="tcard" href="thema-mix-text.html?n=2"><img src="img/mix-text-2.png" alt="" onerror="this.style.display='none'"><div class="tcb"><div class="tct">Текст 2 — День на рынке</div><div class="tcs">Отто, Грета и Лина за покупками — живо и весело</div><span class="tcgo">Читать →</span></div></a>
+    <a class="tcard" href="thema-mix-text.html?n=3"><img src="img/mix-text-3.png" alt="" onerror="this.style.display='none'"><div class="tcb"><div class="tct">Текст 3 — Большой вечер</div><div class="tcs">Премьера супа Греты, Отто помогает — кульминация</div><span class="tcgo">Читать →</span></div></a>
   </div>
 
-  <div class="sec">1️⃣ Отто или Грета? (отделяемый / неотделяемый)</div>
-  <div class="panel">
-    <p class="sub" style="color:#6b7280;margin:0 0 8px">Дан глагол — выбери тип. Приставки Греты: be‑ er‑ ver‑ ge‑ ent‑ emp‑ (и «обманки» über/unter/wieder/um).</p>
-    <div class="q" id="tyQ"></div>
-    <div class="opts">
-      <button class="btn" onclick="tyPick('A')">🔵 Отто — отделяемый</button>
-      <button class="btn" onclick="tyPick('B')">🔴 Грета — неотделяемый</button>
-    </div>
-    <div class="fb" id="tyFb"></div>
-    <div class="cnt" id="tyCnt"></div>
-  </div>
-
-  <div class="sec">2️⃣ Собери Perfekt (ловушка ge)</div>
-  <div class="panel">
-    <p class="sub" style="color:#6b7280;margin:0 0 8px">Вспомни прошедшее. Отто — <b>ge внутри</b>; Грета — <b>без ge</b>. Нажми «Показать» — проверь и услышь.</p>
-    <div class="q" id="pfQ"></div><div class="qru" id="pfRu"></div>
-    <div style="text-align:center"><button class="btn sm" onclick="pfReveal()">Показать Perfekt 🔊</button></div>
-    <div class="rev" id="pfRev" hidden></div>
-    <div class="toolbar" style="justify-content:center"><button class="btn sm" onclick="pfNext()">Дальше →</button></div>
-    <div class="cnt" id="pfCnt"></div>
-  </div>
-
-  <div class="sec">3️⃣ Скажи по-немецки (из памяти)</div>
-  <div class="panel">
-    <p class="sub" style="color:#6b7280;margin:0 0 8px">Дано по-русски — скажи глагол по-немецки. «Показать» — ответ, тип и озвучка.</p>
-    <div class="q" id="spQ"></div>
-    <div style="text-align:center"><button class="btn sm" onclick="spReveal()">Показать 🔊</button></div>
-    <div class="rev" id="spRev" hidden></div>
-    <div class="toolbar" style="justify-content:center"><button class="btn sm" onclick="spNext()">Дальше →</button></div>
-    <div class="cnt" id="spCnt"></div>
-  </div>
+  <div class="sec">Тренажёр — закрепить</div>
+  <a class="dcard" href="thema-mix-drill.html"><b>🎯 Тренажёр смешанных глаголов</b><div style="font-size:14px;margin-top:3px;opacity:.85">«Отто или Грета?» (тип на лету) · «Собери Perfekt» (ловушка ge/без ge) · «Скажи по-немецки» (RU→DE + озвучка)</div></a>
 
   <div style="margin:26px 0;display:flex;gap:10px;flex-wrap:wrap">
     <a href="thema-otto.html" style="text-decoration:none;background:#eef2ff;color:#3b5bdb;border-radius:12px;padding:11px 16px;font-weight:700">🔵 Отто</a>
@@ -89,83 +45,5 @@
     <a href="index.html" style="text-decoration:none;background:#f3e8ff;color:var(--accent);border-radius:12px;padding:11px 16px;font-weight:700">🏠 Главная</a>
   </div>
 </main>
-<script src="js/app.js?v=4"></script>
-<script>
-function VB(de,ru,t){return `<span class="vb ${t}" data-de="${de}" data-ru="${ru}">${de}</span>`;}
-function P(p){return `<b class="pre">${p}</b>`;}
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-
-const TEXTS=[
- {title:'Текст 1 — Otto lädt Greta ein',
-  de:`Otto ${VB('steht','aufstehen — вставать (отд.)','A')} früh ${P('auf')}. Er ${VB('ruft','anrufen — звонить (отд.)','A')} Greta ${P('an')} und ${VB('lädt','einladen — приглашать (отд.)','A')} sie zum Kaffee ${P('ein')}. Greta ${VB('bekommt','bekommen — получать (неотд.)','B')} die Einladung und ${VB('versteht','verstehen — понимать (неотд.)','B')} sofort. Sie ${VB('sagt','zusagen — соглашаться (отд.)','A')} gern ${P('zu')} und ${VB('bedankt','bedanken — благодарить (неотд.)','B')} sich herzlich. Am Abend ${VB('erzählt','erzählen — рассказывать (неотд.)','B')} sie alles Lina.`,
-  ru:`Отто рано встаёт. Он звонит Грете и приглашает её на кофе. Грета получает приглашение и сразу понимает. Она с радостью соглашается и сердечно благодарит. Вечером она всё рассказывает Лине.`},
- {title:'Текст 2 — Auf dem Markt',
-  de:`Greta ${VB('kauft','einkaufen — закупаться (отд.)','A')} ${P('ein')}. Der Verkäufer ${VB('empfiehlt','empfehlen — рекомендовать (неотд.)','B')} frische Tomaten. Greta ${VB('vergleicht','vergleichen — сравнивать (неотд.)','B')} zwei Sorten und ${VB('bezahlt','bezahlen — платить (неотд.)','B')} sofort. Otto ${VB('nimmt','mitnehmen — брать с собой (отд.)','A')} eine Tüte ${P('mit')}. Zu Hause ${VB('räumt','aufräumen — убирать (отд.)','A')} er alles ${P('auf')}, und Greta ${VB('bereitet','vorbereiten — готовить (отд.)','A')} das Essen ${P('vor')}. Das gute Rezept ${VB('behält','behalten — оставить себе (неотд.)','B')} sie.`,
-  ru:`Грета закупается. Продавец рекомендует свежие помидоры. Грета сравнивает два сорта и сразу платит. Отто берёт с собой пакет. Дома он всё убирает, а Грета готовит еду. Хороший рецепт она оставляет себе.`},
- {title:'Текст 3 — Der Abend',
-  de:`Am Abend ${VB('sieht','fernsehen — смотреть телевизор (отд.)','A')} Otto ${P('fern')}. Dann ${VB('macht','ausmachen — выключать (отд.)','A')} er den Fernseher ${P('aus')}. Greta ${VB('beschreibt','beschreiben — описывать (неотд.)','B')} Neapel, und Otto ${VB('vergisst','vergessen — забывать (неотд.)','B')} die Zeit. Er ${VB('schreibt','aufschreiben — записывать (отд.)','A')} eine Idee ${P('auf')}. Dann ${VB('gehen','spazieren gehen — гулять (отд.)','A')} sie zusammen ${P('spazieren')} und ${VB('kommen','zurückkommen — возвращаться (отд.)','A')} spät ${P('zurück')}. An der Tür ${VB('verabschiedet','verabschieden — прощаться (неотд.)','B')} sich Greta.`,
-  ru:`Вечером Отто смотрит телевизор. Потом выключает телевизор. Грета описывает Неаполь, и Отто забывает о времени. Он записывает идею. Потом они вместе гуляют и поздно возвращаются. У двери Грета прощается.`}
-];
-
-// [инфинитив, перевод, Perfekt, тип]  A=отделяемый(Отто), B=неотделяемый(Грета)
-const MIX=[
- ["aufstehen","вставать","ist aufgestanden","A"],["anrufen","звонить","hat angerufen","A"],
- ["einladen","приглашать","hat eingeladen","A"],["zusagen","соглашаться","hat zugesagt","A"],
- ["einkaufen","закупаться","hat eingekauft","A"],["mitnehmen","брать с собой","hat mitgenommen","A"],
- ["aufräumen","убирать","hat aufgeräumt","A"],["vorbereiten","готовить","hat vorbereitet","A"],
- ["fernsehen","смотреть телевизор","hat ferngesehen","A"],["ausmachen","выключать","hat ausgemacht","A"],
- ["aufschreiben","записывать","hat aufgeschrieben","A"],["spazieren gehen","гулять","ist spazieren gegangen","A"],
- ["zurückkommen","возвращаться","ist zurückgekommen","A"],
- ["bekommen","получать","hat bekommen","B"],["verstehen","понимать","hat verstanden","B"],
- ["bedanken","благодарить","hat bedankt","B"],["erzählen","рассказывать","hat erzählt","B"],
- ["empfehlen","рекомендовать","hat empfohlen","B"],["vergleichen","сравнивать","hat verglichen","B"],
- ["bezahlen","платить","hat bezahlt","B"],["behalten","оставить себе","hat behalten","B"],
- ["beschreiben","описывать","hat beschrieben","B"],["vergessen","забывать","hat vergessen","B"],
- ["verabschieden","прощаться","hat verabschiedet","B"]
-];
-const voice=t=>t==='A'?'male':'female';
-
-/* ---- тексты ---- */
-let TP=0;
-function renderTxtTabs(){document.getElementById('txtTabs').innerHTML=TEXTS.map((t,i)=>`<button class="tab${i===TP?' on':''}" onclick="setTxt(${i})">${i+1}</button>`).join('');}
-function setTxt(i){if(typeof _stopAll==='function')_stopAll();TP=i;renderTxtTabs();renderTxt();}
-function renderTxt(){const t=TEXTS[TP];document.getElementById('txtTitle').textContent=t.title;
-  document.getElementById('txtDe').innerHTML=t.de;
-  const r=document.getElementById('txtRu');r.innerHTML=t.ru;r.hidden=true;document.getElementById('txtRuBtn').textContent='Показать перевод';
-  document.querySelectorAll('#txtDe .vb').forEach(el=>el.addEventListener('click',()=>{const o=el.classList.toggle('open');el.textContent=o?el.dataset.ru:el.dataset.de;}));}
-function toggleTxtRu(){const r=document.getElementById('txtRu'),b=document.getElementById('txtRuBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
-function txtPlay(btn){const c=document.getElementById('txtDe').cloneNode(true);c.querySelectorAll('.vb').forEach(el=>el.textContent=el.dataset.de);const plain=c.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/mix-text-'+(TP+1)+'.mp3?v=1'],btn,[{t:plain,role:'female'}]);}
-
-/* ---- 1. тип ---- */
-let tyList=shuffle(MIX),tyi=0,tyOk=0,tyDone=0;
-function tyShow(){document.getElementById('tyQ').textContent=tyList[tyi][0];document.getElementById('tyFb').innerHTML='';}
-function tyPick(ans){const v=tyList[tyi];const ok=ans===v[3];tyDone++;if(ok)tyOk++;
-  const rule=v[3]==='A'?'приставка улетает в конец, Perfekt с <b>ge</b>':'приставка приросла, Perfekt <b>без ge</b>';
-  document.getElementById('tyFb').innerHTML=(ok?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ Это '+(v[3]==='A'?'Отто (отделяемый)':'Грета (неотделяемый)')+'. </span>')
-    +`<i>${v[0]}</i> — ${v[1]} · ${v[2]} <button class="say" onclick="playWord('${v[0]}','${voice(v[3])}')">🔊</button><br><span style="color:#6b7280;font-size:13px">${rule}</span>`;
-  document.getElementById('tyCnt').textContent=`верно ${tyOk} из ${tyDone}`;
-  tyi=(tyi+1)%tyList.length;if(tyi===0)tyList=shuffle(MIX);setTimeout(tyShow,1600);}
-
-/* ---- 2. Perfekt ---- */
-let pfList=shuffle(MIX),pfi=0;
-function pfShow(){const v=pfList[pfi];document.getElementById('pfQ').textContent=v[0];document.getElementById('pfRu').textContent=v[1];
-  document.getElementById('pfRev').hidden=true;document.getElementById('pfCnt').textContent=`${pfi+1} / ${pfList.length}`;}
-function pfReveal(){const v=pfList[pfi];const tag=v[3]==='A'?'<span style="color:#3b5bdb">Отто · ge внутри</span>':'<span style="color:#c2185b">Грета · без ge</span>';
-  const rev=document.getElementById('pfRev');rev.hidden=false;
-  rev.innerHTML=`<b>${v[2]}</b> <button class="say" onclick="playWord('${v[2]}','${voice(v[3])}')">🔊</button><br><span style="font-size:13px">${tag}</span>`;
-  playWord(v[2],voice(v[3]));}
-function pfNext(){pfi=(pfi+1)%pfList.length;if(pfi===0)pfList=shuffle(MIX);pfShow();}
-
-/* ---- 3. RU→DE ---- */
-let spList=shuffle(MIX),spi=0;
-function spShow(){document.getElementById('spQ').textContent=spList[spi][1];document.getElementById('spRev').hidden=true;document.getElementById('spCnt').textContent=`${spi+1} / ${spList.length}`;}
-function spReveal(){const v=spList[spi];const tag=v[3]==='A'?'<span style="color:#3b5bdb">отделяемый</span>':'<span style="color:#c2185b">неотделяемый</span>';
-  const rev=document.getElementById('spRev');rev.hidden=false;
-  rev.innerHTML=`<b>${v[0]}</b> <button class="say" onclick="playWord('${v[0]}','${voice(v[3])}')">🔊</button> · ${tag}<br><span style="font-size:13px;color:#6b7280">${v[2]}</span>`;
-  playWord(v[0],voice(v[3]));}
-function spNext(){spi=(spi+1)%spList.length;if(spi===0)spList=shuffle(MIX);spShow();}
-
-renderTxtTabs();renderTxt();tyShow();pfShow();spShow();
-</script>
 </body>
 </html>
