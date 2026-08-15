@@ -64,6 +64,10 @@ EXTRA = {
  'Fabrik':'die','Freundschaft':'die','Aufgabe':'die','Straße':'die','Melodie':'die','Pfanne':'die',
  'Speise':'die','Zeichnung':'die','Zutat':'die','Sahne':'die','Milch':'die','Ketchup':'der',
  'Mütze':'die','Bluse':'die','Schüssel':'die','Freude':'die','Hand':'die','Musik':'die','Heimat':'die',
+ 'Nachricht':'die','Schrift':'die','Zeile':'die','Traurigkeit':'die','Kochschule':'die','Idee':'die',
+ 'Regel':'die','Nase':'die','Bewegung':'die','Geduld':'die','Prise':'die','Liebe':'die','Kochshow':'die',
+ 'Show':'die','Angst':'die','Bühne':'die','Kraft':'die','Jury':'die','Goldmedaille':'die','Schüssel':'die','Leute':'die',
+
  'Tier':'das','Pferd':'das','Schaf':'das','Feld':'das','Dorf':'das','Tal':'das','Meer':'das','Ufer':'das',
  'Kaninchen':'das','Land':'das','Kind':'das','Mädchen':'das','Haus':'das','Glück':'das','Problem':'das',
  'Wasser':'das','Gras':'das','Jahr':'das','Fest':'das','Essen':'das','Fenster':'das','Material':'das',
@@ -87,7 +91,7 @@ LEMMA = {
  'Bestellungen':'Bestellung','Speisen':'Speise','Zeichnungen':'Zeichnung','Zutaten':'Zutat','Jahre':'Jahr',
  'Sorten':'Sorte','Fragen':'Frage','Stunden':'Stunde','Einladungen':'Einladung','Strafen':'Strafe',
  'Gäste':'Gast','Teile':'Teil','Teilen':'Teil','Stühle':'Stuhl','Wege':'Weg','Schritte':'Schritt',
- 'Männer':'Mann','Menschen':'Mensch','Gärten':'Garten','Hasen':'Hase','Tages':'Tag','Helfer':'Helfer','Teller':'Teller',
+ 'Männer':'Mann','Menschen':'Mensch','Zeilen':'Zeile','Regeln':'Regel','Herzen':'Herz','Gärten':'Garten','Hasen':'Hase','Tages':'Tag','Helfer':'Helfer','Teller':'Teller',
 }
 IGNORE = set("""Otto Greta Grete Theo Lina Bianca Anna Ben Noah Lea Mümmel Mamma Finlay Deutschland
 Schottland Italien Neapel Österreich Polen Toskana Er Sie Es Aber Und Am Im In Dann Dort Hier Jeden Als So
@@ -102,7 +106,7 @@ Hundert Zwanzig Zehn Sonne Post
 Früher Großes Allein Egal Darf Kochen Wichtigste Wichtige Woher Brava Frisches Bestehe Braves
 Schlimmste Melodie2 Sofort Genau Richtig Stolz Egal2 Alles2
 Edinburgh Amsterdam München Na Fertig Nebenan Spät Vielleicht Unter Dunkeln Kennt Erkennt
-Teo Jeder Früh Ja2 Wenn Endlich Plötzlich Fröhlich Nächsten Geheim Trocken Fremder Fremder Billigen""".split())
+Teo Jeder Früh Lange Neues Italienisch Keine Mal Herz Herzen Ja2 Wenn Endlich Plötzlich Fröhlich Nächsten Geheim Trocken Fremder Fremder Billigen""".split())
 
 # --- ЛИНЗА (docs/17 §0): категорию назначает род САМОГО слова категории ---
 LENS_OWNER = {'der': 'Отто · ЦЕНА (der Preis)', 'die': 'Грета · ЦВЕТ (die Farbe)', 'das': 'Тео · МАТЕРИАЛ (das Material)'}
