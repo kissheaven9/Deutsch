@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Отделяемые глаголы — тексты</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ .wrap{max-width:820px;margin:0 auto;padding:16px}
+ .txtimg{width:100%;max-width:820px;border-radius:16px;display:block;margin:6px 0 14px}
+ .detxt{font-size:18px;line-height:1.9;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+ .rutxt{font-size:16px;line-height:1.8;color:#374151;background:var(--tbg);border-radius:12px;padding:12px 14px}
+ .vb{color:#3b5bdb;font-weight:700;cursor:pointer;border-bottom:1.5px dotted #3b5bdb}
+ .vb.open{color:#c2410c;border-bottom-color:#c2410c}
+ .pre{color:#c2185b;font-weight:800}
+ .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+ .btn{border:none;border-radius:12px;padding:10px 16px;font-weight:700;background:var(--tbg);color:#3b5bdb;cursor:pointer;font-family:inherit;font-size:15px}
+ .btn.sm{padding:8px 13px;font-size:14px}
+ .snav{display:flex;justify-content:space-between;gap:10px;margin:20px 0}
+ .snav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:#3b5bdb}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap" style="padding:10px 16px"><a class="home" href="index.html">🇩🇪 Deutsch A1</a> <span class="crumb">/ Отделяемые глаголы / Тексты</span></div></header>
+<main class="wrap">
+  <div style="margin:6px 0 10px"><a class="btn sm" href="thema-otto.html">← Все части и тексты</a></div>
+  <img id="txtImg" class="txtimg" alt="" hidden>
+  <h1 id="txtTitle" style="font-size:24px;margin:4px 0 2px"></h1>
+  <p class="sub" style="color:#6b7280;margin:0 0 8px">Кликни глагол → инфинитив + перевод; <b class="pre">приставка</b> выделена. 🔊 — голос Отто.</p>
+  <div class="toolbar" style="margin-top:0"><button class="btn sm" onclick="storyPlay(this)">🔊 Послушать</button><button class="btn sm" id="storyRuBtn" onclick="toggleStoryRu()">Показать перевод</button></div>
+  <p class="detxt" id="storyDe"></p>
+  <p class="rutxt" id="storyRu" hidden></p>
+  <div class="snav" id="snav"></div>
+</main>
+<script src="js/app.js?v=4"></script>
+<script>
+const M='male';
+function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
+function P(p){return `<b class="pre">${p}</b>`;}
+const STORIES=[
+ {title:'История 1 — Der Enkel kommt (Внук прилетает)',
+  prompt:'Тёплая книжная иллюстрация (не фотореализм). Зал прилёта аэропорта. Отто — коренастый шотландец ~50 лет, густая рыжая борода, в клетчатом килте и шляпе — стоит у выхода и с волнением и любовью смотрит на маленького внука Финлея (~7 лет), который бежит к нему с рисунком в руке. На рисунке сад и две фигурки, взявшиеся за руки. Вдали табло и поезд. Эмоция: долгожданная встреча, дед светится. Без текста, букв и цифр.',
+  textDE:`Heute ${VB('hat','freihaben — быть выходным')} Otto ${P('frei')} — endlich! Auf diesen Tag wartet er schon so lange. Er schläft fast nicht und ${VB('denkt','nachdenken — размышлять')} viel ${P('nach')}: Wie groß ist Finlay jetzt? Kennt er seinen Opa noch? Früh am Morgen ${VB('steht','aufstehen — вставать')} Otto ${P('auf')} und ${VB('zieht','anziehen — надевать')} seinen schönen Kilt und den alten Hut ${P('an')}. Zuerst ${VB('ruft','anrufen — звонить')} er seinen Sohn in Schottland ${P('an')}: „Na, fliegt Finlay heute wirklich?“ Ja! Finlay ${VB('fliegt','abfliegen — вылетать')} schon aus Edinburgh ${P('ab')}, und in Amsterdam ${VB('steigt','umsteigen — пересаживаться')} er ${P('um')}. Otto fährt zum Flughafen und ${VB('holt','abholen — забирать')} ihn ${P('ab')}. Er ${VB('steigt','einsteigen — садиться в транспорт')} in den Zug ${P('ein')}, der Zug ${VB('fährt','abfahren — отъезжать')} ${P('ab')}, in München ${VB('steigt','umsteigen — пересаживаться')} Otto ${P('um')} und ${VB('fährt','weiterfahren — ехать дальше')} ${P('weiter')}. Endlich ${VB('steigt','aussteigen — выходить из транспорта')} er am Flughafen ${P('aus')}. Man ${VB('sagt','durchsagen — объявлять')} ${P('durch')}: Der Flug aus Amsterdam ${VB('kommt','ankommen — прибывать')} ${P('an')}. Otto wartet am Ausgang und ${VB('schaut','anschauen — разглядывать')} ihn immer wieder ${P('an')}. Und da ist er — der kleine Finlay! Wie groß er ist, wie gut er ${VB('aussieht','aussehen — выглядеть')}! Der Junge läuft zu ihm und ${VB('bringt','mitbringen — приносить с собой')} dem Opa einen Zettel ${P('mit')}: darauf ein Garten und zwei kleine Männer, ganz nah zusammen. Otto will etwas sagen, aber er kann es nicht ${VB('ausdrücken','ausdrücken — выражать')} — er nimmt seinen Enkel einfach fest in den Arm. Und das ist genug.`,
+  textRU:`Сегодня у Отто выходной — наконец-то! Этого дня он ждал так долго. Он почти не спит и всё думает: какой теперь Финлей? Узнает ли ещё своего деда? Рано утром Отто встаёт и надевает свой красивый килт и старую шляпу. Сначала он звонит сыну в Шотландию: «Ну что, Финлей правда сегодня летит?» Да! Финлей уже вылетает из Эдинбурга, а в Амстердаме пересаживается. Отто едет в аэропорт и встречает его. Он садится в поезд, поезд отходит, в Мюнхене Отто пересаживается и едет дальше. Наконец он выходит у аэропорта. Объявляют: рейс из Амстердама прибыл. Отто ждёт у выхода и всё время смотрит на него. И вот он — маленький Финлей! Как же он вырос, как хорошо выглядит! Мальчик бежит к нему и привозит деду листок: на нём сад и два маленьких человечка, совсем рядом. Отто хочет что-то сказать, но не может выразить это словами — просто крепко обнимает внука. И этого достаточно.`},
+ {title:'История 2 — Grillabend im Garten (Праздник в саду)',
+  prompt:'Тёплая книжная иллюстрация. Вечерний сад Отто, гриль-праздник. Отто — рыжебородый шотландец в килте и шляпе — угощает соседей кофе и рыбным пирогом за простым пластиковым столом. Гости: соседка Грета (итальянка), дети Тео и Лина с кроликом Мюммелем, новый сосед. Все смеются, знакомятся, гуляют по саду. Тёплый свет фонариков, уют, впервые не одиноко. Без текста, букв и цифр.',
+  textDE:`Nebenan ${VB('zieht','umziehen — переезжать')} ein neuer Nachbar ${P('um')}. Otto ${VB('schaut','anschauen — разглядывать')} ihn aus dem Garten ${P('an')}: schon wieder ein fremder Mensch, schon wieder nur „Guten Tag“. Aber am Abend, allein im Garten, denkt er plötzlich: Was, wenn er einmal nicht so allein ist? Und dann macht er es einfach: er ${VB('lädt','einladen — приглашать')} alle Nachbarn in seinen Garten ${P('ein')}. Er ${VB('schlägt','vorschlagen — предлагать')} den Samstag ${P('vor')}: Grill, Kaffee, ein einfacher Grillabend. Zuerst ${VB('ruft','anrufen — звонить')} er Greta ${P('an')}; sie ${VB('sagt','zusagen — соглашаться')} fröhlich ${P('zu')} und will ${VB('zurückrufen','zurückrufen — перезванивать')}. Teo und Lina sind auch dabei. Nur ein Nachbar ${VB('sagt','absagen — отменять')} ${P('ab')} — er ist am Samstag nicht da. Otto ${VB('legt','auflegen — класть трубку')} ${P('auf')}. Es ist wahr: Der Grillabend ${VB('findet','stattfinden — состояться')} wirklich ${P('statt')}. Am Samstag ${VB('bereitet','vorbereiten — готовить')} Otto alles ${P('vor')} und ${VB('kauft','einkaufen — закупаться')} ${P('ein')} — er zählt jeden Cent und nimmt den billigen Tisch und die Stühle aus Kunststoff. Er ${VB('räumt','aufräumen — убирать')} den Garten ${P('auf')}: Jeder Weg soll sauber sein. Die Gäste kommen. Otto ${VB('stellt','vorstellen — представлять')} alle ${P('vor')}, die Nachbarn ${VB('lernen','kennenlernen — знакомиться')} sich endlich ${P('kennen')} — der neue Nachbar und Greta, Teo mit dem Hasen Mümmel. Otto ${VB('bietet','anbieten — предлагать')} jedem Kaffee und seinen Fischkuchen ${P('an')}. Und — endlich! — alle ${VB('machen','mitmachen — участвовать')} ${P('mit')}: sie lachen, sie helfen, sie ${VB('gehen','spazieren gehen — гулять')} zusammen im Garten ${P('spazieren')}. Spät am Abend ${VB('gehen','weggehen — уходить')} die Gäste ${P('weg')}, aber sie wollen nächsten Samstag ${VB('zurückkommen','zurückkommen — возвращаться')}. Otto ${VB('wäscht','abwaschen — мыть посуду')} allein die Teller ${P('ab')} — und er lächelt zufrieden. Sein Garten ist nicht mehr leer.`,
+  textRU:`По соседству переехал новый сосед. Отто разглядывает его из сада: опять чужой человек, опять только «Guten Tag». Но вечером, один в саду, он вдруг думает: а что, если хоть раз не быть таким одиноким? И тогда он просто делает это: приглашает всех соседей к себе в сад. Предлагает субботу: гриль, кофе, простой праздник. Сначала звонит Грете — та радостно соглашается и обещает перезвонить. Тео и Лина тоже за. Только один сосед отказывается — в субботу его не будет. Отто кладёт трубку. Это правда: праздник в саду и вправду состоится. В субботу Отто всё готовит и закупается — считает каждый цент и берёт дешёвый стол и стулья из пластика. Он убирает сад: каждая дорожка должна быть чистой. Приходят гости. Отто всех представляет, соседи наконец знакомятся — новый сосед и Грета, Тео с кроликом Мюммелем. Отто угощает каждого кофе и своим рыбным пирогом. И — наконец-то! — все участвуют: смеются, помогают, вместе гуляют по саду. Поздно вечером гости уходят, но обещают вернуться в следующую субботу. Отто один моет тарелки — и довольно улыбается. Его сад больше не пустой.`},
+ {title:'История 3 — Ottos Geheimnis am Abend (Тайна по вечерам)',
+  prompt:'Тёплая книжная иллюстрация. Поздний вечер, тёмная комната. Ворчливый рыжебородый Отто в килте тайком сидит за старым дешёвым компьютером — его «секрет»: он мастерит маленького помощника для сада (напоминает поливать). На столе листок с планом, картонная коробка с деталями, экран светится. Выключенный телевизор в стороне. На лице — скрытая мечтательность, мысль о сыне. Мягкий свет экрана в темноте. Без текста, букв и цифр.',
+  textDE:`Die Nachbarn denken, Otto ${VB('sieht','fernsehen — смотреть телевизор')} am Abend nur ${P('fern')}. Aber das stimmt nicht. Wenn es dunkel wird, ${VB('macht','ausmachen — выключать')} Otto den Fernseher ${P('aus')}, ${VB('räumt','ausräumen — освобождать')} den Tisch ${P('aus')} und ${VB('macht','anmachen — включать')} seinen alten, billigen Computer ${P('an')}. Er hat einen geheimen Plan: Er macht etwas für Gärten — aber was, das sagt er nicht. „Das ist geheim!“ Er ${VB('fängt','anfangen — начинать')} ${P('an')}. Auf einen Zettel ${VB('schreibt','aufschreiben — записывать')} er jeden Schritt ${P('auf')}, ${VB('füllt','ausfüllen — заполнять')} seinen Zettel ${P('aus')}, ${VB('kreuzt','ankreuzen — отмечать крестиком')} ${P('an')}, was gut ist, und ${VB('streicht','durchstreichen — зачёркивать')} ${P('durch')}, was nicht geht. Der Bildschirm ${VB('zeigt','anzeigen — показывать')} etwas ${P('an')} und ${VB('weist','hinweisen — указывать на')} ihn darauf ${P('hin')}: Der Garten ist zu trocken. Otto ${VB('gibt','angeben — указывать')} alles genau ${P('an')} und nickt zufrieden. Am Morgen kommt ein Karton mit Teilen. Otto ${VB('lädt','abladen — выгружать')} ihn ${P('ab')} und ${VB('baut','aufbauen — собирать')} einen kleinen Helfer für den Garten ${P('auf')}. Fertig — jetzt ${VB('nimmt','mitnehmen — брать с собой')} er den Helfer in den Garten ${P('mit')} und probiert ihn. Spät in der Nacht ${VB('macht','zumachen — закрывать')} Otto den Laptop ${P('zu')} und ${VB('schaltet','ausschalten — выключать')} den Bildschirm ${P('aus')}. Und erst dann, im Dunkeln, denkt Otto an seinen Sohn. Er möchte das alles einmal an ihn ${VB('weitergeben','weitergeben — передавать')}. Vielleicht ${VB('arbeiten','mitarbeiten — работать вместе')} sie eines Tages daran ${P('mit')}. Unter dem alten Gärtner steckt ein stiller Träumer.`,
+  textRU:`Соседи думают, что по вечерам Отто просто смотрит телевизор. Но это не так. Когда темнеет, Отто выключает телевизор, освобождает стол и включает свой старый дешёвый компьютер. У него есть тайный план: он делает кое-что для садов — а что именно, не говорит. «Это секрет!» Он начинает. На листке он записывает каждый шаг, заполняет свой листок, отмечает крестиком то, что хорошо, и зачёркивает то, что не выходит. Экран что-то показывает и подсказывает ему: саду не хватает воды. Отто вводит всё точно и довольно кивает. Утром приходит картонная коробка с деталями. Отто выгружает её и собирает маленького помощника для сада. Готово — теперь он берёт помощника с собой в сад и проверяет его. Поздно ночью Отто закрывает ноутбук и выключает экран. И только тогда, в темноте, Отто думает о сыне. Он хочет однажды передать всё это ему. Может быть, когда-нибудь они будут работать над этим вместе. Под старым садовником прячется тихий мечтатель.`},
+];
+let SP=(parseInt(new URLSearchParams(location.search).get('n'),10)||1)-1;
+if(SP<0||SP>=STORIES.length)SP=0;
+function renderStory(){const s=STORIES[SP];
+  document.getElementById('txtTitle').textContent=s.title;
+  const img=document.getElementById('txtImg');img.src='img/otto-text-'+(SP+1)+'.png';img.hidden=false;img.onerror=()=>{img.hidden=true;};
+  document.getElementById('storyDe').innerHTML=s.textDE;
+  const r=document.getElementById('storyRu');r.innerHTML=s.textRU;r.hidden=true;document.getElementById('storyRuBtn').textContent='Показать перевод';
+  document.querySelectorAll('#storyDe .vb').forEach(el=>el.addEventListener('click',()=>{const o=el.classList.toggle('open');el.textContent=o?el.dataset.ru:el.dataset.de;}));
+  const prev=SP>0?'<a href="thema-otto-text.html?n='+SP+'">← Текст '+SP+'</a>':'<span></span>';
+  const next=SP<STORIES.length-1?'<a href="thema-otto-text.html?n='+(SP+2)+'">Текст '+(SP+2)+' →</a>':'<a href="thema-otto.html">К списку →</a>';
+  document.getElementById('snav').innerHTML=prev+next;
+}
+function toggleStoryRu(){const r=document.getElementById('storyRu'),b=document.getElementById('storyRuBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
+function storyPlay(btn){const t=document.getElementById('storyDe').cloneNode(true);t.querySelectorAll('.vb').forEach(el=>el.textContent=el.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/otto-story-'+(SP+1)+'.mp3?v=1'],btn,[{t:plain,role:M}]);}
+renderStory();
+</script>
+</body>
+</html>

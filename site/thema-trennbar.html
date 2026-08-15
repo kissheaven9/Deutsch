@@ -813,6 +813,7 @@ function renderStory(){const s=STORIES[SP];document.getElementById('storyTitle')
 function toggleStoryRu(){const r=document.getElementById('storyRu'),b=document.getElementById('storyRuBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
 function storyPlay(btn){const t=document.getElementById('storyDe').cloneNode(true);t.querySelectorAll('.vb').forEach(el=>el.textContent=el.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/otto-story-'+(SP+1)+'.mp3?v=1'],btn,[{t:plain,role:M}]);}
 
+{const _p=parseInt(new URLSearchParams(location.search).get('part'),10);if(_p>=1&&_p<=PARTS.length)AP=_p-1;}
 renderTabs();renderAll();renderStoryTabs();renderStory();
 </script>
 </body>
