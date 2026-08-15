@@ -14,6 +14,10 @@
  .btn.sm{padding:8px 13px;font-size:14px}
  .snav{display:flex;justify-content:space-between;gap:10px;margin:20px 0}
  .snav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:#c2185b}
+ .spk{display:flex;flex-direction:column;gap:8px}
+ .spkrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+ .spkru{flex:1 1 200px;font-size:16px}
+ .spkde{flex:1 1 100%;color:#166534;font-size:16px}
 </style></head>
 <body>
 <header class="top"><div class="wrap" style="padding:10px 16px"><a class="home" href="index.html">🇩🇪 Deutsch A1</a> <span class="crumb">/ Неотделяемые глаголы / Тексты</span></div></header>
@@ -25,6 +29,7 @@
   <div class="toolbar" style="margin-top:0"><button class="btn sm" onclick="storyPlay(this)">🔊 Послушать</button><button class="btn sm" id="storyRuBtn" onclick="toggleStoryRu()">Показать перевод</button></div>
   <p class="detxt" id="storyDe"></p>
   <p class="rutxt" id="storyRu" hidden></p>
+  <div id="speakBox"></div>
   <div class="snav" id="snav"></div>
 </main>
 <script src="js/app.js?v=4"></script>
@@ -54,7 +59,63 @@ function renderStory(){const s=STORIES[SP];
   const prev=SP>0?'<a href="thema-greta-text.html?n='+SP+'">← Текст '+SP+'</a>':'<span></span>';
   const next=SP<STORIES.length-1?'<a href="thema-greta-text.html?n='+(SP+2)+'">Текст '+(SP+2)+' →</a>':'<a href="thema-greta.html">К списку →</a>';
   document.getElementById('snav').innerHTML=prev+next;
+  renderSpeak();
 }
+// 🗣 Говорение: рус. фраза → скажи по-немецки → «Проверить» показывает ответ и ОЗВУЧИВАЕТ (Грета).
+const SPEAK={
+ 0:[["Я получаю весточку.","Ich bekomme eine Nachricht."],
+    ["Сначала я не всё понимаю.","Zuerst verstehe ich nicht alles."],
+    ["Я предполагаю худшее.","Ich vermute das Schlimmste."],
+    ["Я долго думаю.","Ich überlege lange."],
+    ["Я сразу отвечаю.","Ich beantworte sie sofort."],
+    ["Я пишу пару строк.","Ich verfasse ein paar Zeilen."],
+    ["Я отправляю письмо сегодня.","Ich verschicke es heute."],
+    ["Я рассказываю Лине о Неаполе.","Ich erzähle Lina von Neapel."],
+    ["Я скучаю по маме.","Ich vermisse meine Mutter."],
+    ["Скоро я навещу её.","Bald besuche ich sie."],
+    ["Я благодарю маму.","Ich bedanke mich bei meiner Mutter."],
+    ["Я никогда это не забуду.","Ich vergesse das nie."],
+    ["Мне это нравится.","Das gefällt mir."]],
+ 1:[["Я объясняю правила.","Ich erkläre die Regeln."],
+    ["Я повторяю медленно.","Ich wiederhole langsam."],
+    ["Я разрешаю ей помогать.","Ich erlaube ihr zu helfen."],
+    ["Я даю ей задание.","Ich erteile ihr eine Aufgabe."],
+    ["Я наблюдаю внимательно.","Ich beobachte genau."],
+    ["Я советую ей.","Ich berate sie."],
+    ["Я рекомендую свежие томаты.","Ich empfehle frische Tomaten."],
+    ["Мы сравниваем два сорта.","Wir vergleichen zwei Sorten."],
+    ["Я трогаю помидор.","Ich berühre die Tomate."],
+    ["Я проверяю каждый.","Ich überprüfe jede."],
+    ["Я использую свежие продукты.","Ich verwende frische Zutaten."],
+    ["Мы соединяем всё.","Wir verbinden alles."],
+    ["Я дополняю суп.","Ich ergänze die Suppe."]],
+ 2:[["Шоу начинается в субботу.","Die Show beginnt am Samstag."],
+    ["Я придумываю новый суп.","Ich erfinde eine neue Suppe."],
+    ["Я договариваюсь с Джулией.","Ich verabrede mich mit Giulia."],
+    ["Мы всё согласовываем.","Wir vereinbaren alles."],
+    ["Она берёт на себя торт.","Sie übernimmt die Torte."],
+    ["Я заказываю томаты.","Ich bestelle Tomaten."],
+    ["Я сразу плачу.","Ich bezahle sofort."],
+    ["Я ничего не переношу на завтра.","Ich verschiebe nichts auf morgen."],
+    ["Мой суп содержит много овощей.","Meine Suppe enthält viel Gemüse."],
+    ["Я всё улаживаю.","Ich erledige alles."],
+    ["Я стараюсь быть спокойной.","Ich versuche, ruhig zu bleiben."],
+    ["Я выигрываю медаль.","Ich gewinne die Medaille."],
+    ["Джулия ночует у меня.","Giulia übernachtet bei mir."]]
+};
+function renderSpeak(){const box=document.getElementById('speakBox');const list=SPEAK[SP];
+  if(!list){box.innerHTML='';return;}
+  box.innerHTML='<h3 style="margin:22px 0 6px;color:#c2185b">🗣 Скажи по-немецки</h3>'
+   +'<p class="sub" style="color:#6b7280;margin:0 0 10px">Прочитай по-русски и скажи вслух по-немецки. Потом «Проверить» — покажет ответ и озвучит его голосом Греты.</p>'
+   +'<div class="spk">'+list.map((p,i)=>
+      '<div class="spkrow"><div class="spkru">'+p[0]+'</div>'
+      +'<div class="spkde" id="spkde'+i+'" hidden><b>'+p[1]+'</b> <button class="btn sm" onclick="playWord(SPEAK['+SP+']['+i+'][1],\'female\')">🔊</button></div>'
+      +'<button class="btn sm" id="spkbtn'+i+'" onclick="spkCheck('+i+')">Проверить</button></div>').join('')
+   +'</div>';
+}
+function spkCheck(i){const de=document.getElementById('spkde'+i);de.hidden=false;
+  document.getElementById('spkbtn'+i).style.display='none';
+  playWord(SPEAK[SP][i][1],'female');}
 function toggleStoryRu(){const r=document.getElementById('storyRu'),b=document.getElementById('storyRuBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
 function storyPlay(btn){const t=document.getElementById('storyDe').cloneNode(true);t.querySelectorAll('.vb').forEach(el=>el.textContent=el.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/greta-story-'+(SP+1)+'.mp3?v=1'],btn,[{t:plain,role:M}]);}
 renderStory();
