@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Тренажёр — смешанные глаголы</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ .wrap{max-width:820px;margin:0 auto;padding:16px}
+ .sec{font-weight:800;color:#6d28d9;margin:24px 0 8px;font-size:18px}
+ .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:10px 0}
+ .btn{border:none;border-radius:12px;padding:10px 15px;font-weight:700;background:var(--tbg);color:#6d28d9;cursor:pointer;font-family:inherit;font-size:15px}
+ .btn.sm{padding:8px 12px;font-size:14px}
+ .q{font-size:22px;font-weight:800;text-align:center;margin:8px 0}
+ .qru{color:#6b7280;text-align:center;font-size:15px;margin-bottom:8px}
+ .opts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+ .fb{text-align:center;min-height:24px;margin-top:10px;font-size:15px}
+ .rev{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:10px 12px;margin-top:10px;text-align:center;font-size:17px}
+ .cnt{color:#9ca3af;text-align:center;font-size:13px}
+ .say{border:none;background:var(--tbg);border-radius:10px;padding:5px 9px;cursor:pointer}
+ .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0;justify-content:center}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap" style="padding:10px 16px"><a class="home" href="index.html">🇩🇪 Deutsch A1</a> <span class="crumb">/ Смешанные / Тренажёр</span></div></header>
+<main class="wrap">
+  <div style="margin:6px 0 10px"><a class="btn sm" href="thema-mix.html">← Ко всему разделу</a></div>
+  <h1 style="font-size:24px;margin:4px 0 2px">🎯 Тренажёр смешанных глаголов</h1>
+
+  <div class="sec">1️⃣ Отто или Грета? (отделяемый / неотделяемый)</div>
+  <div class="panel">
+    <p class="sub" style="color:#6b7280;margin:0 0 8px">Дан глагол — выбери тип. Приставки Греты: be‑ er‑ ver‑ ge‑ ent‑ emp‑ (и «обманки» über/unter/wieder/um).</p>
+    <div class="q" id="tyQ"></div>
+    <div class="opts">
+      <button class="btn" onclick="tyPick('A')">🔵 Отто — отделяемый</button>
+      <button class="btn" onclick="tyPick('B')">🔴 Грета — неотделяемый</button>
+    </div>
+    <div class="fb" id="tyFb"></div><div class="cnt" id="tyCnt"></div>
+  </div>
+
+  <div class="sec">2️⃣ Собери Perfekt (ловушка ge)</div>
+  <div class="panel">
+    <p class="sub" style="color:#6b7280;margin:0 0 8px">Отто — <b>ge внутри</b>; Грета — <b>без ge</b>. «Показать» — проверь и услышь.</p>
+    <div class="q" id="pfQ"></div><div class="qru" id="pfRu"></div>
+    <div style="text-align:center"><button class="btn sm" onclick="pfReveal()">Показать Perfekt 🔊</button></div>
+    <div class="rev" id="pfRev" hidden></div>
+    <div class="toolbar"><button class="btn sm" onclick="pfNext()">Дальше →</button></div>
+    <div class="cnt" id="pfCnt"></div>
+  </div>
+
+  <div class="sec">3️⃣ Скажи по-немецки (из памяти)</div>
+  <div class="panel">
+    <p class="sub" style="color:#6b7280;margin:0 0 8px">Дано по-русски — скажи глагол по-немецки. «Показать» — ответ, тип и озвучка.</p>
+    <div class="q" id="spQ"></div>
+    <div style="text-align:center"><button class="btn sm" onclick="spReveal()">Показать 🔊</button></div>
+    <div class="rev" id="spRev" hidden></div>
+    <div class="toolbar"><button class="btn sm" onclick="spNext()">Дальше →</button></div>
+    <div class="cnt" id="spCnt"></div>
+  </div>
+</main>
+<script src="js/app.js?v=4"></script>
+<script>
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+// [инфинитив, перевод, Perfekt, тип]  A=отделяемый(Отто), B=неотделяемый(Грета)
+const MIX=[
+ ["aufstehen","вставать","ist aufgestanden","A"],["anrufen","звонить","hat angerufen","A"],
+ ["einladen","приглашать","hat eingeladen","A"],["zusagen","соглашаться","hat zugesagt","A"],
+ ["einkaufen","закупаться","hat eingekauft","A"],["mitnehmen","брать с собой","hat mitgenommen","A"],
+ ["aufräumen","убирать","hat aufgeräumt","A"],["vorbereiten","готовить","hat vorbereitet","A"],
+ ["fernsehen","смотреть телевизор","hat ferngesehen","A"],["ausmachen","выключать","hat ausgemacht","A"],
+ ["aufschreiben","записывать","hat aufgeschrieben","A"],["spazieren gehen","гулять","ist spazieren gegangen","A"],
+ ["zurückkommen","возвращаться","ist zurückgekommen","A"],["abholen","забирать","hat abgeholt","A"],
+ ["mitmachen","участвовать","hat mitgemacht","A"],["vorschlagen","предлагать","hat vorgeschlagen","A"],
+ ["bekommen","получать","hat bekommen","B"],["verstehen","понимать","hat verstanden","B"],
+ ["bedanken","благодарить","hat bedankt","B"],["erzählen","рассказывать","hat erzählt","B"],
+ ["empfehlen","рекомендовать","hat empfohlen","B"],["vergleichen","сравнивать","hat verglichen","B"],
+ ["bezahlen","платить","hat bezahlt","B"],["behalten","оставить себе","hat behalten","B"],
+ ["beschreiben","описывать","hat beschrieben","B"],["vergessen","забывать","hat vergessen","B"],
+ ["verabschieden","прощаться","hat verabschiedet","B"],["gewinnen","выигрывать","hat gewonnen","B"],
+ ["erleben","переживать","hat erlebt","B"],["gefallen","нравиться","hat gefallen","B"],
+ ["umarmen","обнимать","hat umarmt","B"],["bestehen","выдержать","hat bestanden","B"]
+];
+const voice=t=>t==='A'?'male':'female';
+
+let tyList=shuffle(MIX),tyi=0,tyOk=0,tyDone=0;
+function tyShow(){document.getElementById('tyQ').textContent=tyList[tyi][0];document.getElementById('tyFb').innerHTML='';}
+function tyPick(ans){const v=tyList[tyi];const ok=ans===v[3];tyDone++;if(ok)tyOk++;
+  const rule=v[3]==='A'?'приставка улетает, Perfekt с <b>ge</b>':'приставка приросла, Perfekt <b>без ge</b>';
+  document.getElementById('tyFb').innerHTML=(ok?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ Это '+(v[3]==='A'?'Отто (отделяемый)':'Грета (неотделяемый)')+'. </span>')
+    +`<i>${v[0]}</i> — ${v[1]} · ${v[2]} <button class="say" onclick="playWord('${v[0]}','${voice(v[3])}')">🔊</button><br><span style="color:#6b7280;font-size:13px">${rule}</span>`;
+  document.getElementById('tyCnt').textContent=`верно ${tyOk} из ${tyDone}`;
+  tyi=(tyi+1)%tyList.length;if(tyi===0)tyList=shuffle(MIX);setTimeout(tyShow,1600);}
+
+let pfList=shuffle(MIX),pfi=0;
+function pfShow(){const v=pfList[pfi];document.getElementById('pfQ').textContent=v[0];document.getElementById('pfRu').textContent=v[1];
+  document.getElementById('pfRev').hidden=true;document.getElementById('pfCnt').textContent=`${pfi+1} / ${pfList.length}`;}
+function pfReveal(){const v=pfList[pfi];const tag=v[3]==='A'?'<span style="color:#3b5bdb">Отто · ge внутри</span>':'<span style="color:#c2185b">Грета · без ge</span>';
+  const rev=document.getElementById('pfRev');rev.hidden=false;
+  rev.innerHTML=`<b>${v[2]}</b> <button class="say" onclick="playWord('${v[2]}','${voice(v[3])}')">🔊</button><br><span style="font-size:13px">${tag}</span>`;
+  playWord(v[2],voice(v[3]));}
+function pfNext(){pfi=(pfi+1)%pfList.length;if(pfi===0)pfList=shuffle(MIX);pfShow();}
+
+let spList=shuffle(MIX),spi=0;
+function spShow(){document.getElementById('spQ').textContent=spList[spi][1];document.getElementById('spRev').hidden=true;document.getElementById('spCnt').textContent=`${spi+1} / ${spList.length}`;}
+function spReveal(){const v=spList[spi];const tag=v[3]==='A'?'<span style="color:#3b5bdb">отделяемый</span>':'<span style="color:#c2185b">неотделяемый</span>';
+  const rev=document.getElementById('spRev');rev.hidden=false;
+  rev.innerHTML=`<b>${v[0]}</b> <button class="say" onclick="playWord('${v[0]}','${voice(v[3])}')">🔊</button> · ${tag}<br><span style="font-size:13px;color:#6b7280">${v[2]}</span>`;
+  playWord(v[0],voice(v[3]));}
+function spNext(){spi=(spi+1)%spList.length;if(spi===0)spList=shuffle(MIX);spShow();}
+
+tyShow();pfShow();spShow();
+</script>
+</body>
+</html>

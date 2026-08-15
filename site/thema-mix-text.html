@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Смешанные глаголы — тексты</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ .wrap{max-width:820px;margin:0 auto;padding:16px}
+ .txtimg{width:100%;max-width:820px;border-radius:16px;display:block;margin:6px 0 14px}
+ .detxt{font-size:18px;line-height:2;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+ .rutxt{font-size:16px;line-height:1.8;color:#374151;background:var(--tbg);border-radius:12px;padding:12px 14px}
+ .vb{font-weight:700;cursor:pointer;border-bottom:1.5px dotted}
+ .vb.A{color:#3b5bdb;border-bottom-color:#3b5bdb} .vb.B{color:#c2185b;border-bottom-color:#c2185b}
+ .vb.open{color:#166534;border-bottom-color:#166534}
+ .pre{color:#3b5bdb;font-weight:800}
+ .btn{border:none;border-radius:12px;padding:10px 16px;font-weight:700;background:var(--tbg);color:#6d28d9;cursor:pointer;font-family:inherit;font-size:15px}
+ .btn.sm{padding:8px 13px;font-size:14px}
+ .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+ .legend{font-size:13px;color:#6b7280;margin:0 0 8px}
+ .snav{display:flex;justify-content:space-between;gap:10px;margin:20px 0}
+ .snav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:#6d28d9}
+ .spk{display:flex;flex-direction:column;gap:8px}
+ .spkrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+ .spkru{flex:1 1 200px;font-size:16px}
+ .spkde{flex:1 1 100%;color:#166534;font-size:16px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap" style="padding:10px 16px"><a class="home" href="index.html">🇩🇪 Deutsch A1</a> <span class="crumb">/ Смешанные глаголы / Тексты</span></div></header>
+<main class="wrap">
+  <div style="margin:6px 0 10px"><a class="btn sm" href="thema-mix.html">← Ко всем текстам и тренажёру</a></div>
+  <img id="txtImg" class="txtimg" alt="" hidden>
+  <h1 id="txtTitle" style="font-size:24px;margin:4px 0 2px"></h1>
+  <p class="legend">Кликни глагол → инфинитив, перевод и тип: <b style="color:#3b5bdb">синий — отделяемый (Отто)</b>, <b style="color:#c2185b">розовый — неотделяемый (Грета)</b>. 🔊 — озвучка.</p>
+  <div class="toolbar" style="margin-top:0"><button class="btn sm" onclick="storyPlay(this)">🔊 Послушать</button><button class="btn sm" id="storyRuBtn" onclick="toggleStoryRu()">Показать перевод</button></div>
+  <p class="detxt" id="storyDe"></p>
+  <p class="rutxt" id="storyRu" hidden></p>
+  <div id="speakBox"></div>
+  <div class="snav" id="snav"></div>
+</main>
+<script src="js/app.js?v=4"></script>
+<script>
+function VB(de,ru,t){return `<span class="vb ${t}" data-de="${de}" data-ru="${ru}">${de}</span>`;}
+function P(p){return `<b class="pre">${p}</b>`;}
+
+const STORIES=[
+ {title:'Текст 1 — Aus Nachbarn werden Freunde',
+  de:`Otto ist neu in der Stadt und oft allein. Am Samstag ${VB('steht','aufstehen — вставать (отд.)','A')} er früh ${P('auf')}, denn heute will er etwas ändern. Er ${VB('ruft','anrufen — звонить (отд.)','A')} seine Nachbarin Greta ${P('an')} und ${VB('lädt','einladen — приглашать (отд.)','A')} sie in seinen Garten ${P('ein')}. Greta ${VB('bekommt','bekommen — получать (неотд.)','B')} den Anruf und ${VB('versteht','verstehen — понимать (неотд.)','B')} sofort: Der stille Mann sucht Gesellschaft. Sie ${VB('sagt','zusagen — соглашаться (отд.)','A')} gern ${P('zu')}. Otto ${VB('schlägt','vorschlagen — предлагать (отд.)','A')} ein kleines Fest ${P('vor')}. Er ${VB('kauft','einkaufen — закупаться (отд.)','A')} ${P('ein')}, ${VB('bereitet','vorbereiten — готовить (отд.)','A')} alles ${P('vor')} und ${VB('räumt','aufräumen — убирать (отд.)','A')} den Garten ${P('auf')}. Greta ${VB('bringt','mitbringen — приносить с собой (отд.)','A')} eine warme Suppe ${P('mit')}, und Otto ${VB('bietet','anbieten — предлагать (отд.)','A')} seinen Fischkuchen ${P('an')}. Er ${VB('stellt','vorstellen — представлять (отд.)','A')} Greta seinen Nachbarn ${P('vor')}, und alle ${VB('lernen','kennenlernen — знакомиться (отд.)','A')} sich ${P('kennen')}. Zuerst ist Otto schüchtern. Aber Greta ${VB('erzählt','erzählen — рассказывать (неотд.)','B')} von Neapel, alle lachen, und langsam ${VB('macht','mitmachen — участвовать (отд.)','A')} auch Otto ${P('mit')}. Das ${VB('gefällt','gefallen — нравиться (неотд.)','B')} ihm sehr. Als es dunkel wird, ${VB('gehen','spazieren gehen — гулять (отд.)','A')} sie zusammen im Garten ${P('spazieren')}. Zum Abschied ${VB('umarmt','umarmen — обнимать (неотд.)','B')} Greta den alten Nachbarn. Spät ${VB('gehen','weggehen — уходить (отд.)','A')} die Gäste ${P('weg')}, aber sie wollen bald ${VB('zurückkommen','zurückkommen — возвращаться (отд.)','A')}. Otto ${VB('wäscht','abwaschen — мыть посуду (отд.)','A')} allein die Teller ${P('ab')} und lächelt. So einen schönen Abend ${VB('erlebt','erleben — переживать (неотд.)','B')} er lange nicht. Aus zwei Nachbarn werden Freunde.`,
+  ru:`Отто новенький в городе и часто один. В субботу он рано встаёт — сегодня он хочет что-то изменить. Он звонит соседке Грете и приглашает её в свой сад. Грета получает звонок и сразу понимает: тихий человек ищет общения. Она с радостью соглашается. Отто предлагает маленький праздник. Он закупается, всё готовит и убирает сад. Грета приносит тёплый суп, а Отто угощает своим рыбным пирогом. Он представляет Грету соседям, и все знакомятся. Сначала Отто стесняется. Но Грета рассказывает о Неаполе, все смеются, и постепенно Отто тоже включается. Ему это очень нравится. Когда темнеет, они вместе гуляют по саду. На прощание Грета обнимает старого соседа. Поздно гости уходят, но обещают скоро вернуться. Отто один моет тарелки и улыбается. Такого хорошего вечера у него давно не было. Из двух соседей получаются друзья.`,
+  speak:[["Отто рано встаёт.","Otto steht früh auf."],["Он звонит соседке.","Er ruft die Nachbarin an."],["Он приглашает Грету в сад.","Er lädt Greta in den Garten ein."],["Грета получает приглашение.","Greta bekommt die Einladung."],["Она сразу соглашается.","Sie sagt sofort zu."],["Отто всё готовит.","Otto bereitet alles vor."],["Грета приносит суп.","Greta bringt eine Suppe mit."],["Все знакомятся.","Alle lernen sich kennen."],["Гости поздно уходят.","Die Gäste gehen spät weg."],["Такой вечер я не забуду.","So einen Abend vergesse ich nie."]]},
+ {title:'Текст 2 — Ein Tag auf dem Markt',
+  de:`Am Morgen ${VB('holt','abholen — забирать (отд.)','A')} Otto Greta und die kleine Lina ${P('ab')}. Zusammen fahren sie zum Markt. Sie ${VB('steigen','einsteigen — садиться (отд.)','A')} in den Bus ${P('ein')}, und Lina ${VB('schaut','anschauen — разглядывать (отд.)','A')} alles neugierig ${P('an')}. Auf dem Markt ist viel los. Der Verkäufer ${VB('empfiehlt','empfehlen — рекомендовать (неотд.)','B')} Greta reife Tomaten und ${VB('beschreibt','beschreiben — описывать (неотд.)','B')} jede Sorte. Greta ${VB('vergleicht','vergleichen — сравнивать (неотд.)','B')} die Preise, ${VB('überlegt','überlegen — обдумывать (неотд.)','B')} kurz und ${VB('bezahlt','bezahlen — платить (неотд.)','B')} sofort. Otto sucht Schüsseln aus Kunststoff — billig und praktisch — und ${VB('nimmt','mitnehmen — брать с собой (отд.)','A')} gleich drei ${P('mit')}. Lina probiert eine Olive, aber sie ${VB('versteht','verstehen — понимать (неотд.)','B')} den Geschmack nicht und macht ein lustiges Gesicht. Alle lachen. Greta ${VB('erklärt','erklären — объяснять (неотд.)','B')} ihr, warum die Italiener Oliven so lieben, und Lina ${VB('wiederholt','wiederholen — повторять (неотд.)','B')} jedes Wort. Otto ${VB('kauft','einkaufen — закупаться (отд.)','A')} noch Brot ${P('ein')} und ${VB('lädt','einladen — приглашать (отд.)','A')} alle zu einem Kaffee ${P('ein')}. Er ${VB('bietet','anbieten — предлагать (отд.)','A')} Lina einen Saft ${P('an')}. Greta ${VB('bedankt','bedanken — благодарить (неотд.)','B')} sich und ${VB('erzählt','erzählen — рассказывать (неотд.)','B')} eine Geschichte aus Neapel. Am Ende ${VB('räumen','aufräumen — убирать (отд.)','A')} sie die Taschen ${P('auf')} und fahren zurück. Otto ${VB('vergisst','vergessen — забывать (неотд.)','B')} fast seine Schüsseln im Bus — aber Lina erinnert ihn. So einen bunten Markt ${VB('erleben','erleben — переживать (неотд.)','B')} sie nicht oft.`,
+  ru:`Утром Отто заезжает за Гретой и маленькой Линой. Вместе они едут на рынок. Они садятся в автобус, и Лина всё с любопытством разглядывает. На рынке шумно. Продавец рекомендует Грете спелые помидоры и описывает каждый сорт. Грета сравнивает цены, недолго думает и сразу платит. Отто ищет миски из пластика — дёшево и практично — и берёт сразу три. Лина пробует оливку, но не понимает вкус и делает смешное лицо. Все смеются. Грета объясняет ей, почему итальянцы так любят оливки, и Лина повторяет каждое слово. Отто ещё покупает хлеб и приглашает всех на кофе. Он угощает Лину соком. Грета благодарит и рассказывает историю из Неаполя. В конце они убирают сумки и едут обратно. Отто чуть не забывает свои миски в автобусе — но Лина ему напоминает. Такой пёстрый рынок бывает у них нечасто.`,
+  speak:[["Отто забирает Лину.","Otto holt Lina ab."],["Они садятся в автобус.","Sie steigen in den Bus ein."],["Продавец рекомендует помидоры.","Der Verkäufer empfiehlt Tomaten."],["Грета сравнивает цены.","Greta vergleicht die Preise."],["Она сразу платит.","Sie bezahlt sofort."],["Отто берёт три миски.","Otto nimmt drei Schüsseln mit."],["Грета объясняет Лине.","Greta erklärt es Lina."],["Лина повторяет каждое слово.","Lina wiederholt jedes Wort."],["Отто приглашает всех на кофе.","Otto lädt alle zum Kaffee ein."],["Они убирают сумки.","Sie räumen die Taschen auf."]]},
+ {title:'Текст 3 — Der große Abend',
+  de:`Heute ist Gretas großer Abend: Ihre Suppe kommt in die Oper! Am Morgen ${VB('steht','aufstehen — вставать (отд.)','A')} sie nervös ${P('auf')}. Otto ${VB('bekommt','bekommen — получать (неотд.)','B')} eine Nachricht: „Hilfst du mir?" Er ${VB('versteht','verstehen — понимать (неотд.)','B')} sofort und ${VB('sagt','zusagen — соглашаться (отд.)','A')} ${P('zu')}. Zusammen ${VB('bereiten','vorbereiten — готовить (отд.)','A')} sie alles ${P('vor')}. Otto ${VB('räumt','aufräumen — убирать (отд.)','A')} die Küche ${P('auf')} und ${VB('schreibt','aufschreiben — записывать (отд.)','A')} die Bestellung ${P('auf')}. Greta ${VB('erklärt','erklären — объяснять (неотд.)','B')} jeden Schritt und ${VB('vergisst','vergessen — забывать (неотд.)','B')} kein Detail. Sie ${VB('überlegt','überlegen — обдумывать (неотд.)','B')} lange, ${VB('vergleicht','vergleichen — сравнивать (неотд.)','B')} zwei Rezepte und wählt das beste. Am Abend fahren sie zur Oper. Vor der Tür atmet Greta tief. „Ich schaffe das nicht", flüstert sie. Otto ${VB('umarmt','umarmen — обнимать (неотд.)','B')} sie kurz und sagt: „Du ${VB('bestehst','bestehen — выдержать (неотд.)','B')} das." Die Gäste kommen, probieren die Suppe und sind begeistert. Greta ${VB('bedankt','bedanken — благодарить (неотд.)','B')} sich, ${VB('beschreibt','beschreiben — описывать (неотд.)','B')} ihr Rezept und ${VB('erzählt','erzählen — рассказывать (неотд.)','B')} von Neapel. Alle klatschen. Sie ${VB('gewinnt','gewinnen — выигрывать (неотд.)','B')} den Abend! Spät ${VB('gehen','weggehen — уходить (отд.)','A')} die Gäste ${P('weg')}. Otto und Greta ${VB('räumen','aufräumen — убирать (отд.)','A')} zusammen ${P('auf')} und ${VB('waschen','abwaschen — мыть посуду (отд.)','A')} die Teller ${P('ab')}. Dann ${VB('gehen','spazieren gehen — гулять (отд.)','A')} sie müde, aber glücklich ${P('spazieren')}. „So einen Abend ${VB('vergesse','vergessen — забывать (неотд.)','B')} ich nie", sagt Greta. Auch Otto ${VB('erlebt','erleben — переживать (неотд.)','B')} heute etwas Besonderes: eine echte Freundschaft.`,
+  ru:`Сегодня большой вечер Греты: её суп попадает в оперу! Утром она нервно встаёт. Отто получает сообщение: «Поможешь мне?» Он сразу понимает и соглашается. Вместе они всё готовят. Отто убирает кухню и записывает заказ. Грета объясняет каждый шаг и не забывает ни одной детали. Она долго думает, сравнивает два рецепта и выбирает лучший. Вечером они едут в оперу. У двери Грета глубоко вздыхает. «Я не справлюсь», — шепчет она. Отто коротко обнимает её и говорит: «Ты выдержишь». Гости приходят, пробуют суп и в восторге. Грета благодарит, описывает свой рецепт и рассказывает о Неаполе. Все аплодируют. Она выигрывает вечер! Поздно гости уходят. Отто и Грета вместе убирают и моют тарелки. Потом усталые, но счастливые идут гулять. «Такой вечер я не забуду никогда», — говорит Грета. И Отто сегодня тоже переживает нечто особенное: настоящую дружбу.`,
+  speak:[["Грета нервно встаёт.","Greta steht nervös auf."],["Отто получает сообщение.","Otto bekommt eine Nachricht."],["Он сразу соглашается.","Er sagt sofort zu."],["Они всё готовят.","Sie bereiten alles vor."],["Отто убирает кухню.","Otto räumt die Küche auf."],["Грета объясняет каждый шаг.","Greta erklärt jeden Schritt."],["Он обнимает её.","Er umarmt sie."],["Гости пробуют суп.","Die Gäste probieren die Suppe."],["Грета благодарит и рассказывает.","Greta bedankt sich und erzählt."],["Такой вечер я не забуду.","So einen Abend vergesse ich nie."]]}
+];
+
+let SP=(parseInt(new URLSearchParams(location.search).get('n'),10)||1)-1;
+if(SP<0||SP>=STORIES.length)SP=0;
+function renderStory(){const s=STORIES[SP];
+  document.getElementById('txtTitle').textContent=s.title;
+  const img=document.getElementById('txtImg');img.src='img/mix-text-'+(SP+1)+'.png';img.hidden=false;img.onerror=()=>{img.hidden=true;};
+  document.getElementById('storyDe').innerHTML=s.de;
+  const r=document.getElementById('storyRu');r.innerHTML=s.ru;r.hidden=true;document.getElementById('storyRuBtn').textContent='Показать перевод';
+  document.querySelectorAll('#storyDe .vb').forEach(el=>el.addEventListener('click',()=>{const o=el.classList.toggle('open');el.textContent=o?el.dataset.ru:el.dataset.de;}));
+  renderSpeak();
+  const prev=SP>0?'<a href="thema-mix-text.html?n='+SP+'">← Текст '+SP+'</a>':'<span></span>';
+  const next=SP<STORIES.length-1?'<a href="thema-mix-text.html?n='+(SP+2)+'">Текст '+(SP+2)+' →</a>':'<a href="thema-mix.html">Ко всему разделу →</a>';
+  document.getElementById('snav').innerHTML=prev+next;
+}
+function toggleStoryRu(){const r=document.getElementById('storyRu'),b=document.getElementById('storyRuBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
+function storyPlay(btn){const t=document.getElementById('storyDe').cloneNode(true);t.querySelectorAll('.vb').forEach(el=>el.textContent=el.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/mix-text-'+(SP+1)+'.mp3?v=2'],btn,[{t:plain,role:'female'}]);}
+function renderSpeak(){const box=document.getElementById('speakBox');const list=STORIES[SP].speak;if(!list){box.innerHTML='';return;}
+  box.innerHTML='<h3 style="margin:22px 0 6px;color:#6d28d9">🗣 Скажи по-немецки</h3>'
+   +'<p class="legend">Прочитай по-русски и скажи по-немецки, потом «Проверить» — покажет и озвучит.</p>'
+   +'<div class="spk">'+list.map((p,i)=>
+      '<div class="spkrow"><div class="spkru">'+p[0]+'</div>'
+      +'<div class="spkde" id="spkde'+i+'" hidden><b>'+p[1]+'</b> <button class="btn sm" onclick="playWord(SP_de('+i+'),\'female\')">🔊</button></div>'
+      +'<button class="btn sm" id="spkbtn'+i+'" onclick="spkCheck('+i+')">Проверить</button></div>').join('')+'</div>';}
+function SP_de(i){return STORIES[SP].speak[i][1];}
+function spkCheck(i){document.getElementById('spkde'+i).hidden=false;document.getElementById('spkbtn'+i).style.display='none';playWord(SP_de(i),'female');}
+renderStory();
+</script>
+</body>
+</html>
