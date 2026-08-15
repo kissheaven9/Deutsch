@@ -587,7 +587,8 @@ const PRO=['ich','du','er/sie/es','wir','ihr','sie/Sie'];
 const PROA=['ich','du','er','wir','ihr','sie'];
 
 function renderTabs(){document.getElementById('tabs').innerHTML=PARTS.map((p,i)=>`<button class="tab${i===AP?' on':''}" onclick="setPart(${i})">${p.title.split(' — ')[0]}</button>`).join('');}
-function setPart(i){if(typeof _stopAll==='function')_stopAll();AP=i;renderTabs();renderAll();window.scrollTo({top:0,behavior:'smooth'});}
+function setPart(i){if(typeof _stopAll==='function')_stopAll();AP=i;{const _p=parseInt(new URLSearchParams(location.search).get('part'),10);if(_p>=1&&_p<=PARTS.length)AP=_p-1;}
+renderTabs();renderAll();window.scrollTo({top:0,behavior:'smooth'});}
 function renderText(){const p=V();document.getElementById('tTitle').textContent=p.title;
   document.getElementById('deText').innerHTML=p.textDE;
   document.getElementById('ruText').textContent=p.textRU;
