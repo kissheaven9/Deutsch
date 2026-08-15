@@ -47,6 +47,10 @@ EXTRA = {
  'Wind':'der','Ort':'der','Wohnort':'der','Traum':'der','Kunststoff':'der','Rock':'der','Hut':'der',
  'Verkäufer':'der','Container':'der','Müll':'der','Bus':'der','Hauptbahnhof':'der','Flughafen':'der',
  'Vormittag':'der','Fernseher':'der','Fischkuchen':'der','Punkt':'der','Hörer':'der','Schirm':'der',
+ 'Zug':'der','Flug':'der','Ausgang':'der','Junge':'der','Grill':'der','Grillabend':'der','Weg':'der',
+ 'Teller':'der','Hase':'der','Zettel':'der','Schritt':'der','Bildschirm':'der','Karton':'der',
+ 'Helfer':'der','Laptop':'der','Träumer':'der','Kilt':'der','Mensch':'der','Nachbar':'der','Plan':'der',
+ 'Computer':'der','Kaffee':'der','Cent':'der','Gast':'der','Teil':'der','Stuhl':'der','Arm':'der',
  'Natur':'die','Landschaft':'die','Wiese':'die','Brücke':'die','Sonne':'die','Kuh':'die','Katze':'die',
  'Biene':'die','Heimat':'die','Farbe':'die','Gegend':'die','Welt':'die','Familie':'die','Mutter':'die',
  'Freundin':'die','Kamera':'die','Nachbarin':'die','Blume':'die','Pflanze':'die','Insel':'die','Luft':'die',
@@ -82,6 +86,8 @@ LEMMA = {
  'Locken':'Locke','Personen':'Person','Zitronen':'Zitrone','Tomaten':'Tomate','Oliven':'Olive',
  'Bestellungen':'Bestellung','Speisen':'Speise','Zeichnungen':'Zeichnung','Zutaten':'Zutat','Jahre':'Jahr',
  'Sorten':'Sorte','Fragen':'Frage','Stunden':'Stunde','Einladungen':'Einladung','Strafen':'Strafe',
+ 'Gäste':'Gast','Teile':'Teil','Teilen':'Teil','Stühle':'Stuhl','Wege':'Weg','Schritte':'Schritt',
+ 'Männer':'Mann','Menschen':'Mensch','Gärten':'Garten','Hasen':'Hase','Tages':'Tag','Helfer':'Helfer','Teller':'Teller',
 }
 IGNORE = set("""Otto Greta Grete Theo Lina Bianca Anna Ben Noah Lea Mümmel Mamma Finlay Deutschland
 Schottland Italien Neapel Österreich Polen Toskana Er Sie Es Aber Und Am Im In Dann Dort Hier Jeden Als So
@@ -94,7 +100,9 @@ Mittwoch Donnerstag Dienstag Oder Natürlich Schlimmste Beste Naturalmente Rosso
 Schau Komm Nimm Trag Leg Lies Nein Ja Oh Ach Also Aber Immer Nie Schon Endlich Zuerst Weiter Wieder
 Hundert Zwanzig Zehn Sonne Post
 Früher Großes Allein Egal Darf Kochen Wichtigste Wichtige Woher Brava Frisches Bestehe Braves
-Schlimmste Melodie2 Sofort Genau Richtig Stolz Egal2 Alles2""".split())
+Schlimmste Melodie2 Sofort Genau Richtig Stolz Egal2 Alles2
+Edinburgh Amsterdam München Na Fertig Nebenan Spät Vielleicht Unter Dunkeln Kennt Erkennt
+Teo Jeder Früh Ja2 Wenn Endlich Plötzlich Fröhlich Nächsten Geheim Trocken Fremder Fremder Billigen""".split())
 
 # --- ЛИНЗА (docs/17 §0): категорию назначает род САМОГО слова категории ---
 LENS_OWNER = {'der': 'Отто · ЦЕНА (der Preis)', 'die': 'Грета · ЦВЕТ (die Farbe)', 'das': 'Тео · МАТЕРИАЛ (das Material)'}
