@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Неотделяемые глаголы — тексты</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ .wrap{max-width:820px;margin:0 auto;padding:16px}
+ .txtimg{width:100%;max-width:820px;border-radius:16px;display:block;margin:6px 0 14px}
+ .detxt{font-size:18px;line-height:1.9;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+ .rutxt{font-size:16px;line-height:1.8;color:#374151;background:var(--tbg);border-radius:12px;padding:12px 14px}
+ .vb{color:#c2185b;font-weight:700;cursor:pointer;border-bottom:1.5px dotted #c2185b}
+ .vb.open{color:#7c3aed;border-bottom-color:#7c3aed}
+ .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+ .btn{border:none;border-radius:12px;padding:10px 16px;font-weight:700;background:var(--tbg);color:#c2185b;cursor:pointer;font-family:inherit;font-size:15px}
+ .btn.sm{padding:8px 13px;font-size:14px}
+ .snav{display:flex;justify-content:space-between;gap:10px;margin:20px 0}
+ .snav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:#c2185b}
+</style></head>
+<body>
+<header class="top"><div class="wrap" style="padding:10px 16px"><a class="home" href="index.html">🇩🇪 Deutsch A1</a> <span class="crumb">/ Неотделяемые глаголы / Тексты</span></div></header>
+<main class="wrap">
+  <div style="margin:6px 0 10px"><a class="btn sm" href="thema-greta.html">← Все части и тексты</a></div>
+  <img id="txtImg" class="txtimg" alt="" hidden>
+  <h1 id="txtTitle" style="font-size:24px;margin:4px 0 2px"></h1>
+  <p class="sub" style="color:#6b7280;margin:0 0 8px">Кликни глагол → инфинитив + перевод. 🔊 — голос Греты.</p>
+  <div class="toolbar" style="margin-top:0"><button class="btn sm" onclick="storyPlay(this)">🔊 Послушать</button><button class="btn sm" id="storyRuBtn" onclick="toggleStoryRu()">Показать перевод</button></div>
+  <p class="detxt" id="storyDe"></p>
+  <p class="rutxt" id="storyRu" hidden></p>
+  <div class="snav" id="snav"></div>
+</main>
+<script src="js/app.js?v=4"></script>
+<script>
+const M='female';
+function VB(de,ru){return `<span class="vb" data-de="${de}" data-ru="${ru}">${de}</span>`;}
+const STORIES=[
+ {title:'История 1 — Eine Nachricht aus Neapel',
+  textDE:`Am Morgen ${VB('bekomme','bekommen — получать')} ich eine Nachricht aus Neapel — von meiner Mutter. Zuerst ${VB('verstehe','verstehen — понимать')} ich nicht alles, die Schrift ist klein, und fast ${VB('verliere','verlieren — терять')} ich meine Brille. Ich ${VB('vermute','vermuten — предполагать')} schon das Schlimmste, aber dann ${VB('entdecke','entdecken — обнаруживать')} ich: Es ist eine Einladung! Meine Mutter wird achtzig. Lange ${VB('überlege','überlegen — обдумывать')} ich und ${VB('beachte','beachten — обращать внимание')} jedes Wort. Diese Nachricht ${VB('bedeutet','bedeuten — значить')} mir so viel. Sofort ${VB('beantworte','beantworten — отвечать на')} ich sie: Ich ${VB('verfasse','verfassen — писать текст')} ein paar warme Zeilen, ${VB('unterschreibe','unterschreiben — подписывать')} mit „deine Greta“ und ${VB('verschicke','verschicken — отправлять')} sie noch heute. Ich ${VB('erzähle','erzählen — рассказывать')} Lina alles und ${VB('beschreibe','beschreiben — описывать')} ihr meine Heimat: die Sonne, die Küste, die laute Straße. Ich ${VB('berichte','berichten — сообщать')} auch von meiner Mutter — wie sie mich früher jeden Morgen ${VB('begrüßt','begrüßen — приветствовать')} und fest ${VB('umarmt','umarmen — обнимать')}. Ich ${VB('vermisse','vermissen — скучать по')} sie so sehr. Bald ${VB('besuche','besuchen — навещать')} ich sie in Neapel! Ich ${VB('behalte','behalten — оставить себе')} die Nachricht ganz fest — so eine Freude ${VB('erlebe','erleben — переживать')} ich selten. Und eines ${VB('vergesse','vergessen — забывать')} ich nie: Familie ist alles. Am Ende ${VB('bedanke','bedanken — благодарить')} ich mich bei meiner Mutter und ${VB('verabschiede','verabschieden — прощаться')} mich von der Traurigkeit — bald sehe ich sie wieder. Das ${VB('gefällt','gefallen — нравиться')} mir.`,
+  textRU:`Утром я получаю весточку из Неаполя — от мамы. Сначала понимаю не всё, буквы мелкие, и я чуть не теряю очки. Уже предполагаю худшее, но потом обнаруживаю: это приглашение! Маме исполняется восемьдесят. Долго думаю и вчитываюсь в каждое слово. Эта весть так много для меня значит. Тут же отвечаю: пишу несколько тёплых строк, подписываю «твоя Грета» и отправляю сегодня же. Я рассказываю Лине всё и описываю ей свою родину: солнце, побережье, шумную улицу. Рассказываю и о маме — как она раньше каждое утро встречала меня и крепко обнимала. Я так по ней скучаю. Скоро я навещу её в Неаполе! Я храню весточку крепко-крепко — такую радость я переживаю нечасто. И одного не забуду никогда: семья — это всё. В конце я благодарю маму и прощаюсь с грустью — скоро снова её увижу. И это мне нравится.`},
+ {title:'История 2 — Kochschule mit Lina',
+  textDE:`Heute mache ich etwas Neues: eine kleine Kochschule in meiner Küche! Lina möchte kochen lernen, und das ${VB('ermöglicht','ermöglichen — давать возможность')} mir eine schöne Idee. Ich ${VB('betreue','betreuen — присматривать')} Lina und ${VB('erlaube','erlauben — разрешать')} ihr, alles zu ${VB('berühren','berühren — трогать')}. Zuerst ${VB('erkläre','erklären — объяснять')} ich die Regeln und ${VB('wiederhole','wiederholen — повторять')} sie langsam. Ich ${VB('erteile','erteilen — давать поручение')} ihr eine leichte Aufgabe: die Tomaten waschen. Ich ${VB('beobachte','beobachten — наблюдать')} sie genau und ${VB('berate','beraten — консультировать')} sie freundlich. „Zuerst mit der Nase!“ — ich ${VB('empfehle','empfehlen — рекомендовать')} ihr, jede Zutat zu riechen. Wir ${VB('vergleichen','vergleichen — сравнивать')} zwei Sorten Tomaten und ${VB('bewerten','bewerten — оценивать')} die Farbe. Lina ${VB('benutzt','benutzen — пользоваться')} zum ersten Mal eine große Schüssel und ${VB('benennt','benennen — называть')} stolz jede Zutat auf Italienisch. Ich ${VB('überprüfe','überprüfen — проверять')} jede Bewegung und ${VB('verbessere','verbessern — улучшать')} sie mit Geduld. Dann ${VB('verbinden','verbinden — соединять')} wir alles in einer Pfanne und ${VB('ergänzen','ergänzen — дополнять')} die Suppe mit einer Prise Liebe. Ich ${VB('verwende','verwenden — использовать')} nur die frischesten Tomaten. Lina ${VB('vertieft','vertiefen — углубляться')} sich immer mehr und ${VB('verliebt','verlieben — влюбляться')} sich in die Küche. Ihre Freude ${VB('unterstützt','unterstützen — поддерживать')} auch mich — ich fühle mich wieder jung. Am Ende ${VB('vermittle','vermitteln — передавать')} ich ihr die wichtigste Regel: Kochen kommt aus dem Herzen — und aus der Liebe.`,
+  textRU:`Сегодня я затеваю кое-что новое: маленькую кулинарную школу у себя на кухне! Лина хочет научиться готовить — и это дарит мне прекрасную мысль. Я присматриваю за Линой и разрешаю ей всё трогать. Сначала объясняю правила и медленно их повторяю. Даю ей простое задание: помыть помидоры. Внимательно наблюдаю и по-доброму советую. «Сначала — носом!» — рекомендую ей нюхать каждый продукт. Мы сравниваем два сорта помидоров и оцениваем цвет. Лина впервые берёт большую миску и гордо называет каждый ингредиент по-итальянски. Я проверяю каждое движение и терпеливо поправляю. Потом мы соединяем всё на сковороде и дополняем суп щепоткой любви. Я использую только самые свежие помидоры. Лина всё больше увлекается и влюбляется в кухню. Её радость поддерживает и меня — я снова чувствую себя молодой. В конце я передаю ей самое важное правило: готовка идёт от сердца — и от любви.`},
+ {title:'История 3 — Die große Kochshow',
+  textDE:`Eine große Kochshow ${VB('beginnt','beginnen — начинать')} am Samstag — und ich mache mit! Zuerst will ich es ${VB('vermeiden','vermeiden — избегать')}, ich habe Angst. Aber diese Bühne ${VB('gehört','gehören — принадлежать')} auch mir! Ich ${VB('erfinde','erfinden — изобретать')} eine neue Suppe, nur für die Show. Fast ${VB('übersiedele','übersiedeln — переселяться')} ich für eine Woche in die Küche — ich koche Tag und Nacht. Mit meiner Freundin Giulia ${VB('verabrede','verabreden — договариваться')} ich mich, und wir ${VB('vereinbaren','vereinbaren — согласовывать')} alles genau: Sie ${VB('übernimmt','übernehmen — брать на себя')} die Torte, ich die Suppe. Das ${VB('verstärkt','verstärken — укреплять')} meine Kraft. Auf meiner Liste ${VB('umkreise','umkreisen — обводить кружком')} ich jede Zutat, ${VB('bezeichne','bezeichnen — обозначать')} die wichtigen mit einem kleinen Herz und ${VB('unterstreiche','unterstreichen — подчёркивать')} die Suppe rot. Ich ${VB('bestelle','bestellen — заказывать')} frische Tomaten, ${VB('bezahle','bezahlen — платить')} sofort und ${VB('verschiebe','verschieben — переносить')} nichts auf morgen — sonst ${VB('verpasse','verpassen — пропускать')} ich alles. Meine Suppe ${VB('enthält','enthalten — содержать')} zehn Farben. „Keine Wurst!“ — das ${VB('verbiete','verbieten — запрещать')} ich streng. Am Tag der Show ${VB('versuche','versuchen — пытаться')} ich, ruhig zu bleiben, und ${VB('erledige','erledigen — улаживать')} alles genau. Und ich ${VB('bestehe','bestehen — выдержать')}: Die Jury probiert und lächelt. Ich ${VB('gewinne','gewinnen — выигрывать')} die Goldmedaille! So eine Freude ${VB('verdiene','verdienen — зарабатывать')} ich mir ehrlich. Am Abend ${VB('verkaufe','verkaufen — продавать')} ich sogar meine Suppe an die Leute. Giulia ${VB('übernachtet','übernachten — ночевать')} bei mir, und wir lachen bis spät. Mamma mia — was für ein Tag!`,
+  textRU:`Большое кулинарное шоу начинается в субботу — и я участвую! Сначала хочу этого избежать, мне страшно. Но эта сцена принадлежит и мне тоже! Я придумываю новый суп — специально для шоу. Я почти переселяюсь на неделю на кухню — готовлю день и ночь. С подругой Джулией договариваюсь, и мы всё согласовываем: она берёт на себя торт, я — суп. Это придаёт мне сил. В своём списке я обвожу кружком каждый ингредиент, помечаю важные маленьким сердечком и подчёркиваю суп красным. Заказываю свежие помидоры, сразу плачу и ничего не переношу на завтра — иначе всё пропущу. Мой суп содержит десять цветов. «Никакой колбасы!» — это я строго запрещаю. В день шоу я стараюсь оставаться спокойной и всё аккуратно улаживаю. И я выдерживаю: жюри пробует и улыбается. Я выигрываю золотую медаль! Такую радость я честно заслужила. Вечером я даже продаю свой суп людям. Джулия ночует у меня, и мы смеёмся допоздна. Мамма миа — вот это день!`},
+];
+
+let SP=(parseInt(new URLSearchParams(location.search).get('n'),10)||1)-1;
+if(SP<0||SP>=STORIES.length)SP=0;
+function renderStory(){const s=STORIES[SP];
+  document.getElementById('txtTitle').textContent=s.title;
+  const img=document.getElementById('txtImg');img.src='img/greta-text-'+(SP+1)+'.png';img.hidden=false;img.onerror=()=>{img.hidden=true;};
+  document.getElementById('storyDe').innerHTML=s.textDE;
+  const r=document.getElementById('storyRu');r.innerHTML=s.textRU;r.hidden=true;document.getElementById('storyRuBtn').textContent='Показать перевод';
+  document.querySelectorAll('#storyDe .vb').forEach(el=>el.addEventListener('click',()=>{const o=el.classList.toggle('open');el.textContent=o?el.dataset.ru:el.dataset.de;}));
+  const prev=SP>0?'<a href="thema-greta-text.html?n='+SP+'">← Текст '+SP+'</a>':'<span></span>';
+  const next=SP<STORIES.length-1?'<a href="thema-greta-text.html?n='+(SP+2)+'">Текст '+(SP+2)+' →</a>':'<a href="thema-greta.html">К списку →</a>';
+  document.getElementById('snav').innerHTML=prev+next;
+}
+function toggleStoryRu(){const r=document.getElementById('storyRu'),b=document.getElementById('storyRuBtn');r.hidden=!r.hidden;b.textContent=r.hidden?'Показать перевод':'Скрыть перевод';}
+function storyPlay(btn){const t=document.getElementById('storyDe').cloneNode(true);t.querySelectorAll('.vb').forEach(el=>el.textContent=el.dataset.de);const plain=t.innerText.replace(/\s+/g,' ').trim();playSeq(['audio/greta-story-'+(SP+1)+'.mp3?v=1'],btn,[{t:plain,role:M}]);}
+renderStory();
+</script>
+</body></html>

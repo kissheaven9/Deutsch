@@ -8,3 +8,8 @@ materials/*.pdf
 
 # учебники в корне — копирайт, не публиковать
 /*.pdf
+
+# секрет — ключ OpenAI (не коммитить)
+~:.deutsch_openai_key/
+*.pages
+.deutsch_openai_key*
