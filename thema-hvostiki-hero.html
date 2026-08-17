@@ -28,6 +28,7 @@
  .hvcnt{color:#9ca3af;text-align:center;font-size:13px;margin-top:6px}
  .hvrev{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:10px 12px;margin-top:10px;text-align:center;font-size:18px}
  .cots{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+ .hvopts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}
  .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
  .mit{border:1.5px solid var(--line);border-radius:11px;padding:9px 11px;cursor:pointer;background:#fff;text-align:center;font-weight:600}
  .mit.sel{border-color:#6d28d9;background:#f5f3ff}
@@ -87,7 +88,7 @@
   <div class="nav" id="nav"></div>
 </main>
 <script src="js/app.js?v=4"></script>
-<script src="js/hvostiki.js?v=3"></script>
+<script src="js/hvostiki.js?v=4"></script>
 <script>
 const g=(new URLSearchParams(location.search).get('g')||'die');
 const d=HV.DATA[g]||HV.DATA['die'];
