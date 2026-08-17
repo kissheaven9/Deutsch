@@ -31,15 +31,76 @@ const DATA = {
    ['die Haltestelle','остановка','-stelle'],['die Arbeitsstelle','место работы','-stelle'],['die Tankstelle','заправка','-stelle']
   ]},
  das:{hero:'Teo', ru:'Тео', art:'das', color:'#0e9488', bg:'#ccfbf1', song:'hvostiki-teo',
-  lyrics:`[Припев]\nDas, das, das — das ist Teo!\nDas, das, das — Teo lacht!\n\n[Куплет — HAUS]\nHier ist das Rathaus,\ndort ist das Kaufhaus,\nda ist das Krankenhaus,\nTeo wohnt im Wohnhaus.\nDas Haus, das Haus — immer das!\n\n[Куплет — ZIMMER]\nHier ist das Wohnzimmer,\ndort ist das Schlafzimmer,\nda ist das Badezimmer,\nTeo spielt im Kinderzimmer.\nDas Zimmer — immer das!\n\n[Куплет — ZEUG]\nDas ist das Spielzeug,\ndas ist das Werkzeug,\ndas ist das Flugzeug,\nTeo nimmt das Zeug.\nDas Zeug — immer das!\n\n[Куплет — BUCH]\nHier ist das Wörterbuch,\ndort ist das Kochbuch,\nda ist das Lehrbuch,\nTeo liest das Buch.\nDas Buch — immer das!\n\n[Финал]\nHaus, Zimmer, Zeug und Buch —\nalles das! Alles das!`,
-  lyricsDraft:true,
-  tails:[['-haus','das Haus','дом (здание)'],['-zimmer','das Zimmer','комната'],['-zeug','das Zeug','штука / принадлежности'],['-buch','das Buch','книга'],['-mittel','das Mittel','средство']],
+  lyrics:`[Припев]
+Das, das, das — das ist Teo!
+Das, das, das — Teo lacht!
+
+[Куплет — HAUS]
+Hier steht das Wohnhaus,
+dort steht das Rathaus,
+da steht das Krankenhaus,
+Teo kommt nach Hause.
+Das Haus, das Haus — immer das!
+
+[Куплет — ZIMMER]
+Hier ist das Schlafzimmer,
+hier ist das Kinderzimmer,
+hier ist das Badezimmer,
+Teo putzt das Zimmer.
+Das Zimmer, das Zimmer — immer das!
+
+[Припев]
+Das, das, das — das ist Teo!
+Das, das, das — Teo lacht!
+
+[Куплет — BUCH und RAD]
+Teo liest das Wörterbuch,
+Teo schreibt das Notizbuch,
+Teo fährt das Fahrrad,
+Teo liebt das Rad.
+Das Buch, das Rad — immer das!
+
+[Куплет — AMT und GELD]
+Am Montag das Rathausamt,
+am Dienstag das Finanzamt,
+im Sommer das Taschengeld,
+im Winter das Kleingeld.
+Das Amt, das Geld — immer das!
+
+[Припев]
+Das, das, das — das ist Teo!
+Das, das, das — Teo lacht!
+
+[Куплет — LAND und BAD]
+Das ist das Heimatland,
+das ist das Nachbarland,
+hier ist das Schwimmbad,
+dort ist das Sonnenbad.
+Das Land, das Bad — immer das!
+
+[Куплет — GE-]
+Teo hört das Gespräch,
+Teo baut das Gebäude,
+Teo bringt das Geschenk —
+Teo hat die Freude!
+Ge-, Ge-, Ge- — immer das!
+
+[Финал]
+Haus, Zimmer, Buch und Rad,
+Amt, Geld, Land und Bad —
+alles das! Alles das!`,
+  tails:[['-haus','das Haus','дом (здание)'],['-zimmer','das Zimmer','комната'],['-buch','das Buch','книга'],['-rad','das Rad','колесо / велосипед'],['-amt','das Amt','ведомство'],['-geld','das Geld','деньги'],['-land','das Land','страна'],['-bad','das Bad','ванна / купание'],['-zeug','das Zeug','принадлежности'],['Ge-','das Ge-','приставка Ge- → часто das']],
   words:[
-   ['das Rathaus','ратуша','-haus'],['das Kaufhaus','универмаг','-haus'],['das Krankenhaus','больница','-haus'],['das Wohnhaus','жилой дом','-haus'],
-   ['das Wohnzimmer','гостиная','-zimmer'],['das Schlafzimmer','спальня','-zimmer'],['das Badezimmer','ванная','-zimmer'],['das Kinderzimmer','детская','-zimmer'],['das Wartezimmer','приёмная','-zimmer'],
-   ['das Spielzeug','игрушка','-zeug'],['das Werkzeug','инструмент','-zeug'],['das Flugzeug','самолёт','-zeug'],['das Feuerzeug','зажигалка','-zeug'],
-   ['das Wörterbuch','словарь','-buch'],['das Kochbuch','книга рецептов','-buch'],['das Lehrbuch','учебник','-buch'],['das Tagebuch','дневник','-buch'],
-   ['das Lebensmittel','продукт питания','-mittel'],['das Verkehrsmittel','транспортное средство','-mittel']
+   ['das Wohnhaus','жилой дом','-haus'],['das Rathaus','ратуша','-haus'],['das Krankenhaus','больница','-haus'],['das Kaufhaus','универмаг','-haus'],
+   ['das Schlafzimmer','спальня','-zimmer'],['das Kinderzimmer','детская','-zimmer'],['das Badezimmer','ванная','-zimmer'],['das Wohnzimmer','гостиная','-zimmer'],['das Wartezimmer','приёмная','-zimmer'],
+   ['das Wörterbuch','словарь','-buch'],['das Notizbuch','блокнот','-buch'],['das Kochbuch','книга рецептов','-buch'],['das Lehrbuch','учебник','-buch'],
+   ['das Fahrrad','велосипед','-rad'],['das Rad','колесо / велик','-rad'],
+   ['das Finanzamt','налоговая','-amt'],['das Arbeitsamt','биржа труда','-amt'],['das Amt','ведомство','-amt'],
+   ['das Taschengeld','карманные деньги','-geld'],['das Kleingeld','мелочь','-geld'],['das Bargeld','наличные','-geld'],
+   ['das Heimatland','родина','-land'],['das Nachbarland','соседняя страна','-land'],['das Ausland','заграница','-land'],
+   ['das Schwimmbad','бассейн','-bad'],['das Sonnenbad','солнечная ванна','-bad'],
+   ['das Spielzeug','игрушка','-zeug'],['das Werkzeug','инструмент','-zeug'],['das Flugzeug','самолёт','-zeug'],
+   ['das Gespräch','разговор','Ge-'],['das Gebäude','здание','Ge-'],['das Geschenk','подарок','Ge-']
   ]}
 };
 
