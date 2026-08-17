@@ -7,7 +7,13 @@ const V = {der:'male', die:'female', das:'child'};
 const DATA = {
  der:{hero:'Otto', ru:'Отто', art:'der', color:'#3b5bdb', bg:'#eef2ff', song:'hvostiki-otto',
   lyrics:`[Припев]\nDer, der, der — das ist Otto!\nDer, der, der — Otto sagt!\n\n[Куплет — PLATZ]\nHier ist der Marktplatz,\ndort ist der Spielplatz,\nda ist der Parkplatz,\nund das ist mein Sitzplatz.\nDer Platz, der Platz — immer der!\n\n[Куплет — PLAN]\nIch habe den Fahrplan,\nich habe den Stadtplan,\nich habe den Zeitplan,\nOtto hat den Plan!\nDer Plan, der Plan — immer der!\n\n[Куплет — SCHEIN]\nWo ist der Führerschein?\nWo ist der Geldschein?\nDa kommt der Sonnenschein!\nOtto lacht: der Schein!\nDer Schein — immer der!\n\n[Куплет — WEG]\nDas ist der Fußweg,\ndas ist der Heimweg,\ndas ist der Radweg,\nOtto geht den Weg.\nDer Weg — immer der!\n\n[Куплет — HOF und RAUM]\nDa steht der Bahnhof,\nda steht der Bauernhof,\nhier ist der Klassenraum,\nhier ist der Wohnraum.\nDer Hof, der Raum — immer der!\n\n[Куплет — LAUF und KAUF]\nOtto schreibt den Lebenslauf,\nOtto macht den Einkauf,\nOtto steht und gibt nicht auf!\nDer Lauf, der Kauf — immer der!\n\n[Финал]\nPlatz, Plan, Schein, Weg,\nHof, Raum, Lauf, Kauf —\nalles der! Alles der!`,
-  tails:[['-platz','der Platz','площадь / место'],['-plan','der Plan','план'],['-schein','der Schein','свет / документ'],['-weg','der Weg','путь / дорога'],['-hof','der Hof','двор'],['-raum','der Raum','помещение'],['-lauf','der Lauf','ход / бег'],['-kauf','der Kauf','покупка']],
+  tails:[['-platz','der Platz','площадь / место'],['-plan','der Plan','план'],['-schein','der Schein','свет / документ'],['-weg','der Weg','путь / дорога'],['-hof','der Hof','двор'],['-raum','der Raum','помещение'],['-lauf','der Lauf','ход / бег'],['-kauf','der Kauf','покупка'],['-tag','der Tag','день'],['-monat','der Monat','месяц'],['-abend','der Abend','вечер']],
+  poem:{lines:['Der Montag kommt, der Dienstag geht,','der Sommermonat ist schon spät.','Der Sonntagabend, still und klar —','Otto sagt: der ist immer da!'],
+   targets:['Montag','Dienstag','Sommermonat','Sonntagabend'],find:['-tag','-monat','-abend'],
+   note:{'-tag':'Mittwoch (среда) — тоже der, но хвостик другой (-woch).'},
+   ex:{'-tag':['am Montag — в понедельник','jeden Tag — каждый день','der Geburtstag — день рождения'],
+       '-monat':['letzten Monat — в прошлом месяце','diesen Monat — в этом месяце','nächsten Monat — в следующем месяце'],
+       '-abend':['heute Abend — сегодня вечером','morgen Abend — завтра вечером','Dienstagabend — во вторник вечером']}},
   words:[
    ['der Marktplatz','рыночная площадь','-platz'],['der Spielplatz','детская площадка','-platz'],['der Parkplatz','парковка','-platz'],['der Arbeitsplatz','рабочее место','-platz'],['der Sitzplatz','сидячее место','-platz'],
    ['der Fahrplan','расписание','-plan'],['der Stadtplan','карта города','-plan'],['der Zeitplan','график','-plan'],['der Terminplan','план встреч','-plan'],
@@ -15,11 +21,19 @@ const DATA = {
    ['der Fußweg','тропинка','-weg'],['der Heimweg','путь домой','-weg'],['der Radweg','велодорожка','-weg'],['der Schulweg','дорога в школу','-weg'],
    ['der Bahnhof','вокзал','-hof'],['der Bauernhof','ферма','-hof'],['der Hinterhof','задний двор','-hof'],
    ['der Klassenraum','класс','-raum'],['der Wohnraum','жилое помещение','-raum'],['der Warteraum','зал ожидания','-raum'],
-   ['der Lebenslauf','резюме','-lauf'],['der Einkauf','покупка','-kauf'],['der Verkauf','продажа','-kauf']
+   ['der Lebenslauf','резюме','-lauf'],['der Einkauf','покупка','-kauf'],['der Verkauf','продажа','-kauf'],
+   ['der Tag','день','-tag'],['der Montag','понедельник','-tag'],['der Dienstag','вторник','-tag'],['der Donnerstag','четверг','-tag'],['der Freitag','пятница','-tag'],['der Samstag','суббота','-tag'],['der Sonntag','воскресенье','-tag'],['der Geburtstag','день рождения','-tag'],['der Feiertag','праздник','-tag'],
+   ['der Monat','месяц','-monat'],['der Sommermonat','летний месяц','-monat'],['der Wintermonat','зимний месяц','-monat'],['der Urlaubsmonat','месяц отпуска','-monat'],
+   ['der Abend','вечер','-abend'],['der Sonntagabend','воскресный вечер','-abend'],['der Freitagabend','вечер пятницы','-abend'],['der Feierabend','конец рабочего дня','-abend'],['der Heiligabend','Сочельник','-abend']
   ]},
  die:{hero:'Greta', ru:'Грета', art:'die', color:'#c2185b', bg:'#fce7f3', song:'hvostiki-greta',
   lyrics:`[Припев]\nDie, die, die — das ist Greta!\nDie, die, die — Greta singt!\n\n[Куплет — BAHN]\nDa kommt die Straßenbahn,\nda kommt die U-Bahn,\nda kommt die Eisenbahn,\nGreta fährt mit der Bahn.\nDie Bahn, die Bahn — immer die!\n\n[Куплет — KARTE]\nHier ist die Fahrkarte,\nhier ist die Speisekarte,\nhier ist die Postkarte,\nGreta liest die Karte.\nDie Karte — immer die!\n\n[Куплет — ZEIT]\nAm Morgen die Arbeitszeit,\nam Mittag die Pausenzeit,\nam Abend die Freizeit —\nGreta hat viel Zeit!\nDie Zeit — immer die!\n\n[Куплет — STRASSE und TÜR]\nHier ist die Hauptstraße,\ndort ist die Bahnhofstraße,\nhier ist die Haustür,\ndort ist die Autotür.\nDie Straße, die Tür — immer die!\n\n[Куплет — SCHRIFT und KASSE]\nDas ist die Unterschrift,\ndas ist die Handschrift,\nda steht die Kaffeekasse,\nda steht die Supermarktkasse.\nDie Schrift, die Kasse — immer die!\n\n[Куплет — STELLE]\nGreta sucht die Arbeitsstelle,\nGreta findet die Haltestelle,\nGreta kommt — und kommt sehr schnelle!\nDie Stelle — immer die!\n\n[Финал]\nBahn, Karte, Zeit und Stelle,\nSchrift, Kasse, Straße, Tür —\nalles die! Alles die!`,
-  tails:[['-bahn','die Bahn','дорога / путь (рельсы)'],['-karte','die Karte','карта / карточка'],['-zeit','die Zeit','время'],['-straße','die Straße','улица'],['-tür','die Tür','дверь'],['-schrift','die Schrift','письмо / шрифт'],['-kasse','die Kasse','касса'],['-stelle','die Stelle','место / точка']],
+  tails:[['-bahn','die Bahn','дорога / путь (рельсы)'],['-karte','die Karte','карта / карточка'],['-zeit','die Zeit','время'],['-straße','die Straße','улица'],['-tür','die Tür','дверь'],['-schrift','die Schrift','письмо / шрифт'],['-kasse','die Kasse','касса'],['-stelle','die Stelle','место / точка'],['-stunde','die Stunde','час / урок'],['-woche','die Woche','неделя'],['-nummer','die Nummer','номер']],
+  poem:{lines:['Die Deutschstunde, die Schulstunde,','die Arbeitswoche, jede Stunde.','Die Hausnummer, die Telefonnummer —','Greta sagt: die ist immer munter!'],
+   targets:['Deutschstunde','Schulstunde','Arbeitswoche','Hausnummer','Telefonnummer'],find:['-stunde','-woche','-nummer'],
+   ex:{'-stunde':['die Deutschstunde — урок немецкого','eine Stunde — один час','jede Stunde — каждый час'],
+       '-woche':['diese Woche — на этой неделе','letzte Woche — на прошлой неделе','nächste Woche — на следующей неделе'],
+       '-nummer':['die Hausnummer — номер дома','die Telefonnummer — номер телефона','die Handynummer — номер мобильного']}},
   words:[
    ['die Straßenbahn','трамвай','-bahn'],['die U-Bahn','метро','-bahn'],['die Eisenbahn','железная дорога','-bahn'],['die Autobahn','автобан','-bahn'],
    ['die Fahrkarte','билет','-karte'],['die Speisekarte','меню','-karte'],['die Postkarte','открытка','-karte'],['die Eintrittskarte','входной билет','-karte'],['die Landkarte','карта (местности)','-karte'],
@@ -28,7 +42,10 @@ const DATA = {
    ['die Haustür','входная дверь','-tür'],['die Autotür','дверь машины','-tür'],['die Kühlschranktür','дверь холодильника','-tür'],
    ['die Unterschrift','подпись','-schrift'],['die Handschrift','почерк','-schrift'],['die Überschrift','заголовок','-schrift'],
    ['die Supermarktkasse','касса супермаркета','-kasse'],['die Krankenkasse','больничная касса','-kasse'],['die Kaffeekasse','касса на кофе','-kasse'],
-   ['die Haltestelle','остановка','-stelle'],['die Arbeitsstelle','место работы','-stelle'],['die Tankstelle','заправка','-stelle']
+   ['die Haltestelle','остановка','-stelle'],['die Arbeitsstelle','место работы','-stelle'],['die Tankstelle','заправка','-stelle'],
+   ['die Stunde','час / урок','-stunde'],['die Deutschstunde','урок немецкого','-stunde'],['die Schulstunde','школьный урок','-stunde'],['die Arbeitsstunde','рабочий час','-stunde'],['die Sportstunde','урок физкультуры','-stunde'],
+   ['die Woche','неделя','-woche'],['die Arbeitswoche','рабочая неделя','-woche'],['die Schulwoche','учебная неделя','-woche'],['die Urlaubswoche','неделя отпуска','-woche'],
+   ['die Nummer','номер','-nummer'],['die Hausnummer','номер дома','-nummer'],['die Telefonnummer','номер телефона','-nummer'],['die Handynummer','номер мобильного','-nummer'],['die Zimmernummer','номер комнаты','-nummer']
   ]},
  das:{hero:'Teo', ru:'Тео', art:'das', color:'#0e9488', bg:'#ccfbf1', song:'hvostiki-teo',
   lyrics:`[Припев]
@@ -89,7 +106,12 @@ Ge-, Ge-, Ge- — immer das!
 Haus, Zimmer, Buch und Rad,
 Amt, Geld, Land und Bad —
 alles das! Alles das!`,
-  tails:[['-haus','das Haus','дом (здание)'],['-zimmer','das Zimmer','комната'],['-buch','das Buch','книга'],['-rad','das Rad','колесо / велосипед'],['-amt','das Amt','ведомство'],['-geld','das Geld','деньги'],['-land','das Land','страна'],['-bad','das Bad','ванна / купание'],['-zeug','das Zeug','принадлежности'],['Ge-','das Ge-','приставка Ge- → часто das']],
+  tails:[['-haus','das Haus','дом (здание)'],['-zimmer','das Zimmer','комната'],['-buch','das Buch','книга'],['-rad','das Rad','колесо / велосипед'],['-amt','das Amt','ведомство'],['-geld','das Geld','деньги'],['-land','das Land','страна'],['-bad','das Bad','ванна / купание'],['-zeug','das Zeug','принадлежности'],['-jahr','das Jahr','год'],['-essen','das Essen','еда / приём пищи'],['Ge-','das Ge-','приставка Ge- → часто das']],
+  poem:{lines:['Das Spielzeug hier, das Werkzeug dort,','das Schuljahr geht, das ist sein Wort.','Das Mittagessen, das Abendessen —','Teo sagt: das darf man nie vergessen!'],
+   targets:['Spielzeug','Werkzeug','Schuljahr','Mittagessen','Abendessen'],find:['-zeug','-jahr','-essen'],
+   ex:{'-zeug':['das Spielzeug — игрушка','das Werkzeug — инструмент','das Flugzeug — самолёт'],
+       '-jahr':['dieses Jahr — в этом году','letztes Jahr — в прошлом году','nächstes Jahr — в следующем году'],
+       '-essen':['das Mittagessen — обед','das Abendessen — ужин','das Essen ist fertig — еда готова']}},
   words:[
    ['das Wohnhaus','жилой дом','-haus'],['das Rathaus','ратуша','-haus'],['das Krankenhaus','больница','-haus'],['das Kaufhaus','универмаг','-haus'],
    ['das Schlafzimmer','спальня','-zimmer'],['das Kinderzimmer','детская','-zimmer'],['das Badezimmer','ванная','-zimmer'],['das Wohnzimmer','гостиная','-zimmer'],['das Wartezimmer','приёмная','-zimmer'],
@@ -99,7 +121,9 @@ alles das! Alles das!`,
    ['das Taschengeld','карманные деньги','-geld'],['das Kleingeld','мелочь','-geld'],['das Bargeld','наличные','-geld'],
    ['das Heimatland','родина','-land'],['das Nachbarland','соседняя страна','-land'],['das Ausland','заграница','-land'],
    ['das Schwimmbad','бассейн','-bad'],['das Sonnenbad','солнечная ванна','-bad'],
-   ['das Spielzeug','игрушка','-zeug'],['das Werkzeug','инструмент','-zeug'],['das Flugzeug','самолёт','-zeug'],
+   ['das Spielzeug','игрушка','-zeug'],['das Werkzeug','инструмент','-zeug'],['das Flugzeug','самолёт','-zeug'],['das Feuerzeug','зажигалка','-zeug'],
+   ['das Jahr','год','-jahr'],['das Schuljahr','учебный год','-jahr'],['das Halbjahr','полугодие','-jahr'],['das Neujahr','Новый год','-jahr'],
+   ['das Essen','еда','-essen'],['das Mittagessen','обед','-essen'],['das Abendessen','ужин','-essen'],
    ['das Gespräch','разговор','Ge-'],['das Gebäude','здание','Ge-'],['das Geschenk','подарок','Ge-']
   ]}
 };
@@ -268,5 +292,34 @@ function initSammel(g,box,size){size=size||10;const d=DATA[g];const pool=d.words
    show();}
  runGroup(0);}
 
-return {DATA, renderSong, renderWords, initTrans, initMix, initMatch, initChoice, initSammel};
+/* ---------- Стишок: найди новые хвостики (разгадка) ---------- */
+function initPoem(g,box){const el=document.getElementById(box);if(!el)return;const d=DATA[g];const p=d.poem;
+ if(!p){el.innerHTML='';return;}
+ let picked={},checked=false;
+ function render(){
+   const poemHtml=p.lines.map(line=>'<div>'+line.split(/(\s+)/).map(tok=>{
+     const clean=tok.replace(/[^A-Za-zÄÖÜäöüß-]/g,'');
+     if(clean&&p.targets.indexOf(clean)>=0){const on=picked[clean]?' on':'';return tok.replace(clean,`<button class="pw${on}" data-w="${clean}">${clean}</button>`);}
+     return tok;}).join('')+'</div>').join('');
+   el.innerHTML=`<div class="poem">${poemHtml}</div>`
+     +`<div style="text-align:center;margin-top:12px"><button class="btn" id="pchk" style="background:${d.color};color:#fff">Проверить</button> <button class="btn sm" id="prst">↺ Ещё раз</button></div>`
+     +`<div id="prev"></div>`;
+   el.querySelectorAll('.pw').forEach(b=>b.onclick=()=>{if(checked)return;const w=b.dataset.w;if(picked[w]){delete picked[w];b.classList.remove('on');}else{picked[w]=1;b.classList.add('on');}});
+   document.getElementById('pchk').onclick=check;
+   document.getElementById('prst').onclick=()=>{picked={};checked=false;render();};}
+ function check(){checked=true;
+   el.querySelectorAll('.pw').forEach(b=>b.classList.add(picked[b.dataset.w]?'good':'miss'));
+   let html=`<div class="preveal"><div style="font-weight:800;margin:12px 0 8px;color:${d.color}">Разгадка: 3 новых хвостика — и все они <span style="text-transform:uppercase">${d.art}</span>!</div>`;
+   p.find.forEach(t=>{const tl=d.tails.find(x=>x[0]===t);const ws=d.words.filter(w=>w[2]===t);
+     html+=`<div class="tailbox" style="border-left:4px solid ${d.color}">`
+      +`<div style="margin-bottom:6px"><b style="color:${d.color}">${t} → ${tl[1]}</b> <span style="color:#6b7280">(${tl[2]})</span></div>`
+      +`<div class="tw">${ws.map(w=>`<span class="chip2"><b>${w[0]}</b> <button class="say" onclick="playWord('${esc(bare(w[0]))}','${V[g]}')">🔊</button> <i style="color:#6b7280">${w[1]}</i></span>`).join('')}</div>`;
+     if(p.ex&&p.ex[t])html+=`<div style="margin-top:8px;color:#4b5563;font-size:14px"><b>Примеры:</b> ${p.ex[t].join(' · ')}</div>`;
+     if(p.note&&p.note[t])html+=`<div style="margin-top:6px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 9px;font-size:13px">💡 ${p.note[t]}</div>`;
+     html+='</div>';});
+   html+='</div>';
+   document.getElementById('prev').innerHTML=html;}
+ render();}
+
+return {DATA, renderSong, renderWords, initTrans, initMix, initMatch, initChoice, initSammel, initPoem};
 })();
