@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artikel-Stempel</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ :root{--der:#2F5FA8;--die:#B0334C;--das:#3B7A4E}
+ .wrap{max-width:840px;margin:0 auto;padding:16px}
+ .sub2{color:#6b7280;font-size:14px;margin:2px 0 0}
+ .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+ .stamps{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}
+ .stamp{border:2px solid;border-radius:12px;padding:9px 18px;font-weight:800;font-size:18px;cursor:pointer;background:#fff;font-family:inherit}
+ .stamp.der{color:var(--der);border-color:var(--der)} .stamp.die{color:var(--die);border-color:var(--die)} .stamp.das{color:var(--das);border-color:var(--das)}
+ .stamp.on.der{background:var(--der);color:#fff} .stamp.on.die{background:var(--die);color:#fff} .stamp.on.das{background:var(--das);color:#fff}
+ .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 10px}
+ .tab{border:none;border-radius:10px;padding:8px 13px;font-weight:700;background:var(--tbg);color:#374151;cursor:pointer;font-family:inherit}
+ .tab.on{background:#374151;color:#fff}
+ .story{font-size:18px;line-height:2.1}
+ .story p{margin:0 0 10px}
+ .wd{font:inherit;font-size:18px;border:1.5px solid transparent;border-radius:8px;padding:1px 5px;margin:0 1px;cursor:pointer;background:none;color:inherit;min-height:32px}
+ .wd:focus-visible{outline:3px solid #6d28d9;outline-offset:1px}
+ .wd.der{background:rgba(47,95,168,.16);color:var(--der);font-weight:700}
+ .wd.die{background:rgba(176,51,76,.14);color:var(--die);font-weight:700}
+ .wd.das{background:rgba(59,122,78,.15);color:var(--das);font-weight:700}
+ .wd.correct{outline:0}
+ .wd.wrong{text-decoration:line-through;opacity:.75}
+ .wd .art{font-size:12px;font-weight:800;margin-left:3px;text-decoration:none;display:inline-block}
+ .wd.missed{background:none}
+ .wd.missed.der{border:1.5px dashed var(--der);color:var(--der)}
+ .wd.missed.die{border:1.5px dashed var(--die);color:var(--die)}
+ .wd.missed.das{border:1.5px dashed var(--das);color:var(--das)}
+ .ck{font-weight:800;margin-left:2px}
+ .btn{border:none;border-radius:12px;padding:10px 16px;font-weight:700;background:var(--tbg);color:#374151;cursor:pointer;font-family:inherit;font-size:15px}
+ .btn.primary{background:#6d28d9;color:#fff}
+ .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 0;align-items:center}
+ .score{font-weight:800;margin-left:auto}
+ .ru{background:var(--tbg);border-radius:12px;padding:12px 14px;color:#374151;line-height:1.7;margin-top:10px}
+ .q2{font-size:19px;margin:14px 0 8px}
+ .gap{display:inline-block;min-width:56px;border-bottom:2px solid #9ca3af;text-align:center;font-weight:800}
+ .chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+ .chip{border:1.5px solid var(--line);border-radius:11px;padding:9px 16px;font-weight:800;font-size:17px;cursor:pointer;background:#fff;font-family:inherit;min-height:44px}
+ .expl{background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:9px 12px;margin-top:8px;font-size:14px;color:#3730a3}
+ .expl.bad{background:#fdecec;border-color:#f3c0c0;color:#7f1d1d}
+ .nav{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+ .nav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--tbg);color:#374151}
+ @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap" style="padding:10px 16px"><a class="home" href="index.html">🇩🇪 Deutsch A1</a> <span class="crumb">/ Artikel-Stempel</span></div></header>
+<main class="wrap">
+  <h1 style="font-size:26px;margin:6px 0 0">Artikel-Stempel</h1>
+  <p class="sub2">Otto, Greta und Teo — A1</p>
+
+  <!-- Упражнение 1 -->
+  <div class="panel">
+    <h3 style="margin:0 0 2px">Wähle einen Artikel und finde alle Wörter im Text.</h3>
+    <p class="sub2">Выбери артикль (штамп) и отметь в тексте все слова этого рода. Потом «Prüfen».</p>
+    <div class="stamps">
+      <button class="stamp der on" data-c="der" onclick="setStamp('der')">der</button>
+      <button class="stamp die" data-c="die" onclick="setStamp('die')">die</button>
+      <button class="stamp das" data-c="das" onclick="setStamp('das')">das</button>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <h4 id="stTitle" style="margin:4px 0 6px"></h4>
+    <div class="story" id="story"></div>
+    <div class="toolbar">
+      <button class="btn primary" onclick="pruefen()">Prüfen</button>
+      <button class="btn" onclick="nochmal()">Noch einmal</button>
+      <button class="btn" onclick="toggleRu()" id="ruBtn">Übersetzung</button>
+      <span class="score" id="score"></span>
+    </div>
+    <div class="ru" id="ru" hidden></div>
+  </div>
+
+  <!-- Упражнение 2 -->
+  <div class="panel">
+    <h3 style="margin:0 0 2px">Setze den richtigen Artikel ein.</h3>
+    <p class="sub2">Вставь нужный артикль. Смотри на падеж (Nominativ / Akkusativ / Dativ).</p>
+    <div id="ex2"></div>
+    <div class="toolbar"><button class="btn" onclick="ex2reset()">Noch einmal</button><span class="score" id="score2"></span></div>
+  </div>
+
+  <div class="nav">
+    <a href="thema-hvostiki.html">← Существительные-хвостики</a>
+    <a href="index.html" style="background:#f3e8ff;color:var(--accent)">🏠 Главная</a>
+  </div>
+</main>
+<script>
+/* ===== данные ===== */
+const COL={der:'#2F5FA8',die:'#B0334C',das:'#3B7A4E'};
+const GENUS={
+ // der
+ Bahnhof:'der',Fahrplan:'der',Ausweis:'der',Sitzplatz:'der',Marktplatz:'der',Geldschein:'der',
+ Stadtplan:'der',Radweg:'der',Spielplatz:'der',Sonnenschein:'der',Warteraum:'der',
+ // die
+ Straßenbahn:'die',Haustür:'die',Handschrift:'die',Speisekarte:'die',Kasse:'die',Hauptstraße:'die',
+ // das
+ Spielzeug:'das',Amt:'das',Kochbuch:'das',Kleingeld:'das',Wohnzimmer:'das',Badezimmer:'das',
+ Arbeitszimmer:'das',Schlafzimmer:'das',Fahrrad:'das',Rad:'das',Buch:'das'
+};
+const TEXTS=[
+ {title:'Text 1 · Der verlorene Ausweis',
+  paras:[
+   'Es ist Montag. Otto steht am {Bahnhof}. Der {Fahrplan} hängt an der Wand. Die {Straßenbahn} kommt um acht Uhr.',
+   'Teo kommt auch. Er ist sieben Jahre alt und hat sein {Spielzeug} in der Hand. „Hallo, Otto! Wohin gehst du?“',
+   '„Zum {Amt}“, sagt Otto. „Ich brauche einen neuen {Ausweis}.“ Sie fahren zusammen. Teo sitzt am Fenster. Der {Sitzplatz} ist warm.',
+   'Am {Marktplatz} steigen sie aus. Da ist das Restaurant von Greta. Greta steht vor der {Haustür} und lacht. „Otto! Teo! Kommt herein!“',
+   'Greta kocht Suppe. Das {Kochbuch} liegt auf dem Tisch. Ihre {Handschrift} steht auf der {Speisekarte}.',
+   'Plötzlich ruft Teo: „Otto, hier ist dein {Ausweis}!“ Der {Ausweis} liegt unter dem {Spielzeug}. Otto lacht: „Kein {Amt} heute! Wir essen Suppe!“'],
+  ru:'Понедельник. Отто стоит на вокзале. Расписание висит на стене. Трамвай приходит в восемь. Тео тоже приходит. Ему семь лет, в руке у него игрушка. «Привет, Отто! Куда ты?» — «В ведомство, — говорит Отто. — Мне нужно новое удостоверение.» Они едут вместе. Тео сидит у окна. Место тёплое. На рыночной площади они выходят. Там ресторан Греты. Грета стоит у входной двери и смеётся. «Отто! Тео! Заходите!» Грета варит суп. Кулинарная книга лежит на столе. Её почерк — на меню. Вдруг Тео кричит: «Отто, вот твоё удостоверение!» Удостоверение лежало под игрушкой. Отто смеётся: «Никакого ведомства сегодня! Мы едим суп!»'},
+ {title:'Text 2 · Die leere Kasse',
+  paras:[
+   'Am Abend zählt Greta das {Kleingeld}. Aber die {Kasse} ist leer! Nur ein {Geldschein} liegt da.',
+   'Greta ruft Otto an: „Otto, komm schnell!“ Otto kommt sofort. Er hat den {Stadtplan} und eine Taschenlampe.',
+   '„Wir suchen“, sagt er. „Erst das {Wohnzimmer}, dann das {Badezimmer}.“ Teo hilft auch. Er ist klein und sucht unter dem Tisch.',
+   'Sie suchen im {Arbeitszimmer}. Nichts. Sie suchen im {Schlafzimmer}. Nichts.',
+   'Dann lacht Teo laut: „Greta, hier!“ Das {Kleingeld} liegt im {Kochbuch}. Greta ist rot. „Ich lese und rechne und vergesse alles.“',
+   'Otto sagt: „Kein Problem. Aber jetzt bekommen wir Kuchen!“ Und Teo bekommt zwei Stück.'],
+  ru:'Вечером Грета считает мелочь. Но касса пуста! Лежит только одна купюра. Грета звонит Отто: «Отто, приходи скорее!» Отто приходит сразу. У него план города и фонарик. «Будем искать, — говорит он. — Сначала гостиная, потом ванная.» Тео тоже помогает. Он маленький и ищет под столом. Они ищут в кабинете. Ничего. Ищут в спальне. Ничего. Тут Тео громко смеётся: «Грета, вот!» Мелочь лежала в кулинарной книге. Грета краснеет. «Я читаю, считаю и всё забываю.» Отто говорит: «Не проблема. Но теперь мы получаем пирог!» А Тео получает два куска.'},
+ {title:'Text 3 · Das neue Fahrrad',
+  paras:[
+   'Teo hat Geburtstag. Er bekommt ein {Fahrrad}! Das {Rad} ist blau und schnell. „Danke, Greta! Danke, Otto!“',
+   'Otto sagt: „Vorsicht, Teo. Der {Radweg} ist dort, nicht auf der {Hauptstraße}.“',
+   'Teo fährt zum {Spielplatz}. Der {Sonnenschein} ist warm. Alles ist gut.',
+   'Aber am Abend kommt Teo nicht nach Hause. Greta wartet vor der {Haustür}. Otto nimmt den {Stadtplan}.',
+   '„Wir suchen ihn. Erst der {Spielplatz}, dann der {Bahnhof}.“ Am {Spielplatz} ist niemand. Am {Bahnhof} auch nicht.',
+   'Dann sagt Greta leise: „Otto… schau!“ Teo schläft im {Warteraum}. Sein {Fahrrad} steht neben ihm. In der Hand hält er ein {Buch}.',
+   'Greta lacht und weint. Otto nimmt das {Fahrrad}, Greta nimmt Teo. Und alle gehen nach Hause.'],
+  ru:'У Тео день рождения. Он получает велосипед! Велосипед синий и быстрый. «Спасибо, Грета! Спасибо, Отто!» Отто говорит: «Осторожно, Тео. Велодорожка вон там, не на главной улице.» Тео едет на детскую площадку. Солнце тёплое. Всё хорошо. Но вечером Тео не приходит домой. Грета ждёт у входной двери. Отто берёт план города. «Будем искать. Сначала площадка, потом вокзал.» На площадке никого. На вокзале тоже. Тут Грета тихо говорит: «Отто… смотри!» Тео спит в зале ожидания. Велосипед стоит рядом. В руке он держит книгу. Грета смеётся и плачет. Отто берёт велосипед, Грета берёт Тео. И все идут домой.'}
+];
+const EX2=[
+ ['___ Fahrplan hängt an der Wand.','der','der Fahrplan','Nominativ — расписание само висит, оно подлежащее.'],
+ ['Otto sucht ___ Ausweis.','den','der Ausweis','Akkusativ — ищут что-то. der → den.'],
+ ['Teo fährt mit ___ Fahrrad.','dem','das Fahrrad','Dativ после mit. das → dem.'],
+ ['___ Straßenbahn kommt um acht Uhr.','die','die Straßenbahn','Nominativ. У die в Nom. и Akk. форма одна.'],
+ ['Greta steht vor ___ Haustür.','der','die Haustür','Dativ после vor. die → der. Самая частая ловушка.'],
+ ['Das Kleingeld liegt in ___ Kochbuch.','dem','das Kochbuch','Dativ — лежит где, не движется. das → dem.'],
+ ['Otto nimmt ___ Stadtplan.','den','der Stadtplan','Akkusativ — берут что-то. der → den.'],
+ ['___ Kasse ist leer.','die','die Kasse','Nominativ после ist.'],
+ ['Teo schläft in ___ Warteraum.','dem','der Warteraum','Dativ — спит где. der → dem.'],
+ ['Greta schreibt ___ Speisekarte.','die','die Speisekarte','Akkusativ, но у die форма не меняется.']
+];
+
+/* ===== упражнение 1 ===== */
+let stamp='der', TP=0, marks={}, checked=false;
+function setStamp(c){stamp=c;document.querySelectorAll('.stamp').forEach(b=>b.classList.toggle('on',b.dataset.c===c));}
+function renderTabs(){document.getElementById('tabs').innerHTML=TEXTS.map((t,i)=>`<button class="tab${i===TP?' on':''}" onclick="setText(${i})">Text ${i+1}</button>`).join('');}
+function setText(i){TP=i;marks={};checked=false;renderTabs();renderStory();document.getElementById('score').textContent='';document.getElementById('ru').hidden=true;document.getElementById('ruBtn').textContent='Übersetzung';}
+function renderStory(){const t=TEXTS[TP];document.getElementById('stTitle').textContent=t.title;let n=0;
+  const html=t.paras.map(p=>'<p>'+p.replace(/\{([^}]+)\}/g,(m,w)=>{const id='w'+(n++);return `<button class="wd" id="${id}" data-w="${w}" onclick="tapWord('${id}')">${w}</button>`;})+'</p>').join('');
+  document.getElementById('story').innerHTML=html;}
+function tapWord(id){if(checked)return;const el=document.getElementById(id);
+  if(marks[id]===stamp){delete marks[id];el.className='wd';}
+  else{marks[id]=stamp;el.className='wd '+stamp;}}
+function pruefen(){checked=true;let right=0,total=0;
+  document.querySelectorAll('#story .wd').forEach(el=>{total++;const w=el.dataset.w;const g=GENUS[w];const m=marks[el.id];
+    el.className='wd';el.querySelectorAll('.art,.ck').forEach(x=>x.remove());
+    if(m===g){right++;el.classList.add(g,'correct');el.insertAdjacentHTML('beforeend',' <span class="ck" style="color:'+COL[g]+'">✓</span>');}
+    else if(m){el.classList.add(m,'wrong');el.insertAdjacentHTML('beforeend',' <span class="art" style="color:'+COL[g]+'">'+g+'</span>');}
+    else{el.classList.add('missed',g);}
+  });
+  document.getElementById('score').textContent='Richtig: '+right+' / '+total;}
+function nochmal(){marks={};checked=false;renderStory();document.getElementById('score').textContent='';}
+function toggleRu(){const r=document.getElementById('ru'),b=document.getElementById('ruBtn');const show=r.hidden;r.hidden=!show;r.textContent=TEXTS[TP].ru;b.textContent=show?'Original':'Übersetzung';}
+
+/* ===== упражнение 2 ===== */
+let ex2done={};
+function renderEx2(){ex2done={};document.getElementById('ex2').innerHTML=EX2.map((it,i)=>{
+  const chips=['der','die','das','den','dem'].map(a=>`<button class="chip" onclick="ex2pick(${i},'${a}')" data-a="${a}">${a}</button>`).join('');
+  const sentence=it[0].replace('___',`<span class="gap" id="g${i}">___</span>`);
+  return `<div class="q2"><b>${i+1}.</b> ${sentence}</div><div class="chips" id="chips${i}">${chips}</div><div id="ex${i}"></div>`;
+}).join('');document.getElementById('score2').textContent='';}
+function ex2pick(i,a){if(ex2done[i])return;ex2done[i]=true;const it=EX2[i];const good=a===it[1];
+  const gap=document.getElementById('g'+i);gap.textContent=it[1];gap.style.color=good?'#16a34a':'#dc2626';
+  document.querySelectorAll('#chips'+i+' .chip').forEach(c=>{c.disabled=true;if(c.dataset.a===it[1])c.style.background='#e8f6ee';if(c.dataset.a===a&&!good)c.style.background='#fdecec';});
+  document.getElementById('ex'+i).innerHTML='<div class="expl'+(good?'':' bad')+'">'+(good?'✓ ':'✗ Правильно: '+it[1]+'. ')+it[3]+' <i>('+it[2]+')</i></div>';
+  const r=EX2.filter((x,k)=>ex2done[k]&&document.getElementById('g'+k).textContent===x[1]).length;
+  document.getElementById('score2').textContent='Richtig: '+r+' / '+EX2.length;}
+function ex2reset(){renderEx2();}
+
+renderTabs();renderStory();renderEx2();
+</script>
+</body>
+</html>
