@@ -155,5 +155,51 @@ function initMix(box){
  show();}
 let HV_pick=null;
 
-return {DATA, renderSong, renderWords, initTrans, initMix, _m:(a)=>HV_pick&&HV_pick(a)};
+/* ---------- Соотнеси: слово ↔ перевод ---------- */
+function initMatch(g,box){const d=DATA[g];const el=document.getElementById(box);
+ function round(){const L=shuffle(d.words).slice(0,6).map((w,i)=>({de:w[0],ru:w[1],k:i}));const R=shuffle(L.slice());let sel=null,left=6;
+  el.innerHTML='<div class="mgrid"><div id="mL"></div><div id="mR"></div></div><div style="text-align:center;margin-top:10px"><button class="btn sm" id="mNew">🔀 Ещё раз</button></div>';
+  document.getElementById('mL').innerHTML=L.map(x=>`<div class="mit" data-k="${x.k}" data-s="L">${x.de}</div>`).join('');
+  document.getElementById('mR').innerHTML=R.map(x=>`<div class="mit" data-k="${x.k}" data-s="R">${x.ru}</div>`).join('');
+  el.querySelectorAll('.mit').forEach(m=>m.onclick=()=>{if(m.classList.contains('ok'))return;
+    if(!sel){sel=m;m.classList.add('sel');return;}
+    if(sel===m){m.classList.remove('sel');sel=null;return;}
+    if(sel.dataset.s===m.dataset.s){sel.classList.remove('sel');sel=m;m.classList.add('sel');return;}
+    if(sel.dataset.k===m.dataset.k){sel.classList.add('ok');m.classList.add('ok');sel.classList.remove('sel');playWord(bare(L.find(x=>x.k==m.dataset.k).de),V[g]);sel=null;if(--left===0)setTimeout(round,900);}
+    else{const a=sel;m.classList.add('bad');a.classList.add('bad');sel=null;setTimeout(()=>{m.classList.remove('bad');a.classList.remove('bad','sel');},600);}});
+  document.getElementById('mNew').onclick=round;}
+ round();}
+
+/* ---------- Выбери перевод (RU → DE) ---------- */
+let HV_c=null;
+function initChoice(g,box){const d=DATA[g];let list=shuffle(d.words),i=0,ok=0,done=0;const el=document.getElementById(box);
+ el.innerHTML='<div class="hvq" id="cq"></div><div class="cots" id="cots"></div><div class="hvfb" id="cfb"></div><div class="hvcnt" id="cc"></div>';
+ function show(){const w=list[i];document.getElementById('cq').textContent=w[1];document.getElementById('cfb').innerHTML='';
+   const opts=shuffle([w[0],...shuffle(d.words.filter(x=>x[0]!==w[0])).slice(0,2).map(x=>x[0])]);
+   document.getElementById('cots').innerHTML=opts.map(o=>`<button class="btn" onclick="HV._c('${esc(o)}')">${o}</button>`).join('');}
+ HV_c=function(ans){const w=list[i];const good=ans===w[0];done++;if(good)ok++;
+   document.getElementById('cfb').innerHTML=(good?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ '+w[0]+' </span>')+`<button class="say" onclick="playWord('${esc(bare(w[0]))}','${V[g]}')">🔊</button>`;
+   playWord(bare(w[0]),V[g]);document.getElementById('cc').textContent=`верно ${ok} из ${done}`;
+   i=(i+1)%list.length;if(i===0)list=shuffle(d.words);setTimeout(show,1200);};
+ show();}
+
+/* ---------- Собери слово (компонент + хвостик) ---------- */
+let HV_s=null;
+function stem(w){return bare(w[0]).replace(new RegExp(w[2].replace(/[-]/g,'')+'$','i'),'');}
+function initSammel(g,box){const d=DATA[g];const pool=d.words.filter(w=>w[2]!=='Ge-'&&stem(w));let list=shuffle(pool),i=0;const el=document.getElementById(box);
+ el.innerHTML='<div class="qru" id="sq"></div><div class="hvq" id="sbase"></div><div class="cots" id="sopts"></div><div class="hvfb" id="sfb"></div><div style="text-align:center;margin-top:6px"><button class="btn sm" id="snx">Дальше →</button></div><div class="hvcnt" id="sc"></div>';
+ function show(){const w=list[i];const base=w[2].replace(/[-]/g,'');
+   document.getElementById('sq').textContent=w[1];
+   document.getElementById('sbase').innerHTML=`___ + <b>-${base}</b> = ?`;
+   const opts=shuffle([stem(w),...shuffle(pool.filter(x=>x[2]===w[2]&&x[0]!==w[0])).slice(0,2).map(stem)]);
+   document.getElementById('sopts').innerHTML=opts.map(o=>`<button class="btn" onclick="HV._s('${esc(o)}')">${o}</button>`).join('');
+   document.getElementById('sfb').innerHTML='';document.getElementById('sc').textContent=`${i+1} / ${list.length}`;}
+ HV_s=function(ans){const w=list[i];const good=ans.toLowerCase()===stem(w).toLowerCase();
+   document.getElementById('sfb').innerHTML=(good?'<span style="color:#16a34a">✓ </span>':'<span style="color:#dc2626">✗ </span>')+`<b>${w[0]}</b> <button class="say" onclick="playWord('${esc(bare(w[0]))}','${V[g]}')">🔊</button> <span style="color:#6b7280;font-size:13px">${w[2]} → ${d.art}</span>`;
+   playWord(bare(w[0]),V[g]);};
+ document.getElementById('snx').onclick=()=>{i=(i+1)%list.length;if(i===0)list=shuffle(pool);show();};
+ show();}
+
+return {DATA, renderSong, renderWords, initTrans, initMix, initMatch, initChoice, initSammel,
+  _m:(a)=>HV_pick&&HV_pick(a), _c:(a)=>HV_c&&HV_c(a), _s:(a)=>HV_s&&HV_s(a)};
 })();
