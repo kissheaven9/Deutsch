@@ -17,6 +17,7 @@
  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 10px}
  .tab{border:none;border-radius:10px;padding:8px 13px;font-weight:700;background:var(--tbg);color:#374151;cursor:pointer;font-family:inherit}
  .tab.on{background:#374151;color:#fff}
+ .stimg{width:100%;max-height:340px;object-fit:cover;border-radius:14px;margin:2px 0 12px;display:block;background:#eef2ff}
  .story{font-size:18px;line-height:2.1}
  .story p{margin:0 0 10px}
  .wd{font:inherit;font-size:18px;border:1.5px solid transparent;border-radius:8px;padding:1px 5px;margin:0 1px;cursor:pointer;background:none;color:inherit;min-height:32px}
@@ -64,6 +65,7 @@
       <button class="stamp das" data-c="das" onclick="setStamp('das')">das</button>
     </div>
     <div class="tabs" id="tabs"></div>
+    <img id="stImg" class="stimg" alt="" onerror="this.style.display='none'">
     <h4 id="stTitle" style="margin:4px 0 6px"></h4>
     <div class="story" id="story"></div>
     <div class="toolbar">
@@ -149,7 +151,9 @@ let stamp='der', TP=0, marks={}, checked=false;
 function setStamp(c){stamp=c;document.querySelectorAll('.stamp').forEach(b=>b.classList.toggle('on',b.dataset.c===c));}
 function renderTabs(){document.getElementById('tabs').innerHTML=TEXTS.map((t,i)=>`<button class="tab${i===TP?' on':''}" onclick="setText(${i})">Text ${i+1}</button>`).join('');}
 function setText(i){TP=i;marks={};checked=false;renderTabs();renderStory();document.getElementById('score').textContent='';document.getElementById('ru').hidden=true;document.getElementById('ruBtn').textContent='Übersetzung';}
-function renderStory(){const t=TEXTS[TP];document.getElementById('stTitle').textContent=t.title;let n=0;
+const STIMG=['img/artikel-1.jpg','img/artikel-2.png','img/artikel-3.png'];
+function renderStory(){const t=TEXTS[TP];document.getElementById('stTitle').textContent=t.title;
+  const im=document.getElementById('stImg');im.style.display='';im.src=STIMG[TP];let n=0;
   const html=t.paras.map(p=>'<p>'+p.replace(/\{([^}]+)\}/g,(m,w)=>{const id='w'+(n++);return `<button class="wd" id="${id}" data-w="${w}" onclick="tapWord('${id}')">${w}</button>`;})+'</p>').join('');
   document.getElementById('story').innerHTML=html;}
 function tapWord(id){if(checked)return;const el=document.getElementById(id);
@@ -181,6 +185,8 @@ function ex2pick(i,a){if(ex2done[i])return;ex2done[i]=true;const it=EX2[i];const
   document.getElementById('score2').textContent='Richtig: '+r+' / '+EX2.length;}
 function ex2reset(){renderEx2();}
 
+const _n=parseInt(new URLSearchParams(location.search).get('n'),10);
+if(_n>=1&&_n<=TEXTS.length){TP=_n-1;document.getElementById('tabs').style.display='none';}
 renderTabs();renderStory();renderEx2();
 </script>
 </body>

@@ -126,14 +126,46 @@ function renderWords(g,elId){const d=DATA[g];let html='';
      +`<b>${w[0]}</b><span style="color:#4b5563">${w[1]}</span></div>`).join('')+'</div>';});
  document.getElementById(elId).innerHTML=html;}
 
-/* ---------- упражнение: перевод RU→DE ---------- */
-function initTrans(g,box){const d=DATA[g];let list=shuffle(d.words),i=0;
- const el=document.getElementById(box);
- el.innerHTML=`<div class="hvq" id="tq"></div><div style="text-align:center"><button class="btn sm" id="trev">Показать 🔊</button></div><div class="hvrev" id="trv" hidden></div><div style="text-align:center;margin-top:8px"><button class="btn sm" id="tnx">Дальше →</button></div><div class="hvcnt" id="tc"></div>`;
- function show(){document.getElementById('tq').textContent=list[i][1];document.getElementById('trv').hidden=true;document.getElementById('tc').textContent=`${i+1} / ${list.length}`;}
- document.getElementById('trev').onclick=()=>{const w=list[i];const r=document.getElementById('trv');r.hidden=false;r.innerHTML=`<b>${w[0]}</b> <button class="say" onclick="playWord('${esc(bare(w[0]))}','${V[g]}')">🔊</button> <span style="color:#6b7280;font-size:13px">${w[2]} → ${d.art}</span>`;playWord(bare(w[0]),V[g]);};
- document.getElementById('tnx').onclick=()=>{i=(i+1)%list.length;if(i===0)list=shuffle(d.words);show();};
- show();}
+/* ---------- helpers: сессии группами с итогом и работой над ошибками ---------- */
+function chunk(a,n){const r=[];for(let k=0;k<a.length;k+=n)r.push(a.slice(k,k+n));return r;}
+function praise(ok,total){const p=total?ok/total:0;if(p===1)return '🎉 Отлично! Всё верно!';if(p>=.8)return '👍 Очень хорошо!';if(p>=.5)return 'Неплохо — ещё разок!';return 'Потренируйся ещё 💪';}
+/* mist: [de(с артиклем), ru, tail, g] */
+function sessResults(el,g,ok,mist,total,gi,ng,runGroup){
+ let html=`<div class="hvq">Итог${ng>1?` — группа ${gi+1} из ${ng}`:''}</div>`
+  +`<div style="text-align:center;font-size:24px;margin:6px 0"><b style="color:${ok===total?'#16a34a':'#6d28d9'}">Правильно ${ok} из ${total}</b></div>`
+  +`<div style="text-align:center;margin-bottom:6px;color:#6b7280">${praise(ok,total)}</div>`;
+ if(mist.length){html+=`<div style="margin:12px 0 6px;font-weight:700;color:#dc2626">Работа над ошибками (${mist.length}):</div><div style="display:flex;flex-direction:column;gap:6px">`;
+   mist.forEach(m=>{html+=`<div style="background:#fdecec;border:1px solid #f3c0c0;border-radius:10px;padding:8px 11px;font-size:15px"><b style="color:${DATA[m[3]].color}">${m[0]}</b> <span style="color:#4b5563">— ${m[1]}</span> <span style="color:#6b7280;font-size:13px">(${m[2]})</span> <button class="say" onclick="playWord('${esc(bare(m[0]))}','${V[m[3]]}')">🔊</button></div>`;});
+   html+='</div>';}
+ else html+='<div style="text-align:center;color:#16a34a;margin:8px 0">Без ошибок! 🎉</div>';
+ html+='<div class="hvopts" style="margin-top:16px"><button class="btn" id="qAgain">🔁 Повторить</button>';
+ if(gi+1<ng)html+=`<button class="btn" id="qNext" style="background:${DATA[g].color};color:#fff">Дальше →</button>`;
+ html+='<button class="btn" id="qRestart">↩︎ Сначала</button></div>';
+ el.innerHTML=html;
+ document.getElementById('qAgain').onclick=()=>runGroup(gi);
+ const nx=document.getElementById('qNext');if(nx)nx.onclick=()=>runGroup(gi+1);
+ document.getElementById('qRestart').onclick=()=>runGroup(0);
+}
+
+/* ---------- Переведи (RU→DE, самопроверка) ---------- */
+function initTrans(g,box,size){size=size||10;const d=DATA[g];const el=document.getElementById(box);
+ const groups=chunk(shuffle(d.words),size);
+ function runGroup(gi){if(gi>=groups.length)gi=0;const grp=groups[gi];let i=0,ok=0,mist=[];
+   function show(){const w=grp[i];
+     el.innerHTML=`<div class="hvcnt">Группа ${gi+1} из ${groups.length} · ${i+1} / ${grp.length} · верно ${ok}</div>`
+      +`<div class="qru">Скажи по-немецки:</div><div class="hvq">${w[1]}</div>`
+      +`<div style="text-align:center"><button class="btn sm" id="trev">Показать ответ 🔊</button></div>`
+      +`<div class="hvrev" id="trv" hidden></div>`
+      +`<div class="hvopts" id="tmark" hidden><button class="btn" id="tok" style="color:#16a34a">✓ Знал(а)</button><button class="btn" id="tno" style="color:#dc2626">✗ Не знал(а)</button></div>`;
+     document.getElementById('trev').onclick=()=>{const r=document.getElementById('trv');r.hidden=false;
+       r.innerHTML=`<b>${w[0]}</b> <button class="say" onclick="playWord('${esc(bare(w[0]))}','${V[g]}')">🔊</button><div style="color:#6b7280;font-size:13px;margin-top:4px">${w[2]} → ${d.art}</div>`;
+       playWord(bare(w[0]),V[g]);document.getElementById('tmark').hidden=false;document.getElementById('trev').style.display='none';};
+     document.getElementById('tok').onclick=()=>mark(true);
+     document.getElementById('tno').onclick=()=>mark(false);}
+   function mark(good){const w=grp[i];if(good)ok++;else mist.push([w[0],w[1],w[2],g]);i++;
+     i<grp.length?show():sessResults(el,g,ok,mist,grp.length,gi,groups.length,runGroup);}
+   show();}
+ runGroup(0);}
 
 /* ---------- ФЛАГМАН: определи род по хвостику (группами, с итогом) ---------- */
 function initMix(box,size){
@@ -175,49 +207,66 @@ function initMix(box,size){
 
 /* ---------- Соотнеси: слово ↔ перевод ---------- */
 function initMatch(g,box){const d=DATA[g];const el=document.getElementById(box);
- function round(){const L=shuffle(d.words).slice(0,6).map((w,i)=>({de:w[0],ru:w[1],k:i}));const R=shuffle(L.slice());let sel=null,left=6;
-  el.innerHTML='<div class="mgrid"><div id="mL"></div><div id="mR"></div></div><div style="text-align:center;margin-top:10px"><button class="btn sm" id="mNew">🔀 Ещё раз</button></div>';
+ function round(){const L=shuffle(d.words).slice(0,6).map((w,i)=>({de:w[0],ru:w[1],k:i}));const R=shuffle(L.slice());let sel=null,left=6,err=0;
+  el.innerHTML='<div class="hvcnt">Соотнеси 6 пар · слово ↔ перевод</div><div class="mgrid"><div id="mL"></div><div id="mR"></div></div><div style="text-align:center;margin-top:10px"><button class="btn sm" id="mNew">🔀 Другие 6 слов</button></div>';
   document.getElementById('mL').innerHTML=L.map(x=>`<div class="mit" data-k="${x.k}" data-s="L">${x.de}</div>`).join('');
   document.getElementById('mR').innerHTML=R.map(x=>`<div class="mit" data-k="${x.k}" data-s="R">${x.ru}</div>`).join('');
   el.querySelectorAll('.mit').forEach(m=>m.onclick=()=>{if(m.classList.contains('ok'))return;
     if(!sel){sel=m;m.classList.add('sel');return;}
     if(sel===m){m.classList.remove('sel');sel=null;return;}
     if(sel.dataset.s===m.dataset.s){sel.classList.remove('sel');sel=m;m.classList.add('sel');return;}
-    if(sel.dataset.k===m.dataset.k){sel.classList.add('ok');m.classList.add('ok');sel.classList.remove('sel');playWord(bare(L.find(x=>x.k==m.dataset.k).de),V[g]);sel=null;if(--left===0)setTimeout(round,900);}
-    else{const a=sel;m.classList.add('bad');a.classList.add('bad');sel=null;setTimeout(()=>{m.classList.remove('bad');a.classList.remove('bad','sel');},600);}});
+    if(sel.dataset.k===m.dataset.k){sel.classList.add('ok');m.classList.add('ok');sel.classList.remove('sel');playWord(bare(L.find(x=>x.k==m.dataset.k).de),V[g]);sel=null;if(--left===0)setTimeout(()=>done(err),700);}
+    else{err++;const a=sel;m.classList.add('bad');a.classList.add('bad');sel=null;setTimeout(()=>{m.classList.remove('bad');a.classList.remove('bad','sel');},600);}});
   document.getElementById('mNew').onclick=round;}
+ function done(err){el.innerHTML=`<div class="hvq">Готово!</div>`
+   +`<div style="text-align:center;font-size:22px;margin:6px 0"><b style="color:#16a34a">Все 6 пар собраны 🎉</b></div>`
+   +`<div style="text-align:center;color:#6b7280;margin-bottom:6px">${err?('Ошибочных нажатий: '+err+' — в следующий раз аккуратнее 💪'):'Без единой ошибки! 👍'}</div>`
+   +`<div class="hvopts" style="margin-top:12px"><button class="btn" id="mAgain" style="background:${DATA[g].color};color:#fff">Ещё 6 слов →</button></div>`;
+   document.getElementById('mAgain').onclick=round;}
  round();}
 
 /* ---------- Выбери перевод (RU → DE) ---------- */
-let HV_c=null;
-function initChoice(g,box){const d=DATA[g];let list=shuffle(d.words),i=0,ok=0,done=0;const el=document.getElementById(box);
- el.innerHTML='<div class="hvq" id="cq"></div><div class="cots" id="cots"></div><div class="hvfb" id="cfb"></div><div class="hvcnt" id="cc"></div>';
- function show(){const w=list[i];document.getElementById('cq').textContent=w[1];document.getElementById('cfb').innerHTML='';
-   const opts=shuffle([w[0],...shuffle(d.words.filter(x=>x[0]!==w[0])).slice(0,2).map(x=>x[0])]);
-   document.getElementById('cots').innerHTML=opts.map(o=>`<button class="btn" onclick="HV._c('${esc(o)}')">${o}</button>`).join('');}
- HV_c=function(ans){const w=list[i];const good=ans===w[0];done++;if(good)ok++;
-   document.getElementById('cfb').innerHTML=(good?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ '+w[0]+' </span>')+`<button class="say" onclick="playWord('${esc(bare(w[0]))}','${V[g]}')">🔊</button>`;
-   playWord(bare(w[0]),V[g]);document.getElementById('cc').textContent=`верно ${ok} из ${done}`;
-   i=(i+1)%list.length;if(i===0)list=shuffle(d.words);setTimeout(show,1200);};
- show();}
+function initChoice(g,box,size){size=size||10;const d=DATA[g];const el=document.getElementById(box);
+ const groups=chunk(shuffle(d.words),size);
+ function runGroup(gi){if(gi>=groups.length)gi=0;const grp=groups[gi];let i=0,ok=0,mist=[];
+   function show(){const w=grp[i];
+     const opts=shuffle([w[0],...shuffle(d.words.filter(x=>x[0]!==w[0])).slice(0,2).map(x=>x[0])]);
+     el.innerHTML=`<div class="hvcnt">Группа ${gi+1} из ${groups.length} · ${i+1} / ${grp.length} · верно ${ok}</div>`
+      +`<div class="qru">Выбери перевод:</div><div class="hvq">${w[1]}</div>`
+      +`<div class="cots" id="cots"></div><div class="hvfb" id="cfb"></div>`;
+     document.getElementById('cots').innerHTML=opts.map(o=>`<button class="btn">${o}</button>`).join('');
+     el.querySelectorAll('#cots .btn').forEach(b=>b.onclick=()=>pick(b.textContent,b));}
+   function pick(ans,btn){const w=grp[i];const good=ans===w[0];
+     el.querySelectorAll('#cots .btn').forEach(b=>{b.disabled=true;if(b.textContent===w[0])b.style.background='#e8f6ee';});
+     if(!good)btn.style.background='#fdecec';
+     if(good)ok++;else mist.push([w[0],w[1],w[2],g]);
+     document.getElementById('cfb').innerHTML=(good?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ '+w[0]+' </span>')+`<button class="say" onclick="playWord('${esc(bare(w[0]))}','${V[g]}')">🔊</button>`;
+     playWord(bare(w[0]),V[g]);i++;
+     setTimeout(()=>{i<grp.length?show():sessResults(el,g,ok,mist,grp.length,gi,groups.length,runGroup);},1100);}
+   show();}
+ runGroup(0);}
 
 /* ---------- Собери слово (компонент + хвостик) ---------- */
-let HV_s=null;
 function stem(w){return bare(w[0]).replace(new RegExp(w[2].replace(/[-]/g,'')+'$','i'),'');}
-function initSammel(g,box){const d=DATA[g];const pool=d.words.filter(w=>w[2]!=='Ge-'&&stem(w));let list=shuffle(pool),i=0;const el=document.getElementById(box);
- el.innerHTML='<div class="qru" id="sq"></div><div class="hvq" id="sbase"></div><div class="cots" id="sopts"></div><div class="hvfb" id="sfb"></div><div style="text-align:center;margin-top:6px"><button class="btn sm" id="snx">Дальше →</button></div><div class="hvcnt" id="sc"></div>';
- function show(){const w=list[i];const base=w[2].replace(/[-]/g,'');
-   document.getElementById('sq').textContent=w[1];
-   document.getElementById('sbase').innerHTML=`___ + <b>-${base}</b> = ?`;
-   const opts=shuffle([stem(w),...shuffle(pool.filter(x=>x[2]===w[2]&&x[0]!==w[0])).slice(0,2).map(stem)]);
-   document.getElementById('sopts').innerHTML=opts.map(o=>`<button class="btn" onclick="HV._s('${esc(o)}')">${o}</button>`).join('');
-   document.getElementById('sfb').innerHTML='';document.getElementById('sc').textContent=`${i+1} / ${list.length}`;}
- HV_s=function(ans){const w=list[i];const good=ans.toLowerCase()===stem(w).toLowerCase();
-   document.getElementById('sfb').innerHTML=(good?'<span style="color:#16a34a">✓ </span>':'<span style="color:#dc2626">✗ </span>')+`<b>${w[0]}</b> <button class="say" onclick="playWord('${esc(bare(w[0]))}','${V[g]}')">🔊</button> <span style="color:#6b7280;font-size:13px">${w[2]} → ${d.art}</span>`;
-   playWord(bare(w[0]),V[g]);};
- document.getElementById('snx').onclick=()=>{i=(i+1)%list.length;if(i===0)list=shuffle(pool);show();};
- show();}
+function initSammel(g,box,size){size=size||10;const d=DATA[g];const pool=d.words.filter(w=>w[2]!=='Ge-'&&stem(w));const el=document.getElementById(box);
+ const groups=chunk(shuffle(pool),size);
+ function runGroup(gi){if(gi>=groups.length)gi=0;const grp=groups[gi];let i=0,ok=0,mist=[];
+   function show(){const w=grp[i];const base=w[2].replace(/[-]/g,'');
+     el.innerHTML=`<div class="hvcnt">Группа ${gi+1} из ${groups.length} · ${i+1} / ${grp.length} · верно ${ok}</div>`
+      +`<div class="qru">${w[1]}</div><div class="hvq">___ + <b>-${base}</b> = ?</div>`
+      +`<div class="cots" id="sopts"></div><div class="hvfb" id="sfb"></div>`;
+     const opts=shuffle([stem(w),...shuffle(pool.filter(x=>x[2]===w[2]&&x[0]!==w[0])).slice(0,2).map(stem)]);
+     document.getElementById('sopts').innerHTML=opts.map(o=>`<button class="btn">${o}</button>`).join('');
+     el.querySelectorAll('#sopts .btn').forEach(b=>b.onclick=()=>pick(b.textContent,b));}
+   function pick(ans,btn){const w=grp[i];const good=ans.toLowerCase()===stem(w).toLowerCase();
+     el.querySelectorAll('#sopts .btn').forEach(b=>{b.disabled=true;if(b.textContent.toLowerCase()===stem(w).toLowerCase())b.style.background='#e8f6ee';});
+     if(!good)btn.style.background='#fdecec';
+     if(good)ok++;else mist.push([w[0],w[1],w[2],g]);
+     document.getElementById('sfb').innerHTML=(good?'<span style="color:#16a34a">✓ </span>':'<span style="color:#dc2626">✗ </span>')+`<b>${w[0]}</b> <button class="say" onclick="playWord('${esc(bare(w[0]))}','${V[g]}')">🔊</button> <span style="color:#6b7280;font-size:13px">${w[2]} → ${d.art}</span>`;
+     playWord(bare(w[0]),V[g]);i++;
+     setTimeout(()=>{i<grp.length?show():sessResults(el,g,ok,mist,grp.length,gi,groups.length,runGroup);},1100);}
+   show();}
+ runGroup(0);}
 
-return {DATA, renderSong, renderWords, initTrans, initMix, initMatch, initChoice, initSammel,
-  _c:(a)=>HV_c&&HV_c(a), _s:(a)=>HV_s&&HV_s(a)};
+return {DATA, renderSong, renderWords, initTrans, initMix, initMatch, initChoice, initSammel};
 })();

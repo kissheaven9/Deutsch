@@ -23,6 +23,18 @@
  .gtog{background:var(--tbg)}
  .dcard{display:block;text-decoration:none;background:#ede9fe;border:1px solid #ddd6fe;border-radius:16px;padding:16px;color:#5b21b6}
  .lead{color:#4b5563;line-height:1.7}
+ .btn{border:none;border-radius:12px;padding:11px 18px;font-weight:800;background:var(--tbg);color:#6d28d9;cursor:pointer;font-family:inherit;font-size:17px}
+ .hvq{font-size:26px;font-weight:800;text-align:center;margin:10px 0}
+ .hvopts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+ .hvfb{text-align:center;min-height:26px;margin-top:12px;font-size:15px}
+ .hvcnt{color:#9ca3af;text-align:center;font-size:13px;margin-top:8px}
+ .say{border:none;background:var(--tbg);border-radius:9px;padding:4px 8px;cursor:pointer}
+ .panelt{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:8px 0}
+ .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+ .tcard{text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;color:#1f2937}
+ .tcard:hover{border-color:#6d28d9}
+ .tcard img{width:100%;height:150px;object-fit:cover;display:block;background:#eef2ff}
+ .tcb{padding:12px 14px}.tct{font-weight:800}.tcs{color:#6b7280;font-size:13px;margin:3px 0 6px}.tcgo{color:#6d28d9;font-weight:700;font-size:14px}
 </style>
 </head>
 <body>
@@ -40,15 +52,21 @@
   <div id="rows"></div>
   <p class="lead" style="font-size:14px">Нажми на слово — покажется перевод. Кнопки «Открыть все / Закрыть все» — для самопроверки.</p>
 
-  <div class="sec">Тренажёр</div>
-  <a class="dcard" href="thema-hvostiki-mix.html"><b>🎯 Определи род по хвостику</b><div style="font-size:14px;margin-top:3px;opacity:.85">Слова всех трёх героев вперемешку — der / die / das по хвостику, с озвучкой и правилом.</div></a>
+  <div class="sec">🎯 Тренажёр — определи род по хвостику</div>
+  <p class="lead" style="font-size:14px;margin:0 0 8px">Слова всех трёх героев вперемешку, группами по 30. В конце — счёт и работа над ошибками.</p>
+  <div class="panelt"><div id="mix"></div></div>
 
   <div class="sec">Тексты по теме</div>
-  <a class="dcard" href="thema-artikel-stempel.html" style="background:#eef2ff;border-color:#c7d2fe;color:#2F5FA8"><b>📖 Artikel-Stempel — 3 истории</b><div style="font-size:14px;margin-top:3px;opacity:.85">Три текста (Отто, Грета, Тео): отметь все слова нужного рода штампом der/die/das, потом «вставь артикль» с падежами (Nom/Akk/Dativ).</div></a>
+  <div class="tgrid">
+    <a class="tcard" href="thema-artikel-stempel.html?n=1"><img src="img/artikel-1.jpg" alt="" onerror="this.style.display='none'"><div class="tcb"><div class="tct">Текст 1 — Der verlorene Ausweis</div><div class="tcs">Отто ищет удостоверение. Отметь слова по роду.</div><span class="tcgo">Читать →</span></div></a>
+    <a class="tcard" href="thema-artikel-stempel.html?n=2"><img src="img/artikel-2.png" alt="" onerror="this.style.display='none'"><div class="tcb"><div class="tct">Текст 2 — Die leere Kasse</div><div class="tcs">Пустая касса — ищут мелочь.</div><span class="tcgo">Читать →</span></div></a>
+    <a class="tcard" href="thema-artikel-stempel.html?n=3"><img src="img/artikel-3.png" alt="" onerror="this.style.display='none'"><div class="tcb"><div class="tct">Текст 3 — Das neue Fahrrad</div><div class="tcs">Новый велосипед Тео.</div><span class="tcgo">Читать →</span></div></a>
+  </div>
+  <p class="lead" style="font-size:14px;margin-top:8px">В каждом тексте: отметь слова нужного рода штампом der/die/das → «Prüfen», плюс «вставь артикль» с падежами.</p>
 
   <div style="margin:26px 0"><a href="index.html" style="text-decoration:none;background:#f3e8ff;color:var(--accent);border-radius:12px;padding:11px 16px;font-weight:700">🏠 Главная</a></div>
 </main>
-<script src="js/hvostiki.js?v=2"></script>
+<script src="js/hvostiki.js?v=4"></script>
 <script>
 function bare(de){return de.replace(/^(der|die|das)\s+/,'');}
 const rows=document.getElementById('rows');
@@ -71,6 +89,7 @@ const rows=document.getElementById('rows');
 });
 function hvToggle(el){const o=el.classList.toggle('open');el.textContent=o?el.dataset.ru:el.dataset.de;}
 function hvAll(g,open){document.querySelectorAll('#w-'+g+' .w').forEach(el=>{el.classList.toggle('open',open);el.textContent=open?el.dataset.ru:el.dataset.de;});}
+HV.initMix('mix',30);
 </script>
 </body>
 </html>
