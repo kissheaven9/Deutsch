@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Хвостики — определи род</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ .wrap{max-width:760px;margin:0 auto;padding:16px}
+ .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:12px 0}
+ .btn{border:none;border-radius:12px;padding:12px 20px;font-weight:800;background:var(--tbg);cursor:pointer;font-family:inherit;font-size:18px}
+ .hvq{font-size:26px;font-weight:800;text-align:center;margin:10px 0}
+ .hvopts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+ .hvfb{text-align:center;min-height:26px;margin-top:12px;font-size:15px}
+ .hvcnt{color:#9ca3af;text-align:center;font-size:13px;margin-top:8px}
+ .say{border:none;background:var(--tbg);border-radius:9px;padding:4px 8px;cursor:pointer}
+ .nav{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+ .nav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap" style="padding:10px 16px"><a class="home" href="index.html">🇩🇪 Deutsch A1</a> <span class="crumb">/ Хвостики / Определи род</span></div></header>
+<main class="wrap">
+  <div style="margin:6px 0 8px"><a class="btn" style="font-size:14px;padding:8px 12px" href="thema-hvostiki.html">← Ко всей теме</a></div>
+  <h1 style="font-size:24px;margin:4px 0 2px">🎯 Определи род по хвостику</h1>
+  <p class="sub" style="color:#6b7280;margin:0 0 6px">Дано длинное слово — реши <b style="color:#3b5bdb">der</b> / <b style="color:#c2185b">die</b> / <b style="color:#0e9488">das</b> по хвостику. Слова обоих героев и Тео вперемешку.</p>
+  <div class="panel"><div id="mix"></div></div>
+  <div class="nav">
+    <a href="thema-hvostiki-hero.html?g=der" style="background:#eef2ff;color:#3b5bdb">der · Отто</a>
+    <a href="thema-hvostiki-hero.html?g=die" style="background:#fce7f3;color:#c2185b">die · Грета</a>
+    <a href="thema-hvostiki-hero.html?g=das" style="background:#ccfbf1;color:#0e9488">das · Тео</a>
+    <a href="index.html" style="background:#f3e8ff;color:var(--accent)">🏠 Главная</a>
+  </div>
+</main>
+<script src="js/app.js?v=4"></script>
+<script src="js/hvostiki.js?v=1"></script>
+<script>HV.initMix('mix');</script>
+</body>
+</html>
