@@ -29,13 +29,8 @@
 
   <div class="sec">1️⃣ Отто или Грета? (отделяемый / неотделяемый)</div>
   <div class="panel">
-    <p class="sub" style="color:#6b7280;margin:0 0 8px">Дан глагол — выбери тип. Приставки Греты: be‑ er‑ ver‑ ge‑ ent‑ emp‑ (и «обманки» über/unter/wieder/um).</p>
-    <div class="q" id="tyQ"></div>
-    <div class="opts">
-      <button class="btn" onclick="tyPick('A')">🔵 Отто — отделяемый</button>
-      <button class="btn" onclick="tyPick('B')">🔴 Грета — неотделяемый</button>
-    </div>
-    <div class="fb" id="tyFb"></div><div class="cnt" id="tyCnt"></div>
+    <p class="sub" style="color:#6b7280;margin:0 0 8px">Дан глагол — выбери тип. Группами по 30, в конце — счёт и работа над ошибками. Приставки Греты: be‑ er‑ ver‑ ge‑ ent‑ emp‑ (и «обманки» über/unter/wieder/um).</p>
+    <div id="tyBox"></div>
   </div>
 
   <div class="sec">2️⃣ Собери Perfekt (ловушка ge)</div>
@@ -62,34 +57,39 @@
 <script>
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 // [инфинитив, перевод, Perfekt, тип]  A=отделяемый(Отто), B=неотделяемый(Грета)
-const MIX=[
- ["aufstehen","вставать","ist aufgestanden","A"],["anrufen","звонить","hat angerufen","A"],
- ["einladen","приглашать","hat eingeladen","A"],["zusagen","соглашаться","hat zugesagt","A"],
- ["einkaufen","закупаться","hat eingekauft","A"],["mitnehmen","брать с собой","hat mitgenommen","A"],
- ["aufräumen","убирать","hat aufgeräumt","A"],["vorbereiten","готовить","hat vorbereitet","A"],
- ["fernsehen","смотреть телевизор","hat ferngesehen","A"],["ausmachen","выключать","hat ausgemacht","A"],
- ["aufschreiben","записывать","hat aufgeschrieben","A"],["spazieren gehen","гулять","ist spazieren gegangen","A"],
- ["zurückkommen","возвращаться","ist zurückgekommen","A"],["abholen","забирать","hat abgeholt","A"],
- ["mitmachen","участвовать","hat mitgemacht","A"],["vorschlagen","предлагать","hat vorgeschlagen","A"],
- ["bekommen","получать","hat bekommen","B"],["verstehen","понимать","hat verstanden","B"],
- ["bedanken","благодарить","hat bedankt","B"],["erzählen","рассказывать","hat erzählt","B"],
- ["empfehlen","рекомендовать","hat empfohlen","B"],["vergleichen","сравнивать","hat verglichen","B"],
- ["bezahlen","платить","hat bezahlt","B"],["behalten","оставить себе","hat behalten","B"],
- ["beschreiben","описывать","hat beschrieben","B"],["vergessen","забывать","hat vergessen","B"],
- ["verabschieden","прощаться","hat verabschiedet","B"],["gewinnen","выигрывать","hat gewonnen","B"],
- ["erleben","переживать","hat erlebt","B"],["gefallen","нравиться","hat gefallen","B"],
- ["umarmen","обнимать","hat umarmt","B"],["bestehen","выдержать","hat bestanden","B"]
-];
+const MIX=[["freihaben","быть выходным","hat freigehabt","A"],["aufstehen","вставать","ist aufgestanden","A"],["anziehen","надевать","hat angezogen","A"],["anmachen","включать","hat angemacht","A"],["abwaschen","мыть посуду","hat abgewaschen","A"],["nachdenken","размышлять","hat nachgedacht","A"],["stattfinden","состояться","hat stattgefunden","A"],["anrufen","звонить","hat angerufen","A"],["einladen","приглашать","hat eingeladen","A"],["zusagen","соглашаться","hat zugesagt","A"],["vorschlagen","предлагать","hat vorgeschlagen","A"],["mitnehmen","брать с собой","hat mitgenommen","A"],["auflegen","класть трубку","hat aufgelegt","A"],["zurückrufen","перезванивать","hat zurückgerufen","A"],["mitmachen","участвовать","hat mitgemacht","A"],["vorbereiten","готовить","hat vorbereitet","A"],["einkaufen","закупаться","hat eingekauft","A"],["anbieten","предлагать","hat angeboten","A"],["mitbringen","приносить с собой","hat mitgebracht","A"],["ausfüllen","заполнять","hat ausgefüllt","A"],["ankreuzen","отметить крестиком","hat angekreuzt","A"],["durchstreichen","зачёркивать","hat durchgestrichen","A"],["angeben","указывать","hat angegeben","A"],["hinweisen","указывать на","hat hingewiesen","A"],["anzeigen","показывать","hat angezeigt","A"],["abholen","забирать","hat abgeholt","A"],["anschauen","смотреть / разглядывать","hat angeschaut","A"],["abfliegen","вылетать","ist abgeflogen","A"],["ankommen","прибывать","ist angekommen","A"],["einsteigen","садиться (в транспорт)","ist eingestiegen","A"],["abfahren","отъезжать","ist abgefahren","A"],["durchsagen","объявлять","hat durchgesagt","A"],["umsteigen","пересаживаться","ist umgestiegen","A"],["weiterfahren","ехать дальше","ist weitergefahren","A"],["aussteigen","выходить (из транспорта)","ist ausgestiegen","A"],["vorstellen","представлять(ся)","hat vorgestellt","A"],["kennenlernen","знакомиться","hat kennengelernt","A"],["aufbauen","собирать / монтировать","hat aufgebaut","A"],["aufräumen","убирать","hat aufgeräumt","A"],["ausräumen","разбирать / освобождать","hat ausgeräumt","A"],["abladen","выгружать","hat abgeladen","A"],["mitarbeiten","работать вместе","hat mitgearbeitet","A"],["anfangen","начинать","hat angefangen","A"],["fernsehen","смотреть телевизор","hat ferngesehen","A"],["aussehen","выглядеть","hat ausgesehen","A"],["ausdrücken","выражать","hat ausgedrückt","A"],["spazieren gehen","гулять","ist spazieren gegangen","A"],["weggehen","уходить","ist weggegangen","A"],["weitergeben","передавать","hat weitergegeben","A"],["absagen","отменять","hat abgesagt","A"],["umziehen","переезжать","ist umgezogen","A"],["zurückkommen","возвращаться","ist zurückgekommen","A"],["zumachen","закрывать","hat zugemacht","A"],["ausmachen","выключать / гасить","hat ausgemacht","A"],["ausschalten","выключать","hat ausgeschaltet","A"],["aufschreiben","записывать","hat aufgeschrieben","A"],["beginnen","начинать(ся)","hat begonnen","B"],["bekommen","получать","hat bekommen","B"],["verstehen","понимать","hat verstanden","B"],["vermuten","предполагать","hat vermutet","B"],["überlegen","обдумывать","hat überlegt","B"],["beachten","обращать внимание","hat beachtet","B"],["benutzen","пользоваться","hat benutzt","B"],["verlieren","терять","hat verloren","B"],["entdecken","обнаруживать","hat entdeckt","B"],["benennen","называть","hat benannt","B"],["erleben","переживать","hat erlebt","B"],["vermeiden","избегать","hat vermieden","B"],["ermöglichen","давать возможность","hat ermöglicht","B"],["gehören","принадлежать","hat gehört","B"],["erfinden","изобретать","hat erfunden","B"],["verbessern","улучшать","hat verbessert","B"],["übersiedeln","переселяться","ist übersiedelt","B"],["bedeuten","значить","hat bedeutet","B"],["verfassen","писать (текст)","hat verfasst","B"],["unterschreiben","подписывать","hat unterschrieben","B"],["verschicken","отправлять","hat verschickt","B"],["beantworten","отвечать на","hat beantwortet","B"],["verabreden","договариваться","hat verabredet","B"],["vereinbaren","согласовывать","hat vereinbart","B"],["übernehmen","брать на себя","hat übernommen","B"],["unterstützen","поддерживать","hat unterstützt","B"],["verstärken","укреплять","hat verstärkt","B"],["begrüßen","приветствовать","hat begrüßt","B"],["umarmen","обнимать","hat umarmt","B"],["verschieben","переносить","hat verschoben","B"],["verpassen","пропускать","hat verpasst","B"],["besuchen","навещать","hat besucht","B"],["betreuen","присматривать","hat betreut","B"],["erlauben","разрешать","hat erlaubt","B"],["erteilen","давать (поручение)","hat erteilt","B"],["beobachten","наблюдать","hat beobachtet","B"],["beraten","консультировать","hat beraten","B"],["erzählen","рассказывать","hat erzählt","B"],["vertiefen","углубляться","hat vertieft","B"],["verlieben","влюбляться","hat verliebt","B"],["vermitteln","передавать (другому)","hat vermittelt","B"],["erklären","объяснять","hat erklärt","B"],["wiederholen","повторять","hat wiederholt","B"],["bestellen","заказывать","hat bestellt","B"],["empfehlen","рекомендовать","hat empfohlen","B"],["verkaufen","продавать","hat verkauft","B"],["vergleichen","сравнивать","hat verglichen","B"],["bewerten","оценивать","hat bewertet","B"],["berühren","трогать","hat berührt","B"],["überprüfen","проверять","hat überprüft","B"],["verwenden","использовать","hat verwendet","B"],["bezahlen","платить","hat bezahlt","B"],["gewinnen","выигрывать","hat gewonnen","B"],["bedanken","благодарить (sich)","hat bedankt","B"],["behalten","оставить себе","hat behalten","B"],["verbinden","соединять","hat verbunden","B"],["gefallen","нравиться","hat gefallen","B"],["enthalten","содержать","hat enthalten","B"],["beschreiben","описывать","hat beschrieben","B"],["berichten","сообщать","hat berichtet","B"],["verbieten","запрещать","hat verboten","B"],["ergänzen","дополнять","hat ergänzt","B"],["übernachten","ночевать","hat übernachtet","B"],["umkreisen","обводить кружком","hat umkreist","B"],["bezeichnen","обозначать","hat bezeichnet","B"],["unterstreichen","подчёркивать","hat unterstrichen","B"],["erledigen","улаживать","hat erledigt","B"],["verabschieden","прощаться (sich)","hat verabschiedet","B"],["bestehen","выдержать","hat bestanden","B"],["versuchen","пытаться","hat versucht","B"],["verdienen","зарабатывать","hat verdient","B"],["vermissen","скучать по","hat vermisst","B"],["vergessen","забывать","hat vergessen","B"]];
 const voice=t=>t==='A'?'male':'female';
 
-let tyList=shuffle(MIX),tyi=0,tyOk=0,tyDone=0;
-function tyShow(){document.getElementById('tyQ').textContent=tyList[tyi][0];document.getElementById('tyFb').innerHTML='';}
-function tyPick(ans){const v=tyList[tyi];const ok=ans===v[3];tyDone++;if(ok)tyOk++;
-  const rule=v[3]==='A'?'приставка улетает, Perfekt с <b>ge</b>':'приставка приросла, Perfekt <b>без ge</b>';
-  document.getElementById('tyFb').innerHTML=(ok?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ Это '+(v[3]==='A'?'Отто (отделяемый)':'Грета (неотделяемый)')+'. </span>')
-    +`<i>${v[0]}</i> — ${v[1]} · ${v[2]} <button class="say" onclick="playWord('${v[0]}','${voice(v[3])}')">🔊</button><br><span style="color:#6b7280;font-size:13px">${rule}</span>`;
-  document.getElementById('tyCnt').textContent=`верно ${tyOk} из ${tyDone}`;
-  tyi=(tyi+1)%tyList.length;if(tyi===0)tyList=shuffle(MIX);setTimeout(tyShow,1600);}
+const TY_SIZE=30;const tyPool=shuffle(MIX);const tyGroups=[];for(let k=0;k<tyPool.length;k+=TY_SIZE)tyGroups.push(tyPool.slice(k,k+TY_SIZE));
+let tyG=0;const tyBox=document.getElementById('tyBox');
+function esc(s){return s.replace(/'/g,"\\'");}
+function initType(){tyRun();}
+function tyRun(){let i=0,ok=0,mist=[];const grp=tyGroups[tyG];
+  function show(){const v=grp[i];
+    tyBox.innerHTML=`<div class="cnt">Группа ${tyG+1} из ${tyGroups.length} · глагол ${i+1} из ${grp.length} · верно ${ok}</div>`
+     +`<div class="q">${v[0]}</div>`
+     +`<div class="opts"><button class="btn" data-a="A">🔵 Отто — отделяемый</button><button class="btn" data-a="B">🔴 Грета — неотделяемый</button></div>`
+     +`<div class="fb" id="tyFb"></div>`;
+    tyBox.querySelectorAll('.opts .btn').forEach(b=>b.onclick=()=>pick(b.dataset.a));}
+  function pick(ans){const v=grp[i];const good=ans===v[3];tyBox.querySelectorAll('.opts .btn').forEach(b=>b.disabled=true);
+    if(good)ok++;else mist.push(v);const isA=v[3]==='A';
+    document.getElementById('tyFb').innerHTML=(good?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ '+(isA?'Отто (отделяемый)':'Грета (неотделяемый)')+'. </span>')
+      +`<i>${v[0]}</i> — ${v[1]} · ${v[2]} <button class="say" onclick="playWord('${esc(v[0])}','${voice(v[3])}')">🔊</button>`;
+    playWord(v[0],voice(v[3]));i++;
+    setTimeout(()=>{i<grp.length?show():res(ok,mist,grp.length);},1300);}
+  function res(ok,mist,total){
+    let h=`<div class="q">Итог группы ${tyG+1}</div><div style="text-align:center;font-size:22px;margin:8px 0"><b style="color:${ok===total?'#16a34a':'#6d28d9'}">Правильно ${ok} из ${total}</b></div>`;
+    if(mist.length){h+=`<div style="margin:12px 0 6px;font-weight:700;color:#dc2626">Работа над ошибками (${mist.length}):</div><div style="display:flex;flex-direction:column;gap:6px">`;
+      mist.forEach(v=>{const isA=v[3]==='A';h+=`<div style="background:#fdecec;border:1px solid #f3c0c0;border-radius:10px;padding:8px 11px;font-size:15px"><b>${v[0]}</b> — ${v[1]} · <b style="color:${isA?'#3b5bdb':'#c2185b'}">${isA?'отделяемый':'неотделяемый'}</b> · ${v[2]} <button class="say" onclick="playWord('${esc(v[0])}','${voice(v[3])}')">🔊</button></div>`;});
+      h+='</div>';}else h+='<div style="text-align:center;color:#16a34a;font-size:17px;margin:8px 0">Без ошибок! 🎉</div>';
+    h+='<div class="opts" style="margin-top:16px"><button class="btn" id="tyAgain">🔁 Повторить группу</button>';
+    if(tyG+1<tyGroups.length)h+='<button class="btn" id="tyNext" style="background:#6d28d9;color:#fff">Следующая группа →</button>';
+    h+='<button class="btn" id="tyRestart">↩︎ Сначала</button></div>';
+    tyBox.innerHTML=h;
+    document.getElementById('tyAgain').onclick=tyRun;
+    const nx=document.getElementById('tyNext');if(nx)nx.onclick=()=>{tyG++;tyRun();};
+    document.getElementById('tyRestart').onclick=()=>{tyG=0;tyRun();};}
+  show();}
 
 let pfList=shuffle(MIX),pfi=0;
 function pfShow(){const v=pfList[pfi];document.getElementById('pfQ').textContent=v[0];document.getElementById('pfRu').textContent=v[1];
@@ -108,7 +108,7 @@ function spReveal(){const v=spList[spi];const tag=v[3]==='A'?'<span style="color
   playWord(v[0],voice(v[3]));}
 function spNext(){spi=(spi+1)%spList.length;if(spi===0)spList=shuffle(MIX);spShow();}
 
-tyShow();pfShow();spShow();
+initType();pfShow();spShow();
 </script>
 </body>
 </html>

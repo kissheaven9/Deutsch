@@ -135,25 +135,43 @@ function initTrans(g,box){const d=DATA[g];let list=shuffle(d.words),i=0;
  document.getElementById('tnx').onclick=()=>{i=(i+1)%list.length;if(i===0)list=shuffle(d.words);show();};
  show();}
 
-/* ---------- ФЛАГМАН: определи род по хвостику (все три) ---------- */
-function initMix(box){
+/* ---------- ФЛАГМАН: определи род по хвостику (группами, с итогом) ---------- */
+function initMix(box,size){
+ size=size||30;
  const all=[]; ['der','die','das'].forEach(g=>DATA[g].words.forEach(w=>all.push([bare(w[0]),g,w[2]])));
- let list=shuffle(all),i=0,ok=0,done=0;
- const el=document.getElementById(box);
- el.innerHTML=`<div class="hvq" id="mq"></div><div class="hvopts">
-   <button class="btn" onclick="HV._m('der')" style="color:#3b5bdb">der</button>
-   <button class="btn" onclick="HV._m('die')" style="color:#c2185b">die</button>
-   <button class="btn" onclick="HV._m('das')" style="color:#0e9488">das</button></div>
-   <div class="hvfb" id="mfb"></div><div class="hvcnt" id="mc"></div>`;
- function show(){document.getElementById('mq').textContent=list[i][0];document.getElementById('mfb').innerHTML='';}
- HV_pick=function(ans){const w=list[i];const good=ans===w[1];done++;if(good)ok++;
-   const art={der:'der',die:'die',das:'das'}[w[1]];
-   document.getElementById('mfb').innerHTML=(good?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ </span>')
-    +`<b>${art} ${w[0]}</b> <button class="say" onclick="playWord('${esc(w[0])}','${V[w[1]]}')">🔊</button> — хвостик <b>${w[2]}</b> → всегда <b style="color:${DATA[w[1]].color}">${art}</b>`;
-   document.getElementById('mc').textContent=`верно ${ok} из ${done}`;
-   i=(i+1)%list.length;if(i===0)list=shuffle(all);setTimeout(show,1500);};
- show();}
-let HV_pick=null;
+ const pool=shuffle(all);const groups=[];for(let k=0;k<pool.length;k+=size)groups.push(pool.slice(k,k+size));
+ const el=document.getElementById(box);let gi=0;
+ function runGroup(){let i=0,ok=0,mist=[];const grp=groups[gi];
+   function show(){const w=grp[i];
+     el.innerHTML=`<div class="hvcnt">Группа ${gi+1} из ${groups.length} · слово ${i+1} из ${grp.length} · верно ${ok}</div>`
+      +`<div class="hvq">${w[0]}</div>`
+      +`<div class="hvopts"><button class="btn" data-a="der" style="color:#3b5bdb">der</button>`
+      +`<button class="btn" data-a="die" style="color:#c2185b">die</button>`
+      +`<button class="btn" data-a="das" style="color:#0e9488">das</button></div><div class="hvfb" id="mfb"></div>`;
+     el.querySelectorAll('.hvopts .btn').forEach(b=>b.onclick=()=>pick(b.dataset.a));}
+   function pick(ans){const w=grp[i];const art=w[1];const good=ans===art;
+     el.querySelectorAll('.hvopts .btn').forEach(b=>b.disabled=true);
+     if(good)ok++;else mist.push([w[0],art,ans,w[2]]);
+     document.getElementById('mfb').innerHTML=(good?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ </span>')
+      +`<b style="color:${DATA[art].color}">${art} ${w[0]}</b> — хвостик <b>${w[2]}</b> <button class="say" onclick="playWord('${esc(w[0])}','${V[art]}')">🔊</button>`;
+     playWord(w[0],V[art]);i++;
+     setTimeout(()=>{i<grp.length?show():results(ok,mist,grp.length);},1200);}
+   show();}
+ function results(ok,mist,total){
+   let html=`<div class="hvq">Итог группы ${gi+1}</div>`
+    +`<div style="text-align:center;font-size:22px;margin:8px 0"><b style="color:${ok===total?'#16a34a':'#6d28d9'}">Правильно ${ok} из ${total}</b></div>`;
+   if(mist.length){html+=`<div style="margin:12px 0 6px;font-weight:700;color:#dc2626">Ошибки (${mist.length}) — запомни род:</div><div style="display:flex;flex-direction:column;gap:6px">`;
+     mist.forEach(m=>{html+=`<div style="background:#fdecec;border:1px solid #f3c0c0;border-radius:10px;padding:8px 11px;font-size:15px"><b style="color:${DATA[m[1]].color}">${m[1]} ${m[0]}</b> <span style="color:#6b7280">(хвостик ${m[3]})</span> — ты выбрал(а) <b>${m[2]}</b> <button class="say" onclick="playWord('${esc(m[0])}','${V[m[1]]}')">🔊</button></div>`;});
+     html+='</div>';}
+   else html+='<div style="text-align:center;color:#16a34a;margin:8px 0;font-size:17px">Без ошибок! 🎉</div>';
+   html+='<div class="hvopts" style="margin-top:16px"><button class="btn" id="mAgain">🔁 Повторить группу</button>';
+   if(gi+1<groups.length)html+='<button class="btn" id="mNext" style="background:#6d28d9;color:#fff">Следующая группа →</button>';
+   html+='<button class="btn" id="mRestart">↩︎ Сначала</button></div>';
+   el.innerHTML=html;
+   document.getElementById('mAgain').onclick=runGroup;
+   const nx=document.getElementById('mNext');if(nx)nx.onclick=()=>{gi++;runGroup();};
+   document.getElementById('mRestart').onclick=()=>{gi=0;runGroup();};}
+ runGroup();}
 
 /* ---------- Соотнеси: слово ↔ перевод ---------- */
 function initMatch(g,box){const d=DATA[g];const el=document.getElementById(box);
@@ -201,5 +219,5 @@ function initSammel(g,box){const d=DATA[g];const pool=d.words.filter(w=>w[2]!=='
  show();}
 
 return {DATA, renderSong, renderWords, initTrans, initMix, initMatch, initChoice, initSammel,
-  _m:(a)=>HV_pick&&HV_pick(a), _c:(a)=>HV_c&&HV_c(a), _s:(a)=>HV_s&&HV_s(a)};
+  _c:(a)=>HV_c&&HV_c(a), _s:(a)=>HV_s&&HV_s(a)};
 })();
