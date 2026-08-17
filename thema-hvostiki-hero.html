@@ -38,6 +38,8 @@
  .tailbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin:8px 0}
  .tw{display:flex;flex-wrap:wrap;gap:8px}
  .chip2{background:var(--tbg);border-radius:10px;padding:5px 10px;font-size:14px}
+ .song2{background:var(--tbg);border-radius:14px;padding:14px 16px;line-height:2;font-size:16px}
+ .song2 .hd{font-weight:800;margin:10px 0 2px}
  .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
  .mit{border:1.5px solid var(--line);border-radius:11px;padding:9px 11px;cursor:pointer;background:#fff;text-align:center;font-weight:600}
  .mit.sel{border-color:#6d28d9;background:#f5f3ff}
@@ -73,10 +75,10 @@
   <div class="sec">🔑 Хвостики → род</div>
   <div class="panel"><p class="sub" style="color:#6b7280;margin:0 0 8px">Последнее слово в составном задаёт род ВСЕГО слова. У этого героя все хвостики дают один род:</p><div id="tails"></div></div>
 
-  <div class="sec">📖 Стишок — найди 3 новых хвостика</div>
-  <div class="panel">
-    <p class="sub" style="color:#6b7280;margin:0 0 10px">Песенку ты уже послушал. Теперь прочитай стишок и нажми на слова-подсказки: у всех один и тот же род. Догадайся, какие <b>3 новых хвостика</b> тут спрятаны, потом нажми «Проверить».</p>
-    <div id="poem"></div>
+  <div class="sec" id="s2" style="display:none"></div>
+  <div class="panel" id="song2panel" style="display:none">
+    <p class="sub" style="color:#6b7280;margin:0 0 10px">Послушай и прочитай песню. Нажми на слова-хвостики (по хвостику видно род). Потом «Проверить» — покажет все хвостики этого рода.</p>
+    <div id="song2"></div>
   </div>
 
   <div class="part train" style="margin-top:24px"><h2 style="margin:0">🎯 Упражнения</h2></div>
@@ -103,7 +105,7 @@
   <div class="nav" id="nav"></div>
 </main>
 <script src="js/app.js?v=4"></script>
-<script src="js/hvostiki.js?v=5"></script>
+<script src="js/hvostiki.js?v=6"></script>
 <script>
 const g=(new URLSearchParams(location.search).get('g')||'die');
 const d=HV.DATA[g]||HV.DATA['die'];
@@ -131,7 +133,7 @@ document.getElementById('closeAll').onclick=()=>document.querySelectorAll('.mbox
 document.getElementById('song').innerHTML=d.lyrics.split('\n').map(l=>/^\[.*\]$/.test(l)?`<div class="hd" style="color:${d.color}">${l}</div>`:(l.trim()?`<div>${l}</div>`:'<div style="height:6px"></div>')).join('');
 document.getElementById('playSong').onclick=function(){playSeq(['audio/'+d.song+'.mp3?v=1'],this);};
 document.getElementById('tails').innerHTML=d.tails.map(t=>`<span class="tailchip" style="color:${d.color}">${t[0]} = ${t[1]}</span>`).join('');
-HV.initPoem(g,'poem');
+if(d.song2){document.getElementById('s2').style.display='';document.getElementById('s2').textContent=`🎵 Песня «${d.song2.title}» — найди хвостики`;document.getElementById('song2panel').style.display='';HV.initSongFind(g,'song2');}
 HV.initMatch(g,'match');
 HV.initChoice(g,'choice');
 HV.initSammel(g,'sammel');
