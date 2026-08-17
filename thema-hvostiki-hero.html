@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Хвостики — герой</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ .wrap{max-width:820px;margin:0 auto;padding:16px}
+ .sec{font-weight:800;margin:26px 0 8px;font-size:18px}
+ .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:10px 0}
+ .song{line-height:1.7;font-size:16px}
+ .btn{border:none;border-radius:12px;padding:10px 15px;font-weight:700;background:var(--tbg);cursor:pointer;font-family:inherit;font-size:15px}
+ .btn.sm{padding:8px 12px;font-size:14px}
+ .tailchip{display:inline-block;background:var(--tbg);border-radius:12px;padding:6px 11px;margin:3px;font-weight:700}
+ .hvq{font-size:22px;font-weight:800;text-align:center;margin:8px 0}
+ .hvrev{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:10px 12px;margin-top:10px;text-align:center;font-size:18px}
+ .hvcnt{color:#9ca3af;text-align:center;font-size:13px;margin-top:6px}
+ .say{cursor:pointer}
+ .nav{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+ .nav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap" style="padding:10px 16px"><a class="home" href="index.html">🇩🇪 Deutsch A1</a> <span class="crumb">/ Существительные-хвостики</span></div></header>
+<main class="wrap">
+  <div style="margin:6px 0 8px"><a class="btn sm" href="thema-hvostiki.html">← Ко всей теме</a></div>
+  <h1 id="h1" style="font-size:25px;margin:4px 0 2px"></h1>
+  <p id="lead" class="sub" style="color:#6b7280;margin:0 0 6px"></p>
+
+  <div class="sec" id="s1"></div>
+  <div class="panel">
+    <div style="text-align:center;margin-bottom:8px"><button class="btn" id="playSong">🔊 Слушать песенку</button></div>
+    <div class="song" id="song"></div>
+    <p id="draftNote" class="sub" style="color:#b45309;margin:8px 0 0" hidden>⚠️ Текст das-песни — черновик по образцу; пришли точный из аудио — заменю.</p>
+  </div>
+
+  <div class="sec">🔑 Хвостики → род</div>
+  <div class="panel"><p class="sub" style="color:#6b7280;margin:0 0 8px">Последнее слово в составном задаёт род ВСЕГО слова. У этого героя все хвостики дают один род:</p><div id="tails"></div></div>
+
+  <div class="sec">📚 Слова по хвостикам</div>
+  <div class="panel"><p class="sub" style="color:#6b7280;margin:0 0 8px">Слова уровня A1 по группам. 🔊 — озвучка.</p><div id="words"></div></div>
+
+  <div class="sec">✍️ Переведи на немецкий (с артиклем)</div>
+  <div class="panel"><p class="sub" style="color:#6b7280;margin:0 0 8px">Скажи слово с артиклем — «Показать» проверит и озвучит.</p><div id="trans"></div></div>
+
+  <div class="nav" id="nav"></div>
+</main>
+<script src="js/app.js?v=4"></script>
+<script src="js/hvostiki.js?v=1"></script>
+<script>
+const g=(new URLSearchParams(location.search).get('g')||'die');
+const d=HV.DATA[g]||HV.DATA['die'];
+document.documentElement.style.setProperty('--accent',d.color);
+document.getElementById('h1').innerHTML=`<span style="color:${d.color}">${d.art}</span> — ${d.ru}: слова на <span style="color:${d.color}">${d.art}</span>`;
+document.getElementById('lead').textContent=`Все эти хвостики — ${d.art}. Запомни хвостик — узнаешь род любого длинного слова.`;
+document.getElementById('s1').innerHTML=`🎵 Песенка «Das ist ${d.hero}»`;
+HV.renderSong(g,'song');
+if(d.lyricsDraft)document.getElementById('draftNote').hidden=false;
+document.getElementById('playSong').onclick=function(){playSeq(['audio/'+d.song+'.mp3?v=1'],this);};
+document.getElementById('tails').innerHTML=d.tails.map(t=>`<span class="tailchip" style="color:${d.color}">${t[0]} = ${t[1]}</span>`).join('');
+HV.renderWords(g,'words');
+HV.initTrans(g,'trans');
+const order=['der','die','das'];
+document.getElementById('nav').innerHTML=order.filter(x=>x!==g).map(x=>`<a href="thema-hvostiki-hero.html?g=${x}" style="background:${HV.DATA[x].bg};color:${HV.DATA[x].color}">${HV.DATA[x].art} · ${HV.DATA[x].ru}</a>`).join('')
+ +`<a href="thema-hvostiki-mix.html" style="background:#ede9fe;color:#6d28d9">🎯 Определи род</a>`
+ +`<a href="index.html" style="background:#f3e8ff;color:var(--accent)">🏠 Главная</a>`;
+</script>
+</body>
+</html>
