@@ -12,7 +12,9 @@ os.makedirs(AUDIO, exist_ok=True)
 VOICE = {
     'male':   dict(voice='de-DE-KillianNeural', rate='-4%',  pitch='-2Hz'),
     'female': dict(voice='de-DE-KatjaNeural',   rate='+0%',  pitch='+0Hz'),
-    'child':  dict(voice='de-DE-SeraphinaMultilingualNeural', rate='+8%', pitch='+28Hz'),
+    # ⛔ НИКОГДА не использовать *Multilingual*-голоса: они читают нем. слова, похожие на англ.
+    # (Rad, Land, Bad, Buch…), по-английски. Только моноязычные de-DE. Детский тембр — питчем.
+    'child':  dict(voice='de-DE-AmalaNeural', rate='+6%', pitch='+30Hz'),
     'seller': dict(voice='de-DE-AmalaNeural', rate='+0%', pitch='+0Hz'),
     'childgirl': dict(voice='de-DE-AmalaNeural', rate='+5%', pitch='+45Hz'),
     'carla':  dict(voice='de-DE-AmalaNeural', rate='+0%', pitch='+6Hz'),  # Carla — другой женский голос (не как Грета=Katja)

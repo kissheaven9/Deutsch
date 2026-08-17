@@ -122,6 +122,17 @@ def main():
         for x in e: print('  ❌', x)
         for x in w: print('  ⚠️ ', x)
         E += len(e); W += len(w)
+    # ГЛОБАЛЬНО: запрет мультиязычных TTS-голосов (читают нем. слова по-английски; дневник 17.08)
+    for pat in (os.path.join(ROOT,'tools','*.py'), os.path.join(ROOT,'site','js','*.js')):
+        for f in glob.glob(pat):
+            try: txt = open(f, encoding='utf-8').read()
+            except Exception: continue
+            m = re.search(r'[A-Za-z]+Multilingual[A-Za-z]*Neural', txt)  # только ID голоса
+            if m:
+                E += 1
+                print(f'  ❌ {os.path.relpath(f,ROOT)} — голос {m.group(0)} мультиязычный: '
+                      f'читает нем. слова (Rad/Land/Bad…) по-английски. Только моноязычные de-DE.')
+
     print('\n' + '═'*70)
     if E:
         print(f'❌ НЕ ДЕПЛОИТЬ. Ошибок: {E}, предупреждений: {W}')
