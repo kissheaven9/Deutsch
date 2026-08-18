@@ -19,8 +19,16 @@ const DATA = {
    ['корень','от глагола без суффикса','beginnen → der Beginn',''],
    ['по смыслу','дни, месяцы, сезоны, погода, стороны света, алкоголь','','⚠️ исключение: das Bier']],
   blocks:[
-   {n:1,title:'Люди и приборы',suf:['-er','-ling','-or','-ismus','-ant/-ent']},
-   {n:2,title:'Профессии, глаголы и смысл',suf:['-ist','-eur','-loge','корень','по смыслу']}],
+   {n:1,title:'Люди и приборы',suf:['-er','-ling','-or','-ismus','-ant/-ent'],
+    story:{audio:'sfx-der-1',
+     de:'Otto ist Fahrer und ein echter Bastler. Am Morgen klingelt der Wecker, im Betrieb warten der Computer und der Drucker; der Fernseher bleibt aus. Sein Nachbar ist Lehrer, sein Freund ist Verkäufer, ein Bekannter ist Arbeiter. Im Frühling ist Otto der Liebling vom Hof. Sein Motor läuft gut, und der Professor von nebenan repariert den Traktor. Otto liest gern über Tourismus. Ein Student und ein Praktikant besuchen ihn oft, und im Zirkus wohnt sogar ein Elefant. „Optimismus und Fleiß — das ist mein Stil!“',
+     ru:'Отто — водитель и настоящий мастер на все руки. Утром звонит будильник, на работе ждут компьютер и принтер; телевизор он не включает. Сосед — учитель, друг — продавец, знакомый — рабочий. Весной Отто — общий любимец двора. Мотор его машины работает хорошо, а сосед-профессор чинит трактор. Отто любит читать про туризм. Студент и практикант часто его навещают, а в цирке живёт даже слон. «Оптимизм и старание — вот мой стиль!»',
+     targets:['Fahrer','Wecker','Computer','Drucker','Fernseher','Lehrer','Verkäufer','Arbeiter','Frühling','Liebling','Motor','Professor','Traktor','Tourismus','Student','Praktikant','Elefant','Optimismus']}},
+   {n:2,title:'Профессии, глаголы и смысл',suf:['-ist','-eur','-loge','корень','по смыслу'],
+    story:{audio:'sfx-der-2',
+     de:'Am Montag, im Mai, ist ein warmer Sommer. Otto ist ein echter Tourist. Sein Bruder ist Polizist, sein Freund ist Journalist, ein anderer ist Pianist. Ein Ingenieur kommt vorbei, am Samstag der Friseur, und ein Psychologe liebt den Tanz. Otto plant den Flug in den Süden: zuerst der Besuch, dann der Anfang vom Urlaub. Draußen ist mal der Regen, mal der Wind, mal der Schnee, und am Abend der Wein. „Vielen Dank für den Tag!“',
+     ru:'В понедельник, в мае, стоит тёплое лето. Отто в душе турист. Брат — полицейский, друг — журналист, ещё один — пианист. Заходит инженер, в субботу — парикмахер, а знакомый психолог обожает танец. Отто планирует полёт на юг: сначала визит, потом начало отпуска. На улице то дождь, то ветер, то снег, а вечером — вино. «Большое спасибо за день!»',
+     targets:['Montag','Mai','Sommer','Tourist','Polizist','Journalist','Pianist','Ingenieur','Friseur','Psychologe','Tanz','Flug','Besuch','Anfang','Regen','Wind','Schnee','Wein','Dank']}}],
   words:[
    ['der Lehrer','учитель','-er'],['der Fahrer','водитель','-er'],['der Verkäufer','продавец','-er'],['der Schüler','ученик','-er'],['der Arbeiter','рабочий','-er'],['der Vermieter','арендодатель','-er'],['der Empfänger','получатель','-er'],['der Absender','отправитель','-er'],['der Ausländer','иностранец','-er'],['der Sprecher','диктор','-er'],['der Computer','компьютер','-er'],['der Drucker','принтер','-er'],['der Wecker','будильник','-er'],['der Fernseher','телевизор','-er'],
    ['der Frühling','весна','-ling'],['der Lehrling','подмастерье','-ling'],['der Liebling','любимец','-ling'],['der Flüchtling','беженец','-ling'],['der Zwilling','близнец','-ling'],
@@ -51,9 +59,21 @@ const DATA = {
    ['-e','','die Blume','⚠️ не 100%: der Name, das Auge'],
    ['-t','от глагола','die Fahrt (fahren)','']],
   blocks:[
-   {n:1,title:'Действия и люди',suf:['-ung','-in','-ion','-heit','-keit']},
-   {n:2,title:'Места и науки',suf:['-schaft','-ei','-ik','-tät','-ur']},
-   {n:3,title:'Заимствования и -e/-t',suf:['-anz/-enz','-age','-ie','-e','-t']}],
+   {n:1,title:'Действия и люди',suf:['-ung','-in','-ion','-heit','-keit'],
+    story:{audio:'sfx-die-1',
+     de:'Greta liest die Zeitung in ihrer Wohnung. Eine Freundin ruft an — sie ist Lehrerin; ihre Tochter ist Studentin, die Nachbarin ist Ärztin. Heute gibt es eine besondere Situation: Eine Journalistin kommt zu Greta und braucht Informationen. Greta sagt die Wahrheit und teilt ihre Meinung: Gesundheit beginnt mit guter Küche. Es gibt eine kleine Schwierigkeit — die Rechnung für die Zutaten. Aber Greta sieht eine Möglichkeit. Pünktlichkeit und tägliche Übung helfen ihr. „Kochen, was man liebt — das ist Freiheit!“',
+     ru:'Грета читает газету в своей квартире. Звонит подруга — она учительница; её дочь — студентка, соседка — врач. Сегодня особая ситуация: в гости к Грете придёт журналистка, ей нужна информация. Грета говорит правду и делится мнением: здоровье начинается с хорошей кухни. Есть маленькая трудность — счёт за продукты. Но Грета видит возможность. Пунктуальность и ежедневная тренировка ей помогают. «Готовить то, что любишь, — это свобода!»',
+     targets:['Zeitung','Wohnung','Freundin','Lehrerin','Studentin','Nachbarin','Ärztin','Situation','Journalistin','Informationen','Wahrheit','Meinung','Gesundheit','Schwierigkeit','Rechnung','Möglichkeit','Pünktlichkeit','Übung','Freiheit']}},
+   {n:2,title:'Места и науки',suf:['-schaft','-ei','-ik','-tät','-ur'],
+    story:{audio:'sfx-die-2',
+     de:'Am meisten schätzt Greta die Freundschaft. Ihre Mannschaft spielt samstags — das gehört zur Gesellschaft der kleinen Stadt. Am Morgen geht sie in die Bäckerei und in die Metzgerei, daneben ist die Bücherei. Sie liebt Musik, ein bisschen Politik und Technik in der Küche; Mathematik braucht sie für die Rechnung. In der Nähe ist die Universität: dort zählen Qualität und Aktivität. Manchmal braucht die Kaffeemaschine eine Reparatur. Aber die Natur, die Kultur und die warme Temperatur machen alles schöner.',
+     ru:'Больше всего Грета ценит дружбу. Её команда играет по субботам — это часть общества маленького города. Утром она заходит в пекарню и мясную лавку, рядом — библиотека. Она любит музыку, немного политику и технику на кухне; математика нужна для счёта. Рядом университет: там ценят качество и активность. Иногда кофемашине нужен ремонт. Но природа, культура и тёплая температура делают всё красивее.',
+     targets:['Freundschaft','Mannschaft','Gesellschaft','Bäckerei','Metzgerei','Bücherei','Musik','Politik','Technik','Mathematik','Universität','Qualität','Aktivität','Reparatur','Natur','Kultur','Temperatur']}},
+   {n:3,title:'Заимствования и -e/-t',suf:['-anz/-enz','-age','-ie','-e','-t'],
+    story:{audio:'sfx-die-3',
+     de:'Die Familie ist für Greta das Wichtigste. Bis zur Arbeit ist es eine kurze Distanz; die Garage in der unteren Etage ist gleich um die Ecke. Ihre Energie ist wie eine Melodie. In der Küche stehen eine Blume und eine Lampe, die Katze schläft auf der Tasche. Greta spricht zwei Sprachen. Nach der langen Fahrt und der Arbeit tut eine Massage gut. Sie hat eine klare Absicht: bis zur Ankunft der Familie ist alles fertig. „Toleranz und gute Laune — das ist meine Sicht auf den Tag!“',
+     ru:'Семья для Греты — самое важное. До работы небольшая дистанция; гараж на нижнем этаже совсем рядом. Её энергия — как мелодия. На кухне стоят цветок и лампа, кошка спит на сумке. Грета говорит на двух языках. После долгой поездки и работы приятен массаж. У неё ясное намерение: к приезду семьи всё готово. «Терпимость и хорошее настроение — вот мой взгляд на день!»',
+     targets:['Familie','Distanz','Garage','Etage','Energie','Melodie','Blume','Lampe','Katze','Tasche','Sprachen','Fahrt','Massage','Absicht','Ankunft','Toleranz','Sicht']}}],
   words:[
    ['die Zeitung','газета','-ung'],['die Wohnung','квартира','-ung'],['die Übung','упражнение','-ung'],['die Meinung','мнение','-ung'],['die Rechnung','счёт','-ung'],
    ['die Lehrerin','учительница','-in'],['die Studentin','студентка','-in'],['die Ärztin','врач (ж)','-in'],['die Freundin','подруга','-in'],['die Verkäuferin','продавщица','-in'],
@@ -83,8 +103,16 @@ const DATA = {
    ['глагол','инфинитив как сущ.','das Essen','работает с любым глаголом — всегда das'],
    ['по смыслу','языки, цвета, металлы, буквы/ноты','das Deutsch, das Gold','']],
   blocks:[
-   {n:1,title:'Малыши и латынь',suf:['-chen','-lein','-um','-ment']},
-   {n:2,title:'Ge-, глаголы и смысл',suf:['-tum','-nis','Ge-','глагол','по смыслу']}],
+   {n:1,title:'Малыши и латынь',suf:['-chen','-lein','-um','-ment'],
+    story:{audio:'sfx-das-1',
+     de:'Teo ist ein Kind. Am Morgen gibt ihm das Mädchen von nebenan ein Brötchen. Zu Hause stehen ein Tischlein und ein Büchlein. Heute ist ein wichtiges Datum: alle gehen ins Museum im Zentrum. Teo nimmt ein Dokument (wie ein Ticket) und ein kleines Instrument mit. Im Museum sind das Praktikum und das Studium wie ein Spiel. Das Publikum klatscht. Am Abend isst Teo ein Hähnchen: „Das ist besser als jedes Medikament!“',
+     ru:'Тео — ребёнок. Утром соседская девочка даёт ему булочку. Дома стоят столик и книжечка. Сегодня важная дата: все идут в музей в центре. Тео берёт документ (как билет) и маленький инструмент. В музее практика и учёба — как игра. Публика хлопает. Вечером Тео ест курочку: «Это лучше любого лекарства!»',
+     targets:['Mädchen','Brötchen','Tischlein','Büchlein','Datum','Museum','Zentrum','Dokument','Instrument','Praktikum','Studium','Publikum','Hähnchen','Medikament']}},
+   {n:2,title:'Ge-, глаголы и смысл',suf:['-tum','-nis','Ge-','глагол','по смыслу'],
+    story:{audio:'sfx-das-2',
+     de:'Teos Tag ist voller Erlebnisse. Am Morgen gibt es ein Geschenk und ein Getränk, dazu gibt es Gemüse. Teo liebt das Schwimmen, das Lernen und das Einkaufen mit Lina. Im Geschäft nehmen sie leichtes Gepäck. Das Ergebnis ist gut, und das Zeugnis ist gut. Teo lernt Deutsch und Russisch, mag Blau und Grün und das Gold. Weit weg sieht man das Gebirge. „Das Leben und das Essen — das ist wichtig!“ Und ein Gespräch mit Lina ist das schönste Ende vom Tag.',
+     ru:'День Тео полон впечатлений. Утром есть подарок и напиток, ещё овощи. Тео любит плавание, учёбу и покупки с Линой. В магазине они берут лёгкий багаж. Результат хороший, и аттестат хороший. Тео учит немецкий и русский, любит синий и зелёный и золото. Вдали видны горы. «Жизнь и еда — вот что важно!» А разговор с Линой — лучшее завершение дня.',
+     targets:['Erlebnisse','Geschenk','Getränk','Gemüse','Schwimmen','Lernen','Einkaufen','Geschäft','Gepäck','Ergebnis','Zeugnis','Deutsch','Russisch','Blau','Grün','Gold','Gebirge','Leben','Essen','Gespräch']}}],
   words:[
    ['das Mädchen','девочка','-chen'],['das Brötchen','булочка','-chen'],['das Hähnchen','курочка','-chen'],['das Häuschen','домик','-chen'],['das Kätzchen','котёнок','-chen'],
    ['das Fräulein','барышня','-lein'],['das Büchlein','книжечка','-lein'],['das Tischlein','столик','-lein'],
@@ -256,5 +284,27 @@ function initMix(box,size){
  let startGi=0;try{const s=parseInt(localStorage.getItem('sf_mix_g'),10);if(!isNaN(s)&&s>=0&&s<groups.length)startGi=s;}catch(e){}
  runGroup(startGi);}
 
-return {DATA, renderRule, renderWords, initMatch, initChoice, initTrans, initMix};
+/* ---------- Текст блока: послушай, прочитай, найди слова суффикса ---------- */
+function initStory(g,box,n){const el=document.getElementById(box);if(!el)return;const d=DATA[g];
+ const blk=(d.blocks||[]).find(b=>b.n===n);if(!blk||!blk.story){el.innerHTML='';return;}const p=blk.story;
+ let picked={},checked=false;
+ function paint(w){el.querySelectorAll('.pw').forEach(x=>{if(x.dataset.w===w)x.classList.toggle('on',!!picked[w]);});}
+ function render(){
+   const body=p.de.split(/(\s+)/).map(tok=>{const clean=tok.replace(/[^A-Za-zÄÖÜäöüß]/g,'');
+     if(clean&&p.targets.indexOf(clean)>=0){const on=picked[clean]?' on':'';return tok.replace(clean,`<button class="pw${on}" data-w="${clean}">${clean}</button>`);}
+     return tok;}).join('');
+   el.innerHTML=`<div style="text-align:center;margin-bottom:8px"><button class="btn sm" id="pstory" style="background:${d.color};color:#fff">🔊 Слушать</button></div>`
+     +`<div class="storytext">${body}</div>`
+     +`<div style="text-align:center;margin-top:10px"><button class="btn sm" id="pchk" style="background:${d.color};color:#fff">Проверить</button> <button class="btn sm" id="pru">Перевод</button> <button class="btn sm" id="prst">↺ Ещё раз</button></div>`
+     +`<div id="sru" class="storyru" hidden></div><div id="srev"></div>`;
+   document.getElementById('pstory').onclick=function(){playSeq(['audio/'+p.audio+'.mp3?v=1'],this);};
+   el.querySelectorAll('.pw').forEach(b=>b.onclick=()=>{if(checked)return;const w=b.dataset.w;if(picked[w])delete picked[w];else picked[w]=1;paint(w);});
+   document.getElementById('pchk').onclick=check;
+   document.getElementById('pru').onclick=()=>{const r=document.getElementById('sru');r.hidden=!r.hidden;r.textContent=p.ru;};
+   document.getElementById('prst').onclick=()=>{picked={};checked=false;render();};}
+ function check(){checked=true;el.querySelectorAll('.pw').forEach(b=>b.classList.add(picked[b.dataset.w]?'good':'miss'));
+   document.getElementById('srev').innerHTML=`<div class="preveal" style="margin-top:10px;font-weight:700;color:${d.color}">Все выделенные слова — <span style="text-transform:uppercase">${d.art}</span>! Их род виден по суффиксу блока.</div>`;}
+ render();}
+
+return {DATA, renderRule, renderWords, initMatch, initChoice, initTrans, initMix, initStory};
 })();
