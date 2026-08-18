@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Суффиксы рода</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ .wrap{max-width:920px;margin:0 auto;padding:16px}
+ .rule{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:14px;padding:14px 16px;line-height:1.9;margin:10px 0 6px}
+ .sec{font-weight:800;color:#6d28d9;margin:26px 0 10px;font-size:17px}
+ .grow{display:grid;grid-template-columns:200px 1fr;gap:18px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin:14px 0}
+ @media(max-width:720px){.grow{grid-template-columns:1fr}}
+ .gphoto{width:100%;border-radius:12px;display:block}
+ .ghead{font-size:17px;margin-bottom:8px}
+ .pill{display:inline-block;color:#fff;border-radius:8px;padding:2px 10px;font-weight:800}
+ .gloves{color:#6b7280;font-size:14px}
+ .words{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+ .w{border:1.5px solid var(--line);border-radius:10px;padding:6px 10px;cursor:pointer;font-weight:700;user-select:none;font-size:15px}
+ .w.open{color:#166534;border-color:#16a34a;background:#f0fdf4}
+ .gactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+ .go,.gpdf,.gtog{text-decoration:none;border:none;cursor:pointer;font-family:inherit;border-radius:11px;padding:9px 14px;font-weight:700;font-size:14px}
+ .gtog{background:var(--tbg)}
+ .lead{color:#4b5563;line-height:1.7}
+ .btn{border:none;border-radius:12px;padding:11px 18px;font-weight:800;background:var(--tbg);color:#6d28d9;cursor:pointer;font-family:inherit;font-size:17px}
+ .btn.sm{padding:8px 12px;font-size:14px}
+ .hvq{font-size:26px;font-weight:800;text-align:center;margin:10px 0}
+ .hvopts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+ .hvfb{text-align:center;min-height:26px;margin-top:12px;font-size:15px}
+ .hvcnt{color:#9ca3af;text-align:center;font-size:13px;margin-top:8px}
+ .say{border:none;background:var(--tbg);border-radius:9px;padding:4px 8px;cursor:pointer}
+ .panelt{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:8px 0}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap" style="padding:10px 16px"><a class="home" href="index.html">🇩🇪 Deutsch A1</a> <span class="crumb">/ Суффиксы рода</span></div></header>
+<main class="wrap">
+  <h1 style="font-size:26px;margin:6px 0 2px">🔤 Суффиксы рода</h1>
+  <p class="lead">У многих слов род виден по <b>концовке-суффиксу</b>. Знаешь суффикс — знаешь артикль, даже если слово новое.</p>
+  <div class="rule">
+    <b style="color:#3b5bdb">der</b> — деятели и приборы: -er, -ling, -or, -ist, -eur, -loge, -ismus, -ant/-ent<br>
+    <b style="color:#c2185b">die</b> — почти всё на: -ung, -heit, -keit, -ion, -schaft, -tät, -ik, -ie, -ur, -e…<br>
+    <b style="color:#0e9488">das</b> — уменьшительные и «умные»: -chen, -lein, -um, -ment, Ge-, глагол-как-слово
+  </div>
+
+  <div class="sec">Суффиксы — по роду</div>
+  <div id="rows"></div>
+  <p class="lead" style="font-size:14px">Нажми на слово — покажется перевод. «Начать изучение» — суффиксы, правила с исключениями, тексты и упражнения.</p>
+
+  <div class="sec">🎯 Тренажёр — определи род по суффиксу</div>
+  <p class="lead" style="font-size:14px;margin:0 0 8px">Слова всех троих вперемешку, группами. Можно выбрать группу; последняя запоминается.</p>
+  <div class="panelt"><div id="mix"></div></div>
+
+  <div style="margin:26px 0"><a href="index.html" style="text-decoration:none;background:#f3e8ff;color:var(--accent);border-radius:12px;padding:11px 16px;font-weight:700">🏠 Главная</a></div>
+</main>
+<script src="js/app.js?v=4"></script>
+<script src="js/suffixe.js?v=1"></script>
+<script>
+function bare(de){return de.replace(/^(der|die|das)\s+/,'');}
+const portrait={der:'otto-main.png',die:'greta-main.png',das:'teo-main.png'};
+const rows=document.getElementById('rows');
+['der','die','das'].forEach(g=>{const d=SF.DATA[g];
+  const words=d.words.map(w=>`<span class="w" data-de="${bare(w[0])}" data-ru="${w[1]}" onclick="sfToggle(this)">${bare(w[0])}</span>`).join('');
+  rows.insertAdjacentHTML('beforeend',
+   `<div class="grow">
+      <img class="gphoto" src="img/${portrait[g]}" alt="${d.ru}">
+      <div class="ginfo">
+        <div class="ghead"><span class="pill" style="background:${d.color}">${d.art}</span> <b>${d.ru}</b> <span class="gloves">суффиксы: ${d.tails.map(t=>t[0]).join(' · ')}</span></div>
+        <div class="words" id="w-${g}">${words}</div>
+        <div class="gactions">
+          <a class="go" style="background:${d.color};color:#fff" href="thema-suffixe-hero.html?g=${g}">▶ Начать изучение →</a>
+          <button class="gtog" style="color:${d.color}" onclick="sfAll('${g}',true)">👁 Открыть все</button>
+          <button class="gtog" style="color:${d.color}" onclick="sfAll('${g}',false)">🙈 Закрыть все</button>
+          <a class="gpdf" style="background:#fffbeb;border:1px solid #fde68a;color:#a16207" href="thema-suffixe-slovar.html?g=${g}">📄 Словарь PDF</a>
+        </div>
+      </div>
+    </div>`);
+});
+function sfToggle(el){const o=el.classList.toggle('open');el.textContent=o?el.dataset.ru:el.dataset.de;}
+function sfAll(g,open){document.querySelectorAll('#w-'+g+' .w').forEach(el=>{el.classList.toggle('open',open);el.textContent=open?el.dataset.ru:el.dataset.de;});}
+SF.initMix('mix',30);
+</script>
+</body>
+</html>
