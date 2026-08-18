@@ -217,9 +217,15 @@ function say(w,g){return `<button class="say" style="border:none;background:#000
 function initMix(box,size){
  size=size||30;
  const all=[]; ['der','die','das'].forEach(g=>DATA[g].words.forEach(w=>all.push([bare(w[0]),g,w[2]])));
- const pool=shuffle(all);const groups=chunk(pool,size);
+ // детерминированный порядок: «Группа N» ВСЕГДА одни и те же слова (роды вперемешку) — можно вернуться к любой
+ function seededShuffle(a,seed){a=a.slice();let s=seed>>>0;const rnd=()=>{s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+ const pool=seededShuffle(all,20250817);let groups=chunk(pool,size);
+ if(groups.length>1&&groups[groups.length-1].length<size*0.4){const last=groups.pop();groups[groups.length-1]=groups[groups.length-1].concat(last);}
  const el=document.getElementById(box);
- function runGroup(gi){gi=((gi%groups.length)+groups.length)%groups.length;const grp=groups[gi];const ans=new Array(grp.length).fill(null);let i=0;
+ function saveG(gi){try{localStorage.setItem('hv_mix_g',gi);}catch(e){}}
+ function pickerHTML(cur){let h='<div class="hvopts gpickbar" style="gap:6px;margin:0 0 12px;flex-wrap:wrap">';for(let k=0;k<groups.length;k++)h+=`<button class="btn sm gpick" data-g="${k}" style="${k===cur?'background:#6d28d9;color:#fff':''}">Группа ${k+1}</button>`;return h+'</div>';}
+ function bindPicker(){el.querySelectorAll('.gpick').forEach(b=>b.onclick=()=>runGroup(+b.dataset.g));}
+ function runGroup(gi){gi=((gi%groups.length)+groups.length)%groups.length;saveG(gi);const grp=groups[gi];const ans=new Array(grp.length).fill(null);let i=0;
    function fb(w,chosen){if(!chosen)return '<span style="color:#9ca3af">Выбери артикль…</span>';const good=chosen===w[1];
      return (good?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ '+chosen+' — неверно. </span>')
       +`<b style="color:${DATA[w[1]].color}">${w[1]} ${w[0]}</b> — хвостик <b>${w[2]}</b> ${say(w[0],w[1])}`;}
@@ -227,7 +233,8 @@ function initMix(box,size){
      const opts=['der','die','das'].map(a=>{let st='color:'+DATA[a].color;
        if(chosen){if(a===w[1])st+=';background:#e8f6ee;border:2px solid #16a34a';else if(a===chosen)st+=';background:#fdecec;border:2px solid #dc2626';}
        return `<button class="btn" data-a="${a}" style="${st}">${a}</button>`;}).join('');
-     el.innerHTML=`<div class="hvcnt">Группа ${gi+1} из ${groups.length} · слово ${i+1} из ${grp.length} · отвечено ${answered} из ${grp.length}</div>`
+     el.innerHTML=pickerHTML(gi)
+      +`<div class="hvcnt">Группа ${gi+1} из ${groups.length} · слово ${i+1} из ${grp.length} · отвечено ${answered} из ${grp.length}</div>`
       +`<div class="hvq">${w[0]}</div>`
       +`<div class="hvopts">${opts}</div>`
       +`<div class="hvfb" id="mfb">${fb(w,chosen)}</div>`
@@ -240,10 +247,10 @@ function initMix(box,size){
      el.querySelectorAll('.hvopts .btn[data-a]').forEach(b=>b.onclick=()=>pick(b.dataset.a));
      document.getElementById('mPrev').onclick=()=>{if(i>0){i--;show();}};
      document.getElementById('mNext').onclick=()=>{if(i<grp.length-1){i++;show();}};
-     document.getElementById('mCheck').onclick=results;}
+     document.getElementById('mCheck').onclick=results;bindPicker();}
    function pick(a){ans[i]=a;const w=grp[i];if(typeof playWord==='function')playWord(w[0],V[w[1]]);show();}
    function results(){let ok=0,mist=[],good=[];grp.forEach((w,k)=>{if(ans[k]===w[1]){ok++;good.push(w);}else mist.push([w[0],w[1],ans[k]||'—',w[2]]);});
-     let html=`<div class="hvq">Итог — группа ${gi+1} из ${groups.length}</div>`
+     let html=pickerHTML(gi)+`<div class="hvq">Итог — группа ${gi+1} из ${groups.length}</div>`
       +`<div style="text-align:center;font-size:24px;margin:6px 0"><b style="color:${ok===grp.length?'#16a34a':'#6d28d9'}">Правильно ${ok} из ${grp.length}</b></div>`
       +`<div style="text-align:center;margin-bottom:6px;color:#6b7280">${praise(ok,grp.length)}</div>`;
      if(mist.length){html+=`<div style="margin:12px 0 6px;font-weight:700;color:#dc2626">Ошибки (${mist.length}) — запомни род:</div><div style="display:flex;flex-direction:column;gap:6px">`;
@@ -258,9 +265,10 @@ function initMix(box,size){
      el.innerHTML=html;
      document.getElementById('mAgain').onclick=()=>runGroup(gi);
      const nx=document.getElementById('mNextG');if(nx)nx.onclick=()=>runGroup(gi+1);
-     document.getElementById('mRestart').onclick=()=>runGroup(0);}
+     document.getElementById('mRestart').onclick=()=>runGroup(0);bindPicker();}
    show();}
- runGroup(0);}
+ let startGi=0;try{const s=parseInt(localStorage.getItem('hv_mix_g'),10);if(!isNaN(s)&&s>=0&&s<groups.length)startGi=s;}catch(e){}
+ runGroup(startGi);}
 
 /* ---------- Соотнеси: слово ↔ перевод ---------- */
 function initMatch(g,box){const d=DATA[g];const el=document.getElementById(box);
