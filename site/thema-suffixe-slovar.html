@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Словарь — суффиксы рода</title>
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+ .wrap{max-width:820px;margin:0 auto;padding:16px}
+ h2{margin:18px 0 6px}
+ .grp{font-weight:800;margin:12px 0 4px}
+ table{width:100%;border-collapse:collapse}
+ td{border-bottom:1px solid #eee;padding:6px 8px;font-size:15px}
+ td.de{font-weight:700;width:52%}
+ .btn{border:none;border-radius:12px;padding:10px 15px;font-weight:700;background:var(--tbg);cursor:pointer;font-family:inherit;font-size:15px;text-decoration:none;color:#6d28d9}
+ @media print{.noprint{display:none}.wrap{max-width:100%}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="noprint" style="display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px">
+    <a class="btn" href="thema-suffixe.html">← Ко всей теме</a>
+    <button class="btn" onclick="window.print()">📄 Сохранить как PDF / печать</button>
+  </div>
+  <h1 style="font-size:24px;margin:4px 0">Словарь — суффиксы рода</h1>
+  <div id="body"></div>
+</main>
+<script src="js/suffixe.js?v=1"></script>
+<script>
+const only=new URLSearchParams(location.search).get('g');
+const order=only?[only]:['der','die','das'];
+let html='';
+order.forEach(g=>{const d=SF.DATA[g];if(!d)return;
+  html+=`<h2 style="color:${d.color}">${d.art} · ${d.ru}</h2>`;
+  d.tails.forEach(t=>{const ws=d.words.filter(w=>w[2]===t[0]);if(!ws.length)return;
+    html+=`<div class="grp" style="color:${d.color}">${t[0]}${t[1]?' — '+t[1]:''}</div><table>`;
+    ws.forEach(w=>{html+=`<tr><td class="de">${w[0]}</td><td>${w[1]}</td></tr>`;});
+    html+='</table>';});
+});
+document.getElementById('body').innerHTML=html;
+</script>
+</body>
+</html>
