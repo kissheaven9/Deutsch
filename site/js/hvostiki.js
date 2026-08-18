@@ -21,7 +21,9 @@ const DATA = {
      '[Куплет 8]','Der erste Stock, der zweite Stock,','der dritte Stock — im Rock! —','alles der!','',
      '[Финал]','Tag, Abend, Preis und Ort,','Zug, Brief, Kurs und Stock —','alles der! Alles der!'],
    targets:['Wochentag','Feiertag','Geburtstag','Tag','Feierabend','Sonntagabend','Fahrpreis','Kaufpreis','Eintrittspreis','Wohnort','Geburtsort','Urlaubsort','Schnellzug','Nachtzug','Regionalzug','Liebesbrief','Kurzbrief','Elternbrief','Deutschkurs','Sprachkurs','Abendkurs','Stock','Abend','Preis','Ort','Zug','Brief','Kurs'],
-   find:['-tag','-abend','-preis','-ort','-zug','-brief','-kurs','-stock']},
+   find:['-tag','-abend','-preis','-ort','-zug','-brief','-kurs','-stock'],
+   img:'hvostiki-alles-der',
+   coords:[[1,1.5,13,4],[17.5,1.5,11.5,4],[30.5,1.5,13,4],[45.5,2,15,8],[64,1.5,14,4],[82,2,16.5,11],[1,23,14,4.5],[17.5,23,12,4.5],[31,22,13,10],[63,20,13,4],[77.5,20,12,4],[89,20,10.5,11],[1,42,15,4],[17.5,41,11,4],[31,41,13,11],[64,42,13,4],[79,41,11,4],[89,41,10.5,11],[0.5,64,16,4],[17.5,64,12,4],[31,64,14,11],[55,64,14,4],[70,64,13,4],[84,64,15,11]]},
   words:[
    ['der Marktplatz','рыночная площадь','-platz'],['der Spielplatz','детская площадка','-platz'],['der Parkplatz','парковка','-platz'],['der Arbeitsplatz','рабочее место','-platz'],['der Sitzplatz','сидячее место','-platz'],
    ['der Fahrplan','расписание','-plan'],['der Stadtplan','карта города','-plan'],['der Zeitplan','график','-plan'],['der Terminplan','план встреч','-plan'],
@@ -55,7 +57,9 @@ const DATA = {
      '[Куплет 6 — NUMMER]','Die Telefonnummer, schreib sie auf!','Die Kontonummer — pass gut auf! —','alles die!','',
      '[Финал]','Stunde, Woche, Nummer —','alles die! Alles die!'],
    targets:['Deutschstunde','Schulstunde','Sportstunde','Stunde','Mittagsstunde','Abendstunde','Arbeitswoche','Ferienwoche','Woche','Hausnummer','Handynummer','Zimmernummer','Nummer','Telefonnummer','Kontonummer'],
-   find:['-stunde','-woche','-nummer']},
+   find:['-stunde','-woche','-nummer'],
+   img:'hvostiki-alles-die',
+   coords:[[6,3,13,4.5],[27,3,13,4.5],[79,3,15,9],[1,27,16,4.5],[20,27,13,4.5],[62,27,15,4.5],[80,27,15,4.5],[3,52,15,4.5],[17,52,16,4.5],[37,58,14,8],[64,71,14,4.5],[78,71,15,4.5],[88,71,12,4.5],[16,83,19,8.5],[29,84,18,11]]},
   words:[
    ['die Straßenbahn','трамвай','-bahn'],['die U-Bahn','метро','-bahn'],['die Eisenbahn','железная дорога','-bahn'],['die Autobahn','автобан','-bahn'],
    ['die Fahrkarte','билет','-karte'],['die Speisekarte','меню','-karte'],['die Postkarte','открытка','-karte'],['die Eintrittskarte','входной билет','-karte'],['die Landkarte','карта (местности)','-karte'],
@@ -335,10 +339,16 @@ function initSongFind(g,box){const el=document.getElementById(box);if(!el)return
        if(clean&&p.targets.indexOf(clean)>=0){const on=picked[clean]?' on':'';return tok.replace(clean,`<button class="pw${on}" data-w="${clean}">${clean}</button>`);}
        return tok;}).join('')+'</div>';}).join('');
    el.innerHTML=`<div style="text-align:center;margin-bottom:10px"><button class="btn" id="psong" style="background:${d.color};color:#fff">🔊 Слушать песню</button></div>`
+     +(p.img?`<div class="maskbar" style="justify-content:center;margin:0 0 6px"><button class="btn sm" id="s2open">👁 Открыть все</button><button class="btn sm" id="s2close">🙈 Закрыть все</button></div>`
+       +`<p class="sub" style="color:#6b7280;text-align:center;margin:0 0 8px">Слова на картинке закрыты — нажми на плашку, чтобы открыть и проверить себя.</p>`
+       +`<div class="imgmask" id="s2mask"><img src="img/${p.img}.png?v=1" alt=""></div>`:'')
      +`<div class="song2">${body}</div>`
      +`<div style="text-align:center;margin-top:12px"><button class="btn" id="pchk" style="background:${d.color};color:#fff">Проверить</button> <button class="btn sm" id="prst">↺ Ещё раз</button></div>`
      +`<div id="prev"></div>`;
    document.getElementById('psong').onclick=function(){playSeq(['audio/'+p.audio+'.mp3?v=1'],this);};
+   if(p.img){const wrap=document.getElementById('s2mask');(p.coords||[]).forEach(c=>{const b=document.createElement('div');b.className='mbox';b.style.left=c[0]+'%';b.style.top=c[1]+'%';b.style.width=c[2]+'%';b.style.height=c[3]+'%';b.textContent='?';b.onclick=()=>b.classList.toggle('open');wrap.appendChild(b);});
+     document.getElementById('s2open').onclick=()=>wrap.querySelectorAll('.mbox').forEach(b=>b.classList.add('open'));
+     document.getElementById('s2close').onclick=()=>wrap.querySelectorAll('.mbox').forEach(b=>b.classList.remove('open'));}
    el.querySelectorAll('.pw').forEach(b=>b.onclick=()=>{if(checked)return;const w=b.dataset.w;if(picked[w])delete picked[w];else picked[w]=1;paint(w);});
    document.getElementById('pchk').onclick=check;
    document.getElementById('prst').onclick=()=>{picked={};checked=false;render();};}
