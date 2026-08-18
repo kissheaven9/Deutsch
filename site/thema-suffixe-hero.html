@@ -26,6 +26,12 @@
  .say{cursor:pointer}
  .ruleitem{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:6px 0}
  .exh{font-weight:800;margin:16px 0 6px;font-size:15px}
+ .storytext{background:var(--tbg);border-radius:12px;padding:13px 15px;line-height:2;font-size:16px}
+ .storyru{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin-top:8px;color:#374151;line-height:1.6}
+ .pw{font:inherit;font-size:16px;border:1.5px solid var(--line);border-radius:8px;padding:0 5px;margin:0 1px;cursor:pointer;background:#fff;font-weight:700}
+ .pw.on{background:#ede9fe;border-color:#8b5cf6;color:#5b21b6}
+ .pw.good{background:#e8f6ee;border-color:#16a34a;color:#166534}
+ .pw.miss{background:#fdecec;border-color:#dc2626;color:#991b1b}
  .subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
  .subtab{border:none;border-radius:10px;padding:7px 12px;font-weight:700;background:var(--tbg);color:#374151;cursor:pointer;font-family:inherit;font-size:14px}
  .subtab.on{color:#fff}
@@ -45,7 +51,7 @@
   <div class="nav" id="nav"></div>
 </main>
 <script src="js/app.js?v=4"></script>
-<script src="js/suffixe.js?v=1"></script>
+<script src="js/suffixe.js?v=2"></script>
 <script>
 const g=(new URLSearchParams(location.search).get('g')||'die');
 const d=SF.DATA[g]||SF.DATA['die'];
@@ -60,6 +66,7 @@ d.blocks.forEach(b=>{
     <div class="panel">
       <p class="sub" style="color:#6b7280;margin:0 0 8px">Суффиксы: <b>${sufTxt}</b></p>
       <div class="exh">📌 Правило</div><div id="rule-${b.n}"></div>
+      <div class="exh">📖 Текст блока — найди слова суффикса</div><div id="story-${b.n}"></div>
       <div class="exh">📖 Слова блока</div><div id="words-${b.n}"></div>
       <div class="exh">🎯 Упражнения</div>
       <div class="subtabs" id="tabs-${b.n}">
@@ -72,6 +79,7 @@ d.blocks.forEach(b=>{
 });
 d.blocks.forEach(b=>{
   SF.renderRule(g,'rule-'+b.n,b.suf);
+  SF.initStory(g,'story-'+b.n,b.n);
   SF.renderWords(g,'words-'+b.n,b.suf);
   const exDiv=document.getElementById('ex-'+b.n);
   function open(x){

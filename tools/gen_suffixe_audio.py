@@ -22,6 +22,11 @@ def words():
         if (art,w) not in seen:
             seen.add((art,w)); out.append((art,w))
     return out
+
+def stories():
+    txt = open(os.path.join(ROOT,'js','suffixe.js'), encoding='utf-8').read()
+    # audio:'sfx-die-1', de:'...текст...'
+    return re.findall(r"audio:'(sfx-(der|die|das)-\d+)',\s*\n?\s*de:'([^']*)'", txt)
 async def tts(text, art, path):
     v = VOICE[art]
     await edge_tts.Communicate(text, v['voice'], rate=v['rate'], pitch=v['pitch']).save(path)
@@ -33,6 +38,12 @@ async def main():
         p = os.path.join(WORD, slug(w)+'.mp3')
         if os.path.exists(p) and not force: skip += 1; continue
         await tts(w, art, p); made += 1; print(f'  ✓ {art} {w}')
-    print(f'готово: сгенерировано {made}, пропущено {skip}')
+    print(f'готово (слова): сгенерировано {made}, пропущено {skip}')
+    # тексты блоков — голосом героя
+    st = stories(); print(f'текстов: {len(st)}')
+    for name, art, de in st:
+        de = de.replace('„','').replace('“','').replace('"','')
+        await tts(de, art, os.path.join(ROOT,'audio', name+'.mp3'))
+        print(f'  ✓ {name} ({art})')
 if __name__ == '__main__':
     asyncio.run(main())
