@@ -38,6 +38,14 @@
  .subtab{border:none;border-radius:10px;padding:7px 12px;font-weight:700;background:var(--tbg);color:#374151;cursor:pointer;font-family:inherit;font-size:14px}
  .gpickbar{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px}
  .gpick{border:none;border-radius:11px;padding:9px 14px;font-weight:800;background:var(--tbg);color:#374151;cursor:pointer;font-family:inherit;font-size:14px}
+ .imgmask{position:relative;line-height:0;margin:2px 0 6px}
+ .imgmask img{width:100%;border-radius:14px;display:block}
+ .mbox{position:absolute;background:#e7dcc3;border:1px solid #c9b78d;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#9a8757;font-weight:800;font-size:min(2.2vw,15px);line-height:1;box-shadow:0 1px 2px #00000022}
+ .mbox:hover{background:#efe6cf}
+ .mbox.open{visibility:hidden}
+ .maskbar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+ .exq{font-weight:800;font-size:16px;margin:0 0 8px}
+ .footerdict{background:linear-gradient(180deg,#faf5ff,#f3e8ff);border:1px solid #ddd6fe;border-radius:16px;padding:16px;margin:18px 0}
  .nav{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
  .nav a{text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700}
 </style>
@@ -50,12 +58,15 @@
   <p id="lead" class="sub" style="color:#6b7280;margin:0 0 6px"></p>
   <div class="gpickbar" id="gpick"></div>
   <div id="blockbox"></div>
-  <div class="sec">📚 Словарик темы</div>
-  <div class="panel"><p class="sub" style="color:#6b7280;margin:0 0 8px">Все слова по суффиксам. 🔊 — озвучка.</p><div id="words"></div></div>
+  <div class="footerdict">
+    <div class="sec" style="margin-top:2px">📚 Словарик темы — все суффиксы</div>
+    <p class="sub" style="color:#6b7280;margin:0 0 8px">Полный список слов героя по суффиксам. 🔊 — озвучка.</p>
+    <div id="words"></div>
+  </div>
   <div class="nav" id="nav"></div>
 </main>
 <script src="js/app.js?v=4"></script>
-<script src="js/suffixe.js?v=4"></script>
+<script src="js/suffixe.js?v=5"></script>
 <script>
 const g=(new URLSearchParams(location.search).get('g')||'die');
 const d=SF.DATA[g]||SF.DATA['die'];
@@ -73,29 +84,22 @@ function renderBlock(n){
   document.getElementById('blockbox').innerHTML=
    `<div class="panel">
       <div class="exh">📌 Суффиксы блока</div><div id="rule"></div>
-      <img class="blockimg" src="img/sfx-${g}-${n}.png" alt="" onerror="this.style.display='none'">
-      <div class="exh">${b.song?'🎵 Песня — найди слова этого рода':'📖 Текст — найди слова суффикса'}</div><div id="songwrap"></div>
-      <div class="exh">🎯 Упражнения</div>
-      <div class="subtabs" id="tabs">
-        <button class="subtab" data-x="cards">🃏 Карточки</button>
-        <button class="subtab" data-x="match">🔗 Соотнеси</button>
-        <button class="subtab" data-x="choice">🇷🇺→🇩🇪 Выбери</button>
-        <button class="subtab" data-x="trans">✍️ Переведи</button>
-      </div>
-      <div id="exwrap"></div>
-    </div>`;
+      <div class="exh">🖼 Картинка — открой плашки</div><div id="blockimg"></div>
+      <div class="exh">${b.song?'🎵 Песня — послушай, прочитай, найди слова рода':'📖 Текст — найди слова суффикса'}</div><div id="songwrap"></div>
+    </div>
+    <div class="panel"><div class="exq" style="color:${d.color}">🃏 Карточки — учи слова</div><div id="ex-cards"></div></div>
+    <div class="panel"><div class="exq" style="color:${d.color}">🔗 Соотнеси: слово ↔ перевод</div><div id="ex-match"></div></div>
+    <div class="panel"><div class="exq" style="color:${d.color}">🇷🇺→🇩🇪 Выбери перевод</div><div id="ex-choice"></div></div>
+    <div class="panel"><div class="exq" style="color:${d.color}">🧩 Собери слово</div><div id="ex-sammel"></div></div>
+    <div class="panel"><div class="exq" style="color:${d.color}">✍️ Переведи (с артиклем)</div><div id="ex-trans"></div></div>`;
   SF.renderRule(g,'rule',b.suf);
+  SF.initBlockImage(g,'blockimg',n);
   if(b.song)SF.initSuffSong(g,'songwrap',n); else SF.initStory(g,'songwrap',n);
-  function open(x){
-    document.querySelectorAll('#tabs .subtab').forEach(t=>{const on=t.dataset.x===x;t.style.background=on?d.color:'';t.style.color=on?'#fff':'';});
-    document.getElementById('exwrap').innerHTML='<div id="exbox"></div>';
-    if(x==='cards')SF.initCards(g,'exbox',b.suf);
-    else if(x==='match')SF.initMatch(g,'exbox',b.suf);
-    else if(x==='choice')SF.initChoice(g,'exbox',b.suf);
-    else SF.initTrans(g,'exbox',b.suf);
-  }
-  document.querySelectorAll('#tabs .subtab').forEach(t=>t.onclick=()=>open(t.dataset.x));
-  open('cards');
+  SF.initCards(g,'ex-cards',b.suf);
+  SF.initMatch(g,'ex-match',b.suf);
+  SF.initChoice(g,'ex-choice',b.suf);
+  SF.initSammel(g,'ex-sammel',b.suf);
+  SF.initTrans(g,'ex-trans',b.suf);
 }
 gp.querySelectorAll('.gpick').forEach(x=>x.onclick=()=>renderBlock(+x.dataset.n));
 let start=1;try{const s=parseInt(localStorage.getItem('sf_block_'+g),10);if(!isNaN(s)&&d.blocks.find(b=>b.n===s))start=s;}catch(e){}
