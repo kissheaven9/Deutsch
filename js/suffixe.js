@@ -136,14 +136,17 @@ function say(w,g){return `<button class="say" style="border:none;background:#000
 function poolOf(g,suf){const d=DATA[g];return suf?d.words.filter(w=>suf.indexOf(w[2])>=0):d.words;}
 
 /* ---------- правило: суффиксы → род (с исключениями) ---------- */
-function renderRule(g,elId,suf){const d=DATA[g];let html='';
- d.tails.filter(t=>!suf||suf.indexOf(t[0])>=0).forEach(t=>{
-   html+=`<div class="ruleitem" style="border-left:4px solid ${d.color}"><b style="color:${d.color}">${t[0]}</b>`
-     +(t[1]?` <span style="color:#6b7280">— ${t[1]}</span>`:'')
-     +(t[2]?` <span style="color:#9ca3af;font-size:13px">${t[2]}</span>`:'')
-     +(t[3]?`<div style="margin-top:4px;font-size:13px;color:${/⚠️/.test(t[3])?'#92400e':'#15803d'};background:${/⚠️/.test(t[3])?'#fffbeb':'#f0fdf4'};border:1px solid ${/⚠️/.test(t[3])?'#fde68a':'#bbf7d0'};border-radius:8px;padding:5px 9px">${t[3]}</div>`:'')
-     +`</div>`;});
- document.getElementById(elId).innerHTML=html;}
+function renderRule(g,elId,suf){const d=DATA[g];const items=d.tails.filter(t=>!suf||suf.indexOf(t[0])>=0);
+ // компактные чипы в ряд (перенос сам собой: 3+2 / все 5)
+ let chips='<div style="display:flex;flex-wrap:wrap;gap:8px;margin:2px 0">';
+ items.forEach(t=>{const warn=t[3]&&/⚠️/.test(t[3]);
+   chips+=`<span style="display:inline-flex;align-items:center;gap:6px;background:${d.bg};border:1px solid ${d.color}55;border-radius:11px;padding:6px 12px;font-weight:800;color:${d.color}">${t[0]}${t[1]?`<span style="color:#6b7280;font-weight:500;font-size:13px">${t[1]}</span>`:''}${warn?' <span title="есть исключения">⚠️</span>':''}</span>`;});
+ chips+='</div>';
+ const ws=items.filter(t=>t[3]&&/⚠️/.test(t[3]));
+ let warns='';
+ if(ws.length){warns='<div style="display:flex;flex-direction:column;gap:5px;margin-top:8px">'
+   +ws.map(t=>`<div style="font-size:13px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:5px 10px"><b>${t[0]}</b> — ${t[3].replace('⚠️','').trim()}</div>`).join('')+'</div>';}
+ document.getElementById(elId).innerHTML=chips+warns;}
 
 /* ---------- список слов по суффиксам ---------- */
 function renderWords(g,elId,suf){const d=DATA[g];let html='';
@@ -168,28 +171,28 @@ function sessResults(el,g,ok,mist,total,gi,ng,runGroup){
  if(gi+1<ng)html+=`<button class="btn" id="qNext" style="background:${DATA[g].color};color:#fff">Дальше →</button>`;
  html+='<button class="btn" id="qRestart">↩︎ Сначала</button></div>';
  el.innerHTML=html;
- document.getElementById('qAgain').onclick=()=>runGroup(gi);
- const nx=document.getElementById('qNext');if(nx)nx.onclick=()=>runGroup(gi+1);
- document.getElementById('qRestart').onclick=()=>runGroup(0);
+ el.querySelector('#qAgain').onclick=()=>runGroup(gi);
+ const nx=el.querySelector('#qNext');if(nx)nx.onclick=()=>runGroup(gi+1);
+ el.querySelector('#qRestart').onclick=()=>runGroup(0);
 }
 
 /* ---------- Соотнеси: слово ↔ перевод ---------- */
 function initMatch(g,box,suf){const d=DATA[g];const el=document.getElementById(box);const words=poolOf(g,suf);
  function round(){const L=shuffle(words).slice(0,6).map((w,i)=>({de:w[0],ru:w[1],k:i}));const R=shuffle(L.slice());let sel=null,left=L.length,err=0;
   el.innerHTML='<div class="hvcnt">Соотнеси слово и перевод</div><div class="mgrid"><div id="mL"></div><div id="mR"></div></div><div style="text-align:center;margin-top:10px"><button class="btn sm" id="mNew">🔀 Другие слова</button></div>';
-  document.getElementById('mL').innerHTML=L.map(x=>`<div class="mit" data-k="${x.k}" data-s="L">${x.de}</div>`).join('');
-  document.getElementById('mR').innerHTML=R.map(x=>`<div class="mit" data-k="${x.k}" data-s="R">${x.ru}</div>`).join('');
+  el.querySelector('#mL').innerHTML=L.map(x=>`<div class="mit" data-k="${x.k}" data-s="L">${x.de}</div>`).join('');
+  el.querySelector('#mR').innerHTML=R.map(x=>`<div class="mit" data-k="${x.k}" data-s="R">${x.ru}</div>`).join('');
   el.querySelectorAll('.mit').forEach(m=>m.onclick=()=>{if(m.classList.contains('ok'))return;
     if(!sel){sel=m;m.classList.add('sel');return;}
     if(sel===m){m.classList.remove('sel');sel=null;return;}
     if(sel.dataset.s===m.dataset.s){sel.classList.remove('sel');sel=m;m.classList.add('sel');return;}
     if(sel.dataset.k===m.dataset.k){sel.classList.add('ok');m.classList.add('ok');sel.classList.remove('sel');playWord(bare(L.find(x=>x.k==m.dataset.k).de),V[g]);sel=null;if(--left===0)setTimeout(()=>done(err),700);}
     else{err++;const a=sel;m.classList.add('bad');a.classList.add('bad');sel=null;setTimeout(()=>{m.classList.remove('bad');a.classList.remove('bad','sel');},600);}});
-  document.getElementById('mNew').onclick=round;}
+  el.querySelector('#mNew').onclick=round;}
  function done(err){el.innerHTML=`<div class="hvq">Готово!</div><div style="text-align:center;font-size:22px;margin:6px 0"><b style="color:#16a34a">Все пары собраны 🎉</b></div>`
    +`<div style="text-align:center;color:#6b7280;margin-bottom:6px">${err?('Ошибочных нажатий: '+err):'Без ошибок! 👍'}</div>`
    +`<div class="hvopts"><button class="btn" id="mAgain" style="background:${DATA[g].color};color:#fff">Ещё раз →</button></div>`;
-   document.getElementById('mAgain').onclick=round;}
+   el.querySelector('#mAgain').onclick=round;}
  round();}
 
 /* ---------- Выбери перевод (RU → DE), группами ---------- */
@@ -200,13 +203,13 @@ function initChoice(g,box,suf,size){size=size||10;const d=DATA[g];const el=docum
      const opts=shuffle([w[0],...shuffle(words.filter(x=>x[0]!==w[0])).slice(0,2).map(x=>x[0])]);
      el.innerHTML=`<div class="hvcnt">Часть ${gi+1} из ${groups.length} · ${i+1} / ${grp.length} · верно ${ok}</div>`
       +`<div class="qru">Выбери перевод:</div><div class="hvq">${w[1]}</div><div class="cots" id="cots"></div><div class="hvfb" id="cfb"></div>`;
-     document.getElementById('cots').innerHTML=opts.map(o=>`<button class="btn">${o}</button>`).join('');
+     el.querySelector('#cots').innerHTML=opts.map(o=>`<button class="btn">${o}</button>`).join('');
      el.querySelectorAll('#cots .btn').forEach(b=>b.onclick=()=>pick(b.textContent,b));}
    function pick(ans,btn){const w=grp[i];const good=ans===w[0];
      el.querySelectorAll('#cots .btn').forEach(b=>{b.disabled=true;if(b.textContent===w[0])b.style.background='#e8f6ee';});
      if(!good)btn.style.background='#fdecec';
      if(good)ok++;else mist.push([w[0],w[1],w[2],g]);
-     document.getElementById('cfb').innerHTML=(good?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ '+w[0]+' </span>')+say(bare(w[0]),g);
+     el.querySelector('#cfb').innerHTML=(good?'<span style="color:#16a34a">✓ Верно! </span>':'<span style="color:#dc2626">✗ '+w[0]+' </span>')+say(bare(w[0]),g);
      playWord(bare(w[0]),V[g]);i++;
      setTimeout(()=>{i<grp.length?show():sessResults(el,g,ok,mist,grp.length,gi,groups.length,runGroup);},1100);}
    show();}
@@ -222,11 +225,11 @@ function initTrans(g,box,suf,size){size=size||10;const d=DATA[g];const el=docume
       +`<div style="text-align:center"><button class="btn sm" id="trev">Показать ответ 🔊</button></div>`
       +`<div class="hvrev" id="trv" hidden></div>`
       +`<div class="hvopts" id="tmark" hidden><button class="btn" id="tok" style="color:#16a34a">✓ Знал(а)</button><button class="btn" id="tno" style="color:#dc2626">✗ Не знал(а)</button></div>`;
-     document.getElementById('trev').onclick=()=>{const r=document.getElementById('trv');r.hidden=false;
+     el.querySelector('#trev').onclick=()=>{const r=el.querySelector('#trv');r.hidden=false;
        r.innerHTML=`<b>${w[0]}</b> ${say(bare(w[0]),g)}<div style="color:#6b7280;font-size:13px;margin-top:4px">суффикс ${w[2]} → ${d.art}</div>`;
-       playWord(bare(w[0]),V[g]);document.getElementById('tmark').hidden=false;document.getElementById('trev').style.display='none';};
-     document.getElementById('tok').onclick=()=>mark(true);
-     document.getElementById('tno').onclick=()=>mark(false);}
+       playWord(bare(w[0]),V[g]);el.querySelector('#tmark').hidden=false;el.querySelector('#trev').style.display='none';};
+     el.querySelector('#tok').onclick=()=>mark(true);
+     el.querySelector('#tno').onclick=()=>mark(false);}
    function mark(good){const w=grp[i];if(good)ok++;else mist.push([w[0],w[1],w[2],g]);i++;
      i<grp.length?show():sessResults(el,g,ok,mist,grp.length,gi,groups.length,runGroup);}
    show();}
@@ -259,9 +262,9 @@ function initMix(box,size){
       +`<button class="btn" id="mCheck" style="background:#6d28d9;color:#fff">Проверить группу ✓</button></div>`
       +`<div class="hvcnt" style="margin-top:6px">Выбери артикль, листай ← →. Ответ можно менять. В конце — «Проверить».</div>`;
      el.querySelectorAll('.hvopts .btn[data-a]').forEach(b=>b.onclick=()=>pick(b.dataset.a));
-     document.getElementById('mPrev').onclick=()=>{if(i>0){i--;show();}};
-     document.getElementById('mNext').onclick=()=>{if(i<grp.length-1){i++;show();}};
-     document.getElementById('mCheck').onclick=results;bindPicker();}
+     el.querySelector('#mPrev').onclick=()=>{if(i>0){i--;show();}};
+     el.querySelector('#mNext').onclick=()=>{if(i<grp.length-1){i++;show();}};
+     el.querySelector('#mCheck').onclick=results;bindPicker();}
    function pick(a){ans[i]=a;const w=grp[i];if(typeof playWord==='function')playWord(w[0],V[w[1]]);show();}
    function results(){let ok=0,mist=[],good=[];grp.forEach((w,k)=>{if(ans[k]===w[1]){ok++;good.push(w);}else mist.push([w[0],w[1],ans[k]||'—',w[2]]);});
      let html=pickerHTML(gi)+`<div class="hvq">Итог — группа ${gi+1} из ${groups.length}</div>`
@@ -277,9 +280,9 @@ function initMix(box,size){
      if(groups.length>1)html+='<button class="btn" id="mNextG" style="background:#6d28d9;color:#fff">Следующая группа →</button>';
      html+='<button class="btn" id="mRestart">↩︎ Сначала</button></div>';
      el.innerHTML=html;
-     document.getElementById('mAgain').onclick=()=>runGroup(gi);
-     const nx=document.getElementById('mNextG');if(nx)nx.onclick=()=>runGroup(gi+1);
-     document.getElementById('mRestart').onclick=()=>runGroup(0);bindPicker();}
+     el.querySelector('#mAgain').onclick=()=>runGroup(gi);
+     const nx=el.querySelector('#mNextG');if(nx)nx.onclick=()=>runGroup(gi+1);
+     el.querySelector('#mRestart').onclick=()=>runGroup(0);bindPicker();}
    show();}
  let startGi=0;try{const s=parseInt(localStorage.getItem('sf_mix_g'),10);if(!isNaN(s)&&s>=0&&s<groups.length)startGi=s;}catch(e){}
  runGroup(startGi);}
@@ -297,13 +300,13 @@ function initStory(g,box,n){const el=document.getElementById(box);if(!el)return;
      +`<div class="storytext">${body}</div>`
      +`<div style="text-align:center;margin-top:10px"><button class="btn sm" id="pchk" style="background:${d.color};color:#fff">Проверить</button> <button class="btn sm" id="pru">Перевод</button> <button class="btn sm" id="prst">↺ Ещё раз</button></div>`
      +`<div id="sru" class="storyru" hidden></div><div id="srev"></div>`;
-   document.getElementById('pstory').onclick=function(){playSeq(['audio/'+p.audio+'.mp3?v=1'],this);};
+   el.querySelector('#pstory').onclick=function(){playSeq(['audio/'+p.audio+'.mp3?v=1'],this);};
    el.querySelectorAll('.pw').forEach(b=>b.onclick=()=>{if(checked)return;const w=b.dataset.w;if(picked[w])delete picked[w];else picked[w]=1;paint(w);});
-   document.getElementById('pchk').onclick=check;
-   document.getElementById('pru').onclick=()=>{const r=document.getElementById('sru');r.hidden=!r.hidden;r.textContent=p.ru;};
-   document.getElementById('prst').onclick=()=>{picked={};checked=false;render();};}
+   el.querySelector('#pchk').onclick=check;
+   el.querySelector('#pru').onclick=()=>{const r=el.querySelector('#sru');r.hidden=!r.hidden;r.textContent=p.ru;};
+   el.querySelector('#prst').onclick=()=>{picked={};checked=false;render();};}
  function check(){checked=true;el.querySelectorAll('.pw').forEach(b=>b.classList.add(picked[b.dataset.w]?'good':'miss'));
-   document.getElementById('srev').innerHTML=`<div class="preveal" style="margin-top:10px;font-weight:700;color:${d.color}">Все выделенные слова — <span style="text-transform:uppercase">${d.art}</span>! Их род виден по суффиксу блока.</div>`;}
+   el.querySelector('#srev').innerHTML=`<div class="preveal" style="margin-top:10px;font-weight:700;color:${d.color}">Все выделенные слова — <span style="text-transform:uppercase">${d.art}</span>! Их род виден по суффиксу блока.</div>`;}
  render();}
 
 return {DATA, renderRule, renderWords, initMatch, initChoice, initTrans, initMix, initStory};
