@@ -33,7 +33,8 @@ const DATA = {
        '[Куплет 4 — ISMUS]','Der Tourismus, der Journalismus,','der Kapitalismus, der Optimismus —','alles der!','',
        '[Куплет 5 — ANT und ENT]','Der Student, der Praktikant,','der Patient, der Assistent,','der Elefant, der Konsulent —','alles der!','',
        '[Финал]','ER, LING, OR, ISMUS, ANT —','alles der! Alles der!'],
-     targets:['Lehrer','Fahrer','Verkäufer','Schüler','Arbeiter','Läufer','Computer','Drucker','Wecker','Frühling','Lehrling','Liebling','Zwilling','Doktor','Motor','Professor','Traktor','Autor','Direktor','Tourismus','Journalismus','Kapitalismus','Optimismus','Student','Praktikant','Patient','Assistent','Elefant','Konsulent']}},
+     targets:['Lehrer','Fahrer','Verkäufer','Schüler','Arbeiter','Läufer','Computer','Drucker','Wecker','Frühling','Lehrling','Liebling','Zwilling','Doktor','Motor','Professor','Traktor','Autor','Direktor','Tourismus','Journalismus','Kapitalismus','Optimismus','Student','Praktikant','Patient','Assistent','Elefant','Konsulent']},
+    coords:[[2,4,11,5],[22,4,12,5],[40,4,13,5],[62,4,12,5],[77,4,11,5],[2,27,12,5],[22,27,12,5],[39,27,11,5],[62,30.5,12,4.5],[73.5,30.5,11,4.5],[84,30.5,10.5,4.5],[91.5,30.5,8.5,4.5],[2,54,11,5],[16,56,11,5],[29,54,13,5],[45,54,11,5],[58,54,10,5],[72,54,12,5],[62,56.5,12,4.5],[73,56.5,12,4.5],[84,56.5,12,4.5],[92,56.5,8,4.5],[2,80,11,5],[16,80,13,5],[34,80,11,5],[50,80,12,5],[66,80,11,5],[81,80,12,5]]},
    {n:2,title:'Профессии, глаголы и смысл',suf:['-ist','-eur','-loge','корень','по смыслу'],
     story:{audio:'sfx-der-2',
      de:'Am Montag, im Mai, ist ein warmer Sommer. Otto ist ein echter Tourist. Sein Bruder ist Polizist, sein Freund ist Journalist, ein anderer ist Pianist. Ein Ingenieur kommt vorbei, am Samstag der Friseur, und ein Psychologe liebt den Tanz. Otto plant den Flug in den Süden: zuerst der Besuch, dann der Anfang vom Urlaub. Draußen ist mal der Regen, mal der Wind, mal der Schnee, und am Abend der Wein. „Vielen Dank für den Tag!“',
@@ -50,7 +51,8 @@ const DATA = {
        '[Куплет 6 — погода и стороны света]','Der Regen, Wind, der Schnee, der Nebel,','der Norden, Süden, Ost und West —','alles der!','',
        '[Куплет 7 — алкоголь и исключение]','Der Wein, der Wodka, der Schnaps, der Sekt —','alles der, alles der!','Aber Achtung, aufgepasst:','das Bier! Das Bier! Das ist ein DAS!','Otto weint — das Bier ist Teos!','',
        '[Финал]','IST, EUR, LOGE, Verb ohne Suffix,','Tage, Monate, Wetter, Wein —','alles der! Nur das Bier ist das!'],
-     targets:['Tourist','Polizist','Journalist','Pianist','Optimist','Egoist','Ingenieur','Friseur','Masseur','Regisseur','Psychologe','Biologe','Kardiologe','Soziologe','Beginn','Besuch','Verkauf','Anfang','Flug','Schlaf','Tanz','Dank','Montag','Dienstag','Mittwoch','Donnerstag','Januar','Februar','März','Frühling','Sommer','Herbst','Winter','Regen','Wind','Schnee','Nebel','Norden','Süden','Ost','West','Wein','Wodka','Schnaps','Sekt']}}],
+     targets:['Tourist','Polizist','Journalist','Pianist','Optimist','Egoist','Ingenieur','Friseur','Masseur','Regisseur','Psychologe','Biologe','Kardiologe','Soziologe','Beginn','Besuch','Verkauf','Anfang','Flug','Schlaf','Tanz','Dank','Montag','Dienstag','Mittwoch','Donnerstag','Januar','Februar','März','Frühling','Sommer','Herbst','Winter','Regen','Wind','Schnee','Nebel','Norden','Süden','Ost','West','Wein','Wodka','Schnaps','Sekt']},
+    coords:[[2,4,11,5],[13,4,12,5],[25,4,13,5],[39,4,11,5],[50,4,12,5],[59,4,12,5],[73,4,11,5],[84,4,10,5],[92,4,8,5],[1,29,13,5],[15,29,11,5],[27,29,14,5],[42,29,12,5],[62,32,11,5.5],[73,32,11,5.5],[84,32,10,5.5],[92,32,8,5.5],[62,49,11,5.5],[73,49,11,5.5],[84,49,10,5.5],[92,49,8,5.5],[2,53,12,5],[16,53,12,5],[29,53,14,5],[43,53,13,5],[2,66,12,5],[16,66,12,5],[36,66,10,5],[2,78,12,5],[16,78,11,5],[29,78,12,5],[43,78,11,5],[36,54,11,5],[47,54,9,5],[57,54,11,5],[68,54,11,5],[36,71,11,5],[47,71,9,5],[57,71,9,5],[68,71,9,5],[62,66,11,5],[73,66,11,5],[83,66,11,5],[93,66,7,5]]}],
   words:[
    ['der Lehrer','учитель','-er'],['der Fahrer','водитель','-er'],['der Verkäufer','продавец','-er'],['der Schüler','ученик','-er'],['der Arbeiter','рабочий','-er'],['der Vermieter','арендодатель','-er'],['der Empfänger','получатель','-er'],['der Absender','отправитель','-er'],['der Ausländer','иностранец','-er'],['der Sprecher','диктор','-er'],['der Computer','компьютер','-er'],['der Drucker','принтер','-er'],['der Wecker','будильник','-er'],['der Fernseher','телевизор','-er'],
    ['der Frühling','весна','-ling'],['der Lehrling','подмастерье','-ling'],['der Liebling','любимец','-ling'],['der Flüchtling','беженец','-ling'],['der Zwilling','близнец','-ling'],
@@ -331,6 +333,42 @@ function initStory(g,box,n){const el=document.getElementById(box);if(!el)return;
    el.querySelector('#srev').innerHTML=`<div class="preveal" style="margin-top:10px;font-weight:700;color:${d.color}">Все выделенные слова — <span style="text-transform:uppercase">${d.art}</span>! Их род виден по суффиксу блока.</div>`;}
  render();}
 
+/* ---------- Собери слово (основа + суффикс) ---------- */
+function stemS(w){const s=w[2].replace(/[^A-Za-zÄÖÜäöüß]/g,'');if(!s)return '';return bare(w[0]).replace(new RegExp(s+'$','i'),'');}
+function initSammel(g,box,suf,size){size=size||10;const d=DATA[g];const el=document.getElementById(box);
+ const pool=poolOf(g,suf).filter(w=>/^-[a-zäöüß]+$/i.test(w[2])&&stemS(w)&&stemS(w).toLowerCase()!==bare(w[0]).toLowerCase());
+ if(pool.length<3){el.innerHTML='<div class="hvcnt">В этом блоке суффиксы не собираются из частей — переходи к другим упражнениям.</div>';return;}
+ const groups=chunk(shuffle(pool),size);
+ function runGroup(gi){if(gi>=groups.length)gi=0;const grp=groups[gi];let i=0,ok=0,mist=[];
+   function show(){const w=grp[i];const base=w[2].replace(/[^A-Za-zÄÖÜäöüß]/g,'');
+     el.innerHTML=`<div class="hvcnt">Часть ${gi+1} из ${groups.length} · ${i+1} / ${grp.length} · верно ${ok}</div>`
+      +`<div class="qru">${w[1]}</div><div class="hvq">___ + <b>-${base}</b> = ?</div>`
+      +`<div class="cots" id="sopts"></div><div class="hvfb" id="sfb"></div>`;
+     const opts=shuffle([stemS(w),...shuffle(pool.filter(x=>x[0]!==w[0])).slice(0,2).map(stemS)]);
+     el.querySelector('#sopts').innerHTML=opts.map(o=>`<button class="btn">${o}</button>`).join('');
+     el.querySelectorAll('#sopts .btn').forEach(b=>b.onclick=()=>pick(b.textContent,b));}
+   function pick(ans,btn){const w=grp[i];const good=ans.toLowerCase()===stemS(w).toLowerCase();
+     el.querySelectorAll('#sopts .btn').forEach(b=>{b.disabled=true;if(b.textContent.toLowerCase()===stemS(w).toLowerCase())b.style.background='#e8f6ee';});
+     if(!good)btn.style.background='#fdecec';
+     if(good)ok++;else mist.push([w[0],w[1],w[2],g]);
+     el.querySelector('#sfb').innerHTML=(good?'<span style="color:#16a34a">✓ </span>':'<span style="color:#dc2626">✗ </span>')+`<b>${w[0]}</b> ${say(bare(w[0]),g)}`;
+     playWord(bare(w[0]),V[g]);i++;
+     setTimeout(()=>{i<grp.length?show():sessResults(el,g,ok,mist,grp.length,gi,groups.length,runGroup);},1100);}
+   show();}
+ runGroup(0);}
+
+/* ---------- Картинка блока с закрытыми плашками (открываются) ---------- */
+function initBlockImage(g,elId,n){const el=document.getElementById(elId);if(!el)return;const d=DATA[g];
+ const b=(d.blocks||[]).find(x=>x.n===n);const src=`img/sfx-${g}-${n}.png`;const coords=b&&b.coords;
+ if(!coords||!coords.length){el.innerHTML=`<img src="${src}" alt="" style="width:100%;border-radius:14px;display:block" onerror="this.style.display='none'">`;return;}
+ el.innerHTML=`<div class="maskbar"><button class="btn sm" id="imOpen">👁 Открыть все</button><button class="btn sm" id="imClose">🙈 Закрыть все</button></div>`
+   +`<p class="sub" style="color:#6b7280;margin:0 0 8px">Слова на картинке закрыты — нажми плашку, чтобы открыть и проверить себя.</p>`
+   +`<div class="imgmask" id="imMask"><img src="${src}" alt="" onerror="var m=this.closest('.imgmask');if(m)m.style.display='none'"></div>`;
+ const wrap=el.querySelector('#imMask');
+ coords.forEach(c=>{const bx=document.createElement('div');bx.className='mbox';bx.style.left=c[0]+'%';bx.style.top=c[1]+'%';bx.style.width=c[2]+'%';bx.style.height=c[3]+'%';bx.textContent='?';bx.onclick=()=>bx.classList.toggle('open');wrap.appendChild(bx);});
+ el.querySelector('#imOpen').onclick=()=>wrap.querySelectorAll('.mbox').forEach(x=>x.classList.add('open'));
+ el.querySelector('#imClose').onclick=()=>wrap.querySelectorAll('.mbox').forEach(x=>x.classList.remove('open'));}
+
 /* ---------- Карточки: учить слова (DE+артикль → RU), с озвучкой ---------- */
 function initCards(g,box,suf,size){size=size||10;const d=DATA[g];const el=document.getElementById(box);const words=poolOf(g,suf);
  const groups=chunk(shuffle(words),size);
@@ -373,5 +411,5 @@ function initSuffSong(g,box,n){const el=document.getElementById(box);if(!el)retu
    el.querySelector('#srev').innerHTML=`<div class="preveal" style="margin-top:10px;font-weight:700;color:${d.color}">Все выделенные слова — <span style="text-transform:uppercase">${d.art}</span>! Род виден по суффиксу или по смыслу.${g==='der'?' <span style="color:#92400e">⚠️ Ловушка: das Bier — это das!</span>':''}</div>`;}
  render();}
 
-return {DATA, renderRule, renderWords, initMatch, initChoice, initTrans, initMix, initStory, initSuffSong, initCards};
+return {DATA, renderRule, renderWords, initMatch, initChoice, initTrans, initMix, initStory, initSuffSong, initCards, initSammel, initBlockImage};
 })();
