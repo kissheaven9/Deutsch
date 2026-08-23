@@ -83,6 +83,10 @@
 
   <div class="part train" style="margin-top:24px"><h2 style="margin:0">🎯 Упражнения</h2></div>
 
+  <div class="panel"><h3><span class="exnum" id="e0"></span>🃏 Карточки — учи слова</h3>
+    <p class="sub" style="color:#6b7280;margin:0 0 10px">Слово с артиклем и озвучкой → «Перевод ↓» → отметь «Знаю / Учить ещё». В конце — что повторить.</p>
+    <div id="cards"></div></div>
+
   <div class="panel"><h3><span class="exnum" id="e1"></span>🔗 Соотнеси: слово ↔ перевод</h3>
     <p class="sub" style="color:#6b7280;margin:0 0 10px">Нажми немецкое слово, потом его перевод. Совпало — загорится зелёным и озвучится.</p>
     <div id="match"></div></div>
@@ -114,7 +118,7 @@ document.documentElement.style.setProperty('--accent',d.color);
 document.getElementById('h1').innerHTML=`<span style="color:${d.color}">${d.art}</span> — ${d.ru}: слова на <span style="color:${d.color}">${d.art}</span>`;
 document.getElementById('lead').textContent=`Все эти хвостики — ${d.art}. Запомни хвостик — узнаешь род любого длинного слова.`;
 document.getElementById('s1').innerHTML=`🎵 Песенка «Das ist ${d.hero}»`;
-['e1','e2','e3','e4'].forEach((id,k)=>{const s=document.getElementById(id);s.textContent=k+1;s.style.background=d.color;});
+['e0','e1','e2','e3','e4'].forEach((id,k)=>{const s=document.getElementById(id);s.textContent=k+1;s.style.background=d.color;});
 // координаты плашек поверх подписей [left%, top%, width%, height%] (прикидочные)
 const COORDS={
  der:[[4,18,15,5.5],[30,19,13,5.5],[49,4.5,18,5.5],[50,28,14,5.5],[70,18,12,5.5],[84,27,14,5.5],[39,38,11,5.5],[38,48,10,5.5],[3,44,13,5.5],[11,54,14,5.5],[2,60,13,5.5],[56,52,12,5.5],[79,44,13,5.5],[67,59,14,5.5],[83,59,16,5.5],[21,71,15,5.5],[7,84,15,5.5],[26,86,17,5.5],[24,93,16,5.5],[53,89,12,5.5]],
@@ -134,6 +138,7 @@ document.getElementById('song').innerHTML=d.lyrics.split('\n').map(l=>/^\[.*\]$/
 document.getElementById('playSong').onclick=function(){playSeq(['audio/'+d.song+'.mp3?v=1'],this);};
 document.getElementById('tails').innerHTML=d.tails.map(t=>`<span class="tailchip" style="color:${d.color}">${t[0]} = ${t[1]}</span>`).join('');
 if(d.song2){document.getElementById('s2').style.display='';document.getElementById('s2').textContent=`🎵 Песня «${d.song2.title}» — найди хвостики`;document.getElementById('song2panel').style.display='';HV.initSongFind(g,'song2');}
+HV.initCards(g,'cards');
 HV.initMatch(g,'match');
 HV.initChoice(g,'choice');
 HV.initSammel(g,'sammel');

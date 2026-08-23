@@ -371,5 +371,24 @@ function initSongFind(g,box){const el=document.getElementById(box);if(!el)return
    document.getElementById('prev').innerHTML=html;}
  render();}
 
-return {DATA, renderSong, renderWords, initTrans, initMix, initMatch, initChoice, initSammel, initSongFind};
+/* ---------- Карточки: учить слова (DE+артикль → RU), с озвучкой ---------- */
+function initCards(g,box,size){size=size||10;const d=DATA[g];const el=document.getElementById(box);
+ const groups=chunk(shuffle(d.words),size);
+ function runGroup(gi){if(gi>=groups.length)gi=0;const grp=groups[gi];let i=0,ok=0,mist=[];
+   function show(){const w=grp[i];
+     el.innerHTML=`<div class="hvcnt">Часть ${gi+1} из ${groups.length} · ${i+1} / ${grp.length} · знаю ${ok}</div>`
+      +`<div class="hvq" style="color:${d.color}">${w[0]} ${say(bare(w[0]),g)}</div>`
+      +`<div id="cback" hidden><div style="text-align:center;font-size:19px;color:#374151">${w[1]}</div><div style="text-align:center;color:#9ca3af;font-size:13px;margin-top:2px">хвостик ${w[2]}</div></div>`
+      +`<div style="text-align:center;margin-top:10px"><button class="btn sm" id="cflip" style="background:${d.color};color:#fff">Перевод ↓</button></div>`
+      +`<div class="hvopts" id="cmark" hidden><button class="btn" id="cok" style="color:#16a34a">✓ Знаю</button><button class="btn" id="cno" style="color:#dc2626">✗ Учить ещё</button></div>`;
+     if(typeof playWord==='function')playWord(bare(w[0]),V[g]);
+     el.querySelector('#cflip').onclick=()=>{el.querySelector('#cback').hidden=false;el.querySelector('#cmark').hidden=false;el.querySelector('#cflip').style.display='none';};
+     el.querySelector('#cok').onclick=()=>mark(true);
+     el.querySelector('#cno').onclick=()=>mark(false);}
+   function mark(good){const w=grp[i];if(good)ok++;else mist.push([w[0],w[1],w[2],g]);i++;
+     i<grp.length?show():sessResults(el,g,ok,mist,grp.length,gi,groups.length,runGroup);}
+   show();}
+ runGroup(0);}
+
+return {DATA, renderSong, renderWords, initTrans, initMix, initMatch, initChoice, initSammel, initSongFind, initCards};
 })();

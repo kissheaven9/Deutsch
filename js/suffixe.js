@@ -23,12 +23,34 @@ const DATA = {
     story:{audio:'sfx-der-1',
      de:'Otto ist Fahrer und ein echter Bastler. Am Morgen klingelt der Wecker, im Betrieb warten der Computer und der Drucker; der Fernseher bleibt aus. Sein Nachbar ist Lehrer, sein Freund ist Verkäufer, ein Bekannter ist Arbeiter. Im Frühling ist Otto der Liebling vom Hof. Sein Motor läuft gut, und der Professor von nebenan repariert den Traktor. Otto liest gern über Tourismus. Ein Student und ein Praktikant besuchen ihn oft, und im Zirkus wohnt sogar ein Elefant. „Optimismus und Fleiß — das ist mein Stil!“',
      ru:'Отто — водитель и настоящий мастер на все руки. Утром звонит будильник, на работе ждут компьютер и принтер; телевизор он не включает. Сосед — учитель, друг — продавец, знакомый — рабочий. Весной Отто — общий любимец двора. Мотор его машины работает хорошо, а сосед-профессор чинит трактор. Отто любит читать про туризм. Студент и практикант часто его навещают, а в цирке живёт даже слон. «Оптимизм и старание — вот мой стиль!»',
-     targets:['Fahrer','Wecker','Computer','Drucker','Fernseher','Lehrer','Verkäufer','Arbeiter','Frühling','Liebling','Motor','Professor','Traktor','Tourismus','Student','Praktikant','Elefant','Optimismus']}},
+     targets:['Fahrer','Wecker','Computer','Drucker','Fernseher','Lehrer','Verkäufer','Arbeiter','Frühling','Liebling','Motor','Professor','Traktor','Tourismus','Student','Praktikant','Elefant','Optimismus']},
+    song:{audio:'sfx-song-der-1',
+     lines:['[Intro]','Der, der, der — das ist Otto!','',
+       '[Куплет 1 — ER]','Der Lehrer, der Fahrer, der Verkäufer,','der Schüler, der Arbeiter, der Läufer,','der Computer, der Drucker, der Wecker —','Otto sagt: nur wer arbeitet, ist der!','',
+       '[Припев]','Der, der, der — das ist Otto!','Der, der, der — Otto sagt!','',
+       '[Куплет 2 — LING]','Der Frühling kommt, der Lehrling lernt,','der Liebling lacht, der Zwilling rennt —','alles der!','',
+       '[Куплет 3 — OR]','Der Doktor, der Motor, der Professor,','der Traktor, der Autor, der Direktor —','alles der!','',
+       '[Куплет 4 — ISMUS]','Der Tourismus, der Journalismus,','der Kapitalismus, der Optimismus —','alles der!','',
+       '[Куплет 5 — ANT und ENT]','Der Student, der Praktikant,','der Patient, der Assistent,','der Elefant, der Konsulent —','alles der!','',
+       '[Финал]','ER, LING, OR, ISMUS, ANT —','alles der! Alles der!'],
+     targets:['Lehrer','Fahrer','Verkäufer','Schüler','Arbeiter','Läufer','Computer','Drucker','Wecker','Frühling','Lehrling','Liebling','Zwilling','Doktor','Motor','Professor','Traktor','Autor','Direktor','Tourismus','Journalismus','Kapitalismus','Optimismus','Student','Praktikant','Patient','Assistent','Elefant','Konsulent']}},
    {n:2,title:'Профессии, глаголы и смысл',suf:['-ist','-eur','-loge','корень','по смыслу'],
     story:{audio:'sfx-der-2',
      de:'Am Montag, im Mai, ist ein warmer Sommer. Otto ist ein echter Tourist. Sein Bruder ist Polizist, sein Freund ist Journalist, ein anderer ist Pianist. Ein Ingenieur kommt vorbei, am Samstag der Friseur, und ein Psychologe liebt den Tanz. Otto plant den Flug in den Süden: zuerst der Besuch, dann der Anfang vom Urlaub. Draußen ist mal der Regen, mal der Wind, mal der Schnee, und am Abend der Wein. „Vielen Dank für den Tag!“',
      ru:'В понедельник, в мае, стоит тёплое лето. Отто в душе турист. Брат — полицейский, друг — журналист, ещё один — пианист. Заходит инженер, в субботу — парикмахер, а знакомый психолог обожает танец. Отто планирует полёт на юг: сначала визит, потом начало отпуска. На улице то дождь, то ветер, то снег, а вечером — вино. «Большое спасибо за день!»',
-     targets:['Montag','Mai','Sommer','Tourist','Polizist','Journalist','Pianist','Ingenieur','Friseur','Psychologe','Tanz','Flug','Besuch','Anfang','Regen','Wind','Schnee','Wein','Dank']}}],
+     targets:['Montag','Mai','Sommer','Tourist','Polizist','Journalist','Pianist','Ingenieur','Friseur','Psychologe','Tanz','Flug','Besuch','Anfang','Regen','Wind','Schnee','Wein','Dank']},
+    song:{audio:'sfx-song-der-2',
+     lines:['[Intro]','Der, der, der — Otto kommt zurück!','',
+       '[Куплет 1 — IST]','Der Tourist, der Polizist,','der Journalist, der Pianist,','der Optimist, der Egoist —','alles der!','',
+       '[Куплет 2 — EUR]','Der Ingenieur, der Friseur,','der Masseur, der Regisseur —','französisch, aber immer der!','',
+       '[Куплет 3 — LOGE]','Der Psychologe, der Biologe,','der Kardiologe, der Soziologe —','alles der!','',
+       '[Припев]','Der, der, der — das ist Otto!','Der, der, der — Otto sagt!','',
+       '[Куплет 4 — глагол без суффикса]','beginnen — der Beginn,','besuchen — der Besuch,','verkaufen — der Verkauf,','anfangen — der Anfang,','fliegen — der Flug,','schlafen — der Schlaf,','tanzen — der Tanz,','danken — der Dank!','Nimm das Verb, nimm nur den Stamm —','und du hast den Mann: der, der, der!','',
+       '[Куплет 5 — дни, месяцы, сезоны]','Der Montag, Dienstag, Mittwoch, Donnerstag,','der Januar, Februar, März,','der Frühling, Sommer, Herbst und Winter —','alles der! Otto hat ein Herz!','',
+       '[Куплет 6 — погода и стороны света]','Der Regen, Wind, der Schnee, der Nebel,','der Norden, Süden, Ost und West —','alles der!','',
+       '[Куплет 7 — алкоголь и исключение]','Der Wein, der Wodka, der Schnaps, der Sekt —','alles der, alles der!','Aber Achtung, aufgepasst:','das Bier! Das Bier! Das ist ein DAS!','Otto weint — das Bier ist Teos!','',
+       '[Финал]','IST, EUR, LOGE, Verb ohne Suffix,','Tage, Monate, Wetter, Wein —','alles der! Nur das Bier ist das!'],
+     targets:['Tourist','Polizist','Journalist','Pianist','Optimist','Egoist','Ingenieur','Friseur','Masseur','Regisseur','Psychologe','Biologe','Kardiologe','Soziologe','Beginn','Besuch','Verkauf','Anfang','Flug','Schlaf','Tanz','Dank','Montag','Dienstag','Mittwoch','Donnerstag','Januar','Februar','März','Frühling','Sommer','Herbst','Winter','Regen','Wind','Schnee','Nebel','Norden','Süden','Ost','West','Wein','Wodka','Schnaps','Sekt']}}],
   words:[
    ['der Lehrer','учитель','-er'],['der Fahrer','водитель','-er'],['der Verkäufer','продавец','-er'],['der Schüler','ученик','-er'],['der Arbeiter','рабочий','-er'],['der Vermieter','арендодатель','-er'],['der Empfänger','получатель','-er'],['der Absender','отправитель','-er'],['der Ausländer','иностранец','-er'],['der Sprecher','диктор','-er'],['der Computer','компьютер','-er'],['der Drucker','принтер','-er'],['der Wecker','будильник','-er'],['der Fernseher','телевизор','-er'],
    ['der Frühling','весна','-ling'],['der Lehrling','подмастерье','-ling'],['der Liebling','любимец','-ling'],['der Flüchtling','беженец','-ling'],['der Zwilling','близнец','-ling'],
@@ -309,5 +331,47 @@ function initStory(g,box,n){const el=document.getElementById(box);if(!el)return;
    el.querySelector('#srev').innerHTML=`<div class="preveal" style="margin-top:10px;font-weight:700;color:${d.color}">Все выделенные слова — <span style="text-transform:uppercase">${d.art}</span>! Их род виден по суффиксу блока.</div>`;}
  render();}
 
-return {DATA, renderRule, renderWords, initMatch, initChoice, initTrans, initMix, initStory};
+/* ---------- Карточки: учить слова (DE+артикль → RU), с озвучкой ---------- */
+function initCards(g,box,suf,size){size=size||10;const d=DATA[g];const el=document.getElementById(box);const words=poolOf(g,suf);
+ const groups=chunk(shuffle(words),size);
+ function runGroup(gi){if(gi>=groups.length)gi=0;const grp=groups[gi];let i=0,ok=0,mist=[];
+   function show(){const w=grp[i];
+     el.innerHTML=`<div class="hvcnt">Часть ${gi+1} из ${groups.length} · ${i+1} / ${grp.length} · знаю ${ok}</div>`
+      +`<div class="hvq" style="color:${d.color}">${w[0]} ${say(bare(w[0]),g)}</div>`
+      +`<div id="cback" hidden><div style="text-align:center;font-size:19px;color:#374151">${w[1]}</div><div style="text-align:center;color:#9ca3af;font-size:13px;margin-top:2px">суффикс ${w[2]}</div></div>`
+      +`<div style="text-align:center;margin-top:10px"><button class="btn sm" id="cflip" style="background:${d.color};color:#fff">Перевод ↓</button></div>`
+      +`<div class="hvopts" id="cmark" hidden><button class="btn" id="cok" style="color:#16a34a">✓ Знаю</button><button class="btn" id="cno" style="color:#dc2626">✗ Учить ещё</button></div>`;
+     if(typeof playWord==='function')playWord(bare(w[0]),V[g]);
+     el.querySelector('#cflip').onclick=()=>{el.querySelector('#cback').hidden=false;el.querySelector('#cmark').hidden=false;el.querySelector('#cflip').style.display='none';};
+     el.querySelector('#cok').onclick=()=>mark(true);
+     el.querySelector('#cno').onclick=()=>mark(false);}
+   function mark(good){const w=grp[i];if(good)ok++;else mist.push([w[0],w[1],w[2],g]);i++;
+     i<grp.length?show():sessResults(el,g,ok,mist,grp.length,gi,groups.length,runGroup);}
+   show();}
+ runGroup(0);}
+
+/* ---------- Песня блока: послушай, прочитай, найди слова рода ---------- */
+function initSuffSong(g,box,n){const el=document.getElementById(box);if(!el)return;const d=DATA[g];
+ const blk=(d.blocks||[]).find(b=>b.n===n);if(!blk||!blk.song){el.innerHTML='';return;}const p=blk.song;
+ let picked={},checked=false;
+ function paint(w){el.querySelectorAll('.pw').forEach(x=>{if(x.dataset.w===w)x.classList.toggle('on',!!picked[w]);});}
+ function render(){
+   const body=p.lines.map(line=>{
+     if(/^\[.*\]$/.test(line))return `<div class="hd" style="color:${d.color}">${line}</div>`;
+     if(!line.trim())return '<div style="height:6px"></div>';
+     return '<div>'+line.split(/(\s+)/).map(tok=>{const clean=tok.replace(/[^A-Za-zÄÖÜäöüß]/g,'');
+       if(clean&&p.targets.indexOf(clean)>=0){const on=picked[clean]?' on':'';return tok.replace(clean,`<button class="pw${on}" data-w="${clean}">${clean}</button>`);}
+       return tok;}).join('')+'</div>';}).join('');
+   el.innerHTML=`<div style="text-align:center;margin-bottom:8px"><button class="btn sm" id="psong" style="background:${d.color};color:#fff">🔊 Слушать песню</button></div>`
+     +`<div class="song2">${body}</div>`
+     +`<div style="text-align:center;margin-top:10px"><button class="btn sm" id="pchk" style="background:${d.color};color:#fff">Проверить</button> <button class="btn sm" id="prst">↺ Ещё раз</button></div><div id="srev"></div>`;
+   el.querySelector('#psong').onclick=function(){playSeq(['audio/'+p.audio+'.mp3?v=1'],this);};
+   el.querySelectorAll('.pw').forEach(b=>b.onclick=()=>{if(checked)return;const w=b.dataset.w;if(picked[w])delete picked[w];else picked[w]=1;paint(w);});
+   el.querySelector('#pchk').onclick=check;
+   el.querySelector('#prst').onclick=()=>{picked={};checked=false;render();};}
+ function check(){checked=true;el.querySelectorAll('.pw').forEach(b=>b.classList.add(picked[b.dataset.w]?'good':'miss'));
+   el.querySelector('#srev').innerHTML=`<div class="preveal" style="margin-top:10px;font-weight:700;color:${d.color}">Все выделенные слова — <span style="text-transform:uppercase">${d.art}</span>! Род виден по суффиксу или по смыслу.${g==='der'?' <span style="color:#92400e">⚠️ Ловушка: das Bier — это das!</span>':''}</div>`;}
+ render();}
+
+return {DATA, renderRule, renderWords, initMatch, initChoice, initTrans, initMix, initStory, initSuffSong, initCards};
 })();
